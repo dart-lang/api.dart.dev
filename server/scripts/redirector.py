@@ -47,9 +47,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     return age
 
   def resolve_doc_path(self):
-    if self.request.path.startswith('/docs/continuous'):
+    if self.request.path.startswith('/docs/bleeding_edge'):
       version = self.get_latest_version()
-      path = self.request.path.replace('/docs/continuous',
+      path = self.request.path.replace('/docs/bleeding_edge',
           '/gs/dartlang-api-docs/' + str(version))
     else:
       path = self.request.path.replace('/docs', '/gs/dartlang-api-docs')
@@ -106,12 +106,15 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
   if re.search(r'^(core|coreimpl|crypto|io|isolate|json|uri|html|math|utf|web)', path):
-    return '/docs/continuous/dart_' + path
+    return '/docs/bleeding_edge/dart_' + path
   else:
-    return '/docs/continuous/' + path
+    return '/docs/bleeding_edge/' + path
 
 def redir_dom(handler, *args, **kwargs):
-  return '/docs/continuous/dart_html' + kwargs['path']
+  return '/docs/bleeding_edge/dart_html' + kwargs['path']
+
+def redir_continuous(handler, *args, **kwargs):
+  return '/docs/bleeding_edge' + kwargs['path']
 
 class CurrentVersionHandler(RequestHandler):
   def get(self, version):
@@ -121,6 +124,7 @@ class CurrentVersionHandler(RequestHandler):
 application = WSGIApplication(
   [
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
+    Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/currentversion/<version:.*>', CurrentVersionHandler),
     ('/docs.*', ApiDocs),
     Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
