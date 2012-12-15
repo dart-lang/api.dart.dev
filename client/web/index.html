@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dart API Reference V3</title>
+    <link rel="stylesheet" type="text/css"
+        href="static/styles.css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="static/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="static/apidoc-styles.css" />
+    <link rel="components" href="doc_link.html">
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(["_setAccount", "UA-26406144-9"]);
+      _gaq.push(["_trackPageview"]);
+
+      (function() {
+        var ga = document.createElement("script");
+        ga.type = "text/javascript"; ga.async = true;
+        ga.src = ("https:" == document.location.protocol ?
+          "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+  </head>
+  <body>
+    <template instantiate="if currentElement == null || currentElement.loading != true">
+    <div class="page">
+      <div class="header">
+        <a href="http://dartlang.org" ref="external"><div class="logo"></div></a>
+        <a href="#!">Dart API Reference</a>
+
+        <template instantiate="if currentLibrary != null">
+				  <span>&gt; </span>
+				<x-doc-link ref="{{currentLibrary}}"></x-doc-link>
+        </template>
+
+        <template instantiate="if currentType != null">
+          <span>&gt; </span>
+          <x-doc-link ref="{{currentType}}"></x-doc-link>
+        </template>
+
+        <form action="http://www.dartlang.org/search.html" id="search-box">
+          <input type="hidden" name="cx" value="011220921317074318178:i4mscbaxtru">
+          <input type="hidden" name="ie" value="UTF-8">
+          <input type="hidden" name="hl" value="en">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API. TODO(jacobr): implement">
+        </form>
+      </div>
+
+      <div class="drop-down" id="drop-down"></div>
+
+      <div class="nav">
+        <template instantiate="if currentLibrary != null">
+          <ul>
+            <template iterate='clazz in currentLibrary.sortedClasses'>
+              <li class="{{kindCssClass(clazz)}}" data-id="{{clazz.id}}">
+                <template instantiate="if currentType != clazz">
+                  <x-doc-link ref="{{clazz}}"></x-doc-link>
+                </template>
+                <template instantiate="if currentType == clazz">
+                  <span>{{clazz.name}}</span>
+                  <ul>
+                    <template iterate="member in clazz.children">
+                      <li class="{{kindCssClass(member)}}" data-id="{{member.id}}">
+                        <a href="{{permalink(member)}}">{{member.shortDescription}}</a></li>
+                    </template>
+                  </ul>
+                </template>
+              </li>
+            </template>
+          </ul>
+        </template>
+  		</div>
+
+      <div class="content">
+        <template instantiate="if currentType != null">
+          <div class="class-summary">
+            <template instantiate="if currentType is ClassElement">
+              <h4>Hierarchy</h4>
+              <x-class-hierarchy clazz="{{currentType}}"></x-class-hierarchy>
+              <template instantiate="if !currentType.interfaces.isEmpty">
+                <h4>Implements</h4>
+                <ul>
+                  <template iterate='interface in currentType.interfaces'>
+                    <li>
+                      <x-doc-link ref="{{interface}}"></x-doc-link>
+                    </li>
+                  </template>
+                </ul>
+              </template>
+            </template>
+            <h4>Source</h4>
+            <template instantiate="if currentType.uri != null">
+              <a href="https://code.google.com/p/dart/source/browse/trunk/dart/{{currentType.uri}}?r={{svnRevisionNumber}}#{{currentType.line}}" target="_blank">{{currentType.uri}}</a>
+            </template>
+          </div>
+        </template>
+        <template instantiate="if currentLibrary == null">
+          <h2>Dart API Reference</h2>
+	        <h3>Libraries</h3>
+		      <ul class="libraries">
+		        <template iterate='library in libraries.values'>
+		          <li>
+                <x-doc-link ref="{{library}}"></x-doc-link>
+              </li>
+		        </template>
+		      </ul>
+  	    </template>
+
+        <template instantiate="if currentLibrary != null && currentType == null">
+          <div>
+  		      <div><h2><strong>{{currentLibrary.name}}</strong> library</h2></div>
+  		      <template instantiate="if !currentLibrary.loading">
+  		        <div>
+  				      <template instantiate="if currentLibrary.comment != null">
+  		   	        <div>{{currentLibrary.commentHtml}}</div>
+  				      </template>
+
+                <x-member-blocks blocks="{{currentLibrary.childBlocks}}">
+                </x-member-blocks>
+  		        </div>
+  	        </template>
+  		    </div>
+        </template>
+
+        <template instantiate="if currentType != null">
+          <div>
+            <div><h2 class="{{kindCssClass(currentType)}}"><strong>{{currentType.name}}</strong> {{currentType.kind}}</h2></div>
+  	        <template instantiate="if currentType.comment != null">
+  	          <div>{{currentType.commentHtml}}</div>
+  	        </template>
+          </div>
+          <div>
+            <template instantiate="if currentType is ClassElement && !currentType.subclasses.isEmpty">
+              <h3>Subclasses</h3>
+              <div class="subclasses">
+              <template iterate='clazz in currentType.subclasses'>
+                <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
+              </template>
+              </div>
+            </template>
+          </div>
+          <div>
+            <template instantiate="if !currentType.references.isEmpty">
+              <h3>References</h3>
+              <div class="references">
+              <template iterate='clazz in currentType.references'>
+                <template if="clazz is LibraryElement">
+                  <h4><x-doc-link ref="{{clazz}}"></x-doc-link></h4>
+                </template>
+                <template if="clazz is! LibraryElement">
+                  <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
+                </template>
+              </template>
+              </div>
+            </template>
+          </div>
+          <template instantiate="if currentType is ClassElement">
+            <x-member-blocks blocks="{{currentType.childBlocks}}">
+            </x-member-blocks>
+          </template>
+          <template instantiate="if currentType is TypedefElement">
+            <h3>Definition</h3>
+            <!-- TODO(jacobr): override default style and align this to the left -->
+            <x-element-signature element="{{currentType}}">
+            </x-element-signature>
+          </template>
+        </template>
+        <template instantiate="if status != null && status.length > 0">
+          <div>{{status}}</div>
+        </template>
+      </div>
+    </div>
+    </template>
+    <script type="application/dart">
+
+import 'dart:uri' as uri;
+import 'package:web_ui/watcher.dart' as watchers;
+import 'ast.dart';
+import 'model.dart';
+import 'resources.dart';
+
+String status;
+
+main() {
+  loadStateFromUrl();
+  status = 'Loading...';
+  loadModel().then((_) {
+    status = '';
+	  watchers.dispatch();
+	});
+}
+    </script>
+  </body>
+</html>
