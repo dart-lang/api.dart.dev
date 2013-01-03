@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html><body>
-  <element name="x-doc-link" constructor="DocLink" extends="span">
+  <element name="x-doc-link" extends="span">
     <template>
       <template instantiate="if ref.refId != 'void'">
-        <a href="{{permalink(ref)}}">{{ref.name}}</a>
+        <a href="{{permalink(ref)}}">
+          <template instantiate="if short">
+            {{ref.name}}
+          </template>
+          <template instantiate="if !short">
+            {{ref.shortDescription}}
+          </template>
+        </a>
       </template>
       <template instantiate="if ref.refId == 'void'">
         {{ref.name}}
@@ -15,150 +22,11 @@
       import 'model.dart';
 
       class DocLink extends WebComponent {
-        /// Must be a Reference or Element.
+        /** Must be a Reference or Element. */
         var ref;
+        /** Whether a short version of the Element name should be used. */
+        bool short = false;
       }
     </script>
   </element>
-
-  <element name="x-member-blocks" constructor="MemberBlocks" extends="div">
-    <template>
-      <template iterate='block in blocks'>
-        <div>
-          <h3>{{block.kindTitle}}</h3>
-          <ul>
-            <template iterate='element in block.elements'>
-              <li class="{{kindCssClass(element)}}">
-                <x-element-summary element="{{element}}"></x-element-summary>
-              </li>
-            </template>
-          </ul>
-        </div>
-      </template>
-    </template>
-    <script type="application/dart">
-      // TODO(jacobr): this is kinda a rediculous way to do this
-      import 'package:web_ui/web_ui.dart';
-      import 'ast.dart';
-      import 'model.dart';
-
-      class MemberBlocks extends WebComponent {
-        List<ElementBlock> blocks;
-      }
-    </script>
-  </element>
-
-  <element name="x-element-signature" constructor="ElementSignature" extends="span">
-    <template>
-      <span class="element-class">
-        <template instantiate="if (element is MethodElementBase || element is TypedefElement) && element.returnType != null">
-          <x-doc-link ref="{{element.returnType}}"></x-doc-link>
-        </template>
-      </span>
-      <span class="element-definition">
-        <span class="element-name"><x-doc-link ref="{{element}}"></x-doc-link></span>
-        <template instantiate="if element is MethodElement || element is ConstructorElement || element is TypedefElement">
-          <span class="args">(
-            <template iterate="param in element.parameters">
-              <span class="arg">
-                <template instantiate="if param.type != null">
-                  <span class = "arg-type">
-                    <x-doc-link ref="{{param.type}}"></x-doc-link>
-                  </span>
-                </template>
-                <span class="arg-name">{{param.name}}</span>
-              </span>
-            </template>)
-          </span>
-        </template>
-      </span>
-    </template>
-    <script type="application/dart">
-      import 'package:web_ui/web_ui.dart';
-      import 'ast.dart';
-      import 'model.dart';
-
-      class ElementSignature extends WebComponent {
-        Element element;
-      }
-    </script>
-  </element>
-
-  <element name="x-element-summary" constructor="ElementSummary" extends="div">
-    <template>
-      <!--TODO(jacobr): use id instead of data-id and use a different escaping scheme-->
-      <details class="element-details {{(element is MethodElementBase) ? 'member-details' : 'type-details'}}" data-id="{{element.id}}" open="{{currentMember != null && element.id == currentMember.id}}">
-        <summary>
-          <div class="overflow-shadow"></div>
-          <template instantiate="if element is! ClassElement">
-            <x-element-signature element="{{element}}">
-            </x-element-signature>
-          </template>
-          <template instantiate="if element is ClassElement">
-            <x-doc-link class="element-name element-definition" ref="{{element}}"></x-doc-link>
-          </template>
-          <div class="documentation">
-             {{element.commentHtml}}
-          </div>
-        </summary>
-        <details class="extended-element-info">
-          <summary>View ?? comments.</summary>
-          TODO(jacobr): implement.
-        </details>
-      </details>
-    </template>
-    <script type="application/dart">
-      // TODO(jacobr): this is kinda a rediculous way to do this
-      import 'package:web_ui/web_ui.dart';
-      import 'ast.dart';
-      import 'model.dart';
-
-      class ElementSummary extends WebComponent {
-        Element element;
-      }
-    </script>
-  </element>
-
-  <element name="x-class-hierarchy-subtree" constructor="ClassHierarchySubtree" extends="div">
-    <template>
-      <template instantiate="if (index < clazz.superclasses.length)">
-        <div><x-doc-link ref={{clazz.superclasses[index]}}></x-doc-link></div>
-        <div style="padding-left: 15px">
-          <x-class-hierarchy-subtree clazz="{{clazz}}" index="{{index+1}}">
-          </x-class-hierarchy-subtree>
-        </div>
-      </template>
-      <template instantiate="if index == clazz.superclasses.length">
-        <div><strong>{{clazz.name}}</strong></div>
-      </template>
-    </template>
-    <script type="application/dart">
-      // TODO(jacobr): this is kinda a rediculous way to do this
-      import 'package:web_ui/web_ui.dart';
-      import 'ast.dart';
-      import 'model.dart';
-
-      class ClassHierarchySubtree extends WebComponent {
-        ClassElement clazz;
-        int index;
-      }
-    </script>
-  </element>
-
-  <element name="x-class-hierarchy" constructor="ClassHierarchy" extends="div">
-    <template>
-      <x-class-hierarchy-subtree clazz="{{clazz}}" index="{{0}}">
-      </x-class-hierarchy-subtree>
-    </template>
-    <script type="application/dart">
-      import 'package:web_ui/web_ui.dart';
-      import 'ast.dart';
-      import 'model.dart';
-
-      class ClassHierarchy extends WebComponent {
-        ClassElement clazz;
-      }
-    </script>
-  </element>
-<!-- more below... -->
 </body></html>

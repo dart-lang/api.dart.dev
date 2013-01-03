@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Dart API Reference V3</title>
+    <title>Dart API Reference</title>
     <link rel="stylesheet" type="text/css"
         href="static/styles.css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
@@ -10,7 +10,9 @@
 
     <link rel="stylesheet" type="text/css" href="static/apidoc-styles.css" />
     <link rel="components" href="doc_link.html">
+    <link rel="components" href="element_summary.html">
 
+    <!-- Initialize Google Analytics. -->
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(["_setAccount", "UA-26406144-9"]);
@@ -35,8 +37,8 @@
         <a href="#!">Dart API Reference</a>
 
         <template instantiate="if currentLibrary != null">
-				  <span>&gt; </span>
-				<x-doc-link ref="{{currentLibrary}}"></x-doc-link>
+          <span>&gt; </span>
+        <x-doc-link ref="{{currentLibrary}}"></x-doc-link>
         </template>
 
         <template instantiate="if currentType != null">
@@ -53,19 +55,17 @@
         </form>
       </div>
 
-      <div class="drop-down" id="drop-down"></div>
-
       <div class="nav">
         <template instantiate="if currentLibrary != null">
-          <ul>
+          <ul class="tree-list">
             <template iterate='clazz in currentLibrary.sortedClasses'>
               <li class="{{kindCssClass(clazz)}}" data-id="{{clazz.id}}">
                 <template instantiate="if currentType != clazz">
                   <x-doc-link ref="{{clazz}}"></x-doc-link>
                 </template>
                 <template instantiate="if currentType == clazz">
-                  <span>{{clazz.name}}</span>
-                  <ul>
+                  <span>{{clazz.shortDescription}}</span>
+                  <ul class="tree-list">
                     <template iterate="member in clazz.children">
                       <li class="{{kindCssClass(member)}}" data-id="{{member.id}}">
                         <a href="{{permalink(member)}}">{{member.shortDescription}}</a></li>
@@ -76,65 +76,67 @@
             </template>
           </ul>
         </template>
-  		</div>
+      </div>
 
       <div class="content">
-        <template instantiate="if currentType != null">
-          <div class="class-summary">
-            <template instantiate="if currentType is ClassElement">
-              <h4>Hierarchy</h4>
-              <x-class-hierarchy clazz="{{currentType}}"></x-class-hierarchy>
-              <template instantiate="if !currentType.interfaces.isEmpty">
-                <h4>Implements</h4>
-                <ul>
-                  <template iterate='interface in currentType.interfaces'>
-                    <li>
-                      <x-doc-link ref="{{interface}}"></x-doc-link>
-                    </li>
-                  </template>
-                </ul>
-              </template>
-            </template>
-            <h4>Source</h4>
-            <template instantiate="if currentType.uri != null">
-              <a href="https://code.google.com/p/dart/source/browse/trunk/dart/{{currentType.uri}}?r={{svnRevisionNumber}}#{{currentType.line}}" target="_blank">{{currentType.uri}}</a>
-            </template>
-          </div>
-        </template>
         <template instantiate="if currentLibrary == null">
           <h2>Dart API Reference</h2>
-	        <h3>Libraries</h3>
-		      <ul class="libraries">
-		        <template iterate='library in libraries.values'>
-		          <li>
+          <h3>Libraries</h3>
+          <ul class="libraries tree-list">
+            <template iterate='library in libraries.values'>
+              <li class="{{kindCssClass(library)}}">
                 <x-doc-link ref="{{library}}"></x-doc-link>
               </li>
-		        </template>
-		      </ul>
-  	    </template>
+            </template>
+          </ul>
+        </template>
 
         <template instantiate="if currentLibrary != null && currentType == null">
           <div>
-  		      <div><h2><strong>{{currentLibrary.name}}</strong> library</h2></div>
-  		      <template instantiate="if !currentLibrary.loading">
-  		        <div>
-  				      <template instantiate="if currentLibrary.comment != null">
-  		   	        <div>{{currentLibrary.commentHtml}}</div>
-  				      </template>
+            <div><h2><strong>{{currentLibrary.shortDescription}}</strong> library</h2></div>
+
+            <template instantiate="if !currentLibrary.loading">
+              <div>
+                <template instantiate="if currentLibrary.comment != null">
+                   <div>{{currentLibrary.commentHtml}}</div>
+                </template>
 
                 <x-member-blocks blocks="{{currentLibrary.childBlocks}}">
                 </x-member-blocks>
-  		        </div>
-  	        </template>
-  		    </div>
+              </div>
+            </template>
+          </div>
         </template>
 
         <template instantiate="if currentType != null">
           <div>
-            <div><h2 class="{{kindCssClass(currentType)}}"><strong>{{currentType.name}}</strong> {{currentType.kind}}</h2></div>
-  	        <template instantiate="if currentType.comment != null">
-  	          <div>{{currentType.commentHtml}}</div>
-  	        </template>
+            <h2 class="{{kindCssClass(currentType)}}"><strong>{{currentType.shortDescription}}</strong> {{currentType.kindDescription}}</h2>
+            <template instantiate="if currentType != null">
+              <div class="class-summary">
+                <template instantiate="if currentType is ClassElement">
+                  <h4>Hierarchy</h4>
+                  <x-class-hierarchy clazz="{{currentType}}"></x-class-hierarchy>
+                  <template instantiate="if !currentType.interfaces.isEmpty">
+                    <h4>Implements</h4>
+                    <ul class="tree-list">
+                      <template iterate='interface in currentType.interfaces'>
+                        <li>
+                          <x-doc-link ref="{{interface}}"></x-doc-link>
+                        </li>
+                      </template>
+                    </ul>
+                  </template>
+                </template>
+                <h4>Source</h4>
+                <template instantiate="if currentType.uri != null">
+                  <a href="https://code.google.com/p/dart/source/browse/trunk/dart/{{currentType.uri}}?r={{svnRevisionNumber}}#{{currentType.line}}" target="_blank">{{currentType.uri}}</a>
+                </template>
+              </div>
+            </template>
+
+            <template instantiate="if currentType.comment != null">
+              <div>{{currentType.commentHtml}}</div>
+            </template>
           </div>
           <div>
             <template instantiate="if currentType is ClassElement && !currentType.subclasses.isEmpty">
@@ -193,8 +195,8 @@ main() {
   status = 'Loading...';
   loadModel().then((_) {
     status = '';
-	  watchers.dispatch();
-	});
+    watchers.dispatch();
+  });
 }
     </script>
   </body>

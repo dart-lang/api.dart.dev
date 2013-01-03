@@ -22,8 +22,9 @@ html {
   height: 100%;
   overflow: hidden;
 }
+
 h2 {
-  font: 400 28px/44px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
+  font: 400 24px/38px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
       sans-serif;
 }
 
@@ -238,8 +239,6 @@ hr + h2 {
   right: 0px;
 }
 
-}
-
 .nav h2 {
   font: 400 16px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
       sans-serif;
@@ -278,172 +277,121 @@ ul.icon ul {
 .icon-exception { background: url('exception.png'); }
 .icon-interface { background: url('interface.png'); }
 
-ul
-{
-list-style-type: none;
-padding: 0px;
-margin: 0px;
+.tree-list {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
 }
 
-li {
+.tree-list li {
   line-height: 26px;
   font: 600 13px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
       sans-serif;
   padding-left: 24px;
-  background-repeat: no-repeat;
   background-position: 0px 5px;
 }
 
-ul.libraries li
-{
-background-image: url(package_obj.gif);
+.kind {
+  background-repeat: no-repeat;
+  background-position-y: center;
+  padding-left: 24px;
+  background-size: 16px 16px;
 }
 
-li.kind-class, h2.kind-class::before, h3.kind-class::before
-{
-background-image: url(class_public.png);
+.kind-library {
+  background-image: url(package_obj.gif);
 }
 
-li.kind-typedef, h2.kind-typedef::before, h3.kind-typedef::before
-{
-background-image: url(functiontype_public.png);
+.kind-class {
+  background-image: url(class_public.png);
 }
 
-li.kind-typedef.private, h2.kind-typedef.private::before, h3.kind-typedef.private::before
-{
-background-image: url(functiontype_private.png);
+.kind-typedef {
+  background-image: url(functiontype_public.png);
 }
 
-li.kind-class.private, h2.kind-class.private::before, h3.kind-class.private::before
-{
-background-image: url(class_private.png);
+.kind-typedef.private {
+  background-image: url(functiontype_private.png);
 }
 
-
-li.kind-exception, h2.kind-exception::before, h3.kind-exception::before
-{
-background-image: url(exception.png);
+.kind-class.private {
+  background-image: url(class_private.png);
 }
 
-li.kind-method, h2.kind-method::before, h3.kind-method::before,
-li.kind-operator, h2.kind-operator::before, h3.kind-operator::before
-{
-background-image: url(method_public.png);
+.kind-exception {
+  background-image: url(exception.png);
 }
 
-li.kind-method.private, h2.kind-method.private::before, h3.kind-method.private::before
-{
+.kind-method, .kind-operator {
+  background-image: url(method_public.png);
+}
+
+.kind.getter, .kind.setter, .kind-constructor, .kind.static {
+  background-size: 16px 16px, 24px 16px;
+}
+
+.kind-method.static, .kind-operator.static {
+  background-image: url(method_public.png), url(static.png);
+}
+
+.kind-method.private {
 background-image: url(method_private.png);
 }
 
-li.kind-variable, h2.kind-variable::before, h3.kind-variable::before
-{
+.kind-variable {
   background-image: url(field_public.png);
 }
 
-li.kind-variable.private, h2.kind-variable.private::before, h3.kind-variable.private::before
-{
+.kind-variable.static {
+  background-image: url(field_public.png), url(static.png);
+}
+
+.kind-variable.private {
   background-image: url(field_private.png);
 }
 
-li.kind-property, h2.kind-property::before, h3.kind-property::before
-{
-  background-image: url(method_public.png);
+.kind-property.getter {
+  background-image: url(method_public.png), url(getter.png);
 }
 
-li.kind-property.private, h2.kind-property.private::before, h3.kind-property.private::before
-{
+.kind-property.setter {
+  background-image: url(method_public.png), url(setter.png);
+}
+
+.kind-property.private {
   background-image: url(method_private.png);
 }
 
-li.kind-constructor, h2.kind-constructor::before, h3.kind-constructor::before
-{
-  background-image: url(method_public.png);
+.kind-constructor {
+  background-image: url(method_public.png), url(constructor.png);
 }
 
-li.kind-constructor.private, h2.kind-constructor.private::before, h3.kind-constructor.private::before
-{
-  background-image: url(method_private.png);
+.kind-constructor.private {
+  background-image: url(method_private.png), url(constructor.png);
+}
+
+.kind-exception {
+  background-image: url(exception.png);
+}
+
+.child-subtree {
+  background-image: url(inherit.png);
+  background-position-y: top;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  padding-left: 16px;
 }
 
 /** List items displaying a single member */
 li.kind {
-  position: relative;
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
-  text-overflow: ellipsis;}
-
-h2.kind::before, h3.kind::before
-{
-width: 16px;
-height: 24px;
-content: '';
-margin-right: 4px;
-top: -2px;
-display: inline-block;
-position: relative;
-background-repeat: no-repeat;
-background-position: bottom;
-}
-
-h3.kind::before {
-  height: 16px;
-  top: 4px;
-}
-
-h2.kind-constructor::before, h3.kind-constructor::before {
-  content: "c";
-  font-size: 8px;
-  width: 4px;
-  color: #4B7E32;
-  padding-left: 16px;
-  vertical-align: top;
-  position: relative;
-  top: -8px;
-  height: 28px;
-}
-
-li.kind-constructor::before, li.kind.static::before {
-  font-size: 8px;
-  padding-left: 13px;
-  vertical-align: top;
-  position: absolute;
-  top: -8px;
-  left: 0px;
-}
-
-li.kind-constructor::before {
-  content: "c";
-  color: #4B7E32;
-}
-
-li.kind.static::before {
-  content: "S";
-  color: #800;
+  text-overflow: ellipsis;
 }
 
 /** TODO(jacobr) use this arrow maybe for hierarchy... ↳ */
 
-
-li.kind.setter::before {
-  content: "↑";
-}
-
-li.kind.getter::before {
-  content: "↓";
-}
-
-li.kind.getter::before, li.kind.setter::before  {
-  font: 600 9px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
-      sans-serif;
-  padding-left: 13px;
-  color: #000;
-  vertical-align: bottom;
-  position: absolute;
-  padding-top: 11px;
-  left: 0px;
-}
 .subclasses, .references {
   font: 500 13px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
   padding-bottom: 12px;
@@ -465,10 +413,6 @@ li.kind.getter::before, li.kind.setter::before  {
 }
 .class-summary h4 {
   margin-left: -15px;
-}
-li.kind-exception
-{
-background-image: url(exception.png);
 }
 
 .type-box {
@@ -656,6 +600,8 @@ pre.source .p.si { color: hsl(40, 60%, 40%); }
 .element-details {
   height: 50px;
   overflow: hidden;
+  background-position: 12px 5px;
+  padding-left: 36px;
   position: relative;
 }
 
@@ -671,9 +617,6 @@ pre.source .p.si { color: hsl(40, 60%, 40%); }
   left: 0px;
 }
 
-.element-details {
-  padding-left: 20px;
-}
 .element-details .element-documentation {
   opacity: .8;
 }
@@ -710,10 +653,6 @@ pre.source .p.si { color: hsl(40, 60%, 40%); }
   margin-left: 99px;
 }
 
-.type-details .extended-element-info  {
-  margin-left: 20px;
-}
-
 .element-definition {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -730,7 +669,6 @@ pre.source .p.si { color: hsl(40, 60%, 40%); }
 }
 
 .extended-element-info {
-    position: relative;
     font: 400 13px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
         sans-serif;
 }

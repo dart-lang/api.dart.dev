@@ -1,3 +1,7 @@
+// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 library apidoc_model;
 
 import 'package:web_ui/watcher.dart' as watchers;
@@ -7,50 +11,86 @@ import 'dart:html' as html;
 import 'dart:json';
 import 'ast.dart';
 
+// TODO(jacobr): specify the version # in the JSON file.
 String svnRevisionNumber = "15605";
 
-String _activeReferenceId;
+/**
+ * Reference id of [currentElement].
+ *
+ * Stored in addition to [currentElement] as [currentElement] may
+ * not yet be available if the data model for the library it is part of has
+ * not yet been loaded.
+ */
+String _currentReferenceId;
 
-/// Current state of the application.
+/**
+ * Current library the user is browsing if any.
+ */
 LibraryElement currentLibrary;
+
+/**
+ * Current type the user is viewing if any.
+ * Should be either a [ClassElement] or a [TypedefElement].
+ */
 Element currentType;
+/**
+ * Current member of either [currentLibrary] or [currentType] that the user is
+ * viewing.
+ */
 Element currentMember;
+
+/**
+ * Element corresponding to [_currentReferenceId].
+ * The most specific element of [currentLibrary]. [currentType], and
+ * [currentMember].
+ */
 Element currentElement;
 
+/**
+ * Recomputes the Elements part of the current active state from the data model.
+ *
+ * This method should be invoked after additional libraries are loaded from the
+ * server or after the user navigates to a different element in the UI.
+ */
 void _recomputeActiveState() {
   currentLibrary = null;
   currentType = null;
   currentMember = null;
   currentElement = null;
-  if (_activeReferenceId != null) {
-    var path = lookupReferenceId(_activeReferenceId).path;
-
-    if (path.length > 0) {
-      currentLibrary = path[0];
-    }
-    if (path.length > 1) {
-      if (path[1] is ClassElement || path[1] is TypedefElement) {
-        currentType = path[1];
-        if (path.length > 2) {
-          currentMember = path[2];
-        }
-      } else {
-        currentMember = path[1];
+  if (_currentReferenceId != null) {
+    var referenceElement = lookupReferenceId(_currentReferenceId);
+    if (referenceElement != null) {
+      var path = referenceElement.path;
+      if (path.length > 0) {
+        currentLibrary = path[0];
       }
-    }
-    if (currentMember != null) {
-      currentElement = currentMember;
-    } else if (currentType != null) {
-      currentElement = currentType;
-    } else {
-      currentElement = currentLibrary;
+      if (path.length > 1) {
+        if (path[1] is ClassElement || path[1] is TypedefElement) {
+          currentType = path[1];
+          if (path.length > 2) {
+            currentMember = path[2];
+          }
+        } else {
+          currentMember = path[1];
+        }
+      }
+      if (currentMember != null) {
+        currentElement = currentMember;
+      } else if (currentType != null) {
+        currentElement = currentType;
+      } else {
+        currentElement = currentLibrary;
+      }
     }
   }
 }
 
+/**
+ * Scrolls the [currentElement] into view.
+ */
 void scrollIntoView() {
   // TODO(jacobr): there should be a cleaner way to run code that executes
-  // after the UI updates.
+  // after the UI updates. https://github.com/dart-lang/web-ui/issues/188
   html.window.setTimeout(() {
     if (currentElement != null) {
       for (var e in html.queryAll('[data-id="${currentElement.id}"]')) {
@@ -60,7 +100,10 @@ void scrollIntoView() {
   }, 0);
 }
 
-onDataModelChanged() {
+/**
+ * Invoke every time the data model changes.
+ */
+void _onDataModelChanged() {
   _recomputeActiveState();
   scrollIntoView();
 }
@@ -70,10 +113,10 @@ onDataModelChanged() {
  * etc.
  */
 String kindCssClass(Element element) {
-  String classes = 'kind kind-${normalizedKind(element)}';
+  String classes = 'kind kind-${_normalizedKind(element)}';
   if (element.isPrivate == true) {
     classes = '$classes private';
-  } else if (element is MethodElementBase && element.isStatic) {
+  } else if (element is MethodLikeElement && element.isStatic) {
     classes = '$classes static';
   }
 
@@ -82,19 +125,14 @@ String kindCssClass(Element element) {
     classes = '$classes getter';
   }
 
-  if (element is MethodElementBase && element.isSetter) {
+  if (element is MethodLikeElement && element.isSetter) {
     classes = '$classes setter';
   }
 
   return classes;
 }
 
-String normalizedKind(obj) {
-  if (obj is Element) return normalizedKindFromElement(obj);
-  return obj;
-}
-
-String normalizedKindFromElement(Element element) {
+String _normalizedKind(Element element) {
   var kind = element.kind;
   var name = element.name;
   if (kind == 'method' && element.isOperator) {
@@ -108,7 +146,7 @@ String normalizedKindFromElement(Element element) {
 }
 
 String toUserVisibleKind(Element element) {
-  return KIND_TITLES[normalizedKind(element)];
+  return KIND_TITLES[_normalizedKind(element)];
 }
 
 /**
@@ -116,6 +154,8 @@ String toUserVisibleKind(Element element) {
  */
 String permalink(var obj) {
   var data = {'id': obj.refId};
+  // TODO(jacobr): evaluate whether the persistent UI state will stay just a
+  // single reference ID in which case this is overkill.
   return "#!${JSON.stringify(data)}";
 }
 
@@ -131,16 +171,22 @@ void loadStateFromUrl() {
       // TODO(jacobr): redirect to default page or better yet attempt to fixup.
     }
   }
-  _activeReferenceId = data['id'];
+  _currentReferenceId = data['id'];
   _recomputeActiveState();
   scrollIntoView();
 }
 
 Future loadModel() {
-  html.window.on.popState.add((e) {
+  // Note: listen on both popState and hashChange, because IE9 doens't support
+  // history API, and it doesn't work properly on Opera 12.
+  // See http://dartbug.com/5483
+  updateState(e) {
     loadStateFromUrl();
     watchers.dispatch();
-  });
+  }
+  html.window.on
+    ..popState.add(updateState)
+    ..hashChange.add(updateState);
 
   // Patch in support for [:...:]-style code to the markdown parser.
   // TODO(rnystrom): Markdown already has syntax for this. Phase this out?
@@ -150,37 +196,20 @@ Future loadModel() {
   md.setImplicitLinkResolver(_resolveNameReference);
   var completer = new Completer();
   // TODO(jacobr): shouldn't have to get this from the parent directory.
-  new html.HttpRequest.get('../static/apidoc.json', onSuccess(html.HttpRequest req) {
+  new html.HttpRequest.get('../static/apidoc.json', (req) {
     for (var libraryJson in JSON.parse(req.responseText)) {
       var library = new LibraryElement(libraryJson, null);
       libraries[library.id] = library;
     }
-    onDataModelChanged();
+    _onDataModelChanged();
     completer.complete(true);
   });
   return completer.future;
 }
 
-/** XXX NOT USED TODO(jacobr) remove.
-class DocComment {
-  final String text;
-
-  /**
-   * Non-null if the comment is inherited from another declaration.
-   */
-  final inheritedFrom; // InterfaceMirror?
-
-  DocComment(this.text, [this.inheritedFrom = null]) {
-    assert(text != null && !text.trim().isEmpty);
-  }
-
-  SafeHtml get html => new SafeHtml.unsafe(md.markdownToHtml(text));
-
-  String toString() => text;
-}
-
-*/
-
+// TODO(jacobr): remove this method and resolve refences to types in the json
+// generation. That way the existing correct logic in Dart2Js can be used rather
+// than this rather busted logic.
 /**
  * This will be called whenever a doc comment hits a `[name]` in square
  * brackets. It will try to figure out what the name refers to and link or
@@ -209,9 +238,11 @@ md.Node _resolveNameReference(String name) {
   }
 
   // See if it's another member of the current type.
-  // TODO(jacobr): fixme. this is wrong... members are by id now not simple string name...
+  // TODO(jacobr): fixme. this is wrong... members are by id now not simple
+  // string name...
   if (currentType != null) {
-    final foundMember = currentType.members[name];
+    // TODO(jacobr): this should be foundMember = currentType.members[name];
+    final foundMember = null;
     if (foundMember != null) {
       return makeLink(permalink(foundMember));
     }
@@ -243,7 +274,8 @@ md.Node _resolveNameReference(String name) {
       if (match == null) return null;
       var foundType = currentLibrary.classes[match[1]];
       if (foundType == null) return null;
-      var foundMember = foundType.members[match[2]];
+      // TODO(jacobr): should be foundMember = foundType.members[match[2]];
+      var foundMember = null;
       if (foundMember == null) return null;
       return makeLink(permalink(foundMember));
     })();
@@ -255,7 +287,8 @@ md.Node _resolveNameReference(String name) {
     }
 
     // See if it's a top-level member in the current library.
-    var foundMember = currentLibrary.members[name];
+    // TODO(jacobr): should be foundMember = currentLibrary.members[name];
+    var foundMember = null;
     if (foundMember != null) {
       return makeLink(permalink(foundMember));
     }

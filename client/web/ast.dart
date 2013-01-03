@@ -1,3 +1,11 @@
+// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+/**
+ * AST describing all information about Dart libraries required to render
+ * Dart documentation.
+ */
 library ast;
 
 import 'package:web_ui/safe_html.dart';
@@ -11,95 +19,34 @@ import 'markdown.dart' as md;
  */
 Map<String, LibraryElement> libraries = <LibraryElement>{};
 
-List<String> LIBRARY_KINDS = ['variable', 'property', 'method', 'class', 'exception', 'typedef'];
-List<String> CLASS_KINDS = ['constructor', 'variable', 'property', 'method', 'operator'];
+/**
+ * Children of a library are shown in the UI grouped by type sorted in the order
+ * specified by this list.
+ */
+List<String> LIBRARY_ITEMS = ['variable', 'property', 'method', 'class',
+                              'exception', 'typedef'];
+/**
+ * Children of a class are shown in the UI grouped by type sorted in the order
+ * specified by this list.
+ */
+List<String> CLASS_ITEMS = ['constructor', 'variable', 'property', 'method',
+                            'operator'];
 // TODO(jacobr): add package kinds?
 
 // TODO(jacobr): i18n
 /**
  * Pretty names for the various kinds displayed.
  */
-final KIND_TITLES = {'property': 'Properties',
-                     'variable': 'Variables',
-                     'method': 'Functions',
-                     'constructor': 'Constructors',
-                     'class': 'Classes',
-                     'operator': 'Operators',
-                     'typedef': 'Typedefs',
-                     'exception': 'Exceptions'
+final KIND_TITLES = {
+    'property': 'Properties',
+    'variable': 'Variables',
+    'method': 'Functions',
+    'constructor': 'Constructors',
+    'class': 'Classes',
+    'operator': 'Operators',
+    'typedef': 'Typedefs',
+    'exception': 'Exceptions'
 };
-
-/**
- * Block of elements to render summary documentation for that all share the
- * same kind.
- *
- * For example, all properties, all functions, or all constructors.
- */
-class ElementBlock {
-  String kind;
-  List<Element> elements;
-
-  ElementBlock(this.kind, this.elements);
-
-  String get kindTitle => KIND_TITLES[kind];
-}
-
-Reference jsonDeserializeReference(Map json) {
-  return json != null ? new Reference(json) : null;
-}
-
-/**
- * Deserializes JSON into [Element] or [Reference] objects.
- */
-Element jsonDeserialize(Map json, Element parent) {
-  if (json == null) return null;
-  if (!json.containsKey('kind')) {
-    throw "Unable to deserialize $json";
-  }
-
-  switch (json['kind']) {
-    case 'class':
-      return new ClassElement(json, parent);
-    case 'typedef':
-      return new TypedefElement(json, parent);
-    case 'typeparam':
-      return new TypeParameterElement(json, parent);
-    case 'library':
-      return new LibraryElement(json, parent);
-    case 'method':
-      return new MethodElement(json, parent);
-    case 'property':
-      return new PropertyElement(json, parent);
-    case 'constructor':
-      return new ConstructorElement(json, parent);
-    case 'variable':
-      return new VariableElement(json, parent);
-    case 'param':
-      return new ParameterElement(json, parent);
-    default:
-      return new Element(json, parent);
-  }
-}
-
-List<Element> jsonDeserializeArray(List json, Element parent) {
-  var ret = <Element>[];
-  if (json != null) {
-    for (Map elementJson in json) {
-      ret.add(jsonDeserialize(elementJson, parent));
-    }
-  }
-  return ret;
-}
-
-List<Reference> jsonDeserializeReferenceArray(List json) {
-  var ret = <Reference>[];
-  if (json != null) {
-    for (Map referenceJson in json) {
-      ret.add(new Reference(referenceJson));
-    }
-  }
-  return ret;
-}
 
 /**
  * Reference to an [Element].
@@ -107,22 +54,33 @@ List<Reference> jsonDeserializeReferenceArray(List json) {
 class Reference {
   final String refId;
   final String name;
+  final List<Reference> arguments;
+
   Reference(Map json) :
     name = json['name'],
-    refId = json['refId'];
+    refId = json['refId'],
+    arguments = _jsonDeserializeReferenceArray(json['arguments']);
+
+  /**
+   * Short description appropriate for displaying in a tree control or other
+   * situtation where a short description is required.
+   */
+  String get shortDescription {
+    if (arguments.isEmpty) {
+      return name;
+    } else {
+      var params = Strings.join(
+          arguments.map((param) => param.shortDescription), ', ');
+      return '$name<$params>';
+    }
+  }
 }
 
 /**
  * Lookup a library based on the [libraryId].
- *
- * If the library cannot be found, a stub dummy [Library] will be returned.
  */
 LibraryElement lookupLibrary(String libraryId) {
-  var library = libraries[libraryId];
-  if (library == null) {
-    library = new LibraryElement.stub(libraryId, null);
-  }
-  return library;
+  return libraries[libraryId];
 }
 
 /**
@@ -133,8 +91,7 @@ LibraryElement lookupLibrary(String libraryId) {
 Element lookupReferenceId(String referenceId) {
   var parts = referenceId.split(new RegExp('/'));
   Element current = lookupLibrary(parts.first);
-  var result = <Element>[current];
-  for (var i = 1; i < parts.length; i++) {
+  for (var i = 1; i < parts.length && current != null; i++) {
     var id = parts[i];
     var next = null;
     for (var child in current.children) {
@@ -142,9 +99,6 @@ Element lookupReferenceId(String referenceId) {
         next = child;
         break;
       }
-    }
-    if (next == null) {
-      next = new Element.stub(id, current);
     }
     current = next;
   }
@@ -160,42 +114,35 @@ _traverseWorld(void callback(Element)) {
   }
 }
 
-// TODO(jacobr): remove this method when templates handle safe HTML containing
+// TODO(jacobr): remove this method when templates handle [SafeHTML] containing
+// multiple top level nodes correct.
 SafeHtml _markdownToSafeHtml(String text) {
   // We currently have to insert an extra span for now because of
-  // https://github.com/dart-lang/dart-web-components/issues/212
+  // https://github.com/dart-lang/web-ui/issues/212
   return new SafeHtml.unsafe(text != null && !text.isEmpty ?
         '<span>${md.markdownToHtml(text)}</span>' : '<span><span>');
 }
 
 /**
- * Specifies the order elements should appear in the UI.
- */
-int elementUiOrder(Element a, Element b) {
-  if (a.isPrivate != b.isPrivate) {
-    return a.isPrivate == true ? 1 : -1;
-  }
-  return a.name.compareTo(b.name);
-}
-
-/**
  * Base class for all elements in the AST.
  */
-class Element {
+class Element implements Comparable {
   final Element parent;
+
   /** Human readable type name for the node. */
   final String rawKind;
+
   /** Human readable name for the element. */
   final String name;
+
   /** Id for the node that is unique within its parent's children. */
   final String id;
+
   /** Raw text of the comment associated with the Element if any. */
   final String comment;
+
   /** Whether the node is private. */
   final bool isPrivate;
-
-  final String _uri;
-  final String _line;
 
   /** Children of the node. */
   List<Element> children;
@@ -203,30 +150,36 @@ class Element {
   /** Whether the [Element] is currently being loaded. */
   final bool loading;
 
+  final String _uri;
+  final String _line;
   String _refId;
-
-  Map _members;
   SafeHtml _commentHtml;
   List<Element> _references;
+  List<Element> _typeParameters;
 
   Element(Map json, this.parent) :
     name = json['name'],
     rawKind = json['kind'],
     id = json['id'],
     comment = json['comment'],
-    isPrivate = json['isPrivate'],
+    isPrivate = json['isPrivate'] == true,
     _uri = json['uri'],
     _line = json['line'],
     loading = false {
-    children = jsonDeserializeArray(json['children'], this);
+    children = _jsonDeserializeArray(json['children'], this);
   }
 
   /**
    * Returns a kind name that make sense for the UI rather than the AST
    * kinds.  For example, setters are considered properties instead of
-   * methods.
+   * methods in the UI but not the AST.
    */
   String get uiKind => kind;
+
+  /**
+   * Longer possibly multiple word description of the [kind].
+   */
+  String get kindDescription => uiKind;
 
   /** Invoke [callback] on this [Element] and all descendants. */
   void traverse(void callback(Element)) {
@@ -237,49 +190,22 @@ class Element {
   }
 
   /**
-   * Uri containing the definition of the element.
+   * Uri containing the source code for the definition of the element.
    */
-  String get uri {
-    Element current = this;
-    while (current != null) {
-      if (current._uri != null) return current._uri;
-      current = current.parent;
-    }
-    return null;
-  }
+  String get uri => _uri != null ? _uri : (parent != null ? parent.uri : null);
 
   /**
-   * Line in the original source file that starts the definition of the element.
+   * Line in the original source file that begins the definition of the element.
    */
-  String get line {
-    Element current = this;
-    while (current != null) {
-      if (current._line != null) return current._line;
-      current = current.parent;
-    }
-    return null;
-  }
-
-  Element.stub(this.id, this.parent) :
-    name = '???', // TODO(jacobr): remove/add
-    _uri = null,
-    _line = null,
-    comment = null,
-    rawKind = null,
-    children = <Element>[],
-    isPrivate = null,
-    loading = true;
+  String get line => _line != null ?
+      _line : (parent != null ? parent.line : null);
 
   /**
    *  Globally unique identifier for this element.
    */
   String get refId {
     if (_refId == null) {
-       if (parent == null) {
-         _refId = id;
-       } else {
-         _refId = '${parent.refId}/$id';
-       }
+      _refId = (parent == null) ? id : '${parent.refId}/$id';
     }
     return _refId;
   }
@@ -287,20 +213,13 @@ class Element {
   /**
    * Whether this [Element] references the specified [referenceId].
    */
-  bool hasReference(String referenceId) {
-    for (var child in children) {
-      if (child.hasReference(referenceId)) {
-        return true;
-      }
-    }
-    return false;
-  }
+  bool hasReference(String referenceId) =>
+    children.some((child) => child.hasReference(referenceId));
 
   /** Returns all [Element]s that reference this [Element]. */
   List<Element> get references {
     if (_references == null) {
       _references = <Element>[];
-      // TODO(jacobr): change to filterWorld and tweak meaning.
       _traverseWorld((element) {
         if (element.hasReference(refId)) {
           _references.add(element);
@@ -310,16 +229,23 @@ class Element {
     return _references;
   }
 
-  // TODO(jacobr): write without recursion.
-  /**
-   * Path from this [Element] to the root of the tree starting at the root.
-   */
+  /** Path from the root of the tree to this [Element]. */
   List<Element> get path {
     if (parent == null) {
       return <Element>[this];
     } else {
       return parent.path..add(this);
     }
+    // TODO(jacobr): replace this code with:
+    // return (parent == null) ? (<Element>[this]) : (parent.path..add(this));
+    // once http://code.google.com/p/dart/issues/detail?id=7665 is fixed.
+  }
+
+  List<Element> get typeParameters {
+    if (_typeParameters == null) {
+      _typeParameters = _filterByKind('typeparam');
+    }
+    return _typeParameters;
   }
 
   /**
@@ -337,9 +263,22 @@ class Element {
    * Short description appropriate for displaying in a tree control or other
    * situtation where a short description is required.
    */
-  String get shortDescription => name;
+  String get shortDescription {
+    if (typeParameters.isEmpty) {
+      return name;
+    } else {
+      var params = Strings.join(
+          typeParameters.map((param) => param.shortDescription),
+          ', ');
+      return '$name<$params>';
+    }
+  }
 
-  /** Possibly normalized representation of the node kind. */
+  /**
+   * Ui specific representation of the node kind.
+   * For example, currently operators are considered their own kind even though
+   * they aren't their own kind in the AST.
+   */
   String get kind => rawKind;
 
   /**
@@ -361,7 +300,7 @@ class Element {
     for (var kind in desiredKinds) {
       var elements = blockMap[kind];
       if (elements != null) {
-        blocks.add(new ElementBlock(kind, elements..sort(elementUiOrder)));
+        blocks.add(new ElementBlock(kind, elements..sort()));
       }
     }
     return blocks;
@@ -372,34 +311,24 @@ class Element {
 
   Map<String, Element> _mapForKind(String kind) {
     Map ret = {};
-    if (children != null) {
-      for (var child in children) {
-        if (child.kind == kind) {
-          ret[child.id] = child;
-        }
+    if (children == null) return ret;
+
+    for (var child in children) {
+      if (child.kind == kind) {
+        ret[child.id] = child;
       }
     }
     return ret;
   }
 
-  Map<String, Element> _mapForKinds(Map<String, Element> kinds) {
-    Map ret = {};
-    if (children != null) {
-      for (var child in children) {
-        if (kinds.containsKey(child.kind)) {
-          ret[child.id] = child;
-        }
-      }
+  /**
+   * Specifies the order elements should appear in the UI.
+   */
+  int compareTo(Element other) {
+    if (isPrivate != other.isPrivate) {
+      return other.isPrivate ? 1 : -1;
     }
-    return ret;
-  }
-
-  Map<String, Element> get members {
-    if (_members == null) {
-      // TODO(jacobr): include properties???!?
-      _members = _mapForKinds({'method': true, 'property' : true});
-    }
-    return _members;
+    return name.compareTo(other.name);
   }
 }
 
@@ -414,7 +343,6 @@ class LibraryElement extends Element {
   List<ElementBlock> _childBlocks;
 
   LibraryElement(json, Element parent) : super(json, parent);
-  LibraryElement.stub(String id, Element parent) : super.stub(id, parent);
 
   /** Returns all classes defined by the library. */
   Map<String, ClassElement> get classes {
@@ -430,7 +358,7 @@ class LibraryElement extends Element {
    */
   List<ClassElement> get sortedClasses {
     if (_sortedClasses == null) {
-      _sortedClasses = []..addAll(classes.values)..sort(elementUiOrder);
+      _sortedClasses = []..addAll(classes.values)..sort();
     }
     return _sortedClasses;
   }
@@ -440,7 +368,9 @@ class LibraryElement extends Element {
    * the Library.
    */
   List<ElementBlock> get childBlocks {
-    if (_childBlocks == null) _childBlocks = _createElementBlocks(LIBRARY_KINDS);
+    if (_childBlocks == null) {
+      _childBlocks = _createElementBlocks(LIBRARY_ITEMS);
+    }
     return _childBlocks;
   }
 }
@@ -449,25 +379,27 @@ class LibraryElement extends Element {
  * [Element] describing a Dart class.
  */
 class ClassElement extends Element {
+
   /** Members of the class grouped into logical blocks. */
   List<ElementBlock> _childBlocks;
+
   /** Interfaces the class implements. */
   final List<Reference> interfaces;
+
   /** Superclass of this class. */
   final Reference superclass;
+
+  /** Whether the class is abstract. */
+  final bool isAbstract;
 
   List<ClassElement> _superclasses;
   List<ClassElement> _subclasses;
 
   ClassElement(Map json, Element parent)
     : super(json, parent),
-      interfaces = jsonDeserializeReferenceArray(json['interfaces']),
-      superclass = jsonDeserializeReference(json['superclass']);
-
-  ClassElement.stub(String id, Element parent)
-    : super.stub(id, parent),
-      interfaces = [],
-      superclass = null;
+      interfaces = _jsonDeserializeReferenceArray(json['interfaces']),
+      superclass = jsonDeserializeReference(json['superclass']),
+      isAbstract = json['isAbstract'] == true;
 
   /** Returns all superclasses of this class. */
   List<ClassElement> get superclasses {
@@ -475,8 +407,7 @@ class ClassElement extends Element {
       _superclasses = <ClassElement>[];
       addSuperclasses(clazz) {
         if (clazz.superclass != null) {
-          ClassElement superclassElement =
-              lookupReferenceId(clazz.superclass.refId);
+          var superclassElement = lookupReferenceId(clazz.superclass.refId);
           addSuperclasses(superclassElement);
           _superclasses.add(superclassElement);
         }
@@ -485,6 +416,9 @@ class ClassElement extends Element {
     }
     return _superclasses;
   }
+
+  String get kindDescription =>
+      isAbstract ? 'abstract $uiKind' : uiKind;
 
   /**
    * Returns classes that directly extend or implement this class.
@@ -519,14 +453,17 @@ class ClassElement extends Element {
    * order for describing a class definition.
    */
   List<ElementBlock> get childBlocks {
-    if (_childBlocks == null) _childBlocks = _createElementBlocks(CLASS_KINDS);
+    if (_childBlocks == null) _childBlocks = _createElementBlocks(CLASS_ITEMS);
     return _childBlocks;
   }
 }
 
+/**
+ * Element describing a typedef.
+ */
 class TypedefElement extends Element {
   final Reference returnType;
-  List<ParameterElement> _parameters;
+  List<Element> _parameters;
 
   TypedefElement(Map json, Element parent) : super(json, parent),
       returnType = jsonDeserializeReference(json['returnType']);
@@ -534,7 +471,7 @@ class TypedefElement extends Element {
   /**
    * Returns a list of the parameters of the typedef.
    */
-  List<ParameterElement> get parameters {
+  List<Element> get parameters {
     if (_parameters == null) {
       _parameters = _filterByKind('param');
     }
@@ -546,13 +483,13 @@ class TypedefElement extends Element {
  * [Element] describing a method which may be a regular method, a setter, or an
  * operator.
  */
-abstract class MethodElementBase extends Element {
+abstract class MethodLikeElement extends Element {
 
   final bool isOperator;
   final bool isStatic;
   final bool isSetter;
 
-  MethodElementBase(Map json, Element parent)
+  MethodLikeElement(Map json, Element parent)
     : super(json, parent),
       isOperator = json['isOperator'] == true,
       isStatic = json['isStatic'] == true,
@@ -571,8 +508,8 @@ abstract class MethodElementBase extends Element {
    * required.
    */
   String get shortDescription {
-    if (isSetter == true) {
-      var sb = new StringBuffer('${name.substring(0, name.length-1)}');
+    if (isSetter) {
+      var sb = new StringBuffer('${name.substring(0, name.length - 1)}');
       if (!parameters.isEmpty && parameters.first != null
           && parameters.first.type != null) {
         sb..add(' ')..add(parameters.first.type.name);
@@ -584,19 +521,19 @@ abstract class MethodElementBase extends Element {
   }
 
   Reference get returnType;
-  List<ParameterElement> _parameters;
+  List<Element> _parameters;
 
   /**
    * Returns a list of the parameters of the Method.
    */
-  List<ParameterElement> get parameters {
+  List<Element> get parameters {
     if (_parameters == null) {
       _parameters = _filterByKind('param');
     }
     return _parameters;
   }
 
-  // For UI purposes we want to treat operators as their own kind.
+  /// For UI purposes we want to treat operators as their own kind.
   String get kind => isOperator ? 'operator' : rawKind;
 }
 
@@ -631,13 +568,24 @@ class TypeParameterElement extends Element {
     super(json, parent),
     upperBound = jsonDeserializeReference(json['upperBound']);
 
+  String get shortDescription {
+    if (upperBound == null) {
+      return name;
+    } else {
+      return '$name extends ${upperBound.shortDescription}';
+    }
+  }
+
   bool hasReference(String referenceId) {
     if (super.hasReference(referenceId)) return true;
     return upperBound != null && upperBound.refId == referenceId;
   }
 }
 
-class MethodElement extends MethodElementBase {
+/**
+ * Element describing a method.
+ */
+class MethodElement extends MethodLikeElement {
 
   final Reference returnType;
 
@@ -645,7 +593,10 @@ class MethodElement extends MethodElementBase {
       returnType = jsonDeserializeReference(json['returnType']);
 }
 
-class PropertyElement extends MethodElementBase {
+/**
+ * Element describing a property getter.
+ */
+class PropertyElement extends MethodLikeElement {
   final Reference returnType;
 
   String get shortDescription => name;
@@ -654,7 +605,10 @@ class PropertyElement extends MethodElementBase {
     returnType = jsonDeserializeReference(json['ref']);
 }
 
-class VariableElement extends MethodElementBase {
+/**
+ * Element describing a variable.
+ */
+class VariableElement extends MethodLikeElement {
   final Reference returnType;
   /** Whether this variable is final. */
   final bool isFinal;
@@ -666,8 +620,85 @@ class VariableElement extends MethodElementBase {
     isFinal = json['isFinal'];
 }
 
-class ConstructorElement extends MethodElementBase {
+/**
+ * Element describing a constructor.
+ */
+class ConstructorElement extends MethodLikeElement {
   ConstructorElement(json, Element parent) : super(json, parent);
 
   Reference get returnType => null;
+}
+
+/**
+ * Block of elements to render summary documentation for all elements that share
+ * the same kind.
+ *
+ * For example, all properties, all functions, or all constructors.
+ */
+class ElementBlock {
+  String kind;
+  List<Element> elements;
+
+  ElementBlock(this.kind, this.elements);
+
+  String get kindTitle => KIND_TITLES[kind];
+}
+
+Reference jsonDeserializeReference(Map json) {
+  return json != null ? new Reference(json) : null;
+}
+
+/**
+ * Deserializes JSON into an [Element] object.
+ */
+Element jsonDeserialize(Map json, Element parent) {
+  if (json == null) return null;
+
+  var kind = json['kind'];
+  if (kind == null) {
+    throw "Unable to deserialize $json";
+  }
+
+  switch (kind) {
+    case 'class':
+      return new ClassElement(json, parent);
+    case 'typedef':
+      return new TypedefElement(json, parent);
+    case 'typeparam':
+      return new TypeParameterElement(json, parent);
+    case 'library':
+      return new LibraryElement(json, parent);
+    case 'method':
+      return new MethodElement(json, parent);
+    case 'property':
+      return new PropertyElement(json, parent);
+    case 'constructor':
+      return new ConstructorElement(json, parent);
+    case 'variable':
+      return new VariableElement(json, parent);
+    case 'param':
+      return new ParameterElement(json, parent);
+    default:
+      return new Element(json, parent);
+  }
+}
+
+List<Element> _jsonDeserializeArray(List json, Element parent) {
+  var ret = <Element>[];
+  if (json == null) return ret;
+
+  for (Map elementJson in json) {
+    ret.add(jsonDeserialize(elementJson, parent));
+  }
+  return ret;
+}
+
+List<Reference> _jsonDeserializeReferenceArray(List json) {
+  var ret = <Reference>[];
+  if (json == null) return ret;
+
+  for (Map referenceJson in json) {
+    ret.add(new Reference(referenceJson));
+  }
+  return ret;
 }
