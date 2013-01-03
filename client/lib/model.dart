@@ -4,11 +4,11 @@
 
 library apidoc_model;
 
+import 'dart:html' as html;
+import 'dart:json';
 import 'package:web_ui/watcher.dart' as watchers;
 import 'package:web_ui/safe_html.dart';
 import 'markdown.dart' as md;
-import 'dart:html' as html;
-import 'dart:json';
 import 'ast.dart';
 
 // TODO(jacobr): specify the version # in the JSON file.
@@ -197,10 +197,7 @@ Future loadModel() {
   var completer = new Completer();
   // TODO(jacobr): shouldn't have to get this from the parent directory.
   new html.HttpRequest.get('../static/apidoc.json', (req) {
-    for (var libraryJson in JSON.parse(req.responseText)) {
-      var library = new LibraryElement(libraryJson, null);
-      libraries[library.id] = library;
-    }
+    loadLibraryJson(req.responseText);
     _onDataModelChanged();
     completer.complete(true);
   });

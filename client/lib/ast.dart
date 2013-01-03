@@ -8,6 +8,7 @@
  */
 library ast;
 
+import 'dart:json';
 import 'package:web_ui/safe_html.dart';
 import 'markdown.dart' as md;
 
@@ -73,6 +74,13 @@ class Reference {
           arguments.map((param) => param.shortDescription), ', ');
       return '$name<$params>';
     }
+  }
+}
+
+void loadLibraryJson(String json) {
+  for (var libraryJson in JSON.parse(json)) {
+    var library = new LibraryElement(libraryJson, null);
+    libraries[library.id] = library;
   }
 }
 
@@ -231,13 +239,14 @@ class Element implements Comparable {
 
   /** Path from the root of the tree to this [Element]. */
   List<Element> get path {
+    /*
     if (parent == null) {
       return <Element>[this];
     } else {
       return parent.path..add(this);
-    }
+    }*/
     // TODO(jacobr): replace this code with:
-    // return (parent == null) ? (<Element>[this]) : (parent.path..add(this));
+    return (parent == null) ? <Element>[this] : parent.path..add(this);
     // once http://code.google.com/p/dart/issues/detail?id=7665 is fixed.
   }
 

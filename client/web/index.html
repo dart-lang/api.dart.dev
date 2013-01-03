@@ -30,7 +30,7 @@
 
   </head>
   <body>
-    <template instantiate="if currentElement == null || currentElement.loading != true">
+    <template instantiate="if currentElement == null || !currentElement.loading">
     <div class="page">
       <div class="header">
         <a href="http://dartlang.org" ref="external"><div class="logo"></div></a>
@@ -68,7 +68,8 @@
                   <ul class="tree-list">
                     <template iterate="member in clazz.children">
                       <li class="{{kindCssClass(member)}}" data-id="{{member.id}}">
-                        <a href="{{permalink(member)}}">{{member.shortDescription}}</a></li>
+                        <a href="{{permalink(member)}}">{{member.shortDescription}}</a>
+                      </li>
                     </template>
                   </ul>
                 </template>
@@ -184,9 +185,9 @@
 
 import 'dart:uri' as uri;
 import 'package:web_ui/watcher.dart' as watchers;
-import 'ast.dart';
-import 'model.dart';
-import 'resources.dart';
+import 'package:api_doc/ast.dart';
+import 'package:api_doc/model.dart';
+import 'package:api_doc/resources.dart';
 
 String status;
 
