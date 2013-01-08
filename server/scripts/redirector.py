@@ -4,6 +4,7 @@
 
 import logging
 import re
+import json
 from webapp2 import *
 from datetime import datetime, timedelta
 from google.appengine.ext import blobstore
@@ -11,6 +12,7 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import files, memcache
 
 LATEST_DOC_VERSION_FILE = '/gs/dartlang-api-docs/latest.txt'
+LATEST_RELEASE_DOC_VERSION_FILE = '/gs/dart-editor-archive-trunk/latest/VERSION'
 ONE_HOUR = 60 * 60
 ONE_DAY = ONE_HOUR * 24
 ONE_WEEK = ONE_DAY * 7
@@ -18,13 +20,19 @@ ONE_WEEK = ONE_DAY * 7
 class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
   latest_doc_version = None
+  latest_release_doc_version = None
   next_doc_version_check = None
 
   def reload_latest_version(self):
-    logging.info("Reloading the latest doc version pointer")
     with files.open(LATEST_DOC_VERSION_FILE, 'r') as f:
       data = f.read(100)
       ApiDocs.latest_doc_version = int(data.strip())
+      ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
+
+  def reload_latest_release_version(self):
+    with files.open(LATEST_RELEASE_DOC_VERSION_FILE, 'r') as f:
+      data = json.loads(f.read(1024))
+      ApiDocs.latest_release_doc_version = int(data['revision'])
       ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
 
   # TODO: put into memcache?
@@ -36,6 +44,15 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           datetime.now() > ApiDocs.next_doc_version_check):
       self.reload_latest_version()
     return ApiDocs.latest_doc_version
+
+  def get_latest_release_version(self):
+    forced_reload = self.request.get('force_reload')
+    if (forced_reload or
+          ApiDocs.latest_release_doc_version is None or
+          ApiDocs.next_doc_version_check is None or
+          datetime.now() > ApiDocs.next_doc_version_check):
+      self.reload_latest_release_version()
+    return ApiDocs.latest_release_doc_version
 
   def get_cache_age(self, path):
     if re.search(r'(png|jpg)$', path):
@@ -51,8 +68,10 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       version = self.get_latest_version()
       path = self.request.path.replace('/docs/bleeding_edge',
           '/gs/dartlang-api-docs/' + str(version))
-    else:
-      path = self.request.path.replace('/docs', '/gs/dartlang-api-docs')
+    elif self.request.path.startswith('/docs/releases/latest'):
+      version = self.get_latest_release_version()
+      path = self.request.path.replace('/docs/releases/latest',
+          '/gs/dartlang-api-docs/' + str(version))
     if path.endswith('/'):
       path = path + 'index.html'
     return path
@@ -106,9 +125,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
   if re.search(r'^(core|coreimpl|crypto|io|isolate|json|uri|html|math|utf|web)', path):
-    return '/docs/bleeding_edge/dart_' + path
+    return '/docs/releases/latest/dart_' + path
   else:
-    return '/docs/bleeding_edge/' + path
+    return '/docs/releases/latest/' + path
 
 def redir_dom(handler, *args, **kwargs):
   return '/docs/bleeding_edge/dart_html' + kwargs['path']
