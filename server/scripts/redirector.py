@@ -39,8 +39,10 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           version is None or
           ApiDocs.next_doc_version_check is None or
           datetime.now() > ApiDocs.next_doc_version_check):
-      version = self.reload_latest_version(version_file_location)
-    return version
+      new_version = self.reload_latest_version(version_file_location)
+      return new_version
+    else:
+      return version
 
   def get_cache_age(self, path):
     if re.search(r'(png|jpg)$', path):
@@ -58,12 +60,15 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   def resolve_doc_path(self):
     if self.request.path.startswith('/docs/bleeding_edge'):
       version_num = self.get_latest_version(ApiDocs.latest_doc_version, LATEST_CONTINUOUS_VERSION_FILE)
+      ApiDocs.latest_doc_version = version_num
       path = self.build_path('/docs/bleeding_edge', version_num)
     elif self.request.path.startswith('/docs/releases/latest'):
       version_num = self.get_latest_version(ApiDocs.latest_release_doc_version, LATEST_RELEASE_VERSION_FILE)
+      ApiDocs.latest_release_doc_version = version_num
       path = self.build_path('/docs/releases/latest', version_num)
     elif self.request.path.startswith('/docs/trunk/latest'):
       version_num = self.get_latest_version(ApiDocs.latest_trunk_doc_version, LATEST_TRUNK_VERSION_FILE)
+      ApiDocs.latest_trunk_doc_version = version_num
       path = self.build_path('/docs/trunk/latest', version_num)
 
     if path.endswith('/'):
