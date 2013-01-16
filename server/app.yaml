@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: changeme
+version: integration-docs
 
 runtime: python27
 api_version: 1
