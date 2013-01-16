@@ -1,21 +1,7 @@
 <!DOCTYPE html>
 <html><body>
   <element name="x-doc-link" extends="span">
-    <template>
-      <template instantiate="if ref.refId != 'void'">
-        <a href="{{permalink(ref)}}">
-          <template instantiate="if short">
-            {{ref.name}}
-          </template>
-          <template instantiate="if !short">
-            {{ref.shortDescription}}
-          </template>
-        </a>
-      </template>
-      <template instantiate="if ref.refId == 'void'">
-        {{ref.name}}
-      </template>
-    </template>
+    <template><template instantiate="if ref.refId != 'void'"><a href="{{permalink(ref)}}"><template instantiate="if short">{{ref.shortName}}</template><template instantiate="if !short">{{ref.shortDescription}}</template></a></template><template instantiate="if ref.refId == 'void'">{{ref.name}}</template></template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';

@@ -11,6 +11,7 @@ library ast;
 import 'dart:json';
 import 'package:web_ui/safe_html.dart';
 import 'markdown.dart' as md;
+import 'library_loader.dart' as library_loader;
 
 /**
  * Top level data model for the app.
@@ -21,16 +22,21 @@ import 'markdown.dart' as md;
 Map<String, LibraryElement> libraries = <LibraryElement>{};
 
 /**
+ * Package being actively viewed.
+ */
+PackageManifest package;
+
+/**
  * Children of a library are shown in the UI grouped by type sorted in the order
  * specified by this list.
  */
-List<String> LIBRARY_ITEMS = ['variable', 'property', 'method', 'class',
+List<String> LIBRARY_ITEMS = ['property', 'method', 'class',
                               'exception', 'typedef'];
 /**
  * Children of a class are shown in the UI grouped by type sorted in the order
  * specified by this list.
  */
-List<String> CLASS_ITEMS = ['constructor', 'variable', 'property', 'method',
+List<String> CLASS_ITEMS = ['constructor', 'property', 'method',
                             'operator'];
 // TODO(jacobr): add package kinds?
 
@@ -39,8 +45,7 @@ List<String> CLASS_ITEMS = ['constructor', 'variable', 'property', 'method',
  * Pretty names for the various kinds displayed.
  */
 final KIND_TITLES = {
-    'property': 'Properties',
-    'variable': 'Variables',
+    'property': 'Variables and Properties',
     'method': 'Functions',
     'constructor': 'Constructors',
     'class': 'Classes',
@@ -48,6 +53,41 @@ final KIND_TITLES = {
     'typedef': 'Typedefs',
     'exception': 'Exceptions'
 };
+
+/**
+ * Description of a package and all packages it references.
+ */
+class PackageManifest {
+  /** Package name. */
+  final name;
+  /** Package description */
+  final description;
+  /** Libraries contained in this package. */
+  final List<String> libraries;
+  /** Descriptive string describing the version# of the package. */
+  final String fullVersion;
+  /** Source control revision # of the package. */
+  final String revision;
+  /** Path to the directory containing data files for each library. */
+  final String location;
+  /**
+   * Packages depended on by this package.
+   * We currently store the entire manifest for the depency here as it is
+   * sufficiently small.  We may want to change this to a reference in the
+   * future.
+   */
+  final List<PackageManifest> dependencies;
+
+  PackageManifest(Map json) :
+    name = json['name'],
+    description = json['description'],
+    libraries = json['libraries'],
+    fullVersion = json['fullVersion'],
+    revision = json['revision'],
+    location = json['location'],
+    dependencies = json['dependencies'].map(
+        (json) => new PackageManifest(json));
+}
 
 /**
  * Reference to an [Element].
@@ -68,19 +108,35 @@ class Reference {
    */
   String get shortDescription {
     if (arguments.isEmpty) {
-      return name;
+      return shortName;
     } else {
       var params = Strings.join(
           arguments.map((param) => param.shortDescription), ', ');
       return '$name<$params>';
     }
   }
+
+  // TODO(jacobr): should this be different from name?
+  /** Short version of the element's name. */
+  String get shortName => name;
 }
 
 void loadLibraryJson(String json) {
-  for (var libraryJson in JSON.parse(json)) {
-    var library = new LibraryElement(libraryJson, null);
-    libraries[library.id] = library;
+  // Invalidate all caches associated with existing libraries as the world
+  // of loaded libraries has changed.
+  for (var library in libraries.values) {
+    library.invalidate();
+  }
+  var library = new LibraryElement(JSON.parse(json), null);
+  libraries[library.id] = library;
+}
+
+void loadPackageJson(String json) {
+  package = new PackageManifest(JSON.parse(json));
+  // Start loading all of the JSON associated with the package in the
+  // background.
+  for (var library in package.libraries) {
+    library_loader.queue(library);
   }
 }
 
@@ -98,7 +154,14 @@ LibraryElement lookupLibrary(String libraryId) {
  */
 Element lookupReferenceId(String referenceId) {
   var parts = referenceId.split(new RegExp('/'));
-  Element current = lookupLibrary(parts.first);
+  var libraryName = parts.first;
+  Element current = lookupLibrary(libraryName);
+  if (current == null) {
+    library_loader.load(libraryName);
+    // TODO(jacobr): return a Reference instead for the case where the library
+    // is not loaded yet.
+    return null;
+  }
   for (var i = 1; i < parts.length && current != null; i++) {
     var id = parts[i];
     var next = null;
@@ -129,6 +192,15 @@ SafeHtml _markdownToSafeHtml(String text) {
   // https://github.com/dart-lang/web-ui/issues/212
   return new SafeHtml.unsafe(text != null && !text.isEmpty ?
         '<span>${md.markdownToHtml(text)}</span>' : '<span><span>');
+}
+
+// TODO(jacobr): remove this method when templates handle [SafeHTML] containing
+// multiple top level nodes correct.
+SafeHtml _markdownToSafeHtmlSnippet(String text) {
+  // We currently have to insert an extra span for now because of
+  // https://github.com/dart-lang/web-ui/issues/212
+  return new SafeHtml.unsafe(text != null && !text.isEmpty ?
+        '<span>${md.markdownToHtmlSnippet(text)}</span>' : '<span><span>');
 }
 
 /**
@@ -162,6 +234,7 @@ class Element implements Comparable {
   final String _line;
   String _refId;
   SafeHtml _commentHtml;
+  SafeHtml _commentHtmlSnippet;
   List<Element> _references;
   List<Element> _typeParameters;
 
@@ -175,6 +248,17 @@ class Element implements Comparable {
     _line = json['line'],
     loading = false {
     children = _jsonDeserializeArray(json['children'], this);
+  }
+
+  /**
+   * Subclasses must remove all cached data that could be stale due to loading
+   * additional libraries.
+   */
+  void invalidate() {
+    _references = null;
+    for (var child in children) {
+      child.invalidate();
+    }
   }
 
   /**
@@ -201,6 +285,9 @@ class Element implements Comparable {
    * Uri containing the source code for the definition of the element.
    */
   String get uri => _uri != null ? _uri : (parent != null ? parent.uri : null);
+
+  /*** Possibly shortened human readable name for an element. */
+  String get shortName => name;
 
   /**
    * Line in the original source file that begins the definition of the element.
@@ -239,14 +326,13 @@ class Element implements Comparable {
 
   /** Path from the root of the tree to this [Element]. */
   List<Element> get path {
-    /*
     if (parent == null) {
       return <Element>[this];
     } else {
       return parent.path..add(this);
-    }*/
+    }
     // TODO(jacobr): replace this code with:
-    return (parent == null) ? <Element>[this] : parent.path..add(this);
+    // return (parent == null) ? <Element>[this] : (parent.path..add(this));
     // once http://code.google.com/p/dart/issues/detail?id=7665 is fixed.
   }
 
@@ -259,13 +345,25 @@ class Element implements Comparable {
 
   /**
    * [SafeHtml] for the comment associated with this [Element] generated from
-   * the markdow comment associated with the element.
+   * the markdown comment associated with the element.
    */
   SafeHtml get commentHtml {
     if (_commentHtml == null) {
       _commentHtml = _markdownToSafeHtml(comment);
     }
     return _commentHtml;
+  }
+
+  /**
+   * [SafeHtml] for the first line or so of comment associated with this
+   * [Element] generated from the first block of content in the markdown
+   * associated with the element.
+   */
+  SafeHtml get commentHtmlSnippet {
+    if (_commentHtmlSnippet == null) {
+      _commentHtmlSnippet = _markdownToSafeHtmlSnippet(comment);
+    }
+    return _commentHtmlSnippet;
   }
 
   /**
@@ -297,22 +395,33 @@ class Element implements Comparable {
    * Uses the kind types that make sense for the UI rather than the AST
    * kinds.  For example, setters are considered properties instead of methods.
    */
-  List<ElementBlock> _createElementBlocks(List<String> desiredKinds) {
+  List<ElementBlock> _createElementBlocks(List<String> desiredKinds,
+      bool showPrivate, showInherited) {
     var blockMap = new Map<String, List<Element>>();
-    for (var child in children) {
-      if (desiredKinds.contains(child.uiKind)) {
-        blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
-      }
-    }
-
+    _createElementBlocksHelper(desiredKinds, showPrivate, showInherited,
+        blockMap);
     var blocks = <ElementBlock>[];
     for (var kind in desiredKinds) {
       var elements = blockMap[kind];
       if (elements != null) {
         blocks.add(new ElementBlock(kind, elements..sort()));
       }
+      // TODO(jacobr): remove dupes.
     }
     return blocks;
+  }
+
+  void _createElementBlocksHelper(List<String> desiredKinds,
+      bool showPrivate, showInherited, var blockMap) {
+    for (var child in children) {
+      // TODO(jacobr): don't hard code $dom_
+      if (showPrivate == false &&
+          (child.isPrivate || child.name.startsWith("\$dom_"))) continue;
+
+      if (desiredKinds.contains(child.uiKind)) {
+        blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
+      }
+    }
   }
 
   List<Element> _filterByKind(String kind) =>
@@ -349,7 +458,6 @@ class Element implements Comparable {
 class LibraryElement extends Element {
   Map<String, ClassElement> _classes;
   List<ClassElement> _sortedClasses;
-  List<ElementBlock> _childBlocks;
 
   LibraryElement(json, Element parent) : super(json, parent);
 
@@ -376,12 +484,8 @@ class LibraryElement extends Element {
    * Returns all blocks of elements that should be rendered by UI summarizing
    * the Library.
    */
-  List<ElementBlock> get childBlocks {
-    if (_childBlocks == null) {
-      _childBlocks = _createElementBlocks(LIBRARY_ITEMS);
-    }
-    return _childBlocks;
-  }
+  List<ElementBlock> childBlocks(bool showPrivate, bool showInherited) =>
+      _createElementBlocks(CLASS_ITEMS, showPrivate, showInherited);
 }
 
 /**
@@ -391,6 +495,8 @@ class ClassElement extends Element {
 
   /** Members of the class grouped into logical blocks. */
   List<ElementBlock> _childBlocks;
+  /** Children sorted in the same order as [_childBlocks]. */
+  List<Element> _sortedChildren;
 
   /** Interfaces the class implements. */
   final List<Reference> interfaces;
@@ -410,6 +516,13 @@ class ClassElement extends Element {
       superclass = jsonDeserializeReference(json['superclass']),
       isAbstract = json['isAbstract'] == true;
 
+  void invalidate() {
+    _superclasses = null;
+    _subclasses = null;
+    super.invalidate();
+  }
+
+
   /** Returns all superclasses of this class. */
   List<ClassElement> get superclasses {
     if (_superclasses == null) {
@@ -417,8 +530,10 @@ class ClassElement extends Element {
       addSuperclasses(clazz) {
         if (clazz.superclass != null) {
           var superclassElement = lookupReferenceId(clazz.superclass.refId);
-          addSuperclasses(superclassElement);
-          _superclasses.add(superclassElement);
+          if (superclassElement != null) {
+            addSuperclasses(superclassElement);
+            _superclasses.add(superclassElement);
+          }
         }
       }
       addSuperclasses(this);
@@ -461,9 +576,15 @@ class ClassElement extends Element {
    * Returns blocks of elements clustered by kind ordered in the desired
    * order for describing a class definition.
    */
-  List<ElementBlock> get childBlocks {
-    if (_childBlocks == null) _childBlocks = _createElementBlocks(CLASS_ITEMS);
-    return _childBlocks;
+  List<ElementBlock> childBlocks(bool showPrivate, bool showInherited) =>
+      _createElementBlocks(CLASS_ITEMS, showPrivate, showInherited);
+
+  List<Element> sortedChildren(bool showPrivate, bool showInherited) {
+    var ret = <Element>[];
+    for (var block in childBlocks(showPrivate, showInherited)) {
+      ret.addAll(block.elements);
+    }
+    return ret;
   }
 }
 
@@ -511,6 +632,14 @@ abstract class MethodLikeElement extends Element {
 
   String get uiKind => isSetter ? 'property' : kind;
 
+  String get shortName {
+    if (isSetter) {
+      return name.substring(0, name.length - 1);
+    } else {
+      return name;
+    }
+  }
+
   /**
    * Returns a plain text short description of the method suitable for rendering
    * in a tree control or other case where a short method description is
@@ -518,7 +647,7 @@ abstract class MethodLikeElement extends Element {
    */
   String get shortDescription {
     if (isSetter) {
-      var sb = new StringBuffer('${name.substring(0, name.length - 1)}');
+      var sb = new StringBuffer(shortName);
       if (!parameters.isEmpty && parameters.first != null
           && parameters.first.type != null) {
         sb..add(' ')..add(parameters.first.type.name);
@@ -526,7 +655,7 @@ abstract class MethodLikeElement extends Element {
       return sb.toString();
     }
     return '$name(${Strings.join(parameters.map(
-        (arg) => arg.type != null ? arg.type.name : ''), ', ')})';
+        (arg) => arg.type != null ? arg.type.shortDescription : 'var'), ', ')})';
   }
 
   Reference get returnType;
@@ -624,6 +753,13 @@ class VariableElement extends MethodLikeElement {
 
   String get shortDescription => name;
 
+  /**
+   * Group variables and properties together in the UI as they are
+   * interchangeable as far as users are concerned.
+   */
+  String get uiKind => 'property';
+
+
   VariableElement(Map json, Element parent) : super(json, parent),
     returnType = jsonDeserializeReference(json['ref']),
     isFinal = json['isFinal'];
@@ -651,6 +787,15 @@ class ElementBlock {
   ElementBlock(this.kind, this.elements);
 
   String get kindTitle => KIND_TITLES[kind];
+
+  bool operator ==(ElementBlock other) {
+    if (kind != other.kind) return false;
+    if (elements.length != other.elements.length) return false;
+    for (int i = 0; i < elements.length; i++) {
+      if (elements[i] != other.elements[i]) return false;
+    }
+    return true;
+  }
 }
 
 Reference jsonDeserializeReference(Map json) {

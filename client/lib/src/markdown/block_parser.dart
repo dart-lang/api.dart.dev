@@ -116,7 +116,7 @@ abstract class BlockSyntax {
     return pattern.firstMatch(parser.current) != null;
   }
 
-  Node parse(BlockParser parser);
+  MarkdownNode parse(BlockParser parser);
 
   List<String> parseChildLines(BlockParser parser) {
     // Grab all of the lines that form the blockquote, stripping off the ">".
@@ -142,7 +142,7 @@ abstract class BlockSyntax {
 class EmptyBlockSyntax extends BlockSyntax {
   RegExp get pattern => _RE_EMPTY;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     parser.advance();
 
     // Don't actually emit anything.
@@ -158,7 +158,7 @@ class SetextHeaderSyntax extends BlockSyntax {
     return parser.matchesNext(_RE_SETEXT);
   }
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final match = _RE_SETEXT.firstMatch(parser.next);
 
     final tag = (match[1][0] == '=') ? 'h1' : 'h2';
@@ -166,7 +166,7 @@ class SetextHeaderSyntax extends BlockSyntax {
     parser.advance();
     parser.advance();
 
-    return new Element(tag, contents);
+    return new MarkdownElement(tag, contents);
   }
 }
 
@@ -174,12 +174,12 @@ class SetextHeaderSyntax extends BlockSyntax {
 class HeaderSyntax extends BlockSyntax {
   RegExp get pattern => _RE_HEADER;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final match = pattern.firstMatch(parser.current);
     parser.advance();
     final level = match[1].length;
     final contents = parser.document.parseInline(match[2].trim());
-    return new Element('h$level', contents);
+    return new MarkdownElement('h$level', contents);
   }
 }
 
@@ -187,13 +187,13 @@ class HeaderSyntax extends BlockSyntax {
 class BlockquoteSyntax extends BlockSyntax {
   RegExp get pattern => _RE_BLOCKQUOTE;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final childLines = parseChildLines(parser);
 
     // Recursively parse the contents of the blockquote.
     final children = parser.document.parseLines(childLines);
 
-    return new Element('blockquote', children);
+    return new MarkdownElement('blockquote', children);
   }
 }
 
@@ -201,7 +201,7 @@ class BlockquoteSyntax extends BlockSyntax {
 class CodeBlockSyntax extends BlockSyntax {
   RegExp get pattern => _RE_INDENT;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final childLines = parseChildLines(parser);
 
     // The Markdown tests expect a trailing newline.
@@ -210,7 +210,7 @@ class CodeBlockSyntax extends BlockSyntax {
     // Escape the code.
     final escaped = escapeHtml(Strings.join(childLines, '\n'));
 
-    return new Element('pre', [new Element.text('code', escaped)]);
+    return new MarkdownElement('pre', [new MarkdownElement.text('code', escaped)]);
   }
 }
 
@@ -218,10 +218,10 @@ class CodeBlockSyntax extends BlockSyntax {
 class HorizontalRuleSyntax extends BlockSyntax {
   RegExp get pattern => _RE_HR;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final match = pattern.firstMatch(parser.current);
     parser.advance();
-    return new Element.empty('hr');
+    return new MarkdownElement.empty('hr');
   }
 }
 
@@ -240,7 +240,7 @@ class BlockHtmlSyntax extends BlockSyntax {
 
   bool get canEndBlock => false;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final childLines = [];
 
     // Eat until we hit a blank line.
@@ -249,7 +249,7 @@ class BlockHtmlSyntax extends BlockSyntax {
       parser.advance();
     }
 
-    return new Text(Strings.join(childLines, '\n'));
+    return new MarkdownText(Strings.join(childLines, '\n'));
   }
 }
 
@@ -266,7 +266,7 @@ abstract class ListSyntax extends BlockSyntax {
 
   String get listTag;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final items = <ListItem>[];
     var childLines = <String>[];
 
@@ -365,7 +365,7 @@ abstract class ListSyntax extends BlockSyntax {
     }
 
     // Convert the list items to Nodes.
-    final itemNodes = <Node>[];
+    final itemNodes = <MarkdownNode>[];
     for (final item in items) {
       bool blockItem = item.forceBlock || (item.lines.length > 1);
 
@@ -392,15 +392,15 @@ abstract class ListSyntax extends BlockSyntax {
       if (blockItem) {
         // Block list item.
         final children = parser.document.parseLines(item.lines);
-        itemNodes.add(new Element('li', children));
+        itemNodes.add(new MarkdownElement('li', children));
       } else {
         // Raw list item.
         final contents = parser.document.parseInline(item.lines[0]);
-        itemNodes.add(new Element('li', contents));
+        itemNodes.add(new MarkdownElement('li', contents));
       }
     }
 
-    return new Element(listTag, itemNodes);
+    return new MarkdownElement(listTag, itemNodes);
   }
 }
 
@@ -422,7 +422,7 @@ class ParagraphSyntax extends BlockSyntax {
 
   bool canParse(BlockParser parser) => true;
 
-  Node parse(BlockParser parser) {
+  MarkdownNode parse(BlockParser parser) {
     final childLines = [];
 
     // Eat until we hit something that ends a paragraph.
@@ -433,6 +433,6 @@ class ParagraphSyntax extends BlockSyntax {
 
     final contents = parser.document.parseInline(
         Strings.join(childLines, '\n'));
-    return new Element('p', contents);
+    return new MarkdownElement('p', contents);
   }
 }

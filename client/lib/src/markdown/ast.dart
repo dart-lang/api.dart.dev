@@ -4,31 +4,34 @@
 
 part of markdown;
 
+// TODO(jacobr): remove the Markdown prefixes from these class names once
+// http://code.google.com/p/dart/issues/detail?id=7704 is fixed.
+
 /// Base class for any AST item. Roughly corresponds to Node in the DOM. Will
-/// be either an Element or Text.
-abstract class Node {
+/// be either an [MarkdownElement] or [MarkdownText].
+abstract class MarkdownNode {
   void accept(NodeVisitor visitor);
 }
 
 /// A named tag that can contain other nodes.
-class Element implements Node {
+class MarkdownElement implements MarkdownNode {
   final String tag;
-  final List<Node> children;
+  final List<MarkdownNode> children;
   final Map<String, String> attributes;
 
-  Element(this.tag, this.children)
+  MarkdownElement(this.tag, this.children)
     : attributes = <String, String>{};
 
-  Element.empty(this.tag)
+  MarkdownElement.empty(this.tag)
     : children = null,
       attributes = <String, String>{};
 
-  Element.withTag(this.tag)
+  MarkdownElement.withTag(this.tag)
     : children = [],
       attributes = <String, String>{};
 
-  Element.text(this.tag, String text)
-    : children = [new Text(text)],
+  MarkdownElement.text(this.tag, String text)
+    : children = [new MarkdownText(text)],
       attributes = <String, String>{};
 
   bool get isEmpty => children == null;
@@ -42,9 +45,9 @@ class Element implements Node {
 }
 
 /// A plain text element.
-class Text implements Node {
+class MarkdownText implements MarkdownNode {
   final String text;
-  Text(this.text);
+  MarkdownText(this.text);
 
   void accept(NodeVisitor visitor) => visitor.visitText(this);
 }
@@ -53,13 +56,13 @@ class Text implements Node {
 /// implement this.
 abstract class NodeVisitor {
   /// Called when a Text node has been reached.
-  void visitText(Text text);
+  void visitText(MarkdownText text);
 
   /// Called when an Element has been reached, before its children have been
   /// visited. Return `false` to skip its children.
-  bool visitElementBefore(Element element);
+  bool visitElementBefore(MarkdownElement element);
 
   /// Called when an Element has been reached, after its children have been
   /// visited. Will not be called if [visitElementBefore] returns `false`.
-  void visitElementAfter(Element element);
+  void visitElementAfter(MarkdownElement element);
 }

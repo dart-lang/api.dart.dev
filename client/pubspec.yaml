@@ -5,7 +5,9 @@ description: Dart API documentation browser
 version: 0.0.1
 dependencies:
   unittest: any
+  browser: any
   args: any
   logging: any
   web_ui: any
   js: any
+  widget: any

@@ -75,7 +75,7 @@ class InlineParser {
   InlineParser(this.source, this.document)
     : _stack = <TagState>[];
 
-  List<Node> parse() {
+  List<MarkdownNode> parse() {
     // Make a fake top tag to hold the results.
     _stack.add(new TagState(0, 0, null));
 
@@ -120,16 +120,16 @@ class InlineParser {
       final nodes = _stack.last.children;
 
       // If the previous node is text too, just append.
-      if ((nodes.length > 0) && (nodes.last is Text)) {
-        final newNode = new Text('${nodes.last.text}$text');
+      if ((nodes.length > 0) && (nodes.last is MarkdownText)) {
+        final newNode = new MarkdownText('${nodes.last.text}$text');
         nodes[nodes.length - 1] = newNode;
       } else {
-        nodes.add(new Text(text));
+        nodes.add(new MarkdownText(text));
       }
     }
   }
 
-  addNode(Node node) {
+  addNode(MarkdownNode node) {
     _stack.last.children.add(node);
   }
 
@@ -188,7 +188,7 @@ class TextSyntax extends InlineSyntax {
     }
 
     // Insert the substitution.
-    parser.addNode(new Text(substitute));
+    parser.addNode(new MarkdownText(substitute));
     return true;
   }
 }
@@ -202,7 +202,7 @@ class AutolinkSyntax extends InlineSyntax {
   bool onMatch(InlineParser parser, Match match) {
     final url = match[1];
 
-    final anchor = new Element.text('a', escapeHtml(url));
+    final anchor = new MarkdownElement.text('a', escapeHtml(url));
     anchor.attributes['href'] = url;
     parser.addNode(anchor);
 
@@ -229,7 +229,7 @@ class TagSyntax extends InlineSyntax {
   }
 
   bool onMatchEnd(InlineParser parser, Match match, TagState state) {
-    parser.addNode(new Element(tag, state.children));
+    parser.addNode(new MarkdownElement(tag, state.children));
     return true;
   }
 }
@@ -271,9 +271,9 @@ class LinkSyntax extends TagSyntax {
       // Only allow implicit links if the content is just text.
       // TODO(rnystrom): Do we want to relax this?
       if (state.children.length != 1) return false;
-      if (state.children[0] is! Text) return false;
+      if (state.children[0] is! MarkdownText) return false;
 
-      Text link = state.children[0];
+      MarkdownText link = state.children[0];
 
       // See if we have a resolver that will generate a link for us.
       final node = _implicitLinkResolver(link.text);
@@ -312,7 +312,7 @@ class LinkSyntax extends TagSyntax {
       title = link.title;
     }
 
-    final anchor = new Element('a', state.children);
+    final anchor = new MarkdownElement('a', state.children);
     anchor.attributes['href'] = escapeHtml(url);
     if ((title != null) && (title != '')) {
       anchor.attributes['title'] = escapeHtml(title);
@@ -329,7 +329,7 @@ class CodeSyntax extends InlineSyntax {
     : super(pattern);
 
   bool onMatch(InlineParser parser, Match match) {
-    parser.addNode(new Element.text('code', escapeHtml(match[1])));
+    parser.addNode(new MarkdownElement.text('code', escapeHtml(match[1])));
     return true;
   }
 }
@@ -347,10 +347,10 @@ class TagState {
   final TagSyntax syntax;
 
   /// The children of this node. Will be `null` for text nodes.
-  final List<Node> children;
+  final List<MarkdownNode> children;
 
   TagState(this.startPos, this.endPos, this.syntax)
-    : children = <Node>[];
+    : children = <MarkdownNode>[];
 
   /// Attempts to close this tag by matching the current text against its end
   /// pattern.
@@ -368,7 +368,7 @@ class TagState {
   /// Pops this tag off the stack, completes it, and adds it to the output.
   /// Will discard any unmatched tags that happen to be above it on the stack.
   /// If this is the last node in the stack, returns its children.
-  List<Node> close(InlineParser parser, Match endMatch) {
+  List<MarkdownNode> close(InlineParser parser, Match endMatch) {
     // If there are unclosed tags on top of this one when it's closed, that
     // means they are mismatched. Mismatched tags are treated as plain text in
     // markdown. So for each tag above this one, we write its start tag as text
