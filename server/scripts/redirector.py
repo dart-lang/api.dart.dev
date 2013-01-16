@@ -11,8 +11,9 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import files, memcache
 
-LATEST_DOC_VERSION_FILE = '/gs/dartlang-api-docs/latest.txt'
-LATEST_RELEASE_DOC_VERSION_FILE = '/gs/dart-editor-archive-trunk/latest/VERSION'
+LATEST_CONTINUOUS_VERSION_FILE = '/gs/dart-editor-archive-continuous/latest/VERSION'
+LATEST_RELEASE_VERSION_FILE = '/gs/dart-editor-archive-integration/latest/VERSION'
+LATEST_TRUNK_VERSION_FILE = '/gs/dart-editor-archive-trunk/latest/VERSION'
 ONE_HOUR = 60 * 60
 ONE_DAY = ONE_HOUR * 24
 ONE_WEEK = ONE_DAY * 7
@@ -21,38 +22,25 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
   latest_doc_version = None
   latest_release_doc_version = None
+  latest_trunk_doc_version = None
   next_doc_version_check = None
 
-  def reload_latest_version(self):
-    with files.open(LATEST_DOC_VERSION_FILE, 'r') as f:
-      data = f.read(100)
-      ApiDocs.latest_doc_version = int(data.strip())
-      ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
-
-  def reload_latest_release_version(self):
-    with files.open(LATEST_RELEASE_DOC_VERSION_FILE, 'r') as f:
+  def reload_latest_version(self, version_file_location):
+    data = None
+    with files.open(version_file_location, 'r') as f:
       data = json.loads(f.read(1024))
-      ApiDocs.latest_release_doc_version = int(data['revision'])
       ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
+    return int(data['revision'])
 
   # TODO: put into memcache?
-  def get_latest_version(self):
+  def get_latest_version(self, version, version_file_location):
     forced_reload = self.request.get('force_reload')
     if (forced_reload or
-          ApiDocs.latest_doc_version is None or
+          version is None or
           ApiDocs.next_doc_version_check is None or
           datetime.now() > ApiDocs.next_doc_version_check):
-      self.reload_latest_version()
-    return ApiDocs.latest_doc_version
-
-  def get_latest_release_version(self):
-    forced_reload = self.request.get('force_reload')
-    if (forced_reload or
-          ApiDocs.latest_release_doc_version is None or
-          ApiDocs.next_doc_version_check is None or
-          datetime.now() > ApiDocs.next_doc_version_check):
-      self.reload_latest_release_version()
-    return ApiDocs.latest_release_doc_version
+      version = self.reload_latest_version(version_file_location)
+    return version
 
   def get_cache_age(self, path):
     if re.search(r'(png|jpg)$', path):
@@ -63,15 +51,21 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       age = ONE_HOUR
     return age
 
+  def build_path(self, prefix, version_num):
+    return self.request.path.replace(prefix,
+          '/gs/dartlang-api-docs/' + str(version_num))
+
   def resolve_doc_path(self):
     if self.request.path.startswith('/docs/bleeding_edge'):
-      version = self.get_latest_version()
-      path = self.request.path.replace('/docs/bleeding_edge',
-          '/gs/dartlang-api-docs/' + str(version))
+      version_num = self.get_latest_version(ApiDocs.latest_doc_version, LATEST_CONTINUOUS_VERSION_FILE)
+      path = self.build_path('/docs/bleeding_edge', version_num)
     elif self.request.path.startswith('/docs/releases/latest'):
-      version = self.get_latest_release_version()
-      path = self.request.path.replace('/docs/releases/latest',
-          '/gs/dartlang-api-docs/' + str(version))
+      version_num = self.get_latest_version(ApiDocs.latest_release_doc_version, LATEST_RELEASE_VERSION_FILE)
+      path = self.build_path('/docs/releases/latest', version_num)
+    elif self.request.path.startswith('/docs/trunk/latest'):
+      version_num = self.get_latest_version(ApiDocs.latest_trunk_doc_version, LATEST_TRUNK_VERSION_FILE)
+      path = self.build_path('/docs/trunk/latest', version_num)
+
     if path.endswith('/'):
       path = path + 'index.html'
     return path
@@ -135,16 +129,10 @@ def redir_dom(handler, *args, **kwargs):
 def redir_continuous(handler, *args, **kwargs):
   return '/docs/bleeding_edge' + kwargs['path']
 
-class CurrentVersionHandler(RequestHandler):
-  def get(self, version):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write(ApiDocs.latest_doc_version)
-
 application = WSGIApplication(
   [
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
-    Route('/currentversion/<version:.*>', CurrentVersionHandler),
     ('/docs.*', ApiDocs),
     Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
   ],
