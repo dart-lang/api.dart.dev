@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="components" href="doc_link.html">
+    <link rel="components" href="details.html">
   </head>
 
   <body>
@@ -9,7 +10,7 @@
     <template>
       <template iterate='block in blocks'>
         <div>
-          <h3>{{block.kindTitle}}</h3>
+          <h3 class="member-block-title">{{block.kindTitle}}</h3>
           <template iterate='element in block.elements'>
             <x-element-summary element="{{element}}"></x-element-summary>
           </template>
@@ -35,23 +36,7 @@
         </template>
       </span>
       <span class="element-definition">
-        <span class="element-name">
-          <x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link>
-        </span>
-        <template instantiate="if hasArguments">
-          <span class="args">(
-            <template iterate="param in element.parameters">
-              <span class="arg">
-                <template instantiate="if param.type != null">
-                  <span class="arg-type">
-                    <x-doc-link ref="{{param.type}}"></x-doc-link>
-                  </span>
-                </template>
-                <span class="arg-name">{{param.name}}</span>
-              </span>
-            </template>)
-          </span>
-        </template>
+        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><span class="args">(<template iterate="param in element.parameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link> </span></template><span class="arg-name">{{param.name}}</span></span></template>)</span></template>
       </span>
     </template>
     <script type="application/dart">
@@ -76,11 +61,10 @@
   <element name="x-element-summary" extends="div">
     <template>
       <!--TODO(jacobr): use id instead of data-id and use a different escaping scheme-->
-      <details class="element-details {{kindClass}} {{memberOrTypeClass}}"
+      <x-details class="element-details {{kindClass}} {{memberOrTypeClass}}"
           data-id="{{element.id}}"
           open="{{isOpen}}">
          <summary>
-          <div class="overflow-shadow"></div>
           <template instantiate="if element is! ClassElement">
             <x-element-signature element="{{element}}">
             </x-element-signature>
@@ -90,13 +74,12 @@
                 ref="{{element}}">
             </x-doc-link>
           </template>
-          <div class="documentation">{{element.commentHtml}}</div>
         </summary>
-        <details class="extended-element-info">
-          <summary>View ?? comments.</summary>
-          TODO(jacobr): implement.
-        </details>
-      </details>
+        <x-summary-only>
+          <p class="member-details-summary">{{element.commentHtmlSnippet}}</p>
+        </x-summary-only>
+        <div class="documentation">{{element.commentHtml}}</div>
+      </x-details>
     </template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';

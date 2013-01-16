@@ -66,7 +66,7 @@
                 <template instantiate="if currentType == clazz">
                   <span>{{clazz.shortDescription}}</span>
                   <ul class="tree-list">
-                    <template iterate="member in clazz.children">
+                    <template iterate="member in clazz.sortedChildren(showPrivate, showInherited)">
                       <li class="{{kindCssClass(member)}}" data-id="{{member.id}}">
                         <a href="{{permalink(member)}}">{{member.shortDescription}}</a>
                       </li>
@@ -92,6 +92,16 @@
           </ul>
         </template>
 
+        <template instantiate="if currentLibrary != null">
+          <div class="filters">
+            <span>Show: </span>
+            <input id="show_private" bind-checked="showPrivate" type="checkbox">
+            <label for="show_private">Private</label>
+            <input id="show_inherited" bind-checked="showInherited" type="checkbox">
+            <label for="show_inherited">Inherited</label>
+          </div>
+        </template>
+
         <template instantiate="if currentLibrary != null && currentType == null">
           <div>
             <div><h2><strong>{{currentLibrary.shortDescription}}</strong> library</h2></div>
@@ -102,7 +112,7 @@
                    <div>{{currentLibrary.commentHtml}}</div>
                 </template>
 
-                <x-member-blocks blocks="{{currentLibrary.childBlocks}}">
+                <x-member-blocks blocks="{{currentLibrary.childBlocks(showPrivate, showInherited)}}">
                 </x-member-blocks>
               </div>
             </template>
@@ -165,7 +175,7 @@
             </template>
           </div>
           <template instantiate="if currentType is ClassElement">
-            <x-member-blocks blocks="{{currentType.childBlocks}}">
+            <x-member-blocks blocks="{{currentType.childBlocks(showPrivate, showInherited)}}">
             </x-member-blocks>
           </template>
           <template instantiate="if currentType is TypedefElement">

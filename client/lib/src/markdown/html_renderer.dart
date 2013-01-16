@@ -4,7 +4,7 @@
 
 part of markdown;
 
-String renderToHtml(List<Node> nodes) => new HtmlRenderer().render(nodes);
+String renderToHtml(List<MarkdownNode> nodes) => new HtmlRenderer().render(nodes);
 
 /// Translates a parsed AST to HTML.
 class HtmlRenderer implements NodeVisitor {
@@ -15,7 +15,7 @@ class HtmlRenderer implements NodeVisitor {
 
   HtmlRenderer();
 
-  String render(List<Node> nodes) {
+  String render(List<MarkdownNode> nodes) {
     buffer = new StringBuffer();
 
     for (final node in nodes) node.accept(this);
@@ -23,11 +23,11 @@ class HtmlRenderer implements NodeVisitor {
     return buffer.toString();
   }
 
-  void visitText(Text text) {
+  void visitText(MarkdownText text) {
     buffer.add(text.text);
   }
 
-  bool visitElementBefore(Element element) {
+  bool visitElementBefore(MarkdownElement element) {
     // Hackish. Separate block-level elements with newlines.
     if (!buffer.isEmpty &&
         _BLOCK_TAGS.firstMatch(element.tag) != null) {
@@ -35,7 +35,6 @@ class HtmlRenderer implements NodeVisitor {
     }
 
     buffer.add('<${element.tag}');
-
     // Sort the keys so that we generate stable output.
     // TODO(rnystrom): This assumes keys returns a fresh mutable
     // collection.
@@ -56,7 +55,7 @@ class HtmlRenderer implements NodeVisitor {
     }
   }
 
-  void visitElementAfter(Element element) {
+  void visitElementAfter(MarkdownElement element) {
     buffer.add('</${element.tag}>');
   }
 }

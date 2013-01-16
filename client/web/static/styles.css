@@ -41,6 +41,11 @@ h4 {
   text-transform: uppercase;
 }
 
+.member-block-title {
+  display: inline-block;
+  width: 100%;
+}
+
 .references h4 {
   font: 600 14px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
       sans-serif;
@@ -51,7 +56,7 @@ h4 {
 p {
   font-size: 13px;
   line-height: 18px;
-  margin: 0 0 22px 0;
+  margin: 0 0 6px 0;
 }
 
 h3 + p {
@@ -354,7 +359,7 @@ background-image: url(method_private.png);
   background-image: url(method_public.png), url(getter.png);
 }
 
-.kind-property.setter {
+.kind-method.setter {
   background-image: url(method_public.png), url(setter.png);
 }
 
@@ -385,7 +390,6 @@ background-image: url(method_private.png);
 /** List items displaying a single member */
 li.kind {
   white-space: nowrap;
-  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -590,19 +594,77 @@ pre.source .s.si { background: hsl(40, 80%, 95%); }
 pre.source .i.si { color: hsl(40, 30%, 30%); }
 pre.source .p.si { color: hsl(40, 60%, 40%); }
 
+.element-details.:not(.open-details) x-element-signature {
+  white-space: nowrap;
+}
+
+.element-details:not(.open-details) .element-definition {
+  margin-left: 99px;
+}
+
+.element-details:not(.open-details) .element-class {
+  width: 80px;
+  /**
+   * TODO(jacobr): it is ugly that we have to force this to absolute
+   * positioning and manually position element-details to avoid ugly wrapping.
+   */
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+}
+
 .element-class {
   min-width: 80px;
   margin-left: 15px;
-  display: inline-block;
   text-align: right;
+  white-space: nowrap;
 }
 
 .element-details {
-  height: 50px;
-  overflow: hidden;
   background-position: 12px 5px;
   padding-left: 36px;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.filters {
+    font: 600 12px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
+      sans-serif;
+  color: #999;
+  float: right;
+}
+
+/* TODO(jacobr): move this CSS to details.html */
+
+/* TODO(jacobr): we "should" get display: block for free because x-details
+ * inherits from div. */
+x-details {
+  display: block;
+}
+
+.open-details > * {
+  background-color: #F0F0F0;
+}
+
+.open-details > * {
+  background-color: #F0F0F0;
+}
+
+.expanded-details {
+  display: none;
+  overflow: hidden;
+}
+
+/* End of details.html css. */
+
+.summary-only {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 *:focus
@@ -617,45 +679,21 @@ pre.source .p.si { color: hsl(40, 60%, 40%); }
   left: 0px;
 }
 
-.element-details .element-documentation {
-  opacity: .8;
-}
-
-.element-details[open] .element-documentation {
-  opacity: 1;
-}
-.element-details[open] {
-  background-color: #F0F0F0;
-}
-
-/** TODO(jacobr): use psuedo classes? */
-.element-details .overflow-shadow {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 10px;
-  top: 40px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(rgba(255,255,255, 1)));
-  overflow: hidden;
-  z-index: 3;
-}
-
-.element-details[open] .overflow-shadow {
-  display: none;
-}
-
-.element-details[open] {
-  height: auto;
-  overflow: auto;
-}
-
-.member-details .documentation, .member-details .extended-element-info  {
+.member-details .documentation, .member-details .extended-element-info,
+.member-details-summary {
   margin-left: 99px;
 }
 
-.element-definition {
+.member-details-summary * {
+  display: inline;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.element-definition, .member-details-summary {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .element-class, .element-definition {

@@ -10,9 +10,15 @@ import 'package:web_ui/watcher.dart' as watchers;
 import 'package:web_ui/safe_html.dart';
 import 'markdown.dart' as md;
 import 'ast.dart';
+import 'library_loader.dart' as library_loader;
 
 // TODO(jacobr): specify the version # in the JSON file.
 String svnRevisionNumber = "15605";
+
+/** Whether to show private members. */
+bool showPrivate = true;
+/** Whether to show inherited members. */
+bool showInherited = true;
 
 /**
  * Reference id of [currentElement].
@@ -106,6 +112,7 @@ void scrollIntoView() {
 void _onDataModelChanged() {
   _recomputeActiveState();
   scrollIntoView();
+  watchers.dispatch();
 }
 
 /**
@@ -150,12 +157,18 @@ String toUserVisibleKind(Element element) {
 }
 
 /**
+ * Generate a permalink referencing a specific element.
  * [obj] shoudl be a [Reference] or [Element].
  */
 String permalink(var obj) {
   var data = {'id': obj.refId};
-  // TODO(jacobr): evaluate whether the persistent UI state will stay just a
-  // single reference ID in which case this is overkill.
+  if (showPrivate) {
+    data['showPrivate'] = showPrivate;
+  }
+
+  if (showInherited) {
+    data['showInherited'] = showInherited;
+  }
   return "#!${JSON.stringify(data)}";
 }
 
@@ -171,6 +184,18 @@ void loadStateFromUrl() {
       // TODO(jacobr): redirect to default page or better yet attempt to fixup.
     }
   }
+
+  if (data.containsKey('showPrivate')) {
+    showPrivate = data['showPrivate'];
+  } else {
+    showPrivate = false;
+  }
+  if (data.containsKey('showInherited')) {
+    showInherited = data['showInherited'];
+  } else {
+    showInherited = false;
+  }
+
   _currentReferenceId = data['id'];
   _recomputeActiveState();
   scrollIntoView();
@@ -195,9 +220,16 @@ Future loadModel() {
 
   md.setImplicitLinkResolver(_resolveNameReference);
   var completer = new Completer();
+  library_loader.libraryLoader = (url, callback) {
+    new html.HttpRequest.get(url, (req) {
+      callback(req.responseText);
+    });
+  };
+  library_loader.onDataModelChanged = _onDataModelChanged;
+
   // TODO(jacobr): shouldn't have to get this from the parent directory.
-  new html.HttpRequest.get('../static/apidoc.json', (req) {
-    loadLibraryJson(req.responseText);
+  new html.HttpRequest.get('../static/data/apidoc.json', (req) {
+    loadPackageJson(req.responseText);
     _onDataModelChanged();
     completer.complete(true);
   });
@@ -212,12 +244,12 @@ Future loadModel() {
  * brackets. It will try to figure out what the name refers to and link or
  * style it appropriately.
  */
-md.Node _resolveNameReference(String name) {
+md.MarkdownNode _resolveNameReference(String name) {
   // TODO(jacobr): this isn't right yet and we have made this code quite ugly
   // by using the verbose universal permalink member even though library is
   // always currentLibrary.
   makeLink(String href) {
-    return new md.Element.text('a', name)
+    return new md.MarkdownElement.text('a', name)
       ..attributes['href'] = href
       ..attributes['class'] = 'crossref';
   }
@@ -227,7 +259,7 @@ md.Node _resolveNameReference(String name) {
     var parameters = currentMember.children;
     for (final parameter in parameters) {
       if (parameter.name == name) {
-        final element = new md.Element.text('span', name);
+        final element = new md.MarkdownElement.text('span', name);
         element.attributes['class'] = 'param';
         return element;
       }
@@ -296,5 +328,5 @@ md.Node _resolveNameReference(String name) {
   //   store this in the AST.
   // * Type parameters of the enclosing type.
 
-  return new md.Element.text('code', name);
+  return new md.MarkdownElement.text('code', name);
 }

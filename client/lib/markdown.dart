@@ -21,6 +21,18 @@ String markdownToHtml(String markdown) {
   return renderToHtml(blocks);
 }
 
+String markdownToHtmlSnippet(String markdown) {
+  final document = new Document();
+
+  final lines = markdown.split('\n');
+  document.parseRefLinks(lines);
+  var blocks = document.parseLines(lines);
+  if (blocks.length > 1) {
+    blocks = [blocks.first, new MarkdownElement.text("span", "...")];
+  }
+  return renderToHtml(blocks);
+}
+
 /// Replaces `<`, `&`, and `>`, with their HTML entity equivalents.
 String escapeHtml(String html) {
   return html.replaceAll('&', '&amp;')
@@ -30,7 +42,7 @@ String escapeHtml(String html) {
 
 var _implicitLinkResolver;
 
-Node setImplicitLinkResolver(Node resolver(String text)) {
+MarkdownNode setImplicitLinkResolver(MarkdownNode resolver(String text)) {
   _implicitLinkResolver = resolver;
 }
 
@@ -83,7 +95,7 @@ class Document {
   }
 
   /// Parse the given [lines] of markdown to a series of AST nodes.
-  List<Node> parseLines(List<String> lines) {
+  List<MarkdownNode> parseLines(List<String> lines) {
     final parser = new BlockParser(lines, this);
 
     final blocks = [];
@@ -104,7 +116,7 @@ class Document {
   /// returning a list of AST nodes. For example, given ``"*this **is** a*
   /// `markdown`"``, returns:
   /// `<em>this <strong>is</strong> a</em> <code>markdown</code>`.
-  List<Node> parseInline(String text) => new InlineParser(text, this).parse();
+  List<MarkdownNode> parseInline(String text) => new InlineParser(text, this).parse();
 }
 
 class Link {
