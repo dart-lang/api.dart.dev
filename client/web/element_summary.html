@@ -36,7 +36,7 @@
         </template>
       </span>
       <span class="element-definition">
-        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><span class="args">(<template iterate="param in element.parameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link> </span></template><span class="arg-name">{{param.name}}</span></span></template>)</span></template>
+        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><span class="args">(<template iterate="param in element.parameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link>&nbsp;</span></template><span class="arg-name">{{param.name}}</span></span></template>)</span></template>
       </span>
     </template>
     <script type="application/dart">
@@ -63,20 +63,21 @@
       <!--TODO(jacobr): use id instead of data-id and use a different escaping scheme-->
       <x-details class="element-details {{kindClass}} {{memberOrTypeClass}}"
           data-id="{{element.id}}"
-          open="{{isOpen}}">
+          open="{{isOpen}}"
+          title="{{element.longDescription}}">
          <summary>
           <template instantiate="if element is! ClassElement">
             <x-element-signature element="{{element}}">
             </x-element-signature>
           </template>
           <template instantiate="if element is ClassElement">
-            <x-doc-link class="element-name element-definition"
+            <x-doc-link class="class-element-definition element-name"
                 ref="{{element}}">
             </x-doc-link>
           </template>
         </summary>
         <x-summary-only>
-          <p class="member-details-summary">{{element.commentHtmlSnippet}}</p>
+          <div class="member-details-summary documentation">{{element.commentHtmlSnippet}}</div>
         </x-summary-only>
         <div class="documentation">{{element.commentHtml}}</div>
       </x-details>

@@ -8,7 +8,7 @@
  */
 library ast;
 
-import 'dart:json';
+import 'dart:json' as json;
 import 'package:web_ui/safe_html.dart';
 import 'markdown.dart' as md;
 import 'library_loader.dart' as library_loader;
@@ -19,7 +19,7 @@ import 'library_loader.dart' as library_loader;
  * loaded libraries. All code must be written to work properly if more libraries
  * are loaded incrementally.
  */
-Map<String, LibraryElement> libraries = <LibraryElement>{};
+final libraries = <String, LibraryElement>{};
 
 /**
  * Package being actively viewed.
@@ -30,13 +30,13 @@ PackageManifest package;
  * Children of a library are shown in the UI grouped by type sorted in the order
  * specified by this list.
  */
-List<String> LIBRARY_ITEMS = ['property', 'method', 'class',
+final LIBRARY_ITEMS = <String>['property', 'method', 'class',
                               'exception', 'typedef'];
 /**
  * Children of a class are shown in the UI grouped by type sorted in the order
  * specified by this list.
  */
-List<String> CLASS_ITEMS = ['constructor', 'property', 'method',
+final CLASS_ITEMS = <String>['constructor', 'property', 'method',
                             'operator'];
 // TODO(jacobr): add package kinds?
 
@@ -44,7 +44,7 @@ List<String> CLASS_ITEMS = ['constructor', 'property', 'method',
 /**
  * Pretty names for the various kinds displayed.
  */
-final KIND_TITLES = {
+final KIND_TITLES = <String, String>{
     'property': 'Variables and Properties',
     'method': 'Functions',
     'constructor': 'Constructors',
@@ -85,8 +85,8 @@ class PackageManifest {
     fullVersion = json['fullVersion'],
     revision = json['revision'],
     location = json['location'],
-    dependencies = json['dependencies'].map(
-        (json) => new PackageManifest(json));
+    dependencies = json['dependencies'].mappedBy(
+        (json) => new PackageManifest(json)).toList();
 }
 
 /**
@@ -111,7 +111,7 @@ class Reference {
       return shortName;
     } else {
       var params = Strings.join(
-          arguments.map((param) => param.shortDescription), ', ');
+          arguments.mappedBy((param) => param.shortDescription), ', ');
       return '$name<$params>';
     }
   }
@@ -121,22 +121,24 @@ class Reference {
   String get shortName => name;
 }
 
-void loadLibraryJson(String json) {
+void loadLibraryJson(String data) {
   // Invalidate all caches associated with existing libraries as the world
   // of loaded libraries has changed.
   for (var library in libraries.values) {
     library.invalidate();
   }
-  var library = new LibraryElement(JSON.parse(json), null);
+  var library = new LibraryElement(json.parse(data), null);
   libraries[library.id] = library;
 }
 
-void loadPackageJson(String json) {
-  package = new PackageManifest(JSON.parse(json));
-  // Start loading all of the JSON associated with the package in the
-  // background.
-  for (var library in package.libraries) {
-    library_loader.queue(library);
+void loadPackageJson(String data) {
+  if (!data.isEmpty) {
+    package = new PackageManifest(json.parse(data));
+    // Start loading all of the JSON associated with the package in the
+    // background.
+    for (var library in package.libraries) {
+      library_loader.queue(library);
+    }
   }
 }
 
@@ -179,7 +181,7 @@ Element lookupReferenceId(String referenceId) {
 /**
  * Invoke [callback] on every [Element] in the ast.
  */
-_traverseWorld(void callback(Element)) {
+_traverseWorld(bool callback(Element)) {
   for (var library in libraries.values) {
     library.traverse(callback);
   }
@@ -274,10 +276,10 @@ class Element implements Comparable {
   String get kindDescription => uiKind;
 
   /** Invoke [callback] on this [Element] and all descendants. */
-  void traverse(void callback(Element)) {
-    callback(this);
+  void traverse(bool callback(Element)) {
+    if (!callback(this)) return;
     for (var child in children) {
-      callback(child);
+      child.traverse(callback);
     }
   }
 
@@ -309,16 +311,21 @@ class Element implements Comparable {
    * Whether this [Element] references the specified [referenceId].
    */
   bool hasReference(String referenceId) =>
-    children.some((child) => child.hasReference(referenceId));
+    children.any((child) => child.hasReference(referenceId));
 
   /** Returns all [Element]s that reference this [Element]. */
   List<Element> get references {
     if (_references == null) {
       _references = <Element>[];
       _traverseWorld((element) {
+        if (element == this) {
+          // We aren't interested in self references.
+          return false;
+        }
         if (element.hasReference(refId)) {
           _references.add(element);
         }
+        return true;
       });
     }
     return _references;
@@ -335,6 +342,8 @@ class Element implements Comparable {
     // return (parent == null) ? <Element>[this] : (parent.path..add(this));
     // once http://code.google.com/p/dart/issues/detail?id=7665 is fixed.
   }
+
+  LibraryElement get library => path.first;
 
   List<Element> get typeParameters {
     if (_typeParameters == null) {
@@ -367,7 +376,7 @@ class Element implements Comparable {
   }
 
   /**
-   * Short description appropriate for displaying in a tree control or other
+   * Short description appropriate for display in a tree control or other
    * situtation where a short description is required.
    */
   String get shortDescription {
@@ -375,11 +384,17 @@ class Element implements Comparable {
       return name;
     } else {
       var params = Strings.join(
-          typeParameters.map((param) => param.shortDescription),
+          typeParameters.mappedBy((param) => param.shortDescription).toList(),
           ', ');
       return '$name<$params>';
     }
   }
+
+  /**
+   * Long description appropriate for display in a tooltip or other situation
+   * where a long description is expected.
+   */
+  String get longDescription => shortDescription;
 
   /**
    * Ui specific representation of the node kind.
@@ -416,7 +431,8 @@ class Element implements Comparable {
     for (var child in children) {
       // TODO(jacobr): don't hard code $dom_
       if (showPrivate == false &&
-          (child.isPrivate || child.name.startsWith("\$dom_"))) continue;
+          (child.isPrivate || child.name.startsWith("\$dom_"))) { continue;
+      }
 
       if (desiredKinds.contains(child.uiKind)) {
         blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
@@ -425,7 +441,7 @@ class Element implements Comparable {
   }
 
   List<Element> _filterByKind(String kind) =>
-      children.filter((child) => child.kind == kind);
+      children.where((child) => child.kind == kind).toList();
 
   Map<String, Element> _mapForKind(String kind) {
     Map ret = {};
@@ -485,7 +501,7 @@ class LibraryElement extends Element {
    * the Library.
    */
   List<ElementBlock> childBlocks(bool showPrivate, bool showInherited) =>
-      _createElementBlocks(CLASS_ITEMS, showPrivate, showInherited);
+      _createElementBlocks(LIBRARY_ITEMS, showPrivate, showInherited);
 }
 
 /**
@@ -625,6 +641,10 @@ abstract class MethodLikeElement extends Element {
       isStatic = json['isStatic'] == true,
       isSetter = json['isSetter'] == true;
 
+  void traverse(void callback(Element)) {
+    callback(this);
+  }
+
   bool hasReference(String referenceId) {
     if (super.hasReference(referenceId)) return true;
     return returnType != null && returnType.refId == referenceId;
@@ -654,17 +674,41 @@ abstract class MethodLikeElement extends Element {
       }
       return sb.toString();
     }
-    return '$name(${Strings.join(parameters.map(
-        (arg) => arg.type != null ? arg.type.shortDescription : 'var'), ', ')})';
+    return '$name(${Strings.join(parameters.mappedBy(
+        (arg) => arg.shortDescription), ', ')})';
+  }
+
+  String get longDescription {
+    var sb = new StringBuffer();
+    if (isSetter) {
+      sb.add("set $shortName(");
+      if (!parameters.isEmpty && parameters.first != null) {
+        if (parameters.first.type != null) {
+          sb..add(parameters.first.longDescription)..add(' ');
+        }
+        sb.add(parameters.first.name);
+      }
+      sb.add(")");
+    } else {
+      if (returnType != null) {
+        sb..add(returnType.shortDescription)..add(" ");
+      }
+      if (isOperator) {
+        sb.add("operator ");
+      }
+      sb.add('$name(${Strings.join(parameters.mappedBy(
+          (arg) => arg.longDescription).toList(), ', ')})');
+    }
+    return sb.toString();
   }
 
   Reference get returnType;
-  List<Element> _parameters;
+  List<ParameterElement> _parameters;
 
   /**
    * Returns a list of the parameters of the Method.
    */
-  List<Element> get parameters {
+  List<ParameterElement> get parameters {
     if (_parameters == null) {
       _parameters = _filterByKind('param');
     }
@@ -692,6 +736,14 @@ class ParameterElement extends Element {
   bool hasReference(String referenceId) {
     if (super.hasReference(referenceId)) return true;
     return type != null && type.refId == referenceId;
+  }
+
+  String get shortDescription {
+    return type == null ? 'var' : type.shortDescription;
+  }
+
+  String get longDescription {
+    return type == null ? name : '${type.shortDescription} $name';
   }
 }
 
@@ -728,7 +780,10 @@ class MethodElement extends MethodLikeElement {
   final Reference returnType;
 
   MethodElement(Map json, Element parent) : super(json, parent),
-      returnType = jsonDeserializeReference(json['returnType']);
+      // TODO(jacobr): remove the returnType check once the json output is
+      // updated.
+      returnType =  json['isSetter'] != true ?
+          jsonDeserializeReference(json['returnType']) : null;
 }
 
 /**
@@ -741,6 +796,19 @@ class PropertyElement extends MethodLikeElement {
 
   PropertyElement(Map json, Element parent) : super(json, parent),
     returnType = jsonDeserializeReference(json['ref']);
+
+  String get longDescription {
+    var sb = new StringBuffer();
+    if (returnType != null) {
+      sb..add(returnType.shortDescription)..add(" ");
+    }
+    sb.add("get $name");
+    return sb.toString();
+  }
+
+  void traverse(void callback(Element)) {
+    callback(this);
+  }
 }
 
 /**
@@ -753,16 +821,28 @@ class VariableElement extends MethodLikeElement {
 
   String get shortDescription => name;
 
+  String get longDescription {
+    var sb = new StringBuffer();
+    if (returnType != null) {
+      sb..add(returnType.shortDescription)..add(" ");
+    }
+    sb.add(name);
+    return sb.toString();
+  }
+
   /**
    * Group variables and properties together in the UI as they are
    * interchangeable as far as users are concerned.
    */
   String get uiKind => 'property';
 
-
   VariableElement(Map json, Element parent) : super(json, parent),
     returnType = jsonDeserializeReference(json['ref']),
     isFinal = json['isFinal'];
+
+  void traverse(void callback(Element)) {
+    callback(this);
+  }
 }
 
 /**
@@ -772,6 +852,10 @@ class ConstructorElement extends MethodLikeElement {
   ConstructorElement(json, Element parent) : super(json, parent);
 
   Reference get returnType => null;
+
+  void traverse(void callback(Element)) {
+    callback(this);
+  }
 }
 
 /**

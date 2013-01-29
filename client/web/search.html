@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="components" href="doc_link.html">
+  </head>
+
+  <body>
+  <element name="x-search" extends="span">
+    <template>
+      <div id="search-box">
+        <input type="search" name="q" id="q" autocomplete="off"
+            class="search-input" placeholder="Search API"
+            autofocus="autofocus" bind-value="searchQuery">
+      </div>
+      <template if="!searchQuery.isEmpty && isFocused">
+        <div class="search-results drop-down" tabindex="0">
+          <template if="results.isEmpty && !inProgress">
+            <h3>No results</h3>
+          </template>
+          <ul>
+            <template iterate="result in results">
+              <li class="{{kindCssClass(result.element)}} search-result" tabindex="10"
+                  data-ref-id="{{result.element.refId}}">
+                <x-long-doc-link ref="{{result.element}}">
+                </x-long-doc-link>
+                <template if="result.element is !LibraryElement">
+                  -
+                  <x-doc-link ref="{{result.element.library}}" short="{{true}}">
+                  </x-doc-link>
+                </template>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </template>
+    </template>
+    <script type="application/dart" src="search.dart">
+    </script>
+  </element>
+</body></html>

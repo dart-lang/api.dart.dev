@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><body>
+  <element name="x-details" extends="div">
+    <template>
+      <div on-click="handleClick($event)">
+        <div class="details-icon"></div>
+        <content select="summary"></content>
+      </div>
+      <div>
+        <div class="summary-only"><content select="x-summary-only"></content></div>
+        <div class="expanded-details"><content></content></div>
+      </div>
+    </template>
+    <script type="application/dart" src="details.dart">
+    </script>
+  </element>
+  <element name="x-summary-only" extends="div">
+    <template>
+      <content></content>
+    </template>
+    <script type="application/dart">
+      import 'package:web_ui/web_ui.dart';
+
+      class SummaryOnly extends WebComponent {
+      }
+    </script>
+  </element>
+</body></html>
