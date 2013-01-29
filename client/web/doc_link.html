@@ -15,4 +15,23 @@
       }
     </script>
   </element>
+  <element name="x-long-doc-link" extends="span">
+    <template><a href="{{permalink(ref)}}"><template instantiate="if ref.parent is ClassElement">{{ref.parent.name}}.</template>{{ref.shortDescription}}</a></template>
+    <script type="application/dart">
+      import 'package:web_ui/web_ui.dart';
+      import 'package:api_doc/ast.dart';
+      import 'package:api_doc/model.dart';
+
+      /**
+       * Document link that displays the context where a method was found.
+       *
+       * For example, for class members, a [LongDocLink] includes the name
+       * of the class the member is from.
+       */
+      class LongDocLink extends WebComponent {
+        Element ref;
+      }
+    </script>
+  </element>
+
 </body></html>

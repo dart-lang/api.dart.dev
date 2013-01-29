@@ -9,8 +9,10 @@
     <link rel="shortcut icon" href="static/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="static/apidoc-styles.css" />
+    <link rel="components" href="details.html">
     <link rel="components" href="doc_link.html">
     <link rel="components" href="element_summary.html">
+    <link rel="components" href="search.html">
 
     <!-- Initialize Google Analytics. -->
     <script type="text/javascript">
@@ -33,26 +35,22 @@
     <template instantiate="if currentElement == null || !currentElement.loading">
     <div class="page">
       <div class="header">
-        <a href="http://dartlang.org" ref="external"><div class="logo"></div></a>
-        <a href="#!">Dart API Reference</a>
+        <span class="header-location">
+          <a href="http://dartlang.org" ref="external"><div class="logo"></div></a>
+          <a href="#!">Dart API Reference</a>
 
-        <template instantiate="if currentLibrary != null">
-          <span>&gt; </span>
-        <x-doc-link ref="{{currentLibrary}}"></x-doc-link>
-        </template>
+          <template instantiate="if currentLibrary != null">
+            <span>&gt; </span>
+          <x-doc-link ref="{{currentLibrary}}"></x-doc-link>
+          </template>
 
-        <template instantiate="if currentType != null">
-          <span>&gt; </span>
-          <x-doc-link ref="{{currentType}}"></x-doc-link>
-        </template>
+          <template instantiate="if currentType != null">
+            <span>&gt; </span>
+            <x-doc-link ref="{{currentType}}"></x-doc-link>
+          </template>
+        </span>
 
-        <form action="http://www.dartlang.org/search.html" id="search-box">
-          <input type="hidden" name="cx" value="011220921317074318178:i4mscbaxtru">
-          <input type="hidden" name="ie" value="UTF-8">
-          <input type="hidden" name="hl" value="en">
-          <input type="search" name="q" id="q" autocomplete="off"
-              class="search-input" placeholder="Search API. TODO(jacobr): implement">
-        </form>
+        <x-search></x-search>
       </div>
 
       <div class="nav">
@@ -149,31 +147,53 @@
               <div>{{currentType.commentHtml}}</div>
             </template>
           </div>
-          <div>
+          <div class="subclasses-and-references">
             <template instantiate="if currentType is ClassElement && !currentType.subclasses.isEmpty">
-              <h3>Subclasses</h3>
-              <div class="subclasses">
-              <template iterate='clazz in currentType.subclasses'>
-                <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
-              </template>
-              </div>
+              <x-details class="subclasses-block">
+                <summary>
+                  <h3>Subclasses</h3>
+                </summary>
+                <x-summary-only>
+                  <span class="subclasses">
+                    <!-- TODO(jacobr): only add the first few subclasses -->
+                    <template iterate='clazz in currentType.subclasses'>
+                      <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
+                    </template>
+                  </span>
+                </x-summary-only>
+                <div class="subclasses">
+                  <template iterate='clazz in currentType.subclasses'>
+                    <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
+                  </template>
+                </div>
+              </x-details>
             </template>
-          </div>
-          <div>
             <template instantiate="if !currentType.references.isEmpty">
-              <h3>References</h3>
-              <div class="references">
-              <template iterate='clazz in currentType.references'>
-                <template if="clazz is LibraryElement">
-                  <h4><x-doc-link ref="{{clazz}}"></x-doc-link></h4>
-                </template>
-                <template if="clazz is! LibraryElement">
-                  <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
-                </template>
-              </template>
-              </div>
+              <x-details class="references-block">
+                <summary>
+                  <h3>References</h3>
+                </summary>
+                <x-summary-only>
+                  <span class="references">
+                  <template iterate='clazz in currentType.references'>
+                    <span><x-long-doc-link ref="{{clazz}}"></x-long-doc-link> </span>
+                  </template>
+                  </span>
+                </x-summary-only>
+                <div class="references">
+                  <template iterate='clazz in currentType.references'>
+                    <template if="clazz is LibraryElement">
+                      <h4><x-doc-link ref="{{clazz}}"></x-doc-link></h4>
+                    </template>
+                    <template if="clazz is! LibraryElement">
+                      <span><x-long-doc-link ref="{{clazz}}"></x-doc-link> </span>
+                    </template>
+                  </template>
+               </div>
+             </x-details>
             </template>
           </div>
+
           <template instantiate="if currentType is ClassElement">
             <x-member-blocks blocks="{{currentType.childBlocks(showPrivate, showInherited)}}">
             </x-member-blocks>

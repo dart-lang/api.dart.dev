@@ -4,10 +4,12 @@
 
 library apidoc_model;
 
+import 'dart:async';
 import 'dart:html' as html;
-import 'dart:json';
+import 'dart:json' as json;
 import 'package:web_ui/watcher.dart' as watchers;
 import 'package:web_ui/safe_html.dart';
+import 'package:poppy/trie.dart';
 import 'markdown.dart' as md;
 import 'ast.dart';
 import 'library_loader.dart' as library_loader;
@@ -51,6 +53,19 @@ Element currentMember;
  * [currentMember].
  */
 Element currentElement;
+
+/**
+ * Set a different element as the element actively rendered by the UI.
+ */
+void navigateTo(String referenceId) {
+  _currentReferenceId = referenceId;
+  _recomputeActiveState();
+  html.window.history.pushState({},
+      currentElement.name,
+      permalink(currentElement));
+  scrollIntoView();
+  watchers.dispatch();
+}
 
 /**
  * Recomputes the Elements part of the current active state from the data model.
@@ -169,7 +184,7 @@ String permalink(var obj) {
   if (showInherited) {
     data['showInherited'] = showInherited;
   }
-  return "#!${JSON.stringify(data)}";
+  return "#!${json.stringify(data)}";
 }
 
 void loadStateFromUrl() {
@@ -178,7 +193,7 @@ void loadStateFromUrl() {
   if (link.length > 2) {
     try {
       // strip #! and parse json.
-      data = JSON.parse(link.substring(2));
+      data = json.parse(link.substring(2));
     } catch (e) {
       html.window.console.error("Invalid link url");
       // TODO(jacobr): redirect to default page or better yet attempt to fixup.
@@ -329,4 +344,100 @@ md.MarkdownNode _resolveNameReference(String name) {
   // * Type parameters of the enclosing type.
 
   return new md.MarkdownElement.text('code', name);
+}
+
+/**
+ * Search Result matching an node in the AST.
+ */
+class SearchResult implements Comparable {
+  /** [Element] this search result references. */
+  Element element;
+  /** Score of the search result match. Higher is better. */
+  num score;
+
+  /**
+   * Order results with higher scores before lower scores.
+   * */
+  int compareTo(SearchResult other) => other.score.compareTo(score);
+
+  SearchResult(this.element, this.score);
+}
+
+final indexedLibraries = new Set<LibraryElement>();
+final searchIndex = new SimpleTrie<List<Element>>();
+
+void _indexLibrary(LibraryElement library) {
+  library.traverse((Element element) {
+    addEntry(name) {
+      var id = name;
+      var existing = searchIndex[id];
+      if (existing == null ) {
+        searchIndex[id] = <Element>[element];
+      } else {
+        existing.add(element);
+      }
+    }
+    var name = element.name;
+    var nameLowerCase = name.toLowerCase();
+    addEntry(nameLowerCase);
+    // TODO(jacobr): if name has underscores in the middle, word break
+    // differently.
+
+    // Add all suffixes of the name that begin with a capital letter.
+    var initials = new StringBuffer();
+    for (int i = 0; i < name.length; i++) {
+      int code = name.charCodeAt(i);
+      // Upper case character or number.
+      if ((code >= 65 && code <= 90) || (code >= 48 && code <= 57)) {
+        if (i > 0) {
+          addEntry(nameLowerCase.substring(i));
+        }
+        initials.addCharCode(nameLowerCase.charCodeAt(i));
+      }
+    }
+    if (initials.length > 1) {
+      addEntry(initials.toString());
+    }
+    // Only continue traversing for Class and Library elements.
+    return element is ClassElement || element is LibraryElement;
+  });
+}
+
+List<SearchResult> lookupSearchResults(String query, int maxResults) {
+  // TODO(jacobr): use a heap rather than a list.
+  var results = <SearchResult>[];
+  if (query.isEmpty) return results;
+  for (var library in libraries.values) {
+    if (!indexedLibraries.contains(library)) {
+      indexedLibraries.add(library);
+      _indexLibrary(library);
+    }
+  }
+  query = query.toLowerCase();
+  var resultSet = new Set<Element>();
+  for (var elements in searchIndex.getValuesWithPrefix(query)) {
+    for (var element in elements) {
+      if (!resultSet.contains(element)) {
+        // It is possible for the same prefix to match multiple ways.
+        resultSet.add(element);
+        var name = element.name.toLowerCase();
+        // Trivial formula penalizing matches that start later in the string
+        // breaking ties with the length of the name.
+        // TODO(jacobr): this formula is primitive. We should order by popularity
+        // and the number of words into the match instead.
+        // Also prioritize base classes over subclasses when sorting(?)
+        num score = -name.indexOf(query) - element.name.length * 0.001;
+        if (element is LibraryElement) score += 1000;
+        if (element is ClassElement) score += 100;
+        results.add(new SearchResult(element, score));
+      }
+    }
+  }
+  results.sort();
+  // TODO(jacobr): sort and filter down to max results, remove dupes etc.
+  if (results.length > maxResults) {
+    // TODO(jacobr): ugly way to do this.
+    results.removeRange(maxResults, results.length - maxResults);
+  }
+  return results;
 }

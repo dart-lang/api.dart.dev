@@ -136,9 +136,12 @@ hr + h2 {
   background: #333;
   background-image: url('header-bg.png');
   height: 44px;
-  color: hsl(0, 0%, 50%);
   font: 400 15px/44px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
       sans-serif;
+}
+
+.header-location {
+ color: hsl(0, 0%, 50%);
 }
 
 .header .logo {
@@ -148,15 +151,15 @@ hr + h2 {
   float: left;
 }
 
-.header a {
+.header-location a {
   color: hsl(0, 0%, 80%);
 }
 
-.header a:hover {
+.header-location a:hover {
   color: hsl(0, 0%, 100%);
 }
 
-.header #search-box {
+#search-box {
   display: inline;
   float: right;
   margin-right: 11px;
@@ -169,7 +172,6 @@ hr + h2 {
 }
 
 .drop-down {
-  visibility: hidden;
   z-index: 1000;
   position: absolute;
   right: 10px;
@@ -179,6 +181,7 @@ hr + h2 {
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 4px;
 }
 
 .drop-down-table {
@@ -228,7 +231,7 @@ hr + h2 {
   overflow-y: auto;
   overflow-x: hidden;
   width: 263px; /* 12 x 22px - 1 for border */
-  padding: 22px;
+  padding: 24px;
   background: #f4f4f4;
   border-right: solid 1px #ccc;
 }
@@ -396,9 +399,13 @@ li.kind {
 
 /** TODO(jacobr) use this arrow maybe for hierarchy... ↳ */
 
-.subclasses, .references {
+.subclasses-and-references {
+  margin-right: 200px;
+}
+
+.subclasses-block, .references-block {
   font: 500 13px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
-  padding-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .class-summary {
@@ -594,16 +601,35 @@ pre.source .s.si { background: hsl(40, 80%, 95%); }
 pre.source .i.si { color: hsl(40, 30%, 30%); }
 pre.source .p.si { color: hsl(40, 60%, 40%); }
 
-.element-details.:not(.open-details) x-element-signature {
+.element-details:hover {
+  /** XXXX TODO(jacobr): show expand collapse icons. */
+}
+.element-details:not(.open-details) x-element-signature,
+.element-details:not(.open-details) .member-details-summary {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.element-details.open-details x-element-signature {
+  padding-left: 125px;
+  text-indent: -125px;
+}
+
+x-element-signature {
+  display: block;
+}
 .element-details:not(.open-details) .element-definition {
   margin-left: 99px;
 }
 
+.class-element-name {
+  margin-left: 0px;
+}
+
 .element-details:not(.open-details) .element-class {
   width: 80px;
+  display: inline;
   /**
    * TODO(jacobr): it is ugly that we have to force this to absolute
    * positioning and manually position element-details to avoid ugly wrapping.
@@ -616,10 +642,12 @@ pre.source .p.si { color: hsl(40, 60%, 40%); }
 }
 
 .element-class {
+  display: inline-block;
   min-width: 80px;
   margin-left: 15px;
   text-align: right;
   white-space: nowrap;
+  text-indent: 0px;
 }
 
 .element-details {
@@ -646,17 +674,21 @@ x-details {
   display: block;
 }
 
-.open-details > * {
-  background-color: #F0F0F0;
-}
-
-.open-details > * {
+.open-details {
   background-color: #F0F0F0;
 }
 
 .expanded-details {
-  display: none;
+  height: 0px;
   overflow: hidden;
+}
+
+.open-details .expanded-details {
+  height: auto;
+}
+
+.open-details .summary-only {
+  height: 0px;
 }
 
 /* End of details.html css. */
@@ -684,19 +716,33 @@ x-details {
   margin-left: 99px;
 }
 
-.member-details-summary * {
+.member-details-summary {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/** TODO(jacobr): add other tags from the markdown that might be blocks. */
+.member-details-summary {
+  /**
+   * Forcing vertical align to top is critical as otherwise content will
+   * jump a few pixels when switching between expanded and regular views.
+   */
+  vertical-align: top;
+}
+
+.member-details-summary div,
+.member-details-summary p,
+.member-details-summary table {
   display: inline;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
-.element-definition, .member-details-summary {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.documentation {
+  font-size: 13px;
+  line-height: 18px;
+  margin: 0 0 6px 0;
 }
 
-.element-class, .element-definition {
+.element-class, .class-element-definition, .element-definition {
   line-height: 26px;
   font: 500 13px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
       sans-serif;
@@ -721,6 +767,17 @@ x-details {
   content: ', ';
 }
 
+.search-results {
+  color: black;
+}
+
+.search-results ul {
+  padding-left: 0px;
+}
+
+.search-result:focus {
+  background-color: #F0F0F0;
+}
 /* Enable these to debug the grid: */
 
 /*

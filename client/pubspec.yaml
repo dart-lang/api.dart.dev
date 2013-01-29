@@ -10,4 +10,4 @@ dependencies:
   logging: any
   web_ui: any
   js: any
-  widget: any
+  poppy: any
