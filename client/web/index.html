@@ -110,7 +110,8 @@
                    <div>{{currentLibrary.commentHtml}}</div>
                 </template>
 
-                <x-member-blocks blocks="{{currentLibrary.childBlocks(showPrivate, showInherited)}}">
+                <x-member-blocks parent="{{currentLibrary}}"
+                    blocks="{{currentLibrary.childBlocks(showPrivate, showInherited)}}">
                 </x-member-blocks>
               </div>
             </template>
@@ -186,7 +187,7 @@
                       <h4><x-doc-link ref="{{clazz}}"></x-doc-link></h4>
                     </template>
                     <template if="clazz is! LibraryElement">
-                      <span><x-long-doc-link ref="{{clazz}}"></x-doc-link> </span>
+                      <span><x-long-doc-link ref="{{clazz}}"></x-long-doc-link> </span>
                     </template>
                   </template>
                </div>
@@ -195,7 +196,8 @@
           </div>
 
           <template instantiate="if currentType is ClassElement">
-            <x-member-blocks blocks="{{currentType.childBlocks(showPrivate, showInherited)}}">
+            <x-member-blocks parent="{{currentType}}"
+                blocks="{{currentType.childBlocks(showPrivate, showInherited)}}">
             </x-member-blocks>
           </template>
           <template instantiate="if currentType is TypedefElement">

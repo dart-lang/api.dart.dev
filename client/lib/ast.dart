@@ -413,31 +413,50 @@ class Element implements Comparable {
   List<ElementBlock> _createElementBlocks(List<String> desiredKinds,
       bool showPrivate, showInherited) {
     var blockMap = new Map<String, List<Element>>();
-    _createElementBlocksHelper(desiredKinds, showPrivate, showInherited,
-        blockMap);
+    var usedNames = new Map<String, Element>();
+    _createElementBlocksHelper(e) {
+      for (var child in e.children) {
+        // TODO(jacobr): don't hard code $dom_
+        if (showPrivate == false &&
+            (child.isPrivate || child.name.startsWith("\$dom_"))) {
+          continue;
+        }
+
+        // Showing constructors from superclasses doesn't make sense.
+        if (e != this && child is ConstructorElement) {
+          continue;
+        }
+
+        // If we are showing inherited methods, insure we do not include
+        // multiple members with the same names but different types.
+        // TODO(jacobr): show documentation from base class if it is available
+        // while class specific definition isn't.
+        if (showInherited) {
+          if (usedNames.containsKey(child.name) && usedNames[child.name] != e) {
+            continue;
+          }
+          usedNames[child.name] = e;
+        }
+        if (desiredKinds.contains(child.uiKind)) {
+          blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
+        }
+      }
+    }
+    _createElementBlocksHelper(this);
+    if (showInherited && this is ClassElement) {
+      for (var superclass in (this as ClassElement).superclasses.reversed) {
+        _createElementBlocksHelper(superclass);
+      }
+    }
+
     var blocks = <ElementBlock>[];
     for (var kind in desiredKinds) {
       var elements = blockMap[kind];
       if (elements != null) {
         blocks.add(new ElementBlock(kind, elements..sort()));
       }
-      // TODO(jacobr): remove dupes.
     }
     return blocks;
-  }
-
-  void _createElementBlocksHelper(List<String> desiredKinds,
-      bool showPrivate, showInherited, var blockMap) {
-    for (var child in children) {
-      // TODO(jacobr): don't hard code $dom_
-      if (showPrivate == false &&
-          (child.isPrivate || child.name.startsWith("\$dom_"))) { continue;
-      }
-
-      if (desiredKinds.contains(child.uiKind)) {
-        blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
-      }
-    }
   }
 
   List<Element> _filterByKind(String kind) =>
@@ -680,6 +699,9 @@ abstract class MethodLikeElement extends Element {
 
   String get longDescription {
     var sb = new StringBuffer();
+    if (isStatic) {
+      sb.add("static ");
+    }
     if (isSetter) {
       sb.add("set $shortName(");
       if (!parameters.isEmpty && parameters.first != null) {
@@ -865,8 +887,8 @@ class ConstructorElement extends MethodLikeElement {
  * For example, all properties, all functions, or all constructors.
  */
 class ElementBlock {
-  String kind;
-  List<Element> elements;
+  final String kind;
+  final List<Element> elements;
 
   ElementBlock(this.kind, this.elements);
 
