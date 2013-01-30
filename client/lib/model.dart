@@ -138,7 +138,8 @@ String kindCssClass(Element element) {
   String classes = 'kind kind-${_normalizedKind(element)}';
   if (element.isPrivate == true) {
     classes = '$classes private';
-  } else if (element is MethodLikeElement && element.isStatic) {
+  } else if (element is MethodLikeElement &&
+      (element as MethodLikeElement).isStatic) {
     classes = '$classes static';
   }
 
@@ -147,7 +148,7 @@ String kindCssClass(Element element) {
     classes = '$classes getter';
   }
 
-  if (element is MethodLikeElement && element.isSetter) {
+  if (element is MethodLikeElement && (element as MethodLikeElement).isSetter) {
     classes = '$classes setter';
   }
 
@@ -157,7 +158,7 @@ String kindCssClass(Element element) {
 String _normalizedKind(Element element) {
   var kind = element.kind;
   var name = element.name;
-  if (kind == 'method' && element.isOperator) {
+  if (kind == 'method' && (element as MethodLikeElement).isOperator) {
     kind = 'operator';
   }
   // TODO(jacobr): this is horrible but matches what DartDoc does

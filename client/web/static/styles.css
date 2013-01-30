@@ -767,6 +767,13 @@ x-details {
   content: ', ';
 }
 
+.parent-description {
+  font: 600 11px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
+      sans-serif;
+  color: #999;
+  float: right;
+}
+
 .search-results {
   color: black;
 }

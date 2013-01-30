@@ -8,7 +8,7 @@ import 'package:web_ui/watcher.dart' as watchers;
 class Search extends WebComponent {
   /** Search query. */
   String searchQuery = "";
-  List<SearchResult> _results;
+  List<SearchResult> _results = <SearchResult>[];
   String _lastQuery;
   bool isFocused = false;
 
@@ -18,7 +18,6 @@ class Search extends WebComponent {
 
   List<SearchResult> get results {
     if (_lastQuery != searchQuery) {
-      _results = <SearchResult>[];
       if (_pendingSearchHandle != null) {
         window.clearTimeout(_pendingSearchHandle);
       }
