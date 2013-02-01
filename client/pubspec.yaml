@@ -11,3 +11,5 @@ dependencies:
   web_ui: any
   js: any
   poppy: any
+  widget: any
+  routing: any

@@ -159,6 +159,13 @@ hr + h2 {
   color: hsl(0, 0%, 100%);
 }
 
+input[type="search"] {
+-webkit-box-sizing: content-box;
+-moz-box-sizing: content-box;
+box-sizing: content-box;
+-webkit-appearance: textfield;
+}
+
 #search-box {
   display: inline;
   float: right;
@@ -171,11 +178,67 @@ hr + h2 {
   width: 300px;
 }
 
+#search-box .search-input {
+  padding-right: 0px;
+  padding-left: 9px;
+  padding-left: 9px \9;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1;
+  color: white;
+  background-color: #626262;
+  border: 1px solid #151515;
+  -webkit-box-shadow: "inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.15)";
+  -moz-box-shadow: "inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.15)";
+  box-shadow: "inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.15)";
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+#search-box .search-input:-moz-placeholder {
+  color: #cccccc;
+}
+#search-box .search-input::-webkit-input-placeholder {
+  color: #cccccc;
+}
+#search-box .search-input:focus, #search-box .search-input.focused {
+  color: #333333;
+  text-shadow: 0 1px 0 white;
+  background-color: white;
+  border: 0;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+  outline: 0;
+}
+
+#search-box .search-input {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  height: 20px;
+}
+
+.search-input {
+  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+  margin-bottom: 0;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+}
+
 .drop-down {
   z-index: 1000;
   position: absolute;
   right: 10px;
-  top: 36px;
+  top: 40px;
   border: 1px #CCC solid;
   background-color: white;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -304,6 +367,23 @@ ul.icon ul {
   background-position-y: center;
   padding-left: 24px;
   background-size: 16px 16px;
+}
+
+.kind-icon.kind-constructor,
+.kind-icon.kind-property {
+  width: 24px;
+}
+
+.kind-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  padding-left: 0px;
+  vertical-align: middle;
+}
+
+x-kind-icon {
+  display: inline;
 }
 
 .kind-library {
@@ -619,7 +699,8 @@ pre.source .p.si { color: hsl(40, 60%, 40%); }
 x-element-signature {
   display: block;
 }
-.element-details:not(.open-details) .element-definition {
+
+.element-details:not(.open-details) x-kind-icon {
   margin-left: 99px;
 }
 

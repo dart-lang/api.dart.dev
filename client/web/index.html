@@ -13,6 +13,7 @@
     <link rel="components" href="doc_link.html">
     <link rel="components" href="element_summary.html">
     <link rel="components" href="search.html">
+    <link rel="components" href="kind_icon.html">
 
     <!-- Initialize Google Analytics. -->
     <script type="text/javascript">
@@ -152,19 +153,31 @@
             <template instantiate="if currentType is ClassElement && !currentType.subclasses.isEmpty">
               <x-details class="subclasses-block">
                 <summary>
-                  <h3>Subclasses</h3>
+                  <h3>
+                  <template if="!currentType.isAbstract">
+                    Subclasses
+                  </template>
+                  <template if="currentType.isAbstract">
+                    Implementations
+                  </template>
+                  </h3>
                 </summary>
                 <x-summary-only>
                   <span class="subclasses">
-                    <!-- TODO(jacobr): only add the first few subclasses -->
+                    <!-- TODO(jacobr): only add the first few subclasses-->
                     <template iterate='clazz in currentType.subclasses'>
-                      <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
+                      <span>
+                        <x-kind-icon element="{{clazz}}"></x-kind-icon>
+                        <x-doc-link ref="{{clazz}}"></x-doc-link>
+                      </span>
                     </template>
                   </span>
                 </x-summary-only>
                 <div class="subclasses">
                   <template iterate='clazz in currentType.subclasses'>
-                    <span><x-doc-link ref="{{clazz}}"></x-doc-link> </span>
+                    <div>
+                      <x-kind-icon element="{{clazz}}"></x-kind-icon>
+                      <x-doc-link ref="{{clazz}}"></x-doc-link></div>
                   </template>
                 </div>
               </x-details>
@@ -177,17 +190,28 @@
                 <x-summary-only>
                   <span class="references">
                   <template iterate='clazz in currentType.references'>
-                    <span><x-long-doc-link ref="{{clazz}}"></x-long-doc-link> </span>
+                    <template if="clazz is LibraryElement">
+                      <span>
+                        <x-kind-icon element="{{clazz}}"></x-kind-icon>
+                        <x-long-doc-link ref="{{clazz}}"></x-long-doc-link>
+                      </span>
+                    </template>
                   </template>
                   </span>
                 </x-summary-only>
                 <div class="references">
                   <template iterate='clazz in currentType.references'>
                     <template if="clazz is LibraryElement">
-                      <h4><x-doc-link ref="{{clazz}}"></x-doc-link></h4>
+                      <h4>
+                        <x-kind-icon element="{{clazz}}"></x-kind-icon>
+                        <x-doc-link ref="{{clazz}}"></x-doc-link>
+                      </h4>
                     </template>
                     <template if="clazz is! LibraryElement">
-                      <span><x-long-doc-link ref="{{clazz}}"></x-long-doc-link> </span>
+                      <div>
+                        <x-kind-icon element="{{clazz}}"></x-kind-icon>
+                        <x-long-doc-link ref="{{clazz}}"></x-long-doc-link>
+                      </div>
                     </template>
                   </template>
                </div>
@@ -207,9 +231,6 @@
             </x-element-signature>
           </template>
         </template>
-        <template instantiate="if status != null && status.length > 0">
-          <div>{{status}}</div>
-        </template>
       </div>
     </div>
     </template>
@@ -221,16 +242,13 @@ import 'package:api_doc/ast.dart';
 import 'package:api_doc/model.dart';
 import 'package:api_doc/resources.dart';
 
-String status;
-
 main() {
   loadStateFromUrl();
-  status = 'Loading...';
   loadModel().then((_) {
-    status = '';
     watchers.dispatch();
   });
 }
     </script>
+    <script src="packages/browser/dart.js" type="text/javascript"></script>
   </body>
 </html>

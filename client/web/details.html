@@ -6,7 +6,7 @@
         <div class="details-icon"></div>
         <content select="summary"></content>
       </div>
-      <div>
+      <div on-click="handleClick($event)">
         <div class="summary-only"><content select="x-summary-only"></content></div>
         <div class="expanded-details"><content></content></div>
       </div>
@@ -21,6 +21,8 @@
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
 
+      // TODO(jacobr): we shouldn't have to specify a class definition for no-op
+      // components.
       class SummaryOnly extends WebComponent {
       }
     </script>

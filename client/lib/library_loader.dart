@@ -2,7 +2,7 @@ library library_loader;
 
 import 'ast.dart';
 
-int rateLimit = 1;
+int rateLimit = 2;
 Set<String> _requested = new Set<String>();
 Set<String> _pending = new Set<String>();
 Set<String> _loaded = new Set<String>();
