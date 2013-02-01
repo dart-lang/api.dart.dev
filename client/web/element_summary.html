@@ -3,6 +3,7 @@
   <head>
     <link rel="components" href="doc_link.html">
     <link rel="components" href="details.html">
+    <link rel="components" href="kind_icon.html">
   </head>
 
   <body>
@@ -37,6 +38,7 @@
           <x-doc-link ref="{{element.returnType}}"></x-doc-link>
         </template>
       </span>
+      <x-kind-icon element="{{element}}"></x-kind-icon>
       <span class="element-definition">
         <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><span class="args">(<template iterate="param in element.parameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link>&nbsp;</span></template><span class="arg-name">{{param.name}}</span></span></template>)</span></template>
       </span>
@@ -63,10 +65,9 @@
   <element name="x-element-summary" extends="div">
     <template>
       <!--TODO(jacobr): use id instead of data-id and use a different escaping scheme-->
-      <x-details class="element-details {{kindClass}} {{memberOrTypeClass}}"
+      <x-details class="element-details {{memberOrTypeClass}}"
           data-id="{{element.id}}"
-          open="{{isOpen}}"
-          title="{{element.longDescription}}">
+          open="{{isOpen}}">
          <summary>
           <template instantiate="if showParent">
             <div class="parent-description">
@@ -99,7 +100,6 @@
         /** Whether we should display where the element was defined. */
         bool showParent = false;
 
-        String get kindClass => kindCssClass(element);
         String get memberOrTypeClass =>
           (element is MethodLikeElement) ? 'member-details' : 'type-details';
 

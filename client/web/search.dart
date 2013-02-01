@@ -13,6 +13,7 @@ class Search extends WebComponent {
   bool isFocused = false;
 
   int _pendingSearchHandle;
+  bool _pendingSubmit = false;
 
   bool get inProgress => _pendingSearchHandle != null;
 
@@ -26,9 +27,13 @@ class Search extends WebComponent {
         if (_lastQuery != searchQuery) {
           _lastQuery = searchQuery;
           _results = lookupSearchResults(searchQuery, 30);
+          if (_pendingSubmit) {
+            onSubmitCallback();
+            _pendingSubmit = false;
+          }
           watchers.dispatch();
         }
-      }, 200);
+      }, 50);
     }
     return _results;
   }
@@ -53,6 +58,11 @@ class Search extends WebComponent {
   }
 
   void onSubmitCallback() {
+    if (_pendingSearchHandle != null) {
+      _pendingSubmit = true;
+      // Submit will be triggered after a search result is returned.
+      return;
+    }
     if (!results.isEmpty) {
       String refId;
       if (this.contains(document.activeElement)) {

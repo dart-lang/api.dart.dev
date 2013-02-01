@@ -28,7 +28,7 @@ String markdownToHtmlSnippet(String markdown) {
   document.parseRefLinks(lines);
   var blocks = document.parseLines(lines);
   if (blocks.length > 1) {
-    blocks = [blocks.first, new MarkdownElement.text("span", "...")];
+    blocks = [blocks.first, new MarkdownElement.text("span", "…")];
   }
   return renderToHtml(blocks);
 }

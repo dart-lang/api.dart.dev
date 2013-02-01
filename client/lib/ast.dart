@@ -13,6 +13,7 @@ import 'package:web_ui/safe_html.dart';
 import 'markdown.dart' as md;
 import 'library_loader.dart' as library_loader;
 
+final MAX_REFERENCES_TO_TRACK = 100;
 /**
  * Top level data model for the app.
  * Mapping from String ids to [LibraryElement] objects describing all currently
@@ -44,7 +45,7 @@ final CLASS_ITEMS = <String>['constructor', 'property', 'method',
 /**
  * Pretty names for the various kinds displayed.
  */
-final KIND_TITLES = <String, String>{
+final UI_KIND_TITLES = <String, String>{
     'property': 'Variables and Properties',
     'method': 'Functions',
     'constructor': 'Constructors',
@@ -271,6 +272,13 @@ class Element implements Comparable {
   String get uiKind => kind;
 
   /**
+   * Returns a kind name that make sense for grouping like elements in the UI
+   * rather than the AST kinds.  For example, setters are considered properties
+   * instead of methods in the UI but not the AST.
+   */
+  String get uiKindGroup => kind;
+
+  /**
    * Longer possibly multiple word description of the [kind].
    */
   String get kindDescription => uiKind;
@@ -318,10 +326,16 @@ class Element implements Comparable {
     if (_references == null) {
       _references = <Element>[];
       _traverseWorld((element) {
+        if (_references.length >= MAX_REFERENCES_TO_TRACK) {
+          // We have already found enough references.
+          return false;
+        }
+
         if (element == this) {
           // We aren't interested in self references.
           return false;
         }
+
         if (element.hasReference(refId)) {
           _references.add(element);
         }
@@ -481,7 +495,9 @@ class Element implements Comparable {
     if (isPrivate != other.isPrivate) {
       return other.isPrivate ? 1 : -1;
     }
-    return name.compareTo(other.name);
+    // TODO(jacobr): is there a compareNoCase member we can use that I am just
+    // missing?
+    return name.toLowerCase().compareTo(other.name.toLowerCase());
   }
 }
 
@@ -533,8 +549,9 @@ class ClassElement extends Element {
   /** Children sorted in the same order as [_childBlocks]. */
   List<Element> _sortedChildren;
 
-  /** Interfaces the class implements. */
-  final List<Reference> interfaces;
+  /** Interfaces the class directly implements. */
+  final List<Reference> _directInterfaces;
+  List<Reference> _interfaces;
 
   /** Superclass of this class. */
   final Reference superclass;
@@ -547,13 +564,14 @@ class ClassElement extends Element {
 
   ClassElement(Map json, Element parent)
     : super(json, parent),
-      interfaces = _jsonDeserializeReferenceArray(json['interfaces']),
+      _directInterfaces = _jsonDeserializeReferenceArray(json['interfaces']),
       superclass = jsonDeserializeReference(json['superclass']),
       isAbstract = json['isAbstract'] == true;
 
   void invalidate() {
     _superclasses = null;
     _subclasses = null;
+    _interfaces = null;
     super.invalidate();
   }
 
@@ -574,6 +592,17 @@ class ClassElement extends Element {
       addSuperclasses(this);
     }
     return _superclasses;
+  }
+
+  /** Returns all interfaces implemented by this class. */
+  List<Reference> get interfaces {
+    if (_interfaces == null) {
+      _interfaces = _directInterfaces.toList();
+      for (var superClass in superclasses) {
+        _interfaces.addAll(superClass._directInterfaces);
+      }
+    }
+    return _interfaces;
   }
 
   String get kindDescription =>
@@ -685,15 +714,7 @@ abstract class MethodLikeElement extends Element {
    * required.
    */
   String get shortDescription {
-    if (isSetter) {
-      var sb = new StringBuffer(shortName);
-      if (!parameters.isEmpty && parameters.first != null
-          && parameters.first.type != null) {
-        sb..add(' ')..add(parameters.first.type.name);
-      }
-      return sb.toString();
-    }
-    return '$name(${Strings.join(parameters.mappedBy(
+    return '$shortName(${Strings.join(parameters.mappedBy(
         (arg) => arg.shortDescription), ', ')})';
   }
 
@@ -892,7 +913,7 @@ class ElementBlock {
 
   ElementBlock(this.kind, this.elements);
 
-  String get kindTitle => KIND_TITLES[kind];
+  String get kindTitle => UI_KIND_TITLES[kind];
 
   bool operator ==(ElementBlock other) {
     if (kind != other.kind) return false;

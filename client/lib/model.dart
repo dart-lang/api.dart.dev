@@ -169,7 +169,7 @@ String _normalizedKind(Element element) {
 }
 
 String toUserVisibleKind(Element element) {
-  return KIND_TITLES[_normalizedKind(element)];
+  return UI_KIND_TITLES[_normalizedKind(element)];
 }
 
 /**
@@ -399,8 +399,8 @@ void _indexLibrary(LibraryElement library) {
     if (initials.length > 1) {
       addEntry(initials.toString());
     }
-    // Only continue traversing for Class and Library elements.
-    return element is ClassElement || element is LibraryElement;
+    // Only continue traversing for Library elements.
+    return element is LibraryElement;
   });
 }
 
@@ -428,8 +428,9 @@ List<SearchResult> lookupSearchResults(String query, int maxResults) {
         // and the number of words into the match instead.
         // Also prioritize base classes over subclasses when sorting(?)
         num score = -name.indexOf(query) - element.name.length * 0.001;
-        if (element is LibraryElement) score += 1000;
+        if (element is LibraryElement) score += 200;
         if (element is ClassElement) score += 100;
+        if (name == query) score += 1000;
         results.add(new SearchResult(element, score));
       }
     }
