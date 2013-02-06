@@ -10,10 +10,10 @@
   <element name="x-member-blocks" extends="div">
     <template>
       <template iterate='block in blocks'>
-        <div>
+        <div class="{{block.kindCssClass}}">
           <h3 class="member-block-title">{{block.kindTitle}}</h3>
           <template iterate='element in block.elements'>
-            <x-element-summary element="{{element}}" show-parent="{{element.parent != parent}}"></x-element-summary>
+            <x-element-summary element="{{element}}" show-parent="{{element.parent != context}}"></x-element-summary>
           </template>
         </div>
       </template>
@@ -26,21 +26,23 @@
       class MemberBlocks extends WebComponent {
         List<ElementBlock> blocks;
         /** Parent element that we are displaying blocks for. */
-        Element parent;
+        Element context;
       }
     </script>
   </element>
 
   <element name="x-element-signature" extends="span">
     <template>
-      <span class="element-class">
-        <template instantiate="if hasReturnType">
-          <x-doc-link ref="{{element.returnType}}"></x-doc-link>
-        </template>
-      </span>
+      <template instantiate="if element is! ClassElement">
+        <span class="element-class">
+          <template instantiate="if hasReturnType">
+            <x-doc-link ref="{{element.returnType}}"></x-doc-link>
+          </template>
+        </span>
+      </template>
       <x-kind-icon element="{{element}}"></x-kind-icon>
       <span class="element-definition">
-        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><span class="args">(<template iterate="param in element.parameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link>&nbsp;</span></template><span class="arg-name">{{param.name}}</span></span></template>)</span></template>
+        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><span class="args">(<template iterate="param in element.requiredParameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link>&nbsp;</span></template><span class="arg-name">{{param.name}}</span></span></template><template if="!element.optionalParameters.isEmpty">[<template iterate="param in element.optionalParameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link>&nbsp;</span></template><span class="arg-name">{{param.name}}</span></span></template>]</template>)</span></template>
       </span>
     </template>
     <script type="application/dart">
@@ -74,16 +76,9 @@
               Defined by <x-doc-link ref="{{element.parent}}"></x-doc-link>
             </div>
           </template>
-          <template instantiate="if element is! ClassElement">
-            <x-element-signature element="{{element}}">
-            </x-element-signature>
-          </template>
-          <template instantiate="if element is ClassElement">
-            <x-doc-link class="class-element-definition element-name"
-                ref="{{element}}">
-            </x-doc-link>
-          </template>
-        </summary>
+          <x-element-signature element="{{element}}">
+          </x-element-signature>
+      </summary>
         <x-summary-only>
           <div class="member-details-summary documentation">{{element.commentHtmlSnippet}}</div>
         </x-summary-only>

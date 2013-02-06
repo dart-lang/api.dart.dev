@@ -23,6 +23,11 @@ html {
   overflow: hidden;
 }
 
+h1 {
+  font: 400 26px/40px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
+      sans-serif;
+}
+
 h2 {
   font: 400 24px/38px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
       sans-serif;
@@ -370,7 +375,8 @@ ul.icon ul {
 }
 
 .kind-icon.kind-constructor,
-.kind-icon.kind-property {
+.kind-icon.kind-property,
+.kind-icon.static {
   width: 24px;
 }
 
@@ -386,79 +392,79 @@ x-kind-icon {
   display: inline;
 }
 
-.kind-library {
+.kind.kind-library {
   background-image: url(package_obj.gif);
 }
 
-.kind-class {
+.kind.kind-class {
   background-image: url(class_public.png);
 }
 
-.kind-typedef {
+.kind.kind-typedef {
   background-image: url(functiontype_public.png);
 }
 
-.kind-typedef.private {
+.kind.kind-typedef.private {
   background-image: url(functiontype_private.png);
 }
 
-.kind-class.private {
+.kind.kind-class.private {
   background-image: url(class_private.png);
 }
 
-.kind-exception {
+.kind.kind-exception {
   background-image: url(exception.png);
 }
 
-.kind-method, .kind-operator {
+.kind.kind-method, .kind.kind-operator {
   background-image: url(method_public.png);
 }
 
-.kind.getter, .kind.setter, .kind-constructor, .kind.static {
+.kind.kind.getter, .kind.kind.setter, .kind.kind-constructor, .kind.static {
   background-size: 16px 16px, 24px 16px;
 }
 
-.kind-method.static, .kind-operator.static {
+.kind.kind-method.static, .kind.kind-operator.static {
   background-image: url(method_public.png), url(static.png);
 }
 
-.kind-method.private {
+.kind.kind-method.private {
 background-image: url(method_private.png);
 }
 
-.kind-variable {
+.kind.kind-variable {
   background-image: url(field_public.png);
 }
 
-.kind-variable.static {
+.kind.kind-variable.static {
   background-image: url(field_public.png), url(static.png);
 }
 
-.kind-variable.private {
+.kind.kind-variable.private {
   background-image: url(field_private.png);
 }
 
-.kind-property.getter {
+.kind.kind-property.getter {
   background-image: url(method_public.png), url(getter.png);
 }
 
-.kind-method.setter {
+.kind.kind-method.setter {
   background-image: url(method_public.png), url(setter.png);
 }
 
-.kind-property.private {
+.kind.kind-property.private {
   background-image: url(method_private.png);
 }
 
-.kind-constructor {
+.kind.kind-constructor {
   background-image: url(method_public.png), url(constructor.png);
 }
 
-.kind-constructor.private {
+.kind.kind-constructor.private {
   background-image: url(method_private.png), url(constructor.png);
 }
 
-.kind-exception {
+.kind.kind-exception {
   background-image: url(exception.png);
 }
 
@@ -704,6 +710,10 @@ x-element-signature {
   margin-left: 99px;
 }
 
+.kind-class .element-details:not(.open-details) x-kind-icon {
+  margin-left: 0px;
+}
+
 .class-element-name {
   margin-left: 0px;
 }
@@ -733,7 +743,7 @@ x-element-signature {
 
 .element-details {
   background-position: 12px 5px;
-  padding-left: 36px;
+  padding-left: 8px;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -844,7 +854,7 @@ x-details {
   left: -20px;
 }
 
-.arg:not(:first-of-type)::before{
+.arg:not(:last-of-type)::after{
   content: ', ';
 }
 

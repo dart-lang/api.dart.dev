@@ -111,7 +111,7 @@
                    <div>{{currentLibrary.commentHtml}}</div>
                 </template>
 
-                <x-member-blocks parent="{{currentLibrary}}"
+                <x-member-blocks context="{{currentLibrary}}"
                     blocks="{{currentLibrary.childBlocks(showPrivate, showInherited)}}">
                 </x-member-blocks>
               </div>
@@ -220,7 +220,7 @@
           </div>
 
           <template instantiate="if currentType is ClassElement">
-            <x-member-blocks parent="{{currentType}}"
+            <x-member-blocks context="{{currentType}}"
                 blocks="{{currentType.childBlocks(showPrivate, showInherited)}}">
             </x-member-blocks>
           </template>
