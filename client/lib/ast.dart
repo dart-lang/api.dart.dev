@@ -139,6 +139,7 @@ void loadPackageJson(String data) {
     // background.
     for (var library in package.libraries) {
       library_loader.queue(library);
+      libraries[library] = new LibraryElement.stub(library);
     }
   }
 }
@@ -252,6 +253,15 @@ class Element implements Comparable {
     loading = false {
     children = _jsonDeserializeArray(json['children'], this);
   }
+
+  Element.stub(this.rawKind, this.name, this.id) :
+      loading = true,
+      comment = null,
+      isPrivate = false,
+      _uri = null,
+      _line = null,
+      parent = null,
+      children = <Element>[];
 
   /**
    * Subclasses must remove all cached data that could be stale due to loading
@@ -511,6 +521,7 @@ class LibraryElement extends Element {
   List<ClassElement> _sortedClasses;
 
   LibraryElement(json, Element parent) : super(json, parent);
+  LibraryElement.stub(name) : super.stub('library', name, name);
 
   /** Returns all classes defined by the library. */
   Map<String, ClassElement> get classes {
@@ -671,6 +682,10 @@ class TypedefElement extends Element {
     }
     return _parameters;
   }
+
+  List<Element> get requiredParameters => parameters;
+
+  List<Element> get optionalParameters => <Element>[];
 }
 
 /**
@@ -682,6 +697,11 @@ abstract class MethodLikeElement extends Element {
   final bool isOperator;
   final bool isStatic;
   final bool isSetter;
+
+  Reference get returnType;
+  List<ParameterElement> _parameters;
+  List<ParameterElement> _optionalParameters;
+  List<ParameterElement> _requiredParameters;
 
   MethodLikeElement(Map json, Element parent)
     : super(json, parent),
@@ -745,9 +765,6 @@ abstract class MethodLikeElement extends Element {
     return sb.toString();
   }
 
-  Reference get returnType;
-  List<ParameterElement> _parameters;
-
   /**
    * Returns a list of the parameters of the Method.
    */
@@ -756,6 +773,38 @@ abstract class MethodLikeElement extends Element {
       _parameters = _filterByKind('param');
     }
     return _parameters;
+  }
+
+  /**
+   * Returns a list of optional parameters of the Method.
+   */
+  List<ParameterElement> get optionalParameters {
+    if (_optionalParameters == null) {
+      _computeOptionalAndRequiredParameters();
+    }
+    return _optionalParameters;
+  }
+
+  /**
+   * Returns a list of optional parameters of the Method.
+   */
+  List<ParameterElement> get requiredParameters {
+    if (_requiredParameters == null) {
+      _computeOptionalAndRequiredParameters();
+    }
+    return _requiredParameters;
+  }
+
+  void _computeOptionalAndRequiredParameters() {
+    _requiredParameters = <ParameterElement>[];
+    _optionalParameters = <ParameterElement>[];
+    for (var parameter in parameters) {
+      if (parameter.isOptional) {
+        _optionalParameters.add(parameter);
+      } else {
+        _requiredParameters.add(parameter);
+      }
+    }
   }
 
   /// For UI purposes we want to treat operators as their own kind.
@@ -912,7 +961,8 @@ class ElementBlock {
   final List<Element> elements;
 
   ElementBlock(this.kind, this.elements);
-
+  
+  String get kindCssClass => "kind-$kind";
   String get kindTitle => UI_KIND_TITLES[kind];
 
   bool operator ==(ElementBlock other) {
