@@ -237,15 +237,13 @@ Future loadModel() {
   md.setImplicitLinkResolver(_resolveNameReference);
   var completer = new Completer();
   library_loader.libraryLoader = (url, callback) {
-    new html.HttpRequest.get(url, (req) {
-      callback(req.responseText);
-    });
+    html.HttpRequest.getString(url).then(callback);
   };
   library_loader.onDataModelChanged = _onDataModelChanged;
 
   // TODO(jacobr): shouldn't have to get this from the parent directory.
-  new html.HttpRequest.get('../static/data/apidoc.json', (req) {
-    loadPackageJson(req.responseText);
+  html.HttpRequest.getString('../static/data/apidoc.json').then((text) {
+    loadPackageJson(text);
     _onDataModelChanged();
     completer.complete(true);
   });
