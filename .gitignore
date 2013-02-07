@@ -4,3 +4,4 @@ pubspec.lock
 tags
 out
 .DS_Store
+.buildlog

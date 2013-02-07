@@ -8,9 +8,9 @@
  */
 library ast_test;
 
+import 'package:unittest/compact_vm_config.dart';
 import 'package:unittest/unittest.dart';
 import 'package:api_doc/ast.dart';
-import 'compact_vm_config.dart';
 import 'dart:io';
 
 main() {
