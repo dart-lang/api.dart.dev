@@ -84,9 +84,11 @@
           <h3>Libraries</h3>
           <ul class="libraries tree-list">
             <template iterate='library in libraries.values'>
-              <li class="{{kindCssClass(library)}}">
-                <x-doc-link ref="{{library}}"></x-doc-link>
-              </li>
+              <template instantiate="if !library.id.startsWith('package:')">
+                <li class="{{kindCssClass(library)}}">
+                  <x-doc-link ref="{{library}}"></x-doc-link>
+                </li>
+              </template>
             </template>
           </ul>
         </template>
