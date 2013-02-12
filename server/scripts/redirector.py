@@ -134,8 +134,13 @@ def redir_dom(handler, *args, **kwargs):
 def redir_continuous(handler, *args, **kwargs):
   return '/docs/bleeding_edge' + kwargs['path']
 
+def redir_pkgs(handler, *args, **kwargs):
+  return '/docs/releases/latest/' + kwargs['pkg'] + '.html'
+
 application = WSGIApplication(
   [
+    Route('/docs/pkg/<pkg:args|fixnum|intl|logging|matcher|meta|mock|serialization|unittest><:/?>',
+        RedirectHandler, defaults={'_uri': redir_pkgs, '_code': 302}),
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     ('/docs.*', ApiDocs),
