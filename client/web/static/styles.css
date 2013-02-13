@@ -98,8 +98,8 @@ a:visited {
 }
 
 li {
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 ol, ul {
@@ -503,6 +503,7 @@ li.kind {
   background-color: #F8F8F8;
   padding: 6px 6px 6px 21px;
   margin-left: 15px;
+  margin-bottom: 15px;
 }
 
 .class-summary li {
@@ -687,9 +688,11 @@ pre.source .s.si { background: hsl(40, 80%, 95%); }
 pre.source .i.si { color: hsl(40, 30%, 30%); }
 pre.source .p.si { color: hsl(40, 60%, 40%); }
 
+/* TODO(jacobr): show expand collapse icons?.
 .element-details:hover {
-  /** XXXX TODO(jacobr): show expand collapse icons. */
 }
+*/
+
 .element-details:not(.open-details) x-element-signature,
 .element-details:not(.open-details) .member-details-summary {
   white-space: nowrap;
@@ -711,6 +714,10 @@ x-element-signature {
 }
 
 .kind-class .element-details:not(.open-details) x-kind-icon {
+  margin-left: 0px;
+}
+
+.kind-exception .element-details:not(.open-details) x-kind-icon {
   margin-left: 0px;
 }
 
@@ -765,10 +772,6 @@ x-details {
   display: block;
 }
 
-.open-details {
-  background-color: #F0F0F0;
-}
-
 .expanded-details {
   height: 0px;
   overflow: hidden;
@@ -795,13 +798,6 @@ x-details {
   outline: none;
 }
 
-.element-details summary::-webkit-details-marker {
-  position: absolute;
-  color: #DDD;
-  top: 10px;
-  left: 0px;
-}
-
 .member-details .documentation, .member-details .extended-element-info,
 .member-details-summary {
   margin-left: 99px;
@@ -821,10 +817,30 @@ x-details {
   vertical-align: top;
 }
 
+/** Don't render these tags inside a one line text summary. */
+.member-details-summary hr,
+.member-details-summary br,
+.member-details-summary table,
+.member-details-summary dl,
+.member-details-summary dd,
+.member-details-summary img,
+.member-details-summary h1,
+.member-details-summary h2,
+.member-details-summary h3,
+.member-details-summary h4,
+.member-details-summary h5,
+.member-details-summary h6 {
+  display: none;
+}
+
 .member-details-summary div,
+.member-details-summary ul,
+.member-details-summary li,
 .member-details-summary p,
-.member-details-summary table {
+.member-details-summary code,
+.member-details-summary pre {
   display: inline;
+  white-space:nowrap;
 }
 
 .documentation {
@@ -846,12 +862,6 @@ x-details {
 .extended-element-info {
     font: 400 13px/22px 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande',
         sans-serif;
-}
-
-.extended-element-info summary::-webkit-details-marker {
-  color: #DDD;
-  top: 0px;
-  left: -20px;
 }
 
 .arg:not(:last-of-type)::after{

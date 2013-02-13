@@ -31,14 +31,14 @@ PackageManifest package;
  * Children of a library are shown in the UI grouped by type sorted in the order
  * specified by this list.
  */
-final LIBRARY_ITEMS = <String>['property', 'method', 'class',
-                              'exception', 'typedef'];
+final LIBRARY_ITEMS =
+    <String>['property', 'method', 'class', 'exception', 'typedef'];
 /**
  * Children of a class are shown in the UI grouped by type sorted in the order
  * specified by this list.
  */
-final CLASS_ITEMS = <String>['constructor', 'property', 'method',
-                            'operator'];
+final CLASS_ITEMS =
+    <String>['constructor', 'property', 'method', 'operator'];
 // TODO(jacobr): add package kinds?
 
 // TODO(jacobr): i18n
@@ -64,7 +64,7 @@ class PackageManifest {
   /** Package description */
   final description;
   /** Libraries contained in this package. */
-  final List<String> libraries;
+  final List<Reference> libraries;
   /** Descriptive string describing the version# of the package. */
   final String fullVersion;
   /** Source control revision # of the package. */
@@ -82,11 +82,12 @@ class PackageManifest {
   PackageManifest(Map json) :
     name = json['name'],
     description = json['description'],
-    libraries = json['libraries'],
+    libraries = json['libraries'].map(
+        (json) => new Reference(json)).toList(),
     fullVersion = json['fullVersion'],
     revision = json['revision'],
     location = json['location'],
-    dependencies = json['dependencies'].mappedBy(
+    dependencies = json['dependencies'].map(
         (json) => new PackageManifest(json)).toList();
 }
 
@@ -103,6 +104,18 @@ class Reference {
     refId = json['refId'],
     arguments = _jsonDeserializeReferenceArray(json['arguments']);
 
+  Reference.fromId(this.refId) : name = null, arguments = <Reference>[];
+
+  bool operator ==(var other) {
+    return other is Reference ? refId == other.refId : false;
+  }
+
+  int get hashCode => refId.hashCode;
+
+  Element toElement() => lookupReferenceId(refId);
+
+  String get id => refId.split(new RegExp('/')).last;
+
   /**
    * Short description appropriate for displaying in a tree control or other
    * situtation where a short description is required.
@@ -111,8 +124,8 @@ class Reference {
     if (arguments.isEmpty) {
       return shortName;
     } else {
-      var params = Strings.join(
-          arguments.mappedBy((param) => param.shortDescription), ', ');
+      var params =
+          arguments.map((param) => param.shortDescription).join(', ');
       return '$name<$params>';
     }
   }
@@ -139,7 +152,7 @@ void loadPackageJson(String data) {
     // background.
     for (var library in package.libraries) {
       library_loader.queue(library);
-      libraries[library] = new LibraryElement.stub(library);
+      libraries[library.refId] = new LibraryElement.stub(library);
     }
   }
 }
@@ -154,19 +167,18 @@ LibraryElement lookupLibrary(String libraryId) {
 /**
  * Resolve the [Element] matching the [referenceId].
  *
- * If the Element cannot be found, a stub dummy [Element] will be returned.
+ * If [nearestMatch] is true and the Element cannot be found, the closest
+ * known ancestor of the desired Element is returned instead. 
  */
-Element lookupReferenceId(String referenceId) {
+Element lookupReferenceId(String referenceId, [bool nearestMatch = false]) {
   var parts = referenceId.split(new RegExp('/'));
-  var libraryName = parts.first;
-  Element current = lookupLibrary(libraryName);
-  if (current == null) {
-    library_loader.load(libraryName);
-    // TODO(jacobr): return a Reference instead for the case where the library
-    // is not loaded yet.
-    return null;
+  var libraryId = parts.first;
+  Element current = lookupLibrary(libraryId);
+  if (current == null || current.loading == true) {
+    library_loader.load(new Reference.fromId(libraryId));
+    return nearestMatch ? current : null;
   }
-  for (var i = 1; i < parts.length && current != null; i++) {
+  for (var i = 1; i < parts.length; i++) {
     var id = parts[i];
     var next = null;
     for (var child in current.children) {
@@ -174,6 +186,9 @@ Element lookupReferenceId(String referenceId) {
         next = child;
         break;
       }
+    }
+    if (next == null) {
+      return nearestMatch ? current : null;
     }
     current = next;
   }
@@ -210,8 +225,9 @@ SafeHtml _markdownToSafeHtmlSnippet(String text) {
 /**
  * Base class for all elements in the AST.
  */
-class Element implements Comparable {
+class Element implements Comparable, Reference {
   final Element parent;
+  final Element originalParent;
 
   /** Human readable type name for the node. */
   final String rawKind;
@@ -223,13 +239,23 @@ class Element implements Comparable {
   final String id;
 
   /** Raw text of the comment associated with the Element if any. */
-  final String comment;
+  String comment;
 
   /** Whether the node is private. */
   final bool isPrivate;
 
-  /** Children of the node. */
-  List<Element> children;
+  /** Raw html comment for the Element from MDN. */
+  String mdnCommentHtml;
+
+  /**
+   * The URL to the page on MDN that content was pulled from for the current
+   * type being documented. Will be `null` if the type doesn't use any MDN
+   * content.
+   */
+  String mdnUrl;
+
+  /** Children of the element. */
+  List<Element> _children;
 
   /** Whether the [Element] is currently being loaded. */
   final bool loading;
@@ -242,26 +268,73 @@ class Element implements Comparable {
   List<Element> _references;
   List<Element> _typeParameters;
 
-  Element(Map json, this.parent) :
+  Element(Map json, Element parent) :
+    parent = parent,
+    originalParent = parent,
     name = json['name'],
     rawKind = json['kind'],
     id = json['id'],
     comment = json['comment'],
     isPrivate = json['isPrivate'] == true,
+    mdnCommentHtml = json['mdnCommentHtml'],
+    mdnUrl = json['mdnUrl'],
     _uri = json['uri'],
     _line = json['line'],
     loading = false {
-    children = _jsonDeserializeArray(json['children'], this);
+    _children = _jsonDeserializeArray(json['children'], this);
   }
 
-  Element.stub(this.rawKind, this.name, this.id) :
+  Element._clone(Element e, Element newParent) :
+    parent = newParent,
+    originalParent = e.originalParent,
+    name = e.name,
+    rawKind = e.rawKind,
+    id = e.id,
+    comment = e.comment,
+    isPrivate = e.isPrivate,
+    mdnCommentHtml = e.mdnCommentHtml,
+    mdnUrl = e.mdnUrl,
+    // We intentionally copy from the computed version as otherwise the
+    // inferred location could be wrong.
+    _uri = e.uri,
+    _line = e.line,
+    loading = false,
+    _children = e._children;
+
+  Element.stub(this.rawKind, Reference ref) :
+      this.name = ref.name,
+      this.id = ref.id,
       loading = true,
       comment = null,
       isPrivate = false,
       _uri = null,
       _line = null,
       parent = null,
-      children = <Element>[];
+      originalParent = null,
+      mdnCommentHtml = null,
+      mdnUrl = null,
+      _children = <Element>[];
+  
+  /**
+   * Create a clone of the element with a different parent.
+   */
+  Element clone(Element newParent) => new Element._clone(this, newParent);
+  
+  bool operator ==(other) {
+    return other is Reference ? refId == other.refId : false;
+  }
+
+  int get hashCode => refId.hashCode;
+
+  /** Children of the element. */
+  List<Element> get children => _children;
+
+  Element toElement() => this;
+  
+  /**
+   * Concrete elements do not take arguments.
+   */
+  List<Reference> get arguments => <Reference>[];
 
   /**
    * Subclasses must remove all cached data that could be stale due to loading
@@ -382,7 +455,15 @@ class Element implements Comparable {
    */
   SafeHtml get commentHtml {
     if (_commentHtml == null) {
-      _commentHtml = _markdownToSafeHtml(comment);
+      if (comment == null && mdnCommentHtml != null) {
+        _commentHtml = new SafeHtml.unsafe("""
+            <div class="mdn">
+              $mdnCommentHtml
+              <div class="mdn-note"><a href="$mdnUrl">from MDN</a></div>
+            </div>""");
+      } else {
+        _commentHtml = _markdownToSafeHtml(comment);
+      }
     }
     return _commentHtml;
   }
@@ -394,7 +475,17 @@ class Element implements Comparable {
    */
   SafeHtml get commentHtmlSnippet {
     if (_commentHtmlSnippet == null) {
-      _commentHtmlSnippet = _markdownToSafeHtmlSnippet(comment);
+      if (comment == null && mdnCommentHtml != null) {
+        // TODO(jacobr): extract the first paragraph from the MDN comment
+        // to reduce the size of the DOM.
+        _commentHtmlSnippet = new SafeHtml.unsafe("""
+            <span class="mdn">
+              $mdnCommentHtml
+              <span class="mdn-note"><a href="$mdnUrl">from MDN</a></span>
+            </span>""");
+      } else {
+        _commentHtmlSnippet = _markdownToSafeHtmlSnippet(comment);
+      }
     }
     return _commentHtmlSnippet;
   }
@@ -407,9 +498,8 @@ class Element implements Comparable {
     if (typeParameters.isEmpty) {
       return name;
     } else {
-      var params = Strings.join(
-          typeParameters.mappedBy((param) => param.shortDescription).toList(),
-          ', ');
+      var params = 
+          typeParameters.map((param) => param.shortDescription).join(', ');
       return '$name<$params>';
     }
   }
@@ -438,6 +528,7 @@ class Element implements Comparable {
       bool showPrivate, showInherited) {
     var blockMap = new Map<String, List<Element>>();
     var usedNames = new Map<String, Element>();
+
     _createElementBlocksHelper(e) {
       for (var child in e.children) {
         // TODO(jacobr): don't hard code $dom_
@@ -445,9 +536,16 @@ class Element implements Comparable {
             (child.isPrivate || child.name.startsWith("\$dom_"))) {
           continue;
         }
+        
+        if (showInherited == false && child.originalParent != child.parent) {
+          continue;
+        }
 
         // Showing constructors from superclasses doesn't make sense.
         if (e != this && child is ConstructorElement) {
+          continue;
+        }
+        if (!desiredKinds.contains(child.uiKind)) {
           continue;
         }
 
@@ -456,14 +554,13 @@ class Element implements Comparable {
         // TODO(jacobr): show documentation from base class if it is available
         // while class specific definition isn't.
         if (showInherited) {
-          if (usedNames.containsKey(child.name) && usedNames[child.name] != e) {
+          var existingParent = usedNames[child.name];
+          if (existingParent != null && existingParent != e) {
             continue;
           }
           usedNames[child.name] = e;
         }
-        if (desiredKinds.contains(child.uiKind)) {
-          blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
-        }
+        blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
       }
     }
     _createElementBlocksHelper(this);
@@ -518,10 +615,15 @@ class Element implements Comparable {
  */
 class LibraryElement extends Element {
   Map<String, ClassElement> _classes;
-  List<ClassElement> _sortedClasses;
 
   LibraryElement(json, Element parent) : super(json, parent);
-  LibraryElement.stub(name) : super.stub('library', name, name);
+  LibraryElement.stub(Reference ref) : super.stub('library', ref);
+
+  LibraryElement._clone(LibraryElement e, Element newParent) :
+    super._clone(e, newParent);
+
+  LibraryElement clone(Element newParent) =>
+      new LibraryElement._clone(this, newParent);
 
   /** Returns all classes defined by the library. */
   Map<String, ClassElement> get classes {
@@ -532,34 +634,25 @@ class LibraryElement extends Element {
   }
 
   /**
-   * Returns all classes defined by the library sorted name and whether they
-   * are private.
-   */
-  List<ClassElement> get sortedClasses {
-    if (_sortedClasses == null) {
-      _sortedClasses = []..addAll(classes.values)..sort();
-    }
-    return _sortedClasses;
-  }
-
-  /**
    * Returns all blocks of elements that should be rendered by UI summarizing
    * the Library.
    */
-  List<ElementBlock> childBlocks(bool showPrivate, bool showInherited) =>
-      _createElementBlocks(LIBRARY_ITEMS, showPrivate, showInherited);
+  List<ElementBlock> childBlocks(bool showPrivate) =>
+      _createElementBlocks(LIBRARY_ITEMS, showPrivate, false);
+
+  List<Element> sortedChildren(bool showPrivate) {
+    var ret = <Element>[];
+    for (var block in childBlocks(showPrivate)) {
+      ret.addAll(block.elements);
+    }
+    return ret;
+  }
 }
 
 /**
  * [Element] describing a Dart class.
  */
 class ClassElement extends Element {
-
-  /** Members of the class grouped into logical blocks. */
-  List<ElementBlock> _childBlocks;
-  /** Children sorted in the same order as [_childBlocks]. */
-  List<Element> _sortedChildren;
-
   /** Interfaces the class directly implements. */
   final List<Reference> _directInterfaces;
   List<Reference> _interfaces;
@@ -570,22 +663,95 @@ class ClassElement extends Element {
   /** Whether the class is abstract. */
   final bool isAbstract;
 
+  /** Whether the class implements or extends [Error] or [Exception]. */
+  bool isThrowable;
+
   List<ClassElement> _superclasses;
   List<ClassElement> _subclasses;
+
+  /**
+   * Whether we have grabbed all children from the parent classes and added
+   * them as children of this class.
+   */
+  bool _childrenBreaded;
 
   ClassElement(Map json, Element parent)
     : super(json, parent),
       _directInterfaces = _jsonDeserializeReferenceArray(json['interfaces']),
       superclass = jsonDeserializeReference(json['superclass']),
-      isAbstract = json['isAbstract'] == true;
+      isAbstract = json['isAbstract'] == true,
+      isThrowable = json['isThrowable'] == true;
+
+  ClassElement._clone(ClassElement e, Element newParent) :
+      super._clone(e, newParent),
+      _directInterfaces = e._directInterfaces,
+      superclass = e.superclass,
+      isAbstract = e.isAbstract,
+      isThrowable = e.isThrowable;
+
+  ClassElement clone(Element newParent) =>
+      new ClassElement._clone(this, newParent);
+
+  String get uiKind => isThrowable ? 'exception' : kind;
 
   void invalidate() {
     _superclasses = null;
     _subclasses = null;
     _interfaces = null;
+    _childrenBreaded = false;
     super.invalidate();
   }
 
+  List<Element> get children {
+    if (_childrenBreaded != true) {
+      _breadChildren();
+      _childrenBreaded = true;
+    }
+    return _children;
+  }
+  
+  /**
+   * Inject children from superclasses, copying their comments for cases where
+   * the child class had no comments.
+   */
+  void _breadChildren() {
+    // Map from id prefixes to cannonical versions.
+    var existingMap = new Map<String, Element>();
+
+    _breadHelper(e) {
+      for (var child in e._children) {
+        // Showing constructors from superclasses doesn't make sense.
+        if (e != this && child is ConstructorElement) {
+          continue;
+        }
+        var existing = existingMap[child.id];
+        // Use comment from superclass if available.
+        // TODO(jacobr): this is a bit ugly... we are mutating the
+        // comments. The trouble is we can't safely bread at load time due
+        // to cross package dependencies and the fact that we need to lazy
+        // load packages.
+        if (existing != null) {
+          if (existing.comment == null) {
+            existing.comment = child.comment;
+          }
+          if (existing.mdnCommentHtml == null) {
+            existing.mdnCommentHtml = child.mdnCommentHtml;
+            existing.mdnUrl = child.mdnUrl;
+          }
+          continue;
+        }
+        if (e != this) {
+          child = child.clone(this);
+          this._children.add(child);
+        }
+        existingMap[child.id] = child;
+      }
+    }
+    _breadHelper(this);
+    for (var superclass in superclasses.reversed) {
+      _breadHelper(superclass);
+    }
+  }
 
   /** Returns all superclasses of this class. */
   List<ClassElement> get superclasses {
@@ -593,7 +759,7 @@ class ClassElement extends Element {
       _superclasses = <ClassElement>[];
       addSuperclasses(clazz) {
         if (clazz.superclass != null) {
-          var superclassElement = lookupReferenceId(clazz.superclass.refId);
+          var superclassElement = clazz.superclass.toElement();
           if (superclassElement != null) {
             addSuperclasses(superclassElement);
             _superclasses.add(superclassElement);
@@ -608,10 +774,36 @@ class ClassElement extends Element {
   /** Returns all interfaces implemented by this class. */
   List<Reference> get interfaces {
     if (_interfaces == null) {
-      _interfaces = _directInterfaces.toList();
-      for (var superClass in superclasses) {
-        _interfaces.addAll(superClass._directInterfaces);
+      final allInterfaces = new Set<Reference>();
+      final superclassRefIds = new Set<String>();
+
+      for (var superclass in superclasses) {
+        superclassRefIds.add(superclass.refId);
       }
+      
+      addInterface(Reference ref) {
+        if (!superclassRefIds.contains(ref.refId)) {
+          allInterfaces.add(ref);
+        }
+      }
+      addInterfaces(Iterable<Reference> refs) {
+        for(var ref in refs) {
+          addInterface(ref);
+        }
+      }
+
+      for (var ref in _directInterfaces) {
+        var interface = ref.toElement();
+        if (interface != null) {
+          addInterfaces(interface.interfaces);
+          addInterfaces(interface.superclasses);
+          addInterface(ref);
+        }
+      }
+      for (var superClass in superclasses) {        
+        addInterfaces(superClass.interfaces);
+      }
+      _interfaces = allInterfaces.toList();
     }
     return _interfaces;
   }
@@ -626,7 +818,7 @@ class ClassElement extends Element {
     if (_subclasses == null) {
       _subclasses = <ClassElement>[];
       for (var library in libraries.values) {
-        for (ClassElement candidateClass in library.sortedClasses) {
+        for (ClassElement candidateClass in library.classes.values) {
           if (candidateClass.implementsOrExtends(refId)) {
             _subclasses.add(candidateClass);
           }
@@ -663,15 +855,20 @@ class ClassElement extends Element {
   }
 }
 
+// TODO(jacobr): make this a mixin when possible.
 /**
- * Element describing a typedef.
+ * Element with a return type and parameters
  */
-class TypedefElement extends Element {
+class FunctionLikeElement extends Element {
   final Reference returnType;
   List<Element> _parameters;
 
-  TypedefElement(Map json, Element parent) : super(json, parent),
+  FunctionLikeElement(Map json, Element parent) : super(json, parent),
       returnType = jsonDeserializeReference(json['returnType']);
+
+  FunctionLikeElement._clone(FunctionLikeElement e, Element newParent) :
+    super._clone(e, newParent),
+    returnType = e.returnType;
 
   /**
    * Returns a list of the parameters of the typedef.
@@ -686,6 +883,19 @@ class TypedefElement extends Element {
   List<Element> get requiredParameters => parameters;
 
   List<Element> get optionalParameters => <Element>[];
+}
+
+/**
+ * Element describing a typedef.
+ */
+class TypedefElement extends FunctionLikeElement {
+  TypedefElement(Map json, Element parent) : super(json, parent);
+  
+  TypedefElement._clone(TypedefElement e, Element newParent) :
+      super._clone(e, newParent);
+
+  TypedefElement clone(Element newParent) =>
+      new TypedefElement._clone(this, newParent);
 }
 
 /**
@@ -708,6 +918,12 @@ abstract class MethodLikeElement extends Element {
       isOperator = json['isOperator'] == true,
       isStatic = json['isStatic'] == true,
       isSetter = json['isSetter'] == true;
+
+  MethodLikeElement._clone(MethodLikeElement e, Element newParent) :
+      super._clone(e, newParent),
+      isOperator = e.isOperator,
+      isStatic = e.isStatic,
+      isSetter = e.isSetter;
 
   void traverse(void callback(Element)) {
     callback(this);
@@ -734,8 +950,8 @@ abstract class MethodLikeElement extends Element {
    * required.
    */
   String get shortDescription {
-    return '$shortName(${Strings.join(parameters.mappedBy(
-        (arg) => arg.shortDescription), ', ')})';
+    return '$shortName(${
+        parameters.map((arg) => arg.shortDescription).join(', ')})';
   }
 
   String get longDescription {
@@ -759,8 +975,8 @@ abstract class MethodLikeElement extends Element {
       if (isOperator) {
         sb.add("operator ");
       }
-      sb.add('$name(${Strings.join(parameters.mappedBy(
-          (arg) => arg.longDescription).toList(), ', ')})');
+      sb.add('$name(${parameters.map(
+          (arg) => arg.longDescription).toList().join(', ')})');
     }
     return sb.toString();
   }
@@ -784,6 +1000,12 @@ abstract class MethodLikeElement extends Element {
     }
     return _optionalParameters;
   }
+  
+  String get optionalParametersStartSymbol =>
+      optionalParameters.first.isNamed ? '{' : '[';
+
+  String get optionalParametersEndSymbol =>
+      optionalParameters.first.isNamed ? '}' : ']';
 
   /**
    * Returns a list of optional parameters of the Method.
@@ -816,15 +1038,55 @@ abstract class MethodLikeElement extends Element {
  */
 class ParameterElement extends Element {
   /** Type of the parameter. */
-  final Reference type;
-  /** Whether the parameter is optional. */
+  final Reference _type;
+
+  /**
+   * Returns the default value for this parameter.
+   */
+  final String defaultValue;
+
+  /**
+   * Is this parameter optional?
+   */
   final bool isOptional;
+
+  /**
+   * Is this parameter named?
+   */
+  final bool isNamed;
+
+  /**
+   * Returns the initialized field, if this parameter is an initializing formal.
+   */
+  final Reference initializedField;
 
   ParameterElement(Map json, Element parent) :
       super(json, parent),
-      type = jsonDeserializeReference(json['ref']),
-      isOptional = json['isOptional'];
+      _type = jsonDeserializeReference(json['ref']),
+      defaultValue = json['defaultValue'],
+      isOptional = json['isOptional'] == true,
+      isNamed = json['isNamed'] == true,
+      initializedField = jsonDeserializeReference(json['initializedField']);
 
+  ParameterElement._clone(ParameterElement e, Element newParent) :
+      super._clone(e, newParent),
+      _type = e.type,
+      defaultValue = e.defaultValue,
+      isOptional = e.isOptional,
+      isNamed = e.isNamed,
+      initializedField = e.initializedField;
+
+  ParameterElement clone(Element newParent) =>
+      new ParameterElement._clone(this, newParent);
+
+  Reference get type {
+    if (children.length > 0) {
+      assert(children.length == 1 && children.first is FunctionTypeElement);
+      return children.first;
+    } else {
+      return _type;
+    }
+  }
   bool hasReference(String referenceId) {
     if (super.hasReference(referenceId)) return true;
     return type != null && type.refId == referenceId;
@@ -835,8 +1097,32 @@ class ParameterElement extends Element {
   }
 
   String get longDescription {
-    return type == null ? name : '${type.shortDescription} $name';
+    var sb = new StringBuffer();
+    if (initializedField != null) {
+      sb.add("this.");
+    } else if (type != null) {
+      sb..add(type.shortDescription)..add(' ');
+    }
+    sb.add(name);
+    if (defaultValue != null) {
+      sb.add(' = $defaultValue');
+    }
+    return sb.toString();
   }
+}
+
+/**
+ * Element describing a function type.
+ */
+class FunctionTypeElement extends FunctionLikeElement { 
+  FunctionTypeElement(Map json, Element parent)
+      : super(json, parent);
+
+  FunctionTypeElement._clone(FunctionTypeElement e, Element newParent) :
+      super._clone(e, newParent);
+
+  FunctionTypeElement clone(Element newParent) =>
+      new FunctionTypeElement._clone(this, newParent);
 }
 
 /**
@@ -876,6 +1162,13 @@ class MethodElement extends MethodLikeElement {
       // updated.
       returnType =  json['isSetter'] != true ?
           jsonDeserializeReference(json['returnType']) : null;
+
+  MethodElement._clone(MethodElement e, Element newParent) :
+      super._clone(e, newParent),
+      returnType = e.returnType;
+
+  MethodElement clone(Element newParent) =>
+      new MethodElement._clone(this, newParent);
 }
 
 /**
@@ -888,6 +1181,13 @@ class PropertyElement extends MethodLikeElement {
 
   PropertyElement(Map json, Element parent) : super(json, parent),
     returnType = jsonDeserializeReference(json['ref']);
+
+  PropertyElement._clone(PropertyElement e, Element newParent) :
+      super._clone(e, newParent),
+      returnType = e.returnType;
+
+  PropertyElement clone(Element newParent) =>
+      new PropertyElement._clone(this, newParent);
 
   String get longDescription {
     var sb = new StringBuffer();
@@ -932,6 +1232,14 @@ class VariableElement extends MethodLikeElement {
     returnType = jsonDeserializeReference(json['ref']),
     isFinal = json['isFinal'];
 
+  VariableElement._clone(VariableElement e, Element newParent) :
+      super._clone(e, newParent),
+      returnType = e.returnType,
+      isFinal = e.isFinal;
+
+  VariableElement clone(Element newParent) =>
+      new VariableElement._clone(this, newParent);
+
   void traverse(void callback(Element)) {
     callback(this);
   }
@@ -942,6 +1250,12 @@ class VariableElement extends MethodLikeElement {
  */
 class ConstructorElement extends MethodLikeElement {
   ConstructorElement(json, Element parent) : super(json, parent);
+
+  ConstructorElement._clone(ConstructorElement e, Element newParent) :
+      super._clone(e, newParent);
+
+  ConstructorElement clone(Element newParent) =>
+      new ConstructorElement._clone(this, newParent);
 
   Reference get returnType => null;
 
@@ -1009,6 +1323,8 @@ Element jsonDeserialize(Map json, Element parent) {
       return new VariableElement(json, parent);
     case 'param':
       return new ParameterElement(json, parent);
+    case 'functiontype':
+      return new FunctionTypeElement(json, parent);
     default:
       return new Element(json, parent);
   }

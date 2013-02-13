@@ -3,13 +3,16 @@
   margin: 0 auto 22px auto;
 }
 
-.mdn {
+div.mdn {
   border: solid 1px hsl(10, 80%, 90%);
   border-radius: 4px;
-  font-size: 16px;
-  line-height: 22px;
   margin: 22px 0;
   padding: 21px 21px 0 21px;
+}
+
+span.mdn {
+  overflow: hidden;
+  height: 22px;
 }
 
 /* Try to massage the MDN content a bit to look nicer. This makes sure we don't
@@ -73,6 +76,7 @@
       sans-serif;
   color: hsl(10, 30%, 30%);
   padding: 22px 22px 22px 75px;
+  clear: both;
 }
 
 .mdn-logo {

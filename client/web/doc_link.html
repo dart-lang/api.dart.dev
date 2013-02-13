@@ -8,8 +8,8 @@
       import 'package:api_doc/model.dart';
 
       class DocLink extends WebComponent {
-        /** Must be a Reference or Element. */
-        var ref;
+        /** Reference to display a link to. */
+        Reference ref;
         /** Whether a short version of the Element name should be used. */
         bool short = false;
       }
@@ -34,4 +34,52 @@
     </script>
   </element>
 
+  <element name="x-doc-parameter">
+    <template><x-doc-type type="{{parameter.type}}" param-name="{{parameter.name}}"></x-doc-type><template if="parameter.defaultValue != null">&nbsp;=&nbsp;{{parameter.defaultValue}}</template></template>  
+    <script type="application/dart">
+      import 'package:web_ui/web_ui.dart';
+      import 'package:api_doc/ast.dart';
+      import 'package:api_doc/model.dart';
+
+      /**
+       * Document a single [ParameterElement].
+       */
+      class DocParameter extends WebComponent {
+        ParameterElement parameter;
+      }
+    </script>
+  </element>
+  <element name="x-doc-parameter-list">
+    <template><span class="args">(<template iterate="param in element.requiredParameters"><span class="arg"><x-doc-parameter parameter="{{param}}"></x-doc-parameter></span></template><template if="!element.optionalParameters.isEmpty">{{element.optionalParametersStartSymbol}}<template iterate="param in element.optionalParameters"><span class="arg"><x-doc-parameter parameter="{{param}}"></x-doc-parameter></span></template>{{element.optionalParametersEndSymbol}}</template>)</span></template>  
+    <script type="application/dart">
+      import 'package:web_ui/web_ui.dart';
+      import 'package:api_doc/ast.dart';
+      import 'package:api_doc/model.dart';
+
+      /**
+       * Document the parameter list for an [Element].
+       */
+      class DocParameterList extends WebComponent {
+        Element element;
+      }
+    </script>
+  </element>
+  <element name="x-doc-type">
+    <template><template if="type is Element"><span class="arg-type"><x-doc-type type="{{type.returnType}}"></x-doc-type></span>&nbsp;<span class="arg-name">{{paramName}}</span><x-doc-parameter-list element="{{type}}"></x-doc-parameter-list></template><template if="type is !Element"><template instantiate="if type != null"><span class="arg-type"><x-doc-link ref="{{type}}"></x-doc-link></span>&nbsp;</template><template if="paramName != null"><span class="arg-name">{{paramName}}</span></template></template></template>
+    <script type="application/dart">
+      import 'package:web_ui/web_ui.dart';
+      import 'package:api_doc/ast.dart';
+      import 'package:api_doc/model.dart';
+
+      /**
+       * Document a type and optionally its associated parameter name.
+       */
+      class DocType extends WebComponent {
+        /** Type being documented. */
+        Reference type;
+        /** parameter name for the type being documented. */
+        String paramName;
+      }
+    </script>
+  </element>
 </body></html>

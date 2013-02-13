@@ -57,7 +57,7 @@
       <div class="nav">
         <template instantiate="if currentLibrary != null">
           <ul class="tree-list">
-            <template iterate='clazz in currentLibrary.sortedClasses'>
+            <template iterate='clazz in currentLibrary.sortedChildren(showPrivate)'>
               <li class="{{kindCssClass(clazz)}}" data-id="{{clazz.id}}">
                 <template instantiate="if currentType != clazz">
                   <x-doc-link ref="{{clazz}}"></x-doc-link>
@@ -79,7 +79,7 @@
       </div>
 
       <div class="content">
-        <template instantiate="if currentLibrary == null">
+        <template if="currentLibrary == null">
           <h2>Dart API Reference</h2>
           <h3>Libraries</h3>
           <ul class="libraries tree-list">
@@ -91,7 +91,11 @@
           </ul>
         </template>
 
-        <template instantiate="if currentLibrary != null">
+        <template if="currentLibrary != null && currentLibrary.loading">
+          <h1>Loading...</h1>
+        </template>
+
+        <template if="currentLibrary != null && !currentLibrary.loading">
           <div class="filters">
             <span>Show: </span>
             <input id="show_private" bind-checked="showPrivate" type="checkbox">
@@ -107,12 +111,11 @@
 
             <template instantiate="if !currentLibrary.loading">
               <div>
-                <template instantiate="if currentLibrary.comment != null">
+                <template instantiate="if currentLibrary.commentHtml != null">
                    <div>{{currentLibrary.commentHtml}}</div>
                 </template>
 
-                <x-member-blocks context="{{currentLibrary}}"
-                    blocks="{{currentLibrary.childBlocks(showPrivate, showInherited)}}">
+                <x-member-blocks blocks="{{currentLibrary.childBlocks(showPrivate)}}">
                 </x-member-blocks>
               </div>
             </template>
@@ -140,12 +143,12 @@
                 </template>
                 <h4>Source</h4>
                 <template instantiate="if currentType.uri != null">
-                  <a href="https://code.google.com/p/dart/source/browse/trunk/dart/{{currentType.uri}}?r={{svnRevisionNumber}}#{{currentType.line}}" target="_blank">{{currentType.uri}}</a>
+                  <a href="https://code.google.com/p/dart/source/browse/trunk/dart/{{currentType.uri}}?r={{package.revision}}#{{currentType.line}}" target="_blank">{{currentType.uri}}</a>
                 </template>
               </div>
             </template>
 
-            <template instantiate="if currentType.comment != null">
+            <template instantiate="if currentType.commentHtml != null">
               <div>{{currentType.commentHtml}}</div>
             </template>
           </div>
@@ -220,16 +223,31 @@
           </div>
 
           <template instantiate="if currentType is ClassElement">
-            <x-member-blocks context="{{currentType}}"
-                blocks="{{currentType.childBlocks(showPrivate, showInherited)}}">
+            <x-member-blocks blocks="{{currentType.childBlocks(showPrivate, showInherited)}}">
             </x-member-blocks>
           </template>
-          <template instantiate="if currentType is TypedefElement">
+          <template if="currentType is TypedefElement">
             <h3>Definition</h3>
             <!-- TODO(jacobr): override default style and align this to the left -->
             <x-element-signature element="{{currentType}}">
             </x-element-signature>
           </template>
+          <template if="currentType != null && currentType.mdnUrl != null">
+            <p class="mdn-attribution">
+              <a href="http://www.mozilla.org/">
+                <!-- TODO(jacobr): we shouldn't have to include the .. -->
+                <img src="../static/mdn-logo-tiny.png" class="mdn-logo" />
+              </a>
+              This page includes <a href="{{currentType.mdnUrl}}">content</a> from the
+              <a href="http://www.mozilla.org/">Mozilla Foundation</a> that is graciously
+              <a href="https://developer.mozilla.org/Project:Copyrights">licensed</a> under a
+              <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons: Attribution-Sharealike license</a>.
+              Mozilla has no other association with Dart or dartlang.org. We
+              encourage you to improve the web by
+              <a href="https://developer.mozilla.org/Project:en/How_to_Help">contributing</a> to
+              <a href="http://developer.mozilla.org/">The Mozilla Developer Network</a>.
+              </p>
+           </template>
         </template>
       </div>
     </div>
