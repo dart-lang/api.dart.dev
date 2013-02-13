@@ -13,7 +13,7 @@
         <div class="{{block.kindCssClass}}">
           <h3 class="member-block-title">{{block.kindTitle}}</h3>
           <template iterate='element in block.elements'>
-            <x-element-summary element="{{element}}" show-parent="{{element.parent != context}}"></x-element-summary>
+            <x-element-summary element="{{element}}"></x-element-summary>
           </template>
         </div>
       </template>
@@ -25,8 +25,6 @@
 
       class MemberBlocks extends WebComponent {
         List<ElementBlock> blocks;
-        /** Parent element that we are displaying blocks for. */
-        Element context;
       }
     </script>
   </element>
@@ -42,7 +40,7 @@
       </template>
       <x-kind-icon element="{{element}}"></x-kind-icon>
       <span class="element-definition">
-        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><span class="args">(<template iterate="param in element.requiredParameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link>&nbsp;</span></template><span class="arg-name">{{param.name}}</span></span></template><template if="!element.optionalParameters.isEmpty">[<template iterate="param in element.optionalParameters"><span class="arg"><template instantiate="if param.type != null"><span class="arg-type"><x-doc-link ref="{{param.type}}"></x-doc-link>&nbsp;</span></template><span class="arg-name">{{param.name}}</span></span></template>]</template>)</span></template>
+        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><x-doc-parameter-list element="{{element}}"></x-doc-parameter-list></template>
       </span>
     </template>
     <script type="application/dart">
@@ -71,9 +69,9 @@
           data-id="{{element.id}}"
           open="{{isOpen}}">
          <summary>
-          <template instantiate="if showParent">
+          <template if="element.originalParent != element.parent">
             <div class="parent-description">
-              Defined by <x-doc-link ref="{{element.parent}}"></x-doc-link>
+              Defined by <x-doc-link ref="{{element.originalParent}}"></x-doc-link>
             </div>
           </template>
           <x-element-signature element="{{element}}">

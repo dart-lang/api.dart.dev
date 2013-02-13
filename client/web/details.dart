@@ -47,14 +47,13 @@ class Details extends WebComponent {
           window.requestAnimationFrame((_) {
             expandedDetails.style.height = "${endHeight}px";
             // TODO(jacobr): switch to auto. after transition completes.
-            onTransitionEnd(_) {
+            var subscription;
+            subscription = expandedDetails.onTransitionEnd.listen((_){
               expandedDetails.style.transition = '';
-              expandedDetails.style.removeProperty('-webkitTransition');
               summaryOnly.style.removeProperty('height');
               expandedDetails.style.removeProperty('height');
-              expandedDetails.on.transitionEnd.remove(onTransitionEnd);
-            };
-            expandedDetails.on.transitionEnd.add(onTransitionEnd);
+              subscription.cancel();
+            });
           });
         });
       }

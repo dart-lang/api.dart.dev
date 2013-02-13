@@ -5,6 +5,7 @@
 library apidoc_model;
 
 import 'dart:async';
+import 'dart:uri';
 import 'dart:html' as html;
 import 'dart:json' as json;
 import 'package:web_ui/watcher.dart' as watchers;
@@ -13,9 +14,6 @@ import 'package:poppy/trie.dart';
 import 'markdown.dart' as md;
 import 'ast.dart';
 import 'library_loader.dart' as library_loader;
-
-// TODO(jacobr): specify the version # in the JSON file.
-String svnRevisionNumber = "15605";
 
 /** Whether to show private members. */
 bool showPrivate = true;
@@ -79,7 +77,7 @@ void _recomputeActiveState() {
   currentMember = null;
   currentElement = null;
   if (_currentReferenceId != null) {
-    var referenceElement = lookupReferenceId(_currentReferenceId);
+    var referenceElement = lookupReferenceId(_currentReferenceId, true);
     if (referenceElement != null) {
       var path = referenceElement.path;
       if (path.length > 0) {
@@ -115,7 +113,12 @@ void scrollIntoView() {
   html.window.setTimeout(() {
     if (currentElement != null) {
       for (var e in html.queryAll('[data-id="${currentElement.id}"]')) {
-        e.scrollIntoView(false);
+        try {
+          e.scrollIntoView();
+        } catch (error) {
+          // TODO(jacobr): remove.
+          print("Scroll into view not supported");
+        }
       }
     }
   }, 0);
@@ -156,14 +159,10 @@ String kindCssClass(Element element) {
 }
 
 String _normalizedKind(Element element) {
-  var kind = element.kind;
+  var kind = element.uiKind;
   var name = element.name;
   if (kind == 'method' && (element as MethodLikeElement).isOperator) {
     kind = 'operator';
-  }
-  // TODO(jacobr): this is horrible but matches what DartDoc does
-  if (kind == 'class' && name.endsWith('Exception')) {
-    kind = 'exception';
   }
   return kind;
 }
@@ -173,19 +172,24 @@ String toUserVisibleKind(Element element) {
 }
 
 /**
- * Generate a permalink referencing a specific element.
- * [obj] shoudl be a [Reference] or [Element].
+ * Generate a permalink url fragment for a [Reference].
  */
-String permalink(var obj) {
-  var data = {'id': obj.refId};
-  if (showPrivate) {
-    data['showPrivate'] = showPrivate;
-  }
+String permalink(Reference ref) {
+  var data = {'id': ref.refId,
+              'showPrivate': showPrivate,
+              'showInherited': showInherited};
 
-  if (showInherited) {
-    data['showInherited'] = showInherited;
-  }
-  return "#!${json.stringify(data)}";
+  var args = <String>[];
+  data.forEach((k,v) {
+    if (v is bool) {
+      if (v == true) {
+        args.add(k);
+      }
+    } else {
+      args.add("$k=${encodeUri(v)}");
+    }
+  });
+  return "#!${args.join('&')}";
 }
 
 void loadStateFromUrl() {
@@ -194,7 +198,15 @@ void loadStateFromUrl() {
   if (link.length > 2) {
     try {
       // strip #! and parse json.
-      data = json.parse(link.substring(2));
+      for(var part in link.substring(2).split(new RegExp('&'))) {
+        var splitPoint = part.indexOf('=');
+        if (splitPoint >= 0 && splitPoint < part.length - 1) {
+          data[part.substring(0, splitPoint)] = part.substring(splitPoint + 1);
+        } else {
+          // boolean param.
+          data[part] = true;
+        }
+      }
     } catch (e) {
       html.window.console.error("Invalid link url");
       // TODO(jacobr): redirect to default page or better yet attempt to fixup.
@@ -225,9 +237,9 @@ Future loadModel() {
     loadStateFromUrl();
     watchers.dispatch();
   }
-  html.window.on
-    ..popState.add(updateState)
-    ..hashChange.add(updateState);
+  html.window
+    ..onPopState.listen(updateState)
+    ..onHashChange.listen(updateState);
 
   // Patch in support for [:...:]-style code to the markdown parser.
   // TODO(rnystrom): Markdown already has syntax for this. Phase this out?
@@ -237,12 +249,16 @@ Future loadModel() {
   md.setImplicitLinkResolver(_resolveNameReference);
   var completer = new Completer();
   library_loader.libraryLoader = (url, callback) {
-    html.HttpRequest.getString(url).then(callback);
+    html.HttpRequest.getString(url).then(callback).catchError((evt) {
+      html.window.console.info("Unable to load: $url");
+      callback(null);
+    });    
   };
   library_loader.onDataModelChanged = _onDataModelChanged;
 
   // TODO(jacobr): shouldn't have to get this from the parent directory.
-  html.HttpRequest.getString('../static/data/apidoc.json').then((text) {
+  // TODO(jacobr): inject this json into the main page to avoid a rountrip.
+  html.HttpRequest.getString('../../data/apidoc.json').then((text) {
     loadPackageJson(text);
     _onDataModelChanged();
     completer.complete(true);
@@ -385,7 +401,7 @@ void _indexLibrary(LibraryElement library) {
     // Add all suffixes of the name that begin with a capital letter.
     var initials = new StringBuffer();
     for (int i = 0; i < name.length; i++) {
-      int code = name.charCodeAt(i);
+      var code = name.charCodeAt(i);
       // Upper case character or number.
       if ((code >= 65 && code <= 90) || (code >= 48 && code <= 57)) {
         if (i > 0) {

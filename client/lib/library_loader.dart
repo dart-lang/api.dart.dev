@@ -3,58 +3,58 @@ library library_loader;
 import 'ast.dart';
 
 int rateLimit = 2;
-Set<String> _requested = new Set<String>();
-Set<String> _pending = new Set<String>();
-Set<String> _loaded = new Set<String>();
+final _requested = new Set<Reference>();
+final _pending = new Set<Reference>();
+final _loaded = new Set<Reference>();
 
 // TODO(jacobr): change to a queue.
-List<String> queuedLibraries = <String>[];
+final queuedLibraries = <Reference>[];
 
 /** Users must inject their own prefered library loader. */
 Function libraryLoader;
 Function onDataModelChanged;
 
 /** High priority request, load immediately. */
-bool load(String libraryName) {
+bool load(Reference libraryRef) {
   // Can't load if the package manifest isn't even loaded yet.
   if (package == null) {
-    return queue(libraryName);
+    return queue(libraryRef);
   }
 
-  if (_pending.contains(libraryName) ||
-      _loaded.contains(libraryName)) return false;
-  _requested.add(libraryName);
-  _pending.add(libraryName);
+  if (_pending.contains(libraryRef) ||
+      _loaded.contains(libraryRef)) return false;
+  _requested.add(libraryRef);
+  _pending.add(libraryRef);
   // TODO(jacobr): check whether the library is really in this package
   // not one of its dependencies.
   // TODO(jacobr): we don't handle the case where packages with the same
   // name are defined in multiple locations. Names really need to list their
   // package.
 
-  // TODO(jacobr): don't hard code static/data.
-  var rootDir = '../static/data';
+  // TODO(jacobr): don't hard code.
+  var rootDir = '../../data';
   if (package.location != null) rootDir = '$rootDir/${package.location}';
-  libraryLoader('$rootDir/$libraryName.json', (json) {
-   _onLibraryLoaded(libraryName, json);
+  libraryLoader('$rootDir/${libraryRef.refId}.json', (json) {
+   _onLibraryLoaded(libraryRef, json);
   });
 
   return true;
 }
 
 /** Low priority request, add it to the queue of libraries to load. */
-bool queue(String libraryName) {
-  if (_requested.contains(libraryName)) return false;
-  _requested.add(libraryName);
-  queuedLibraries.add(libraryName);
+bool queue(Reference libraryRef) {
+  if (_requested.contains(libraryRef)) return false;
+  _requested.add(libraryRef);
+  queuedLibraries.add(libraryRef);
   if (package != null && _pending.isEmpty) {
     _loadNext();
   }
   return true;
 }
 
-void _onLibraryLoaded(String libraryName, String json) {
-  _loaded.add(libraryName);
-  _pending.remove(libraryName);
+void _onLibraryLoaded(Reference libraryRef, String json) {
+  _loaded.add(libraryRef);
+  _pending.remove(libraryRef);
   // TODO(jacobr): add try/catch block here.
   if (json != null) {
     loadLibraryJson(json);
@@ -69,7 +69,7 @@ void _loadNext() {
   if (_pending.length >= rateLimit) return;
 
   while (!queuedLibraries.isEmpty) {
-    String next = queuedLibraries.removeAt(0);
+    Reference next = queuedLibraries.removeAt(0);
     if (load(next)) break;
   }
 }
