@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+     for details. All rights reserved. Use of this source code is governed by a
+     BSD-style license that can be found in the LICENSE file. -->
 <html>
   <head>
     <link rel="components" href="doc_link.html">
@@ -19,8 +22,8 @@
           </template>
           <ul>
             <template iterate="result in results">
-              <li class="{{kindCssClass(result.element)}} search-result" tabindex="10"
-                  data-ref-id="{{result.element.refId}}">
+              <li class="{{kindCssClass(result.element)}} search-result"
+                  tabindex="10" data-ref-id="{{result.element.refId}}">
                 <x-long-doc-link ref="{{result.element}}">
                 </x-long-doc-link>
                 <template if="result.element is !LibraryElement">

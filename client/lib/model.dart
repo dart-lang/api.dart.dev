@@ -182,9 +182,7 @@ String permalink(Reference ref) {
   var args = <String>[];
   data.forEach((k,v) {
     if (v is bool) {
-      if (v == true) {
-        args.add(k);
-      }
+      if (v) args.add(k);
     } else {
       args.add("$k=${encodeUri(v)}");
     }
@@ -198,9 +196,10 @@ void loadStateFromUrl() {
   if (link.length > 2) {
     try {
       // strip #! and parse json.
-      for(var part in link.substring(2).split(new RegExp('&'))) {
+      for(var part in link.substring(2).split('&')) {
+        part = decodeUri(part);
         var splitPoint = part.indexOf('=');
-        if (splitPoint >= 0 && splitPoint < part.length - 1) {
+        if (splitPoint != -1) {
           data[part.substring(0, splitPoint)] = part.substring(splitPoint + 1);
         } else {
           // boolean param.
@@ -247,23 +246,22 @@ Future loadModel() {
       new md.CodeSyntax(r'\[\:((?:.|\n)*?)\:\]'));
 
   md.setImplicitLinkResolver(_resolveNameReference);
-  var completer = new Completer();
   library_loader.libraryLoader = (url, callback) {
-    html.HttpRequest.getString(url).then(callback).catchError((evt) {
-      html.window.console.info("Unable to load: $url");
-      callback(null);
-    });    
+    html.HttpRequest.getString(url)
+        .catchError((evt) {
+          html.window.console.info("Unable to load: $url");
+          callback(null);
+        })
+        .then(callback);
   };
   library_loader.onDataModelChanged = _onDataModelChanged;
 
   // TODO(jacobr): shouldn't have to get this from the parent directory.
   // TODO(jacobr): inject this json into the main page to avoid a rountrip.
-  html.HttpRequest.getString('../../data/apidoc.json').then((text) {
+  return html.HttpRequest.getString('../../data/apidoc.json').then((text) {
     loadPackageJson(text);
     _onDataModelChanged();
-    completer.complete(true);
   });
-  return completer.future;
 }
 
 // TODO(jacobr): remove this method and resolve refences to types in the json
@@ -384,10 +382,9 @@ final searchIndex = new SimpleTrie<List<Element>>();
 void _indexLibrary(LibraryElement library) {
   library.traverse((Element element) {
     addEntry(name) {
-      var id = name;
-      var existing = searchIndex[id];
-      if (existing == null ) {
-        searchIndex[id] = <Element>[element];
+      var existing = searchIndex[name];
+      if (existing == null) {
+        searchIndex[name] = <Element>[element];
       } else {
         existing.add(element);
       }
@@ -403,6 +400,7 @@ void _indexLibrary(LibraryElement library) {
     for (int i = 0; i < name.length; i++) {
       var code = name.charCodeAt(i);
       // Upper case character or number.
+      // TODO(jacobr): use constants or a regexp.
       if ((code >= 65 && code <= 90) || (code >= 48 && code <= 57)) {
         if (i > 0) {
           addEntry(nameLowerCase.substring(i));
@@ -438,8 +436,8 @@ List<SearchResult> lookupSearchResults(String query, int maxResults) {
         var name = element.name.toLowerCase();
         // Trivial formula penalizing matches that start later in the string
         // breaking ties with the length of the name.
-        // TODO(jacobr): this formula is primitive. We should order by popularity
-        // and the number of words into the match instead.
+        // TODO(jacobr): this formula is primitive. We should order by
+        // popularity and the number of words into the match instead.
         // Also prioritize base classes over subclasses when sorting(?)
         num score = -name.indexOf(query) - element.name.length * 0.001;
         if (element is LibraryElement) score += 200;
@@ -452,8 +450,7 @@ List<SearchResult> lookupSearchResults(String query, int maxResults) {
   results.sort();
   // TODO(jacobr): sort and filter down to max results, remove dupes etc.
   if (results.length > maxResults) {
-    // TODO(jacobr): ugly way to do this.
-    results.removeRange(maxResults, results.length - maxResults);
+    results.take(maxResults).toList();
   }
   return results;
 }

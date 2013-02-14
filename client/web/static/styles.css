@@ -864,6 +864,7 @@ x-details {
         sans-serif;
 }
 
+/* TODO(jacobr): insert the commas using the template instead of this selector. */
 .arg:not(:last-of-type)::after{
   content: ', ';
 }

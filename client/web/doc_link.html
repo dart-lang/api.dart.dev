@@ -1,7 +1,11 @@
 <!DOCTYPE html>
+<!-- Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+     for details. All rights reserved. Use of this source code is governed by a
+     BSD-style license that can be found in the LICENSE file. -->
 <html><body>
   <element name="x-doc-link" extends="span">
-    <template><template instantiate="if ref.refId != 'void'"><a href="{{permalink(ref)}}"><template instantiate="if short">{{ref.shortName}}</template><template instantiate="if !short">{{ref.shortDescription}}</template></a></template><template instantiate="if ref.refId == 'void'">{{ref.name}}</template></template>
+    <template><template if="ref.refId != 'void'"><a href="{{permalink(ref)}}">{{refText}}</a></template><template instantiate="if ref.refId == 'void'">{{ref.name}}</template></template>
+
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';
@@ -12,11 +16,14 @@
         Reference ref;
         /** Whether a short version of the Element name should be used. */
         bool short = false;
+      
+        /** Text to display. */
+        String get refText => short ? ref.shortName : ref.shortDescription;
       }
     </script>
   </element>
   <element name="x-long-doc-link" extends="span">
-    <template><a href="{{permalink(ref)}}"><template instantiate="if ref.parent is ClassElement">{{ref.parent.name}}.</template>{{ref.shortDescription}}</a></template>
+    <template><a href="{{permalink(ref)}}">{{linkName}}.{{ref.shortDescription}}</a></template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';
@@ -30,11 +37,19 @@
        */
       class LongDocLink extends WebComponent {
         Element ref;
+        
+        String get linkName {
+          var prefix = ref.parent is ClassElement ? '${ref.parent.name}' : '';
+          return '$prefix${ref.shortDescription}';
+        }
       }
     </script>
   </element>
 
   <element name="x-doc-parameter">
+    <!-- TODO(jacobr): avoid using the template conditionals in cases where all we are
+making is conditions on text content, but nothing containing actual DOM
+elements. -->
     <template><x-doc-type type="{{parameter.type}}" param-name="{{parameter.name}}"></x-doc-type><template if="parameter.defaultValue != null">&nbsp;=&nbsp;{{parameter.defaultValue}}</template></template>  
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
@@ -50,6 +65,17 @@
     </script>
   </element>
   <element name="x-doc-parameter-list">
+    <!-- TODO(jacobr): do we need the extra <span class="arg">?
+
+can we reuse the x-doc-parameter span?
+
+It might be that our syntax doesn't work correctly using
+<x-doc-parameter class="arg" parameter=";...">
+
+but if not, this syntax should hopefully work:
+<span is="x-doc-parameter" class="arg" parameter="...">
+
+-->
     <template><span class="args">(<template iterate="param in element.requiredParameters"><span class="arg"><x-doc-parameter parameter="{{param}}"></x-doc-parameter></span></template><template if="!element.optionalParameters.isEmpty">{{element.optionalParametersStartSymbol}}<template iterate="param in element.optionalParameters"><span class="arg"><x-doc-parameter parameter="{{param}}"></x-doc-parameter></span></template>{{element.optionalParametersEndSymbol}}</template>)</span></template>  
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
@@ -65,6 +91,7 @@
     </script>
   </element>
   <element name="x-doc-type">
+    <!-- TODO(jacobr): combine the span and the x-tag -->
     <template><template if="type is Element"><span class="arg-type"><x-doc-type type="{{type.returnType}}"></x-doc-type></span>&nbsp;<span class="arg-name">{{paramName}}</span><x-doc-parameter-list element="{{type}}"></x-doc-parameter-list></template><template if="type is !Element"><template instantiate="if type != null"><span class="arg-type"><x-doc-link ref="{{type}}"></x-doc-link></span>&nbsp;</template><template if="paramName != null"><span class="arg-name">{{paramName}}</span></template></template></template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
