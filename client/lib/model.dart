@@ -250,7 +250,6 @@ Future loadModel() {
     html.HttpRequest.getString(url)
         .catchError((evt) {
           html.window.console.info("Unable to load: $url");
-          callback(null);
         })
         .then(callback);
   };
@@ -456,7 +455,7 @@ List<SearchResult> lookupSearchResults(String query, int maxResults) {
   results.sort();
   // TODO(jacobr): sort and filter down to max results, remove dupes etc.
   if (results.length > maxResults) {
-    results.take(maxResults).toList();
+    return results.take(maxResults).toList();
   }
   return results;
 }

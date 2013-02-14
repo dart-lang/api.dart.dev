@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:html';
-import 'dart:html' as html;
+import 'dart:html' hide Element;
+import 'dart:html' as html show Element;
 import 'package:web_ui/web_ui.dart';
 import 'package:api_doc/ast.dart';
 import 'package:api_doc/model.dart';

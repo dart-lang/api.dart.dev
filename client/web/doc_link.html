@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<!-- Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
-     for details. All rights reserved. Use of this source code is governed by a
-     BSD-style license that can be found in the LICENSE file. -->
+<!--
+Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+for details. All rights reserved. Use of this source code is governed by a
+BSD-style license that can be found in the LICENSE file.
+-->
 <html><body>
   <element name="x-doc-link" extends="span">
     <template><template if="ref.refId != 'void'"><a href="{{permalink(ref)}}">{{refText}}</a></template><template instantiate="if ref.refId == 'void'">{{ref.name}}</template></template>
@@ -23,7 +25,7 @@
     </script>
   </element>
   <element name="x-long-doc-link" extends="span">
-    <template><a href="{{permalink(ref)}}">{{linkName}}.{{ref.shortDescription}}</a></template>
+    <template><a href="{{permalink(ref)}}">{{linkName}}</a></template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';
