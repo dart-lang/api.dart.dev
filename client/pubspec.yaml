@@ -9,7 +9,4 @@ dependencies:
   args: any
   logging: any
   web_ui: any
-  js: any
   poppy: any
-  widget: any
-  routing: any
