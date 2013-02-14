@@ -363,8 +363,10 @@ md.MarkdownNode _resolveNameReference(String name) {
  * Search Result matching an node in the AST.
  */
 class SearchResult implements Comparable {
+
   /** [Element] this search result references. */
   Element element;
+
   /** Score of the search result match. Higher is better. */
   num score;
 
@@ -378,6 +380,11 @@ class SearchResult implements Comparable {
 
 final indexedLibraries = new Set<LibraryElement>();
 final searchIndex = new SimpleTrie<List<Element>>();
+
+final _A = 'A'.codeUnitAt(0);
+final _Z = 'Z'.codeUnitAt(0);
+final _0 = '0'.codeUnitAt(0);
+final _9 = '9'.codeUnitAt(0);
 
 void _indexLibrary(LibraryElement library) {
   library.traverse((Element element) {
@@ -398,14 +405,13 @@ void _indexLibrary(LibraryElement library) {
     // Add all suffixes of the name that begin with a capital letter.
     var initials = new StringBuffer();
     for (int i = 0; i < name.length; i++) {
-      var code = name.charCodeAt(i);
+      var code = name.codeUnitAt(i);
       // Upper case character or number.
-      // TODO(jacobr): use constants or a regexp.
-      if ((code >= 65 && code <= 90) || (code >= 48 && code <= 57)) {
+      if ((code >= _A && code <= _Z) || (code >= _0 && code <= _9)) {
         if (i > 0) {
           addEntry(nameLowerCase.substring(i));
         }
-        initials.addCharCode(nameLowerCase.charCodeAt(i));
+        initials.addCharCode(nameLowerCase.codeUnitAt(i));
       }
     }
     if (initials.length > 1) {
@@ -439,7 +445,7 @@ List<SearchResult> lookupSearchResults(String query, int maxResults) {
         // TODO(jacobr): this formula is primitive. We should order by
         // popularity and the number of words into the match instead.
         // Also prioritize base classes over subclasses when sorting(?)
-        num score = -name.indexOf(query) - element.name.length * 0.001;
+        num score = -name.indexOf(query) - (element.name.length * 0.001);
         if (element is LibraryElement) score += 200;
         if (element is ClassElement) score += 100;
         if (name == query) score += 1000;
