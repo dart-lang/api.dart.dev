@@ -116,7 +116,8 @@ class Document {
   /// returning a list of AST nodes. For example, given ``"*this **is** a*
   /// `markdown`"``, returns:
   /// `<em>this <strong>is</strong> a</em> <code>markdown</code>`.
-  List<MarkdownNode> parseInline(String text) => new InlineParser(text, this).parse();
+  List<MarkdownNode> parseInline(String text) =>
+      new InlineParser(text, this).parse();
 }
 
 class Link {
