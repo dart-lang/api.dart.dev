@@ -1,8 +1,15 @@
+// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+/** Manages loading library models from the server. */
 library library_loader;
 
 import 'ast.dart';
 
+/** Target number of simultaneous connections. */
 int rateLimit = 2;
+
 final _requested = new Set<Reference>();
 final _pending = new Set<Reference>();
 final _loaded = new Set<Reference>();
@@ -17,9 +24,7 @@ Function onDataModelChanged;
 /** High priority request, load immediately. */
 bool load(Reference libraryRef) {
   // Can't load if the package manifest isn't even loaded yet.
-  if (package == null) {
-    return queue(libraryRef);
-  }
+  if (package == null) return queue(libraryRef);
 
   if (_pending.contains(libraryRef) ||
       _loaded.contains(libraryRef)) return false;

@@ -59,18 +59,26 @@ final UI_KIND_TITLES = <String, String>{
  * Description of a package and all packages it references.
  */
 class PackageManifest {
+
   /** Package name. */
+
   final name;
+  
   /** Package description */
   final description;
+  
   /** Libraries contained in this package. */
   final List<Reference> libraries;
+  
   /** Descriptive string describing the version# of the package. */
   final String fullVersion;
+  
   /** Source control revision # of the package. */
   final String revision;
+  
   /** Path to the directory containing data files for each library. */
   final String location;
+  
   /**
    * Packages depended on by this package.
    * We currently store the entire manifest for the depency here as it is
@@ -79,16 +87,16 @@ class PackageManifest {
    */
   final List<PackageManifest> dependencies;
 
-  PackageManifest(Map json) :
-    name = json['name'],
-    description = json['description'],
-    libraries = json['libraries'].map(
-        (json) => new Reference(json)).toList(),
-    fullVersion = json['fullVersion'],
-    revision = json['revision'],
-    location = json['location'],
-    dependencies = json['dependencies'].map(
-        (json) => new PackageManifest(json)).toList();
+  PackageManifest(Map json)
+      : name = json['name'],
+        description = json['description'],
+        libraries = json['libraries'].map(
+            (json) => new Reference(json)).toList(),
+        fullVersion = json['fullVersion'],
+        revision = json['revision'],
+        location = json['location'],
+        dependencies = json['dependencies'].map(
+            (json) => new PackageManifest(json)).toList();
 }
 
 /**
@@ -99,12 +107,14 @@ class Reference {
   final String name;
   final List<Reference> arguments;
 
-  Reference(Map json) :
-    name = json['name'],
-    refId = json['refId'],
-    arguments = _jsonDeserializeReferenceArray(json['arguments']);
+  Reference(Map json)
+      : name = json['name'],
+        refId = json['refId'],
+        arguments = _jsonDeserializeReferenceArray(json['arguments']);
 
-  Reference.fromId(this.refId) : name = null, arguments = <Reference>[];
+  Reference.fromId(this.refId)
+      : name = null,
+        arguments = <Reference>[];
 
   bool operator ==(var other) {
     return other is Reference ? refId == other.refId : false;
@@ -268,52 +278,52 @@ class Element implements Comparable, Reference {
   List<Element> _references;
   List<Element> _typeParameters;
 
-  Element(Map json, Element parent) :
-    parent = parent,
-    originalParent = parent,
-    name = json['name'],
-    rawKind = json['kind'],
-    id = json['id'],
-    comment = json['comment'],
-    isPrivate = json['isPrivate'] == true,
-    mdnCommentHtml = json['mdnCommentHtml'],
-    mdnUrl = json['mdnUrl'],
-    _uri = json['uri'],
-    _line = json['line'],
-    loading = false {
-    _children = _jsonDeserializeArray(json['children'], this);
+  Element(Map json, Element parent)
+      : parent = parent,
+        originalParent = parent,
+        name = json['name'],
+        rawKind = json['kind'],
+        id = json['id'],
+        comment = json['comment'],
+        isPrivate = json['isPrivate'] == true,
+        mdnCommentHtml = json['mdnCommentHtml'],
+        mdnUrl = json['mdnUrl'],
+        _uri = json['uri'],
+        _line = json['line'],
+        loading = false {
+        _children = _jsonDeserializeArray(json['children'], this);
   }
 
-  Element._clone(Element e, Element newParent) :
-    parent = newParent,
-    originalParent = e.originalParent,
-    name = e.name,
-    rawKind = e.rawKind,
-    id = e.id,
-    comment = e.comment,
-    isPrivate = e.isPrivate,
-    mdnCommentHtml = e.mdnCommentHtml,
-    mdnUrl = e.mdnUrl,
-    // We intentionally copy from the computed version as otherwise the
-    // inferred location could be wrong.
-    _uri = e.uri,
-    _line = e.line,
-    loading = false,
-    _children = e._children;
+  Element._clone(Element e, Element newParent)
+      : parent = newParent,
+        originalParent = e.originalParent,
+        name = e.name,
+        rawKind = e.rawKind,
+        id = e.id,
+        comment = e.comment,
+        isPrivate = e.isPrivate,
+        mdnCommentHtml = e.mdnCommentHtml,
+        mdnUrl = e.mdnUrl,
+        // We intentionally copy from the computed version as otherwise the
+        // inferred location could be wrong.
+        _uri = e.uri,
+        _line = e.line,
+        loading = false,
+        _children = e._children;
 
-  Element.stub(this.rawKind, Reference ref) :
-      this.name = ref.name,
-      this.id = ref.id,
-      loading = true,
-      comment = null,
-      isPrivate = false,
-      _uri = null,
-      _line = null,
-      parent = null,
-      originalParent = null,
-      mdnCommentHtml = null,
-      mdnUrl = null,
-      _children = <Element>[];
+  Element.stub(this.rawKind, Reference ref)
+      : this.name = ref.name,
+        this.id = ref.id,
+        loading = true,
+        comment = null,
+        isPrivate = false,
+        _uri = null,
+        _line = null,
+        parent = null,
+        originalParent = null,
+        mdnCommentHtml = null,
+        mdnUrl = null,
+        _children = <Element>[];
   
   /**
    * Create a clone of the element with a different parent.
@@ -616,11 +626,13 @@ class Element implements Comparable, Reference {
 class LibraryElement extends Element {
   Map<String, ClassElement> _classes;
 
-  LibraryElement(json, Element parent) : super(json, parent);
-  LibraryElement.stub(Reference ref) : super.stub('library', ref);
+  LibraryElement(json, Element parent)
+      : super(json, parent);
+  LibraryElement.stub(Reference ref)
+      : super.stub('library', ref);
 
-  LibraryElement._clone(LibraryElement e, Element newParent) :
-    super._clone(e, newParent);
+  LibraryElement._clone(LibraryElement e, Element newParent)
+      : super._clone(e, newParent);
 
   LibraryElement clone(Element newParent) =>
       new LibraryElement._clone(this, newParent);
@@ -682,12 +694,12 @@ class ClassElement extends Element {
       isAbstract = json['isAbstract'] == true,
       isThrowable = json['isThrowable'] == true;
 
-  ClassElement._clone(ClassElement e, Element newParent) :
-      super._clone(e, newParent),
-      _directInterfaces = e._directInterfaces,
-      superclass = e.superclass,
-      isAbstract = e.isAbstract,
-      isThrowable = e.isThrowable;
+  ClassElement._clone(ClassElement e, Element newParent)
+      : super._clone(e, newParent),
+        _directInterfaces = e._directInterfaces,
+        superclass = e.superclass,
+        isAbstract = e.isAbstract,
+        isThrowable = e.isThrowable;
 
   ClassElement clone(Element newParent) =>
       new ClassElement._clone(this, newParent);
@@ -863,12 +875,13 @@ class FunctionLikeElement extends Element {
   final Reference returnType;
   List<Element> _parameters;
 
-  FunctionLikeElement(Map json, Element parent) : super(json, parent),
-      returnType = jsonDeserializeReference(json['returnType']);
+  FunctionLikeElement(Map json, Element parent)
+      : super(json, parent),
+        returnType = jsonDeserializeReference(json['returnType']);
 
-  FunctionLikeElement._clone(FunctionLikeElement e, Element newParent) :
-    super._clone(e, newParent),
-    returnType = e.returnType;
+  FunctionLikeElement._clone(FunctionLikeElement e, Element newParent)
+      : super._clone(e, newParent),
+        returnType = e.returnType;
 
   /**
    * Returns a list of the parameters of the typedef.
@@ -889,10 +902,11 @@ class FunctionLikeElement extends Element {
  * Element describing a typedef.
  */
 class TypedefElement extends FunctionLikeElement {
-  TypedefElement(Map json, Element parent) : super(json, parent);
+  TypedefElement(Map json, Element parent)
+      : super(json, parent);
   
-  TypedefElement._clone(TypedefElement e, Element newParent) :
-      super._clone(e, newParent);
+  TypedefElement._clone(TypedefElement e, Element newParent)
+      : super._clone(e, newParent);
 
   TypedefElement clone(Element newParent) =>
       new TypedefElement._clone(this, newParent);
@@ -919,11 +933,11 @@ abstract class MethodLikeElement extends Element {
       isStatic = json['isStatic'] == true,
       isSetter = json['isSetter'] == true;
 
-  MethodLikeElement._clone(MethodLikeElement e, Element newParent) :
-      super._clone(e, newParent),
-      isOperator = e.isOperator,
-      isStatic = e.isStatic,
-      isSetter = e.isSetter;
+  MethodLikeElement._clone(MethodLikeElement e, Element newParent)
+      : super._clone(e, newParent),
+        isOperator = e.isOperator,
+        isStatic = e.isStatic,
+        isSetter = e.isSetter;
 
   void traverse(void callback(Element)) {
     callback(this);
@@ -1060,21 +1074,21 @@ class ParameterElement extends Element {
    */
   final Reference initializedField;
 
-  ParameterElement(Map json, Element parent) :
-      super(json, parent),
-      _type = jsonDeserializeReference(json['ref']),
-      defaultValue = json['defaultValue'],
-      isOptional = json['isOptional'] == true,
-      isNamed = json['isNamed'] == true,
-      initializedField = jsonDeserializeReference(json['initializedField']);
+  ParameterElement(Map json, Element parent)
+      : super(json, parent),
+        _type = jsonDeserializeReference(json['ref']),
+        defaultValue = json['defaultValue'],
+        isOptional = json['isOptional'] == true,
+        isNamed = json['isNamed'] == true,
+        initializedField = jsonDeserializeReference(json['initializedField']);
 
-  ParameterElement._clone(ParameterElement e, Element newParent) :
-      super._clone(e, newParent),
-      _type = e.type,
-      defaultValue = e.defaultValue,
-      isOptional = e.isOptional,
-      isNamed = e.isNamed,
-      initializedField = e.initializedField;
+  ParameterElement._clone(ParameterElement e, Element newParent)
+      : super._clone(e, newParent),
+        _type = e.type,
+        defaultValue = e.defaultValue,
+        isOptional = e.isOptional,
+        isNamed = e.isNamed,
+        initializedField = e.initializedField;
 
   ParameterElement clone(Element newParent) =>
       new ParameterElement._clone(this, newParent);
@@ -1118,8 +1132,8 @@ class FunctionTypeElement extends FunctionLikeElement {
   FunctionTypeElement(Map json, Element parent)
       : super(json, parent);
 
-  FunctionTypeElement._clone(FunctionTypeElement e, Element newParent) :
-      super._clone(e, newParent);
+  FunctionTypeElement._clone(FunctionTypeElement e, Element newParent)
+      : super._clone(e, newParent);
 
   FunctionTypeElement clone(Element newParent) =>
       new FunctionTypeElement._clone(this, newParent);
@@ -1132,9 +1146,9 @@ class TypeParameterElement extends Element {
   /** Upper bound for the parameter. */
   Reference upperBound;
 
-  TypeParameterElement(Map json, Element parent) :
-    super(json, parent),
-    upperBound = jsonDeserializeReference(json['upperBound']);
+  TypeParameterElement(Map json, Element parent)
+      : super(json, parent),
+        upperBound = jsonDeserializeReference(json['upperBound']);
 
   String get shortDescription {
     if (upperBound == null) {
@@ -1157,15 +1171,16 @@ class MethodElement extends MethodLikeElement {
 
   final Reference returnType;
 
-  MethodElement(Map json, Element parent) : super(json, parent),
-      // TODO(jacobr): remove the returnType check once the json output is
-      // updated.
-      returnType =  json['isSetter'] != true ?
-          jsonDeserializeReference(json['returnType']) : null;
+  MethodElement(Map json, Element parent)
+      : super(json, parent),
+        // TODO(jacobr): remove the returnType check once the json output is
+        // updated.
+        returnType =  json['isSetter'] != true ?
+            jsonDeserializeReference(json['returnType']) : null;
 
-  MethodElement._clone(MethodElement e, Element newParent) :
-      super._clone(e, newParent),
-      returnType = e.returnType;
+  MethodElement._clone(MethodElement e, Element newParent)
+      : super._clone(e, newParent),
+        returnType = e.returnType;
 
   MethodElement clone(Element newParent) =>
       new MethodElement._clone(this, newParent);
@@ -1179,12 +1194,13 @@ class PropertyElement extends MethodLikeElement {
 
   String get shortDescription => name;
 
-  PropertyElement(Map json, Element parent) : super(json, parent),
-    returnType = jsonDeserializeReference(json['ref']);
+  PropertyElement(Map json, Element parent)
+      : super(json, parent),
+        returnType = jsonDeserializeReference(json['ref']);
 
-  PropertyElement._clone(PropertyElement e, Element newParent) :
-      super._clone(e, newParent),
-      returnType = e.returnType;
+  PropertyElement._clone(PropertyElement e, Element newParent)
+      : super._clone(e, newParent),
+        returnType = e.returnType;
 
   PropertyElement clone(Element newParent) =>
       new PropertyElement._clone(this, newParent);
@@ -1228,14 +1244,15 @@ class VariableElement extends MethodLikeElement {
    */
   String get uiKind => 'property';
 
-  VariableElement(Map json, Element parent) : super(json, parent),
-    returnType = jsonDeserializeReference(json['ref']),
-    isFinal = json['isFinal'];
+  VariableElement(Map json, Element parent)
+      : super(json, parent),
+        returnType = jsonDeserializeReference(json['ref']),
+        isFinal = json['isFinal'];
 
-  VariableElement._clone(VariableElement e, Element newParent) :
-      super._clone(e, newParent),
-      returnType = e.returnType,
-      isFinal = e.isFinal;
+  VariableElement._clone(VariableElement e, Element newParent)
+      : super._clone(e, newParent),
+        returnType = e.returnType,
+        isFinal = e.isFinal;
 
   VariableElement clone(Element newParent) =>
       new VariableElement._clone(this, newParent);
@@ -1249,10 +1266,11 @@ class VariableElement extends MethodLikeElement {
  * Element describing a constructor.
  */
 class ConstructorElement extends MethodLikeElement {
-  ConstructorElement(json, Element parent) : super(json, parent);
+  ConstructorElement(json, Element parent)
+      : super(json, parent);
 
-  ConstructorElement._clone(ConstructorElement e, Element newParent) :
-      super._clone(e, newParent);
+  ConstructorElement._clone(ConstructorElement e, Element newParent)
+      : super._clone(e, newParent);
 
   ConstructorElement clone(Element newParent) =>
       new ConstructorElement._clone(this, newParent);

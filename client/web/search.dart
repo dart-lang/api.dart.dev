@@ -1,3 +1,7 @@
+// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:html';
 import 'dart:html' as html;
 import 'package:web_ui/web_ui.dart';
@@ -5,6 +9,9 @@ import 'package:api_doc/ast.dart';
 import 'package:api_doc/model.dart';
 import 'package:web_ui/watcher.dart' as watchers;
 
+/**
+ * Component implementing the ApiDoc search.
+ */
 class Search extends WebComponent {
   /** Search query. */
   String searchQuery = "";
