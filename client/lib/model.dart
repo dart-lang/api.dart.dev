@@ -110,7 +110,7 @@ void _recomputeActiveState() {
 void scrollIntoView() {
   // TODO(jacobr): there should be a cleaner way to run code that executes
   // after the UI updates. https://github.com/dart-lang/web-ui/issues/188
-  html.window.setTimeout(() {
+  Timer.run(() {
     if (currentElement != null) {
       for (var e in html.queryAll('[data-id="${currentElement.id}"]')) {
         try {
@@ -121,7 +121,7 @@ void scrollIntoView() {
         }
       }
     }
-  }, 0);
+  });
 }
 
 /**

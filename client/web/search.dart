@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:html' hide Element;
 import 'dart:html' as html show Element;
 import 'package:web_ui/web_ui.dart';
@@ -19,17 +20,15 @@ class Search extends WebComponent {
   String _lastQuery;
   bool isFocused = false;
 
-  int _pendingSearchHandle;
+  Timer _pendingSearchHandle;
   bool _pendingSubmit = false;
 
   bool get inProgress => _pendingSearchHandle != null;
 
   List<SearchResult> get results {
     if (_lastQuery != searchQuery) {
-      if (_pendingSearchHandle != null) {
-        window.clearTimeout(_pendingSearchHandle);
-      }
-      _pendingSearchHandle = window.setTimeout(() {
+      if (inProgress) _pendingSearchHandle.cancel();
+      _pendingSearchHandle = new Timer(const Duration(milliseconds: 50), () {
         _pendingSearchHandle = null;
         if (_lastQuery != searchQuery) {
           _lastQuery = searchQuery;
@@ -40,7 +39,7 @@ class Search extends WebComponent {
           }
           watchers.dispatch();
         }
-      }, 50);
+      });
     }
     return _results;
   }
@@ -49,14 +48,14 @@ class Search extends WebComponent {
     // Sadly we have to wait a few msec as the active element switches to the
     // body and then the correct active element rather than switching directly
     // to the correct element.
-    window.setTimeout(() {
+    new Timer(const Duration(milliseconds: 50), () {
       window.console.log(document.activeElement.tagName);
       if (document.activeElement == null ||
           !this.contains(document.activeElement)) {
         isFocused = false;
         watchers.dispatch();
       }
-    }, 50);
+    });
   }
 
   void onFocusCallback(_) {
