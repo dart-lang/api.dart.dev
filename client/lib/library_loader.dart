@@ -8,7 +8,7 @@ library library_loader;
 import 'ast.dart';
 
 /** Target number of simultaneous connections. */
-int rateLimit = 2;
+int rateLimit = 1;
 
 final _requested = new Set<Reference>();
 final _pending = new Set<Reference>();

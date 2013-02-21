@@ -6,7 +6,14 @@ BSD-style license that can be found in the LICENSE file.
 -->
 <html><body>
   <element name="x-doc-link" extends="span">
-    <template><template if="ref.refId != 'void'"><a href="{{permalink(ref)}}">{{refText}}</a></template><template instantiate="if ref.refId == 'void'">{{ref.name}}</template></template>
+    <template trim-indentation-spaces>
+      <template if="ref.refId != 'void'">
+        <a href="{{permalink(ref)}}">{{refText | final}}</a>
+      </template>
+      <template instantiate="if ref.refId == 'void'">
+        {{ref.name | final}}
+      </template>
+    </template>
 
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
@@ -25,7 +32,9 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
   <element name="x-long-doc-link" extends="span">
-    <template><a href="{{permalink(ref)}}">{{linkName}}</a></template>
+    <template trim-indentation-spaces>
+      <a href="{{permalink(ref)}}">{{linkName | final}}</a>
+    </template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';
@@ -52,7 +61,14 @@ BSD-style license that can be found in the LICENSE file.
     <!-- TODO(jacobr): avoid using the template conditionals in cases where all we are
 making is conditions on text content, but nothing containing actual DOM
 elements. -->
-    <template><x-doc-type type="{{parameter.type}}" param-name="{{parameter.name}}"></x-doc-type><template if="parameter.defaultValue != null">&nbsp;=&nbsp;{{parameter.defaultValue}}</template></template>  
+    <template trim-indentation-spaces>
+      <x-doc-type type="{{parameter.type | final}}"
+                  param-name="{{parameter.name | final}}">
+      </x-doc-type>
+      <template if="parameter.defaultValue != null">
+        &nbsp;=&nbsp;{{parameter.defaultValue | final}}
+      </template>
+    </template>  
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';
@@ -78,7 +94,28 @@ but if not, this syntax should hopefully work:
 <span is="x-doc-parameter" class="arg" parameter="...">
 
 -->
-    <template><span class="args">(<template iterate="param in element.requiredParameters"><span class="arg"><x-doc-parameter parameter="{{param}}"></x-doc-parameter></span></template><template if="!element.optionalParameters.isEmpty">{{element.optionalParametersStartSymbol}}<template iterate="param in element.optionalParameters"><span class="arg"><x-doc-parameter parameter="{{param}}"></x-doc-parameter></span></template>{{element.optionalParametersEndSymbol}}</template>)</span></template>  
+    <template trim-indentation-spaces>
+      <span class="args">
+        (
+        <template iterate="param in element.requiredParameters">
+          <span class="arg">
+            <x-doc-parameter parameter="{{param}}">
+            </x-doc-parameter>
+          </span>
+        </template>
+        <template if="!element.optionalParameters.isEmpty">
+          {{element.optionalParametersStartSymbol}}
+          <template iterate="param in element.optionalParameters">
+            <span class="arg">
+              <x-doc-parameter parameter="{{param}}">
+              </x-doc-parameter>
+            </span>
+          </template>
+          {{element.optionalParametersEndSymbol}}
+        </template>
+        )
+      </span>
+    </template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';
@@ -94,7 +131,27 @@ but if not, this syntax should hopefully work:
   </element>
   <element name="x-doc-type">
     <!-- TODO(jacobr): combine the span and the x-tag -->
-    <template><template if="type is Element"><span class="arg-type"><x-doc-type type="{{type.returnType}}"></x-doc-type></span>&nbsp;<span class="arg-name">{{paramName}}</span><x-doc-parameter-list element="{{type}}"></x-doc-parameter-list></template><template if="type is !Element"><template instantiate="if type != null"><span class="arg-type"><x-doc-link ref="{{type}}"></x-doc-link></span>&nbsp;</template><template if="paramName != null"><span class="arg-name">{{paramName}}</span></template></template></template>
+    <template trim-indentation-spaces>
+      <template if="type is Element">
+        <span class="arg-type">
+          <x-doc-type type="{{type.returnType | final}}">
+          </x-doc-type>
+        </span>&nbsp;
+        <span class="arg-name">{{paramName | final}}</span>
+        <x-doc-parameter-list element="{{type | final}}">
+        </x-doc-parameter-list>
+      </template>
+      <template if="type is !Element">
+        <template instantiate="if type != null">
+          <span class="arg-type">
+            <x-doc-link ref="{{type | final}}"></x-doc-link>
+          </span>&nbsp;
+        </template>
+        <template if="paramName != null">
+          <span class="arg-name">{{paramName | final}}</span>
+        </template>
+      </template>
+    </template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';

@@ -64,7 +64,7 @@ class Search extends WebComponent {
   }
 
   void onSubmitCallback() {
-    if (_pendingSearchHandle != null) {
+    if (_pendingSearch != null) {
       _pendingSubmit = true;
       // Submit will be triggered after a search result is returned.
       return;
@@ -72,7 +72,7 @@ class Search extends WebComponent {
     if (!results.isEmpty) {
       String refId;
       if (this.contains(document.activeElement)) {
-        refId = document.activeElement.dataAttributes['ref-id'];
+        refId = document.activeElement.dataset['ref-id'];
       }
       if (refId == null || refId.isEmpty) {
         // If nothing is focused, use the first search result.
