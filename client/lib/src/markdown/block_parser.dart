@@ -208,7 +208,7 @@ class CodeBlockSyntax extends BlockSyntax {
     childLines.add('');
 
     // Escape the code.
-    final escaped = escapeHtml(Strings.join(childLines, '\n'));
+    final escaped = escapeHtml(childLines.join('\n'));
 
     return new MarkdownElement('pre', [new MarkdownElement.text('code', escaped)]);
   }
@@ -249,7 +249,7 @@ class BlockHtmlSyntax extends BlockSyntax {
       parser.advance();
     }
 
-    return new MarkdownText(Strings.join(childLines, '\n'));
+    return new MarkdownText(childLines.join('\n'));
   }
 }
 
@@ -432,7 +432,7 @@ class ParagraphSyntax extends BlockSyntax {
     }
 
     final contents = parser.document.parseInline(
-        Strings.join(childLines, '\n'));
+        childLines.join('\n'));
     return new MarkdownElement('p', contents);
   }
 }
