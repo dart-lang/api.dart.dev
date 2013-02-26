@@ -6,7 +6,7 @@ BSD-style license that can be found in the LICENSE file.
 -->
 <html><body>
   <element name="x-details" extends="div">
-    <template>
+    <template indentation="remove">
       <div on-click="handleClick($event)">
         <div class="details-icon"></div>
         <content select="summary"></content>
@@ -20,7 +20,7 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
   <element name="x-summary-only" extends="div">
-    <template>
+    <template indentation="remove">
       <content></content>
     </template>
   </element>

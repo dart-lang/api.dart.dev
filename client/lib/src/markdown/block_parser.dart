@@ -431,8 +431,7 @@ class ParagraphSyntax extends BlockSyntax {
       parser.advance();
     }
 
-    final contents = parser.document.parseInline(
-        childLines.join('\n'));
+    final contents = parser.document.parseInline(childLines.join('\n'));
     return new MarkdownElement('p', contents);
   }
 }

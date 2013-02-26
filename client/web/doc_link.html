@@ -6,7 +6,7 @@ BSD-style license that can be found in the LICENSE file.
 -->
 <html><body>
   <element name="x-doc-link" extends="span">
-    <template trim-indentation-spaces>
+    <template indentation="remove">
       <template if="ref.refId != 'void'">
         <a href="{{permalink(ref)}}">{{refText | final}}</a>
       </template>
@@ -32,7 +32,7 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
   <element name="x-long-doc-link" extends="span">
-    <template trim-indentation-spaces>
+    <template indentation="remove">
       <a href="{{permalink(ref)}}">{{linkName | final}}</a>
     </template>
     <script type="application/dart">
@@ -61,7 +61,7 @@ BSD-style license that can be found in the LICENSE file.
     <!-- TODO(jacobr): avoid using the template conditionals in cases where all we are
 making is conditions on text content, but nothing containing actual DOM
 elements. -->
-    <template trim-indentation-spaces>
+    <template indentation="remove">
       <x-doc-type type="{{parameter.type | final}}"
                   param-name="{{parameter.name | final}}">
       </x-doc-type>
@@ -94,7 +94,7 @@ but if not, this syntax should hopefully work:
 <span is="x-doc-parameter" class="arg" parameter="...">
 
 -->
-    <template trim-indentation-spaces>
+    <template indentation="remove">
       <span class="args">
         (
         <template iterate="param in element.requiredParameters">
@@ -131,7 +131,7 @@ but if not, this syntax should hopefully work:
   </element>
   <element name="x-doc-type">
     <!-- TODO(jacobr): combine the span and the x-tag -->
-    <template trim-indentation-spaces>
+    <template indentation="remove">
       <template if="type is Element">
         <span class="arg-type">
           <x-doc-type type="{{type.returnType | final}}">

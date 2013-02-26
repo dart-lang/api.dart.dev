@@ -13,7 +13,7 @@ BSD-style license that can be found in the LICENSE file.
 
   <body>
   <element name="x-member-blocks" extends="div">
-    <template>
+    <template indentation="remove">
       <template iterate='block in blocks'>
         <div class="{{block.kindCssClass}}">
           <h3 class="member-block-title">{{block.kindTitle}}</h3>
@@ -35,7 +35,7 @@ BSD-style license that can be found in the LICENSE file.
   </element>
 
   <element name="x-element-signature" extends="span">
-    <template>
+    <template indentation="preserve">
       <template instantiate="if element is! ClassElement">
         <span class="element-class">
           <template instantiate="if hasReturnType">
@@ -45,7 +45,12 @@ BSD-style license that can be found in the LICENSE file.
       </template>
       <x-kind-icon element="{{element}}"></x-kind-icon>
       <span class="element-definition">
-        <span class="element-name"><x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link></span><template instantiate="if hasArguments"><x-doc-parameter-list element="{{element}}"></x-doc-parameter-list></template>
+        <span class="element-name">
+          <x-doc-link ref="{{element}}" short="{{true}}"></x-doc-link>
+        </span>
+        <template instantiate="if hasArguments">
+          <x-doc-parameter-list element="{{element}}"></x-doc-parameter-list>
+        </template>
       </span>
     </template>
     <script type="application/dart">
@@ -68,7 +73,7 @@ BSD-style license that can be found in the LICENSE file.
   </element>
 
   <element name="x-element-summary" extends="div">
-    <template>
+    <template indentation="remove">
       <!--TODO(jacobr): use id instead of data-id and use a different escaping scheme-->
       <x-details class="element-details {{memberOrTypeClass}}"
           data-id="{{element.id}}"
@@ -108,7 +113,7 @@ BSD-style license that can be found in the LICENSE file.
   </element>
 
   <element name="x-class-hierarchy-subtree" extends="div">
-    <template>
+    <template indentation="remove">
       <template instantiate="if (index < clazz.superclasses.length)">
         <div><x-doc-link ref={{clazz.superclasses[index]}}></x-doc-link></div>
         <!-- TODO(jacobr): why doesn't it work to just put this class on the
@@ -136,7 +141,7 @@ BSD-style license that can be found in the LICENSE file.
   </element>
 
   <element name="x-class-hierarchy" extends="div">
-    <template>
+    <template indentation="remove">
       <x-class-hierarchy-subtree clazz="{{clazz}}" index="{{0}}">
       </x-class-hierarchy-subtree>
     </template>

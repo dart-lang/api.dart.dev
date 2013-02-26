@@ -37,8 +37,9 @@ BSD-style license that can be found in the LICENSE file.
     </script>
 
   </head>
-  <body trim-indentation-spaces>
-    <template instantiate="if currentElement == null || !currentElement.loading">
+  <body>
+    <template instantiate="if currentElement == null || !currentElement.loading"
+              indentation="remove">
     <div class="page">
       <div class="header">
         <span class="header-location">
@@ -186,7 +187,8 @@ BSD-style license that can be found in the LICENSE file.
                   <template iterate='clazz in currentType.subclasses'>
                     <div>
                       <x-kind-icon element="{{clazz}}"></x-kind-icon>
-                      <x-doc-link ref="{{clazz}}"></x-doc-link></div>
+                      <x-doc-link ref="{{clazz}}"></x-doc-link>
+                    </div>
                   </template>
                 </div>
               </x-details>
