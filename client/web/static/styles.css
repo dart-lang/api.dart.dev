@@ -585,10 +585,6 @@ x-element-signature {
   display: block;
 }
 
-.element-details:not(.open-details) x-kind-icon {
-  margin-left: 99px;
-}
-
 .kind-class .element-details:not(.open-details) x-kind-icon {
   margin-left: 0px;
 }
@@ -603,12 +599,6 @@ x-element-signature {
 
 .element-details:not(.open-details) .element-class {
   width: 80px;
-  display: inline;
-  /**
-   * TODO(jacobr): it is ugly that we have to force this to absolute
-   * positioning and manually position element-details to avoid ugly wrapping.
-   */
-  position: absolute;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
