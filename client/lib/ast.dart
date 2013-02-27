@@ -124,8 +124,9 @@ class Reference {
 
   Element toElement() => lookupReferenceId(refId);
 
-  String get id => refId.split(new RegExp('/')).last;
+  String get id => refId.split('/').last;
 
+  String get libraryId => refId.split('/').first;
   /**
    * Short description appropriate for displaying in a tree control or other
    * situtation where a short description is required.
@@ -151,8 +152,31 @@ void loadLibraryJson(String data) {
   for (var library in libraries.values) {
     library.invalidate();
   }
-  var library = new LibraryElement(json.parse(data), null);
-  libraries[library.id] = library;
+  var libraryJson = json.parse(data);
+  var libraryId = libraryJson['id'];
+  if (libraryId == null) return;
+
+  var dependenciesJson = libraryJson['dependencies'];
+  if (dependenciesJson != null) {
+    for (Map libraryJson in dependenciesJson) {
+      var library = libraries.putIfAbsent(libraryJson['id'],
+          () => new LibraryElement(libraryJson, null)..loading = true);
+      // Only inject the json when the library is still loading as there is no
+      // need to inject the json if the library is already complete.
+      if (library.loading) {
+        library._injectJson(libraryJson);
+      }
+    }
+  }
+
+  var library = libraries[libraryId];
+  if (library != null) {
+    library._injectJson(libraryJson);
+    library.loading = false;
+  } else {
+    library = new LibraryElement(libraryJson, null);
+    libraries[libraryId] = library;
+  }
 }
 
 void loadPackageJson(String data) {
@@ -186,9 +210,8 @@ Element lookupReferenceId(String referenceId, [bool nearestMatch = false]) {
   Element current = lookupLibrary(libraryId);
   if (current == null || current.loading == true) {
     library_loader.load(new Reference.fromId(libraryId));
-    return nearestMatch ? current : null;
   }
-  for (var i = 1; i < parts.length; i++) {
+  for (var i = 1; i < parts.length && current != null; i++) {
     var id = parts[i];
     var next = null;
     for (var child in current.children) {
@@ -237,6 +260,14 @@ SafeHtml _markdownToSafeHtmlSnippet(String text) {
  */
 class Element implements Comparable, Reference {
   final Element parent;
+
+  /**
+   * Parent of the element in the context it was originally defined.
+   *
+   * For example, the [toString] method from [Object] will have [Object] as its
+   * original parent when it is included as a child of subclasses of [Object]
+   * that do not override [toString].
+   */
   final Element originalParent;
 
   /** Human readable type name for the node. */
@@ -252,7 +283,7 @@ class Element implements Comparable, Reference {
   String comment;
 
   /** Whether the node is private. */
-  final bool isPrivate;
+  bool isPrivate;
 
   /** Raw html comment for the Element from MDN. */
   String mdnCommentHtml;
@@ -268,10 +299,10 @@ class Element implements Comparable, Reference {
   List<Element> _children;
 
   /** Whether the [Element] is currently being loaded. */
-  final bool loading;
+  bool loading;
 
-  final String _uri;
-  final String _line;
+  String _uri;
+  String _line;
   String _refId;
   SafeHtml _commentHtml;
   SafeHtml _commentHtmlSnippet;
@@ -284,14 +315,8 @@ class Element implements Comparable, Reference {
         name = json['name'],
         rawKind = json['kind'],
         id = json['id'],
-        comment = json['comment'],
-        isPrivate = json['isPrivate'] == true,
-        mdnCommentHtml = json['mdnCommentHtml'],
-        mdnUrl = json['mdnUrl'],
-        _uri = json['uri'],
-        _line = json['line'],
         loading = false {
-        _children = _jsonDeserializeArray(json['children'], this);
+    _loadFromJson(json);
   }
 
   Element._clone(Element e, Element newParent)
@@ -325,6 +350,32 @@ class Element implements Comparable, Reference {
         mdnUrl = null,
         _children = <Element>[];
   
+  void _loadFromJson(Map json) {
+    comment = json['comment'];
+    isPrivate = json['isPrivate'] == true;
+    mdnCommentHtml = json['mdnCommentHtml'];
+    mdnUrl = json['mdnUrl'];
+    _uri = json['uri'];
+    _line = json['line'];
+    _addChildren(json['children']);
+  }
+
+  void _addChildren(List children) {
+    if (_children == null) {
+      _children = _jsonDeserializeArray(children, this);
+    } else {
+      // TODO(jacobr): evaluate keeping around the list of existing children.
+      var existingChildren = new Set<String>.from(
+          _children.map((e) => e.id));
+
+      for (var child in children) {
+        if (!existingChildren.contains(child['id'])) {
+          _children.add(jsonDeserialize(child, this));
+        }
+      }
+    }
+  }
+
   /**
    * Create a clone of the element with a different parent.
    */
@@ -537,47 +588,22 @@ class Element implements Comparable, Reference {
   List<ElementBlock> _createElementBlocks(List<String> desiredKinds,
       bool showPrivate, showInherited) {
     var blockMap = new Map<String, List<Element>>();
-    var usedNames = new Map<String, Element>();
 
-    _createElementBlocksHelper(e) {
-      for (var child in e.children) {
-        // TODO(jacobr): don't hard code $dom_
-        if (showPrivate == false &&
-            (child.isPrivate || child.name.startsWith("\$dom_"))) {
-          continue;
-        }
-        
-        if (showInherited == false && child.originalParent != child.parent) {
-          continue;
-        }
-
-        // Showing constructors from superclasses doesn't make sense.
-        if (e != this && child is ConstructorElement) {
-          continue;
-        }
-        if (!desiredKinds.contains(child.uiKind)) {
-          continue;
-        }
-
-        // If we are showing inherited methods, insure we do not include
-        // multiple members with the same names but different types.
-        // TODO(jacobr): show documentation from base class if it is available
-        // while class specific definition isn't.
-        if (showInherited) {
-          var existingParent = usedNames[child.name];
-          if (existingParent != null && existingParent != e) {
-            continue;
-          }
-          usedNames[child.name] = e;
-        }
-        blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
+    for (var child in children) {
+      // TODO(jacobr): don't hard code $dom_
+      if (showPrivate == false &&
+          (child.isPrivate || child.name.startsWith("\$dom_"))) {
+        continue;
       }
-    }
-    _createElementBlocksHelper(this);
-    if (showInherited && this is ClassElement) {
-      for (var superclass in (this as ClassElement).superclasses.reversed) {
-        _createElementBlocksHelper(superclass);
+      
+      if (showInherited == false && child.originalParent != child.parent) {
+        continue;
       }
+
+      if (!desiredKinds.contains(child.uiKind)) {
+        continue;
+      }
+      blockMap.putIfAbsent(child.uiKind, () => <Element>[]).add(child);
     }
 
     var blocks = <ElementBlock>[];
@@ -645,6 +671,13 @@ class LibraryElement extends Element {
     return _classes;
   }
 
+  void _injectJson(Map json) {
+    _loadFromJson(json);
+    _classes = null; // clear _classes cache.
+  }
+
+  String get libraryId => id;
+
   /**
    * Returns all blocks of elements that should be rendered by UI summarizing
    * the Library.
@@ -707,10 +740,7 @@ class ClassElement extends Element {
   String get uiKind => isThrowable ? 'exception' : kind;
 
   void invalidate() {
-    _superclasses = null;
     _subclasses = null;
-    _interfaces = null;
-    _childrenBreaded = false;
     super.invalidate();
   }
 
@@ -763,6 +793,9 @@ class ClassElement extends Element {
     for (var superclass in superclasses.reversed) {
       _breadHelper(superclass);
     }
+    for (var interface in interfaces) {
+      _breadHelper(interface);
+    }
   }
 
   /** Returns all superclasses of this class. */
@@ -784,21 +817,17 @@ class ClassElement extends Element {
   }
 
   /** Returns all interfaces implemented by this class. */
-  List<Reference> get interfaces {
+  List<ClassElement> get interfaces {
     if (_interfaces == null) {
-      final allInterfaces = new Set<Reference>();
-      final superclassRefIds = new Set<String>();
-
-      for (var superclass in superclasses) {
-        superclassRefIds.add(superclass.refId);
-      }
-      
-      addInterface(Reference ref) {
-        if (!superclassRefIds.contains(ref.refId)) {
+      final allInterfaces = new Set<ClassElement>();
+      final superclassSet = superclasses.toSet();
+     
+      addInterface(ClassElement ref) {
+        if (!superclassSet.contains(ref)) {
           allInterfaces.add(ref);
         }
       }
-      addInterfaces(Iterable<Reference> refs) {
+      addInterfaces(Iterable<ClassElement> refs) {
         for(var ref in refs) {
           addInterface(ref);
         }
@@ -806,11 +835,9 @@ class ClassElement extends Element {
 
       for (var ref in _directInterfaces) {
         var interface = ref.toElement();
-        if (interface != null) {
-          addInterfaces(interface.interfaces);
-          addInterfaces(interface.superclasses);
-          addInterface(ref);
-        }
+        addInterfaces(interface.interfaces);
+        addInterfaces(interface.superclasses);
+        addInterface(interface);
       }
       for (var superClass in superclasses) {        
         addInterfaces(superClass.interfaces);
