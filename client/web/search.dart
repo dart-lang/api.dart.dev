@@ -64,7 +64,7 @@ class Search extends WebComponent {
   }
 
   void onSubmitCallback() {
-    if (_pendingSearch != null) {
+    if (_pendingSearchHandle != null) {
       _pendingSubmit = true;
       // Submit will be triggered after a search result is returned.
       return;
