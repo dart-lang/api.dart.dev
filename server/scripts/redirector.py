@@ -124,15 +124,15 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
   if re.search(r'^(core|coreimpl|crypto|io|isolate|json|uri|html|math|utf|web)', path):
-    return '/docs/releases/latest/dart_' + path
+    return '/docs/releases/latest/dart_' + path + '.html'
   else:
-    return '/docs/releases/latest/' + path
+    return '/docs/releases/latest/' + path + '.html'
 
 def redir_dom(handler, *args, **kwargs):
-  return '/docs/bleeding_edge/dart_html' + kwargs['path']
+  return '/docs/bleeding_edge/dart_html' + kwargs['path'] + '.html'
 
 def redir_continuous(handler, *args, **kwargs):
-  return '/docs/bleeding_edge' + kwargs['path']
+  return '/docs/bleeding_edge/' + kwargs['path'] + '.html'
 
 def redir_pkgs(handler, *args, **kwargs):
   return '/docs/releases/latest/' + kwargs['pkg'] + '.html'
@@ -142,7 +142,7 @@ application = WSGIApplication(
     Route('/docs/pkg/<pkg:args|fixnum|intl|logging|matcher|meta|mock|serialization|unittest><:/?>',
         RedirectHandler, defaults={'_uri': redir_pkgs, '_code': 302}),
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
-    Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
+    Route('/docs/continuous<:/?><path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     ('/docs.*', ApiDocs),
     Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
   ],
