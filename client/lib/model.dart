@@ -410,7 +410,7 @@ void _indexLibrary(LibraryElement library) {
         if (i > 0) {
           addEntry(nameLowerCase.substring(i));
         }
-        initials.addCharCode(nameLowerCase.codeUnitAt(i));
+        initials.writeCharCode(nameLowerCase.codeUnitAt(i));
       }
     }
     if (initials.length > 1) {

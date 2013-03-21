@@ -5,7 +5,7 @@ for details. All rights reserved. Use of this source code is governed by a
 BSD-style license that can be found in the LICENSE file.
 -->
 <html><body>
-  <element name="x-doc-link" extends="span">
+  <element name="x-doc-link" constructor="DocLink" extends="span">
     <template indentation="remove">
       <template if="ref.refId != 'void'">
         <a href="{{permalink(ref)}}">{{refText | final}}</a>
@@ -25,13 +25,13 @@ BSD-style license that can be found in the LICENSE file.
         Reference ref;
         /** Whether a short version of the Element name should be used. */
         bool short = false;
-      
+
         /** Text to display. */
         String get refText => short ? ref.shortName : ref.shortDescription;
       }
     </script>
   </element>
-  <element name="x-long-doc-link" extends="span">
+  <element name="x-long-doc-link" constructor="LongDocLink" extends="span">
     <template indentation="remove">
       <a href="{{permalink(ref)}}">{{linkName | final}}</a>
     </template>
@@ -48,7 +48,7 @@ BSD-style license that can be found in the LICENSE file.
        */
       class LongDocLink extends WebComponent {
         Element ref;
-        
+
         String get linkName {
           var prefix = ref.parent is ClassElement ? '${ref.parent.name}' : '';
           return '$prefix${ref.shortDescription}';
@@ -57,7 +57,7 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
 
-  <element name="x-doc-parameter">
+  <element name="x-doc-parameter" constructor="DocParameter">
     <!-- TODO(jacobr): avoid using the template conditionals in cases where all we are
 making is conditions on text content, but nothing containing actual DOM
 elements. -->
@@ -68,7 +68,7 @@ elements. -->
       <template if="parameter.defaultValue != null">
         &nbsp;=&nbsp;{{parameter.defaultValue | final}}
       </template>
-    </template>  
+    </template>
     <script type="application/dart">
       import 'package:web_ui/web_ui.dart';
       import 'package:api_doc/ast.dart';
@@ -82,7 +82,7 @@ elements. -->
       }
     </script>
   </element>
-  <element name="x-doc-parameter-list">
+  <element name="x-doc-parameter-list" constructor="DocParameterList">
     <!-- TODO(jacobr): do we need the extra <span class="arg">?
 
 can we reuse the x-doc-parameter span?
@@ -129,7 +129,7 @@ but if not, this syntax should hopefully work:
       }
     </script>
   </element>
-  <element name="x-doc-type">
+  <element name="x-doc-type" constructor="DocType">
     <!-- TODO(jacobr): combine the span and the x-tag -->
     <template indentation="remove">
       <template if="type is Element">

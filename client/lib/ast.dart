@@ -63,22 +63,22 @@ class PackageManifest {
   /** Package name. */
 
   final name;
-  
+
   /** Package description */
   final description;
-  
+
   /** Libraries contained in this package. */
   final List<Reference> libraries;
-  
+
   /** Descriptive string describing the version# of the package. */
   final String fullVersion;
-  
+
   /** Source control revision # of the package. */
   final String revision;
-  
+
   /** Path to the directory containing data files for each library. */
   final String location;
-  
+
   /**
    * Packages depended on by this package.
    * We currently store the entire manifest for the depency here as it is
@@ -202,7 +202,7 @@ LibraryElement lookupLibrary(String libraryId) {
  * Resolve the [Element] matching the [referenceId].
  *
  * If [nearestMatch] is true and the Element cannot be found, the closest
- * known ancestor of the desired Element is returned instead. 
+ * known ancestor of the desired Element is returned instead.
  */
 Element lookupReferenceId(String referenceId, [bool nearestMatch = false]) {
   var parts = referenceId.split(new RegExp('/'));
@@ -349,7 +349,7 @@ class Element implements Comparable, Reference {
         mdnCommentHtml = null,
         mdnUrl = null,
         _children = <Element>[];
-  
+
   void _loadFromJson(Map json) {
     comment = json['comment'];
     isPrivate = json['isPrivate'] == true;
@@ -380,7 +380,7 @@ class Element implements Comparable, Reference {
    * Create a clone of the element with a different parent.
    */
   Element clone(Element newParent) => new Element._clone(this, newParent);
-  
+
   bool operator ==(other) {
     return other is Reference ? refId == other.refId : false;
   }
@@ -391,7 +391,7 @@ class Element implements Comparable, Reference {
   List<Element> get children => _children;
 
   Element toElement() => this;
-  
+
   /**
    * Concrete elements do not take arguments.
    */
@@ -559,7 +559,7 @@ class Element implements Comparable, Reference {
     if (typeParameters.isEmpty) {
       return name;
     } else {
-      var params = 
+      var params =
           typeParameters.map((param) => param.shortDescription).join(', ');
       return '$name<$params>';
     }
@@ -595,7 +595,7 @@ class Element implements Comparable, Reference {
           (child.isPrivate || child.name.startsWith("\$dom_"))) {
         continue;
       }
-      
+
       if (showInherited == false && child.originalParent != child.parent) {
         continue;
       }
@@ -751,7 +751,7 @@ class ClassElement extends Element {
     }
     return _children;
   }
-  
+
   /**
    * Inject children from superclasses, copying their comments for cases where
    * the child class had no comments.
@@ -821,7 +821,7 @@ class ClassElement extends Element {
     if (_interfaces == null) {
       final allInterfaces = new Set<ClassElement>();
       final superclassSet = superclasses.toSet();
-     
+
       addInterface(ClassElement ref) {
         if (!superclassSet.contains(ref)) {
           allInterfaces.add(ref);
@@ -839,7 +839,7 @@ class ClassElement extends Element {
         addInterfaces(interface.superclasses);
         addInterface(interface);
       }
-      for (var superClass in superclasses) {        
+      for (var superClass in superclasses) {
         addInterfaces(superClass.interfaces);
       }
       _interfaces = allInterfaces.toList();
@@ -931,7 +931,7 @@ class FunctionLikeElement extends Element {
 class TypedefElement extends FunctionLikeElement {
   TypedefElement(Map json, Element parent)
       : super(json, parent);
-  
+
   TypedefElement._clone(TypedefElement e, Element newParent)
       : super._clone(e, newParent);
 
@@ -998,25 +998,25 @@ abstract class MethodLikeElement extends Element {
   String get longDescription {
     var sb = new StringBuffer();
     if (isStatic) {
-      sb.add("static ");
+      sb.write("static ");
     }
     if (isSetter) {
-      sb.add("set $shortName(");
+      sb.write("set $shortName(");
       if (!parameters.isEmpty && parameters.first != null) {
         if (parameters.first.type != null) {
-          sb..add(parameters.first.longDescription)..add(' ');
+          sb..write(parameters.first.longDescription)..write(' ');
         }
-        sb.add(parameters.first.name);
+        sb.write(parameters.first.name);
       }
-      sb.add(")");
+      sb.write(")");
     } else {
       if (returnType != null) {
-        sb..add(returnType.shortDescription)..add(" ");
+        sb..write(returnType.shortDescription)..write(" ");
       }
       if (isOperator) {
-        sb.add("operator ");
+        sb.write("operator ");
       }
-      sb.add('$name(${parameters.map(
+      sb.write('$name(${parameters.map(
           (arg) => arg.longDescription).toList().join(', ')})');
     }
     return sb.toString();
@@ -1041,7 +1041,7 @@ abstract class MethodLikeElement extends Element {
     }
     return _optionalParameters;
   }
-  
+
   String get optionalParametersStartSymbol =>
       optionalParameters.first.isNamed ? '{' : '[';
 
@@ -1140,13 +1140,13 @@ class ParameterElement extends Element {
   String get longDescription {
     var sb = new StringBuffer();
     if (initializedField != null) {
-      sb.add("this.");
+      sb.write("this.");
     } else if (type != null) {
-      sb..add(type.shortDescription)..add(' ');
+      sb..write(type.shortDescription)..write(' ');
     }
-    sb.add(name);
+    sb.write(name);
     if (defaultValue != null) {
-      sb.add(' = $defaultValue');
+      sb.write(' = $defaultValue');
     }
     return sb.toString();
   }
@@ -1155,7 +1155,7 @@ class ParameterElement extends Element {
 /**
  * Element describing a function type.
  */
-class FunctionTypeElement extends FunctionLikeElement { 
+class FunctionTypeElement extends FunctionLikeElement {
   FunctionTypeElement(Map json, Element parent)
       : super(json, parent);
 
@@ -1235,9 +1235,9 @@ class PropertyElement extends MethodLikeElement {
   String get longDescription {
     var sb = new StringBuffer();
     if (returnType != null) {
-      sb..add(returnType.shortDescription)..add(" ");
+      sb..write(returnType.shortDescription)..write(" ");
     }
-    sb.add("get $name");
+    sb.write("get $name");
     return sb.toString();
   }
 
@@ -1259,9 +1259,9 @@ class VariableElement extends MethodLikeElement {
   String get longDescription {
     var sb = new StringBuffer();
     if (returnType != null) {
-      sb..add(returnType.shortDescription)..add(" ");
+      sb..write(returnType.shortDescription)..write(" ");
     }
-    sb.add(name);
+    sb.write(name);
     return sb.toString();
   }
 
@@ -1320,7 +1320,7 @@ class ElementBlock {
   final List<Element> elements;
 
   ElementBlock(this.kind, this.elements);
-  
+
   String get kindCssClass => "kind-$kind";
   String get kindTitle => UI_KIND_TITLES[kind];
 

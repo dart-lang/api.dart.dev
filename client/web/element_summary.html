@@ -12,7 +12,7 @@ BSD-style license that can be found in the LICENSE file.
   </head>
 
   <body>
-  <element name="x-member-blocks" extends="div">
+  <element name="x-member-blocks" constructor="MemberBlocks" extends="div">
     <template indentation="remove">
       <template iterate='block in blocks'>
         <div class="{{block.kindCssClass}}">
@@ -34,7 +34,8 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
 
-  <element name="x-element-signature" extends="span">
+  <element name="x-element-signature" constructor="ElementSignature"
+      extends="span">
     <template indentation="remove">
       <template instantiate="if element is! ClassElement">
         <span class="element-class">
@@ -72,7 +73,7 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
 
-  <element name="x-element-summary" extends="div">
+  <element name="x-element-summary" constructor="ElementSummary" extends="div">
     <template indentation="remove">
       <!--TODO(jacobr): use id instead of data-id and use a different escaping scheme-->
       <x-details class="element-details {{memberOrTypeClass}}"
@@ -112,7 +113,8 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
 
-  <element name="x-class-hierarchy-subtree" extends="div">
+  <element name="x-class-hierarchy-subtree" constructor="ClassHierarchySubtree"
+      extends="div">
     <template indentation="remove">
       <template instantiate="if (index < clazz.superclasses.length)">
         <div><x-doc-link ref={{clazz.superclasses[index]}}></x-doc-link></div>
@@ -140,7 +142,7 @@ BSD-style license that can be found in the LICENSE file.
     </script>
   </element>
 
-  <element name="x-class-hierarchy" extends="div">
+  <element name="x-class-hierarchy" constructor="ClassHierarchy" extends="div">
     <template indentation="remove">
       <x-class-hierarchy-subtree clazz="{{clazz}}" index="{{0}}">
       </x-class-hierarchy-subtree>
