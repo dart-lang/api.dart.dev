@@ -1,12 +1,13 @@
 name: api_doc
-author: "Dart Team <misc@dartlang.org>"
-homepage: https://github.com/dart-lang/api-doc
-description: Dart API documentation browser
 version: 0.0.1
+author: Dart Team <misc@dartlang.org>
+description: Dart API documentation browser
+homepage: https://github.com/dart-lang/api-doc
 dependencies:
-  unittest: any
-  browser: any
   args: any
+  browser: any
   logging: any
-  web_ui: any
+  markdown: any
   poppy: any
+  unittest: any
+  web_ui: any

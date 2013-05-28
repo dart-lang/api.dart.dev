@@ -45,7 +45,7 @@ main() {
       expect(dwc.run(['-o', 'data/output/', path], printTime: false)
         .then((res) {
           expect(res.messages.length, 0,
-              reason: Strings.join(res.messages, '\n'));
+              reason: '${res.messages}\n');
         }), completes);
     });
 

@@ -11,7 +11,7 @@ import 'dart:json' as json;
 import 'package:web_ui/watcher.dart' as watchers;
 import 'package:web_ui/safe_html.dart';
 import 'package:poppy/trie.dart';
-import 'markdown.dart' as md;
+import 'package:markdown/markdown.dart' as md;
 import 'ast.dart';
 import 'library_loader.dart' as library_loader;
 
@@ -242,10 +242,9 @@ Future loadModel() {
 
   // Patch in support for [:...:]-style code to the markdown parser.
   // TODO(rnystrom): Markdown already has syntax for this. Phase this out?
-  md.InlineParser.syntaxes.insertRange(0, 1,
+  md.InlineParser.defaultSyntaxes.insert(0,
       new md.CodeSyntax(r'\[\:((?:.|\n)*?)\:\]'));
 
-  md.setImplicitLinkResolver(_resolveNameReference);
   library_loader.libraryLoader = (url, callback) {
     html.HttpRequest.getString(url)
         .catchError((evt) {
@@ -271,12 +270,12 @@ Future loadModel() {
  * brackets. It will try to figure out what the name refers to and link or
  * style it appropriately.
  */
-md.MarkdownNode _resolveNameReference(String name) {
+md.Node linkResolver(String name) {
   // TODO(jacobr): this isn't right yet and we have made this code quite ugly
   // by using the verbose universal permalink member even though library is
   // always currentLibrary.
   makeLink(String href) {
-    return new md.MarkdownElement.text('a', name)
+    return new md.Element.text('a', name)
       ..attributes['href'] = href
       ..attributes['class'] = 'crossref';
   }
@@ -286,7 +285,7 @@ md.MarkdownNode _resolveNameReference(String name) {
     var parameters = currentMember.children;
     for (final parameter in parameters) {
       if (parameter.name == name) {
-        final element = new md.MarkdownElement.text('span', name);
+        final element = new md.Element.text('span', name);
         element.attributes['class'] = 'param';
         return element;
       }
@@ -355,7 +354,7 @@ md.MarkdownNode _resolveNameReference(String name) {
   //   store this in the AST.
   // * Type parameters of the enclosing type.
 
-  return new md.MarkdownElement.text('code', name);
+  return new md.Element.text('code', name);
 }
 
 /**

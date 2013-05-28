@@ -10,8 +10,9 @@ library ast;
 
 import 'dart:json' as json;
 import 'package:web_ui/safe_html.dart';
-import 'markdown.dart' as md;
+import 'package:markdown/markdown.dart' as md;
 import 'library_loader.dart' as library_loader;
+import 'model.dart' as apidoc_model;
 
 final MAX_REFERENCES_TO_TRACK = 100;
 /**
@@ -243,7 +244,9 @@ SafeHtml _markdownToSafeHtml(String text) {
   // We currently have to insert an extra span for now because of
   // https://github.com/dart-lang/web-ui/issues/212
   return new SafeHtml.unsafe(text != null && !text.isEmpty ?
-        '<span>${md.markdownToHtml(text)}</span>' : '<span><span>');
+      '<span>'
+      '${md.markdownToHtml(text, linkResolver: apidoc_model.linkResolver)}'
+      '</span>' : '<span><span>');
 }
 
 // TODO(jacobr): remove this method when templates handle [SafeHTML] containing
@@ -251,8 +254,13 @@ SafeHtml _markdownToSafeHtml(String text) {
 SafeHtml _markdownToSafeHtmlSnippet(String text) {
   // We currently have to insert an extra span for now because of
   // https://github.com/dart-lang/web-ui/issues/212
+  // TODO(efortuna?): Add an HtmlSnippet method to the package:markdown library,
+  // and call it here instead of just markdownToHtml. The snippet option only
+  // generates 1 paragraph of text for the code comment for a method.
   return new SafeHtml.unsafe(text != null && !text.isEmpty ?
-        '<span>${md.markdownToHtmlSnippet(text)}</span>' : '<span><span>');
+      '<span>'
+      '${md.markdownToHtml(text, linkResolver: apidoc_model.linkResolver)}'
+      '</span>' : '<span><span>');
 }
 
 /**
