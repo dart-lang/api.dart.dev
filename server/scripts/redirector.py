@@ -92,6 +92,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       if path_exists == "1":
         self.send_blob(gs_key)
       else:
+        logging.debug('Memcache said ' + path + ' does not exist, sending 404')
         self.error(404)
     else:
       try:
@@ -101,6 +102,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         self.send_blob(gs_key)
       except files.file.ExistenceError:
         memcache.add(key=path, value="0", time=ONE_DAY)
+        logging.debug('Could not open ' + path + ', sending 404')
         self.error(404)
 
   # this doesn't get called, unfortunately.
