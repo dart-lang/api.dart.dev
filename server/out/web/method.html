@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<link rel="import" href="item.html">
+<link rel="import" href="category.html">
+<link rel="import" href="parameters.html">
+<link rel="import" href="annotations.html">
+
+<!-- TODO(tmandel): Reduce redundancy here and in method-panel.html -->
+<polymer-element name="dartdoc-method" attributes="item">
+  <template>
+      <dartdoc-annotation annotations="{{annotations}}">
+      </dartdoc-annotation>
+
+      <!-- Return Type -->
+      <div class="page-header">
+        <h1>
+          {{modifiers}}
+
+          <span class="type">
+          </span>
+          {{createMethodType()}}
+          <template if="{{item.isOperator}}">operator</template>
+          {{item.decoratedName}}
+           <!-- Parameters -->
+          <dartdoc-parameter parameters="{{parameters}}"></dartdoc-parameter>
+        </h1>
+      </div>
+
+      <p class="text-right"><dfn>
+        <template if="{{isInherited}}">
+          Inherited from
+          <template if="{{exists(inheritedFrom.location)}}">
+            <a href="#{{inheritedFrom.loc.withAnchor}}">
+              {{inheritedFrom.simpleType}}
+            </a>
+          </template>
+          <template if="{{!exists(inheritedFrom.location)}}">
+            <i>{{inheritedFrom.simpleType}}</i>
+          </template>
+        </template>
+      </dfn></p>
+
+      <!-- Comment -->
+      <section class="description">
+      </section>
+      <template if="{{viewer.isInherited || !hasInheritedComment}}">
+        {{addComment('dartdoc-method')}}
+      </template>
+
+      <p class="text-right"><dfn>
+        <template if="{{shouldShowMethodComment && hasInheritedComment}}">
+          <template if="{{viewer.isInherited}}">
+            Comment inherited from
+            <template if="{{exists(commentFrom.location)}}">
+              <a href="#{{commentFrom.loc.withAnchor}}">
+                {{commentFrom.simpleType}}
+              </a>
+            </template>
+            <template if="{{!exists(commentFrom.location)}}">
+              <i>{{commentFrom.simpleType}}</i>
+            </template>
+          </template>
+        </template>
+      </dfn></p>
+
+    </template>
+
+  <script type="application/dart" src="method.dart"></script>
+</polymer-element>

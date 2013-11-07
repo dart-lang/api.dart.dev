@@ -12,6 +12,17 @@ threadsafe: true
 #default_expiration: "2h"
 
 handlers:
+- url: /v2-test/static
+  static_dir: client/out/web/static
+  
+- url: /v2-test/
+  static_files: client/out/web/index.html
+
+- url: /v2-test/docs/.*
+  script: scripts.redirector-v2.application
+
+- url: /v2-test
+  static_dir: client/out/web
 
 - url: /.*
   script: scripts.redirector.application

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<link rel="import" href="item.html">
+<link rel="import" href="homepage.html">
+<link rel="import" href="library.html">
+<link rel="import" href="class.html">
+<link rel="import" href="method.html">
+<link rel="import" href="typedef.html">
+
+<polymer-element name="dartdoc-page" attributes="home">
+  <template>
+    <!-- Home -->
+    <template if="{{isHome}}">
+      <dartdoc-homepage item="{{currentPage}}"></dartdoc-homepage>
+    </template>
+    
+    <template if="{{hasHomePage}}">
+
+      <!-- Library -->
+      <template if="{{currentPageIsLibrary}}">
+        <dartdoc-library item="{{currentPage}}">
+        </dartdoc-library>
+      </template>
+
+      <!-- Class -->
+      <template if="{{currentPageIsClass}}">
+        <dartdoc-class item="{{currentPage}}"></dartdoc-class>
+      </template>
+
+      <!-- Method -->
+      <template if="{{currentPageIsMethod}}">
+        <dartdoc-method item="{{currentPage}}"></dartdoc-method>
+      </template>
+
+      <!-- Typedef -->
+      <template if="{{currentPageIsTypedef}}">
+        <dartdoc-typedef item="{{currentPage}}"></dartdoc-typedef>
+      </template>
+
+    </template>
+
+  </template>
+
+  <script type="application/dart" src="page.dart"></script>
+</polymer-element>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<link rel="import" href="item.html">
+<link rel="import" href="variable.html">
+<link rel="import" href="method-panel.html">
+<link rel="import" href="typedef.html">
+
+<polymer-element name="dartdoc-category" attributes="category">
+   <template>
+   <div class="accordion-heading">
+      <a class="accordion-toggle {{accordionStyle}}"
+        on-click="{{hideShow}}"
+        data-toggle="collapse"
+        data-parent="{{accordionParent}}"
+        data-target="#accordion-{{stylizedName}}">
+        {{title}}<b class="caret"></b>
+      </a>
+    </div>
+
+   <div id="accordion-{{stylizedName}}"
+      class="accordion-body {{divClass}}"
+      style="height:auto">
+     <div class="accordion-inner">
+        <ul id="itemList" class="nav nav-pills nav-stacked">
+        </ul>
+      </div>
+    </div>
+  </template>
+
+<script type="application/dart" src="category.dart"></script>
+
+</polymer-element>
