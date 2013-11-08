@@ -4312,12 +4312,7 @@ class LocalVariableElementImpl extends VariableElementImpl implements LocalVaria
   /**
    * Is `true` if this variable is potentially mutated somewhere in its scope.
    */
-  bool _isPotentiallyMutatedInScope2 = false;
-
-  /**
-   * Is `true` if this variable is potentially mutated somewhere in closure.
-   */
-  bool _isPotentiallyMutatedInClosure2 = false;
+  bool _isPotentiallyMutated2 = false;
 
   /**
    * The offset to the beginning of the visible range for this element.
@@ -4349,21 +4344,13 @@ class LocalVariableElementImpl extends VariableElementImpl implements LocalVaria
     }
     return new SourceRange(_visibleRangeOffset, _visibleRangeLength);
   }
-  bool get isPotentiallyMutatedInClosure => _isPotentiallyMutatedInClosure2;
-  bool get isPotentiallyMutatedInScope => _isPotentiallyMutatedInScope2;
-
-  /**
-   * Specifies that this variable is potentially mutated somewhere in closure.
-   */
-  void markPotentiallyMutatedInClosure() {
-    _isPotentiallyMutatedInClosure2 = true;
-  }
+  bool get isPotentiallyMutated => _isPotentiallyMutated2;
 
   /**
    * Specifies that this variable is potentially mutated somewhere in its scope.
    */
-  void markPotentiallyMutatedInScope() {
-    _isPotentiallyMutatedInScope2 = true;
+  void markPotentiallyMutated() {
+    _isPotentiallyMutated2 = true;
   }
 
   /**
@@ -4626,12 +4613,7 @@ class ParameterElementImpl extends VariableElementImpl implements ParameterEleme
   /**
    * Is `true` if this variable is potentially mutated somewhere in its scope.
    */
-  bool _isPotentiallyMutatedInScope3 = false;
-
-  /**
-   * Is `true` if this variable is potentially mutated somewhere in closure.
-   */
-  bool _isPotentiallyMutatedInClosure3 = false;
+  bool _isPotentiallyMutated3 = false;
 
   /**
    * An array containing all of the parameters defined by this parameter element. There will only be
@@ -4703,21 +4685,13 @@ class ParameterElementImpl extends VariableElementImpl implements ParameterEleme
     return new SourceRange(_visibleRangeOffset, _visibleRangeLength);
   }
   bool get isInitializingFormal => false;
-  bool get isPotentiallyMutatedInClosure => _isPotentiallyMutatedInClosure3;
-  bool get isPotentiallyMutatedInScope => _isPotentiallyMutatedInScope3;
-
-  /**
-   * Specifies that this variable is potentially mutated somewhere in closure.
-   */
-  void markPotentiallyMutatedInClosure() {
-    _isPotentiallyMutatedInClosure3 = true;
-  }
+  bool get isPotentiallyMutated => _isPotentiallyMutated3;
 
   /**
    * Specifies that this variable is potentially mutated somewhere in its scope.
    */
-  void markPotentiallyMutatedInScope() {
-    _isPotentiallyMutatedInScope3 = true;
+  void markPotentiallyMutated() {
+    _isPotentiallyMutated3 = true;
   }
 
   /**
@@ -5217,20 +5191,12 @@ abstract class VariableElementImpl extends ElementImpl implements VariableElemen
   bool get isFinal => hasModifier(Modifier.FINAL);
 
   /**
-   * Return `true` if this variable is potentially mutated somewhere in closure. This
-   * information is only available for local variables (including parameters).
-   *
-   * @return `true` if this variable is potentially mutated somewhere in closure
-   */
-  bool get isPotentiallyMutatedInClosure => false;
-
-  /**
    * Return `true` if this variable is potentially mutated somewhere in its scope. This
    * information is only available for local variables (including parameters).
    *
    * @return `true` if this variable is potentially mutated somewhere in its scope
    */
-  bool get isPotentiallyMutatedInScope => false;
+  bool get isPotentiallyMutated => false;
 
   /**
    * Set whether this variable is const to correspond to the given value.
@@ -5869,7 +5835,7 @@ class BottomTypeImpl extends TypeImpl {
   BottomTypeImpl() : super(null, "<bottom>");
   bool operator ==(Object object) => identical(object, this);
   bool get isBottom => true;
-  bool isMoreSpecificThan3(Type2 type, bool withDynamic) => true;
+  bool isMoreSpecificThan(Type2 type) => true;
   bool isSubtypeOf(Type2 type) => true;
   bool isSupertypeOf(Type2 type) => false;
   BottomTypeImpl substitute2(List<Type2> argumentTypes, List<Type2> parameterTypes) => this;
@@ -5894,11 +5860,11 @@ class DynamicTypeImpl extends TypeImpl {
   }
   bool operator ==(Object object) => object is DynamicTypeImpl;
   bool get isDynamic => true;
-  bool isMoreSpecificThan3(Type2 type, bool withDynamic) {
+  bool isMoreSpecificThan(Type2 type) {
     if (identical(this, type)) {
       return true;
     }
-    return withDynamic;
+    return false;
   }
   bool isSubtypeOf(Type2 type) => true;
   bool isSupertypeOf(Type2 type) => true;
@@ -6120,7 +6086,7 @@ class FunctionTypeImpl extends TypeImpl implements FunctionType {
     return element.hashCode;
   }
   bool isAssignableTo(Type2 type) => this.isSubtypeOf(type);
-  bool isMoreSpecificThan3(Type2 type, bool withDynamic) {
+  bool isMoreSpecificThan(Type2 type) {
     if (type == null) {
       return false;
     } else if (identical(this, type) || type.isDynamic || type.isDartCoreFunction || type.isObject) {
@@ -6144,7 +6110,7 @@ class FunctionTypeImpl extends TypeImpl implements FunctionType {
         return false;
       } else if (t.normalParameterTypes.length > 0) {
         for (int i = 0; i < tTypes.length; i++) {
-          if (!tTypes[i].isMoreSpecificThan3(sTypes[i], withDynamic)) {
+          if (!tTypes[i].isMoreSpecificThan(sTypes[i])) {
             return false;
           }
         }
@@ -6161,7 +6127,7 @@ class FunctionTypeImpl extends TypeImpl implements FunctionType {
         if (typeT == null) {
           return false;
         }
-        if (!typeT.isMoreSpecificThan3(entryS.getValue(), withDynamic)) {
+        if (!typeT.isMoreSpecificThan(entryS.getValue())) {
           return false;
         }
       }
@@ -6175,7 +6141,7 @@ class FunctionTypeImpl extends TypeImpl implements FunctionType {
       }
       if (tOpTypes.length == 0 && sOpTypes.length == 0) {
         for (int i = 0; i < sTypes.length; i++) {
-          if (!tTypes[i].isMoreSpecificThan3(sTypes[i], withDynamic)) {
+          if (!tTypes[i].isMoreSpecificThan(sTypes[i])) {
             return false;
           }
         }
@@ -6195,7 +6161,7 @@ class FunctionTypeImpl extends TypeImpl implements FunctionType {
           sAllTypes[i] = sOpTypes[j];
         }
         for (int i = 0; i < sAllTypes.length; i++) {
-          if (!tAllTypes[i].isMoreSpecificThan3(sAllTypes[i], withDynamic)) {
+          if (!tAllTypes[i].isMoreSpecificThan(sAllTypes[i])) {
             return false;
           }
         }
@@ -6203,7 +6169,7 @@ class FunctionTypeImpl extends TypeImpl implements FunctionType {
     }
     Type2 tRetType = t.returnType;
     Type2 sRetType = s.returnType;
-    return sRetType.isVoid || tRetType.isMoreSpecificThan3(sRetType, withDynamic);
+    return sRetType.isVoid || tRetType.isMoreSpecificThan(sRetType);
   }
   bool isSubtypeOf(Type2 type) {
     if (type == null) {
@@ -6732,40 +6698,35 @@ class InterfaceTypeImpl extends TypeImpl implements InterfaceType {
     return element.name == "Function" && element.library.isDartCore;
   }
   bool isDirectSupertypeOf(InterfaceType type) {
-    InterfaceType i = this;
-    InterfaceType j = type;
-    ClassElement jElement = j.element;
-    InterfaceType supertype = jElement.supertype;
+    ClassElement i = element;
+    ClassElement j = type.element;
+    InterfaceType supertype = j.supertype;
     if (supertype == null) {
       return false;
     }
-    List<Type2> jArgs = j.typeArguments;
-    List<Type2> jVars = jElement.type.typeArguments;
-    supertype = supertype.substitute2(jArgs, jVars);
-    if (supertype == i) {
+    ClassElement supertypeElement = supertype.element;
+    if (supertypeElement == i) {
       return true;
     }
-    for (InterfaceType interfaceType in jElement.interfaces) {
-      interfaceType = interfaceType.substitute2(jArgs, jVars);
-      if (interfaceType == i) {
+    for (InterfaceType interfaceType in j.interfaces) {
+      if (interfaceType.element == i) {
         return true;
       }
     }
-    for (InterfaceType mixinType in jElement.mixins) {
-      mixinType = mixinType.substitute2(jArgs, jVars);
-      if (mixinType == i) {
+    for (InterfaceType mixinType in j.mixins) {
+      if (mixinType.element == i) {
         return true;
       }
     }
     return false;
   }
-  bool isMoreSpecificThan3(Type2 type, bool withDynamic) {
+  bool isMoreSpecificThan(Type2 type) {
     if (identical(type, DynamicTypeImpl.instance)) {
       return true;
     } else if (type is! InterfaceType) {
       return false;
     }
-    return isMoreSpecificThan2(type as InterfaceType, new Set<ClassElement>(), withDynamic);
+    return isMoreSpecificThan2(type as InterfaceType, new Set<ClassElement>());
   }
   bool get isObject => element.supertype == null;
   bool isSubtypeOf(Type2 type) {
@@ -6940,7 +6901,7 @@ class InterfaceTypeImpl extends TypeImpl implements InterfaceType {
       builder.append(">");
     }
   }
-  bool isMoreSpecificThan2(InterfaceType s, Set<ClassElement> visitedClasses, bool withDynamic) {
+  bool isMoreSpecificThan2(InterfaceType s, Set<ClassElement> visitedClasses) {
     if (this == s) {
       return true;
     }
@@ -6956,7 +6917,7 @@ class InterfaceTypeImpl extends TypeImpl implements InterfaceType {
         return false;
       }
       for (int i = 0; i < tArguments.length; i++) {
-        if (!tArguments[i].isMoreSpecificThan3(sArguments[i], withDynamic)) {
+        if (!tArguments[i].isMoreSpecificThan(sArguments[i])) {
           return false;
         }
       }
@@ -6968,16 +6929,16 @@ class InterfaceTypeImpl extends TypeImpl implements InterfaceType {
     }
     javaSetAdd(visitedClasses, element);
     InterfaceType supertype = superclass;
-    if (supertype != null && ((supertype as InterfaceTypeImpl)).isMoreSpecificThan2(s, visitedClasses, withDynamic)) {
+    if (supertype != null && ((supertype as InterfaceTypeImpl)).isMoreSpecificThan2(s, visitedClasses)) {
       return true;
     }
     for (InterfaceType interfaceType in interfaces) {
-      if (((interfaceType as InterfaceTypeImpl)).isMoreSpecificThan2(s, visitedClasses, withDynamic)) {
+      if (((interfaceType as InterfaceTypeImpl)).isMoreSpecificThan2(s, visitedClasses)) {
         return true;
       }
     }
     for (InterfaceType mixinType in mixins) {
-      if (((mixinType as InterfaceTypeImpl)).isMoreSpecificThan2(s, visitedClasses, withDynamic)) {
+      if (((mixinType as InterfaceTypeImpl)).isMoreSpecificThan2(s, visitedClasses)) {
         return true;
       }
     }
@@ -6991,6 +6952,7 @@ class InterfaceTypeImpl extends TypeImpl implements InterfaceType {
       return false;
     }
     javaSetAdd(visitedClasses, elementT);
+    typeT = substitute2(_typeArguments, elementT.type.typeArguments);
     if (typeT == typeS) {
       return true;
     } else if (elementT == typeS.element) {
@@ -7090,8 +7052,7 @@ abstract class TypeImpl implements Type2 {
   bool get isBottom => false;
   bool get isDartCoreFunction => false;
   bool get isDynamic => false;
-  bool isMoreSpecificThan(Type2 type) => isMoreSpecificThan3(type, false);
-  bool isMoreSpecificThan3(Type2 type, bool withDynamic) => false;
+  bool isMoreSpecificThan(Type2 type) => false;
   bool get isObject => false;
   bool isSupertypeOf(Type2 type) => type.isSubtypeOf(this);
   bool get isVoid => false;
@@ -7157,7 +7118,7 @@ class TypeParameterTypeImpl extends TypeImpl implements TypeParameterType {
   bool operator ==(Object object) => object is TypeParameterTypeImpl && (element == ((object as TypeParameterTypeImpl)).element);
   TypeParameterElement get element => super.element as TypeParameterElement;
   int get hashCode => element.hashCode;
-  bool isMoreSpecificThan3(Type2 s, bool withDynamic) {
+  bool isMoreSpecificThan(Type2 s) {
     if (this == s) {
       return true;
     }
@@ -7167,9 +7128,9 @@ class TypeParameterTypeImpl extends TypeImpl implements TypeParameterType {
     if (s.isDynamic) {
       return true;
     }
-    return isMoreSpecificThan4(s, new Set<Type2>(), withDynamic);
+    return isMoreSpecificThan3(s, new Set<Type2>());
   }
-  bool isSubtypeOf(Type2 s) => isMoreSpecificThan3(s, true);
+  bool isSubtypeOf(Type2 s) => isMoreSpecificThan(s);
   Type2 substitute2(List<Type2> argumentTypes, List<Type2> parameterTypes) {
     int length = parameterTypes.length;
     for (int i = 0; i < length; i++) {
@@ -7179,7 +7140,7 @@ class TypeParameterTypeImpl extends TypeImpl implements TypeParameterType {
     }
     return this;
   }
-  bool isMoreSpecificThan4(Type2 s, Set<Type2> visitedTypes, bool withDynamic) {
+  bool isMoreSpecificThan3(Type2 s, Set<Type2> visitedTypes) {
     Type2 bound = element.bound;
     if (s == bound) {
       return true;
@@ -7196,9 +7157,9 @@ class TypeParameterTypeImpl extends TypeImpl implements TypeParameterType {
         return false;
       }
       javaSetAdd(visitedTypes, bound);
-      return boundTypeParameter.isMoreSpecificThan4(s, visitedTypes, withDynamic);
+      return boundTypeParameter.isMoreSpecificThan3(s, visitedTypes);
     }
-    return bound.isMoreSpecificThan3(s, withDynamic);
+    return bound.isMoreSpecificThan(s);
   }
 }
 /**
@@ -7769,15 +7730,6 @@ abstract class Type2 {
    * @return `true` if this type is more specific than the given type
    */
   bool isMoreSpecificThan(Type2 type);
-
-  /**
-   * Return `true` if this type is more specific than the given type.
-   *
-   * @param type the type being compared with this type
-   * @param withDynamic `true` if "dynamic" should be considered as a subtype of any type
-   * @return `true` if this type is more specific than the given type
-   */
-  bool isMoreSpecificThan3(Type2 type, bool withDynamic);
 
   /**
    * Return `true` if this type represents the type 'Object'.

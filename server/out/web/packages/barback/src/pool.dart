@@ -12,23 +12,23 @@ import 'package:stack_trace/stack_trace.dart';
 /// Manages an abstract pool of resources with a limit on how many may be in use
 /// at once.
 ///
-/// When a resource is needed, the user should call [request]. When the returned
-/// future completes with a [PoolResource], the resource may be allocated. Once
-/// the resource has been released, the user should call [PoolResource.release].
-/// The pool will ensure that only a certain number of [PoolResource]s may be
-/// allocated at once.
+/// When a resource is needed, the user should call [checkOut]. When the
+/// returned future completes with a [PoolResource], the resource may be
+/// allocated. Once the resource has been released, the user should call
+/// [PoolResource.release]. The pool will ensure that only a certain number of
+/// [PoolResource]s may be checked out at once.
 class Pool {
-  /// Completers for requests beyond the first [_maxAllocatedResources].
+  /// Completers for checkouts beyond the first [_maxCheckedOutResources].
   ///
-  /// When an item is released, the next element of [_requestedResources] will
-  /// be completed.
-  final _requestedResources = new Queue<Completer<PoolResource>>();
+  /// When an item is released, the next element of [_pendingResources] will be
+  /// completed.
+  final _pendingResources = new Queue<Completer<PoolResource>>();
 
-  /// The maximum number of resources that may be allocated at once.
-  final int _maxAllocatedResources;
+  /// The maximum number of resources that may be checked out at once.
+  final int _maxCheckedOutResources;
 
-  /// The number of resources that are currently allocated.
-  int _allocatedResources = 0;
+  /// The number of resources that are currently checked out.
+  int _checkedOutResources = 0;
 
   /// The timeout timer.
   ///
@@ -43,43 +43,43 @@ class Pool {
   Duration _timeout;
 
   /// Creates a new pool with the given limit on how many resources may be
-  /// allocated at once.
+  /// checked out at once.
   ///
   /// If [timeout] is passed, then if that much time passes without any activity
-  /// all pending [request] futures will throw an exception. This is indented
+  /// all pending [checkOut] futures will throw an exception. This is indented
   /// to avoid deadlocks.
-  Pool(this._maxAllocatedResources, {Duration timeout})
+  Pool(this._maxCheckedOutResources, {Duration timeout})
       : _timeout = timeout;
 
-  /// Request a [PoolResource].
+  /// Check out a [PoolResource].
   ///
-  /// If the maximum number of resources is already allocated, this will delay
+  /// If the maximum number of resources is already checked out, this will delay
   /// until one of them is released.
-  Future<PoolResource> request() {
-    if (_allocatedResources < _maxAllocatedResources) {
-      _allocatedResources++;
+  Future<PoolResource> checkOut() {
+    if (_checkedOutResources < _maxCheckedOutResources) {
+      _checkedOutResources++;
       return new Future.value(new PoolResource._(this));
     } else {
       var completer = new Completer<PoolResource>();
-      _requestedResources.add(completer);
-      _resetTimer();
+      _pendingResources.add(completer);
+      _heartbeat();
       return completer.future;
     }
   }
 
-  /// Requests a resource for the duration of [callback], which may return a
+  /// Checks out a resource for the duration of [callback], which may return a
   /// Future.
   ///
   /// The return value of [callback] is piped to the returned Future.
   Future withResource(callback()) {
-    return request().then((resource) =>
+    return checkOut().then((resource) =>
         new Future.sync(callback).whenComplete(resource.release));
   }
 
-  /// If there are any pending requests, this will fire the oldest one.
+  /// If there are any pending checkouts, this will fire the oldest one.
   void _onResourceReleased() {
-    if (_requestedResources.isEmpty) {
-      _allocatedResources--;
+    if (_pendingResources.isEmpty) {
+      _checkedOutResources--;
       if (_timer != null) {
         _timer.cancel();
         _timer = null;
@@ -87,13 +87,14 @@ class Pool {
       return;
     }
 
-    _resetTimer();
-    var pending = _requestedResources.removeFirst();
+    _heartbeat();
+    var pending = _pendingResources.removeFirst();
     pending.complete(new PoolResource._(this));
   }
 
-  /// A resource has been requested, allocated, or released.
-  void _resetTimer() {
+  /// Indicates that some external action has occurred and the timer should be
+  /// restarted.
+  void _heartbeat() {
     if (_timer != null) _timer.cancel();
     if (_timeout == null) {
       _timer = null;
@@ -105,11 +106,11 @@ class Pool {
   /// Handles [_timer] timing out by causing all pending resource completers to
   /// emit exceptions.
   void _onTimeout() {
-    for (var completer in _requestedResources) {
+    for (var completer in _pendingResources) {
       completer.completeException("Pool deadlock: all resources have been "
-          "allocated for too long.", new Trace.current().vmTrace);
+          "checked out for too long.", new Trace.current().vmTrace);
     }
-    _requestedResources.clear();
+    _pendingResources.clear();
     _timer = null;
   }
 }
@@ -127,7 +128,7 @@ class PoolResource {
   PoolResource._(this._pool);
 
   /// Tells the parent [Pool] that the resource associated with this resource is
-  /// no longer allocated, and that a new [PoolResource] may be allocated.
+  /// no longer allocated, and that a new [PoolResource] may be checked out.
   void release() {
     if (_released) {
       throw new StateError("A PoolResource may only be released once.");

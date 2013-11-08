@@ -2,10 +2,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="static/css/bootstrap.css">
-<<<<<<< HEAD
-=======
 <link rel="stylesheet" href="static/css/dart-style.css">
->>>>>>> 760c0ce... [ak] Better auto-expanded classes and build number at bottom
 <link rel="stylesheet" href="static/css/pics.css">
 <link rel="import" href="category.html">
 <link rel="import" href="item.html">
@@ -18,6 +15,7 @@
 <link rel="import" href="main.html">
 <link rel="import" href="app.html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dart API Reference</title>
 </head>
 
 <body>

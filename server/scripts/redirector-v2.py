@@ -15,11 +15,13 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import files
 
 # Path to local location of documents to be display on the server.
-LOCAL_PATH = abspath(join(dirname(__file__), '../client/local/'))
+LOCAL_PATH = abspath(join(dirname(__file__), '../local/'))
 
 # Paths to Cloud Storage for App Engine requests.
 GS_PATH = '/gs/dartlang-docgen/'
 GS_VERSION = '/gs/dartlang-docgen/VERSION'
+
+URL_PREFIX = 'apidocs/docs/'
 
 ONE_HOUR = 60 * 60
 ONE_DAY = ONE_HOUR * 24
@@ -39,7 +41,8 @@ class RequestHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
   def GetLocal(self):
     """ Used for local, dev server HTTP requests. """
-    path = LOCAL_PATH + self.request.path[len('docs/'):]
+    print("path = %s" % self.request.path)
+    path = LOCAL_PATH + self.request.path[len(URL_PREFIX):]
     with open(path, 'r') as file:
       result = file.read()
     # The cache age should be zero seconds if being run locally.
@@ -51,7 +54,7 @@ class RequestHandler(blobstore_handlers.BlobstoreDownloadHandler):
     version_key = blobstore.create_gs_key(GS_VERSION)
     blob_reader = blobstore.BlobReader(version_key)
     version = blob_reader.read()
-    path = GS_PATH + version + self.request.path[len('docs/'):]
+    path = GS_PATH + version + self.request.path[len(URL_PREFIX):]
     gs_key = blobstore.create_gs_key(path)
     self.HandleCacheAge(path)
     self.send_blob(gs_key)
@@ -70,5 +73,5 @@ class RequestHandler(blobstore_handlers.BlobstoreDownloadHandler):
     
 application = WSGIApplication(
   [
-    ('/docs/.*', RequestHandler),
+    (URL_PREFIX + '.*', RequestHandler),
   ], debug=True)

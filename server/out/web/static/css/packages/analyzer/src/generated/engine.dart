@@ -4054,7 +4054,7 @@ class AnalysisContextImpl implements InternalAnalysisContext {
   AnalysisTask get nextTaskAnalysisTask {
     {
       bool hintsEnabled = _options.hint;
-      if (_incrementalAnalysisCache != null && _incrementalAnalysisCache.hasWork()) {
+      if (_incrementalAnalysisCache != null) {
         AnalysisTask task = new IncrementalAnalysisTask(this, _incrementalAnalysisCache);
         _incrementalAnalysisCache = null;
       }
@@ -4596,7 +4596,6 @@ class AnalysisContextImpl implements InternalAnalysisContext {
       if (unit != null) {
         ChangeNoticeImpl notice = getNotice(task.source);
         notice.compilationUnit = unit;
-        _incrementalAnalysisCache = IncrementalAnalysisCache.cacheResult(task.cache, unit);
       }
     }
     return null;
@@ -4647,7 +4646,6 @@ class AnalysisContextImpl implements InternalAnalysisContext {
           dartCopy.setValue(DartEntry.INCLUDED_PARTS, task.includedSources);
           ChangeNoticeImpl notice = getNotice(source);
           notice.setErrors(dartEntry.allErrors, lineInfo);
-          _incrementalAnalysisCache = IncrementalAnalysisCache.verifyStructure(_incrementalAnalysisCache, source, task.compilationUnit);
         } else {
           dartCopy.recordParseError();
         }
@@ -5590,21 +5588,6 @@ class DelegatingAnalysisContextImpl extends AnalysisContextImpl {
 class IncrementalAnalysisCache {
 
   /**
-   * Determine if the incremental analysis result can be cached for the next incremental analysis.
-   *
-   * @param cache the prior incremental analysis cache
-   * @param unit the incrementally updated compilation unit
-   * @return the cache used for incremental analysis or `null` if incremental analysis results
-   *         cannot be cached for the next incremental analysis
-   */
-  static IncrementalAnalysisCache cacheResult(IncrementalAnalysisCache cache, CompilationUnit unit) {
-    if (cache != null && unit != null) {
-      return new IncrementalAnalysisCache(cache.librarySource, cache.source, unit, cache.newContents, cache.newContents, 0, 0, 0);
-    }
-    return null;
-  }
-
-  /**
    * Determine if the cache should be cleared.
    *
    * @param cache the prior cache or `null` if none
@@ -5634,19 +5617,20 @@ class IncrementalAnalysisCache {
    *         be performed
    */
   static IncrementalAnalysisCache update(IncrementalAnalysisCache cache, Source source, String oldContents, String newContents, int offset, int oldLength, int newLength, SourceEntry sourceEntry) {
-    Source librarySource = null;
-    CompilationUnit unit = null;
-    if (sourceEntry is DartEntryImpl) {
+    if (cache == null || cache.source != source) {
+      if (sourceEntry is! DartEntryImpl) {
+        return null;
+      }
       DartEntryImpl dartEntry = sourceEntry as DartEntryImpl;
       List<Source> librarySources = dartEntry.librariesContaining;
-      if (librarySources.length == 1) {
-        librarySource = librarySources[0];
-        if (librarySource != null) {
-          unit = dartEntry.getValue2(DartEntry.RESOLVED_UNIT, librarySource);
-        }
+      if (librarySources.length != 1) {
+        return null;
       }
-    }
-    if (cache == null || cache.source != source || unit != null) {
+      Source librarySource = librarySources[0];
+      if (librarySource == null) {
+        return null;
+      }
+      CompilationUnit unit = dartEntry.getValue2(DartEntry.RESOLVED_UNIT, librarySource);
       if (unit == null) {
         return null;
       }
@@ -5658,36 +5642,11 @@ class IncrementalAnalysisCache {
       }
       return new IncrementalAnalysisCache(librarySource, source, unit, oldContents, newContents, offset, oldLength, newLength);
     }
-    if (cache.oldLength == 0 && cache.newLength == 0) {
-      cache.offset = offset;
-      cache.oldLength = oldLength;
-      cache.newLength = newLength;
-    } else {
-      if (cache.offset > offset || offset > cache.offset + cache.newLength) {
-        return null;
-      }
-      cache.newLength += newLength - oldLength;
+    if (cache.offset > offset || offset > cache.offset + cache.newLength) {
+      return null;
     }
     cache.newContents = newContents;
-    return cache;
-  }
-
-  /**
-   * Verify that the incrementally parsed and resolved unit in the incremental cache is structurally
-   * equivalent to the fully parsed unit.
-   *
-   * @param cache the prior cache or `null` if none
-   * @param source the source of the compilation unit that was parsed (not `null`)
-   * @param unit the compilation unit that was just parsed
-   * @return the cache used for incremental analysis or `null` if incremental analysis results
-   *         cannot be cached for the next incremental analysis
-   */
-  static IncrementalAnalysisCache verifyStructure(IncrementalAnalysisCache cache, Source source, CompilationUnit unit) {
-    if (cache != null && unit != null && cache.source == source) {
-      if (!ASTComparator.equals3(cache.resolvedUnit, unit)) {
-        return null;
-      }
-    }
+    cache.newLength += newLength - oldLength;
     return cache;
   }
   Source librarySource;
@@ -5708,13 +5667,6 @@ class IncrementalAnalysisCache {
     this.oldLength = oldLength;
     this.newLength = newLength;
   }
-
-  /**
-   * Determine if the cache contains source changes that need to be analyzed
-   *
-   * @return `true` if the cache contains changes to be analyzed, else `false`
-   */
-  bool hasWork() => oldLength > 0 && newLength > 0;
 }
 /**
  * Instances of the class `InstrumentedAnalysisContextImpl` implement an
@@ -6889,7 +6841,7 @@ class IncrementalAnalysisTask extends AnalysisTask {
   /**
    * The information used to perform incremental analysis.
    */
-  IncrementalAnalysisCache cache;
+  IncrementalAnalysisCache _cache;
 
   /**
    * The compilation unit that was produced by incrementally updating the existing unit.
@@ -6903,7 +6855,7 @@ class IncrementalAnalysisTask extends AnalysisTask {
    * @param cache the incremental analysis cache used to perform the analysis
    */
   IncrementalAnalysisTask(InternalAnalysisContext context, IncrementalAnalysisCache cache) : super(context) {
-    this.cache = cache;
+    this._cache = cache;
   }
   accept(AnalysisTaskVisitor visitor) => visitor.visitIncrementalAnalysisTask(this);
 
@@ -6912,13 +6864,13 @@ class IncrementalAnalysisTask extends AnalysisTask {
    *
    * @return the source
    */
-  Source get source => cache != null ? cache.source : null;
-  String get taskDescription => "incremental analysis ${(cache != null ? cache.source : "null")}";
+  Source get source => _cache != null ? _cache.source : null;
+  String get taskDescription => "incremental analysis ${(_cache != null ? _cache.source : "null")}";
   void internalPerform() {
-    if (cache == null) {
+    if (_cache == null) {
       return;
     }
-    compilationUnit = cache.resolvedUnit;
+    compilationUnit = _cache.resolvedUnit;
   }
 }
 /**

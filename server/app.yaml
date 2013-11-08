@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: prod-fix-bleeding-edge
+version: dartdoc-next
 
 runtime: python27
 api_version: 1
@@ -12,17 +12,18 @@ threadsafe: true
 #default_expiration: "2h"
 
 handlers:
-- url: /v2-test/static
-  static_dir: client/out/web/static
+- url: /apidocs/static
+  static_dir: out/web/static
   
-- url: /v2-test/
-  static_files: client/out/web/index.html
+- url: /apidocs/
+  static_files: out/web/index.html
+  upload: out/web/index.html
 
-- url: /v2-test/docs/.*
+- url: /apidocs/docs/.*
   script: scripts.redirector-v2.application
 
-- url: /v2-test
-  static_dir: client/out/web
+- url: /apidocs
+  static_dir: out/web
 
 - url: /.*
   script: scripts.redirector.application

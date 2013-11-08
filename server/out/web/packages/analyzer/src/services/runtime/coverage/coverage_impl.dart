@@ -28,8 +28,9 @@ void runServerApplication(String targetPath, String outPath) {
   var targetName = pathos.basename(targetPath);
   var server = new CoverageServer(targetFolder, targetPath, outPath);
   server.start().then((port) {
+    var options = new Options();
     var targetArgs = ['http://127.0.0.1:$port/$targetName'];
-    var dartExecutable = Platform.executable;
+    var dartExecutable = options.executable;
     return Process.start(dartExecutable, targetArgs);
   }).then((process) {
     stdin.pipe(process.stdin);
@@ -120,7 +121,7 @@ abstract class RewriteServer {
   }
 
   Future sendFile(HttpRequest request, File file) {
-    file.resolveSymbolicLinks().then((fullPath) {
+    file.fullPath().then((fullPath) {
       return file.openRead().pipe(request.response);
     });
   }
@@ -190,7 +191,7 @@ class CoverageServer extends RewriteServer {
   String rewritePathContent(String path) {
     if (path.endsWith('__coverage_lib.dart')) {
       String implPath = pathos.joinAll([
-          pathos.dirname(Platform.script.toFilePath()),
+          pathos.dirname(Platform.script),
           '..', 'lib', 'src', 'services', 'runtime', 'coverage',
           'coverage_lib.dart']);
       var content = new File(implPath).readAsStringSync();

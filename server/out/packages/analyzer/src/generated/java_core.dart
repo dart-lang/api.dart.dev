@@ -40,13 +40,6 @@ bool isInstanceOf(o, Type t) {
   if (oTypeName == "${tTypeName}Impl") {
     return true;
   }
-  if (tTypeName == "FormalParameter") {
-    return
-        oTypeName == "DefaultFormalParameter" ||
-        oTypeName == "FieldNormalParameter" ||
-        oTypeName == "FunctionTypedFormalParameter" ||
-        oTypeName == "SimpleFormalParameter";
-  }
   if (tTypeName == "MethodElement") {
     if (oTypeName == "MethodMember") {
       return true;
@@ -279,7 +272,7 @@ class Math {
 }
 
 class RuntimeException extends JavaException {
-  RuntimeException({String message: "", Exception cause: null}) :
+  RuntimeException([String message = "", Exception cause = null]) :
     super(message, cause);
 }
 
@@ -441,10 +434,6 @@ bool javaStringRegionMatches(String t, int toffset, String o, int ooffset, int l
 
 bool javaBooleanOr(bool a, bool b) {
   return a || b;
-}
-
-bool javaBooleanAnd(bool a, bool b) {
-  return a && b;
 }
 
 class JavaStringBuilder {
