@@ -5175,7 +5175,7 @@ LazyItem: {"": ["Item;isLoaded@-,previewComment@-,path-,qualifiedName-,name-,_ca
     var t1;
     if (this.isLoaded === true)
       return P._Future$immediate(this, null);
-    t1 = "../../docs/" + H.S(this.qualifiedName) + ".";
+    t1 = "docs/" + H.S(this.qualifiedName) + ".";
     return W.HttpRequest_getString(P.Uri__uriEncode(C.List_CVk, t1 + ($.isYaml === true ? "yaml" : "json"), false), null, null).then$1(new E.LazyItem_load_closure(this));
     "119";
   },

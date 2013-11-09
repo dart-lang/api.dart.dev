@@ -14,15 +14,19 @@ threadsafe: true
 handlers:
 - url: /apidocs/static
   static_dir: out/web/static
+
+- url: /apidocs/docs/.*
+  script: scripts.next.application
   
 - url: /apidocs/
   static_files: out/web/index.html
   upload: out/web/index.html
 
-- url: /apidocs/docs/.*
-  script: scripts.redirector-v2.application
+#- url: /apidocs
+#  static_files: out/web/index.html
+#  upload: out/web/index.html
 
-- url: /apidocs
+- url: /apidocs 
   static_dir: out/web
 
 - url: /.*
