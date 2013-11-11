@@ -11,10 +11,6 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import files, memcache
 
-LATEST_CONTINUOUS_VERSION_FILE = '/gs/dart-editor-archive-continuous/latest/VERSION'
-LATEST_RELEASE_VERSION_FILE = '/gs/dart-editor-archive-integration/latest/VERSION'
-LATEST_TRUNK_VERSION_FILE = '/gs/dart-editor-archive-trunk/latest/VERSION'
-
 LATEST_BE_CHANNEL_VERSION_FILE = '/gs/dart-archive/channels/be/raw/latest/VERSION'
 LATEST_DEV_CHANNEL_VERSION_FILE = '/gs/dart-archive/channels/dev/release/latest/VERSION'
 LATEST_STABLE_CHANNEL_VERSION_FILE = '/gs/dart-archive/channels/stable/release/latest/VERSION'
@@ -27,9 +23,6 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   next_doc_version_check = None
 
   latest_versions = {
-    'latest_doc_version': None,
-    'latest_release_doc_version': None,
-    'latest_trunk_doc_version': None,
     'latest_be_doc_version': None,
     'latest_dev_doc_version': None,
     'latest_stable_doc_version': None,
@@ -76,21 +69,6 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
   def resolve_doc_path(self):
     docs_renames = [
-      {
-        'key': 'latest_doc_version',
-        'prefix': '/docs/bleeding_edge',
-        'version_file': LATEST_CONTINUOUS_VERSION_FILE,
-      },
-      {
-        'key': 'latest_release_doc_version',
-        'prefix': '/docs/releases/latest',
-        'version_file': LATEST_RELEASE_VERSION_FILE,
-      },
-      {
-        'key': 'latest_trunk_doc_version',
-        'prefix': '/docs/trunk/latest',
-        'version_file': LATEST_TRUNK_VERSION_FILE,
-      },
       {
         'key': 'latest_be_doc_version',
         'prefix': '/docs/channels/be/latest',
@@ -207,26 +185,31 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
-  if re.search(r'^(core|coreimpl|crypto|io|isolate|json|uri|html|math|utf|web)', path):
-    return '/docs/releases/latest/dart_' + path
+  if re.search(r'^(async|collection|convert|core|html|indexed_db|io|isolate|js|math|mirrors|svg|typed_data|web_audio|web_gl|web_sql)', path):
+    return '/docs/channels/stable/latest/dart_' + path
   else:
-    return '/docs/releases/latest/' + path
+    return '/docs/channels/stable/latest/' + path
 
 def redir_dom(handler, *args, **kwargs):
-  return '/docs/bleeding_edge/dart_html' + kwargs['path']
+  return '/docs/channels/stable/latest/dart_html' + kwargs['path']
 
 def redir_continuous(handler, *args, **kwargs):
-  return '/docs/bleeding_edge' + kwargs['path']
+  return '/docs/channels/be/latest' + kwargs['path']
+
+def redir_latest(handler, *args, **kwargs):
+  return '/docs/channels/stable/latest' + kwargs['path']
 
 def redir_pkgs(handler, *args, **kwargs):
-  return '/docs/releases/latest/' + kwargs['pkg'] + '.html'
+  return '/docs/channels/stable/latest/' + kwargs['pkg'] + '.html'
 
 application = WSGIApplication(
   [
-    Route('/docs/pkg/<pkg:args|fixnum|intl|logging|matcher|meta|mock|serialization|unittest><:/?>',
+    Route('/docs/pkg/<pkg:args|crypto|custom_element|fixnum|http_server|intl|json|logging|matcher|mime|mock|observe|path|polymer|polymer_expressions|sequence_zip|serialization|source_maps|template_binding|unittest|unmodifiable_collection|utf><:/?>',
         RedirectHandler, defaults={'_uri': redir_pkgs, '_code': 302}),
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
+    Route('/docs/bleeding_edge<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
+    Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),
     ('/docs.*', ApiDocs),
     Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
   ],
