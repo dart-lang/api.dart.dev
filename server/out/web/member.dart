@@ -33,6 +33,7 @@ class SameProtocolUriPolicy implements UriPolicy {
 
 var uriPolicy = new SameProtocolUriPolicy();
 var validator = new NodeValidatorBuilder()
+    ..allowElement("a", attributes: ["rel"])
     ..allowHtml5(uriPolicy: uriPolicy);
 
 var sanitizer = new NullTreeSanitizer();
@@ -46,7 +47,10 @@ class NullTreeSanitizer implements NodeTreeSanitizer {
 }
 
 //// An abstract class for all Dartdoc elements.
-@reflectable abstract class DartdocElement extends PolymerElement {
+// TODO(sigmund): remove 'with ChangeNotifier', that wont be needed after the
+// next release of polymer
+@reflectable abstract class DartdocElement extends PolymerElement
+    with ChangeNotifier {
   DartdocElement.created() : super.created();
 
   get applyAuthorStyles => true;
@@ -91,7 +95,7 @@ class NullTreeSanitizer implements NodeTreeSanitizer {
     if (e.target is AnchorElement) {
       var anchor = e.target;
       if (anchor.host == window.location.host
-          && anchor.pathname == _pathname && !e.ctrlKey) {
+          && anchor.pathname == _pathname && !(e as MouseEvent).ctrlKey) {
         e.preventDefault();
         var location = anchor.hash.substring(1, anchor.hash.length);
         viewer.handleLink(location);
@@ -154,31 +158,59 @@ class NullTreeSanitizer implements NodeTreeSanitizer {
       }
       var links = commentElement.querySelectorAll('a');
       for (AnchorElement link in links) {
-        if (link.href =='') {
-          if (link.text.contains('#')) {
-            // If the link is to a parameter of this method, it shouldn't be
-            // made into a working link. It instead is replaced with an <i>
-            // tag to make it stand out within the comment.
-            // TODO(tmandel): Handle parameters differently?
-            var index = link.text.indexOf('#');
-            var newName = link.text.substring(index + 1, link.text.length);
-            link.replaceWith(new Element.html('<i>$newName</i>',
-                validator: validator));
-          } else if (!index.containsKey(link.text)) {
-            // If markdown links to private or otherwise unknown members are
-            // found, make them <i> tags instead of <a> tags for CSS.
-            link.replaceWith(new Element.html('<i>${link.text}</i>',
-                validator: validator));
-          } else {
-            var linkable = new LinkableType(link.text);
-            link
-              ..href = '#${linkable.location}'
-              ..text = linkable.simpleType;
-          }
-        }
+        _resolveLink(link);
       }
       commentLocation.children.add(commentElement);
     }
+  }
+
+  String _parameterName(AnchorElement link, DocsLocation loc) {
+    var item = loc.items(viewer.homePage).last;
+    var itemName = item.location.withoutAnchor;
+    if (item is Method && itemName.length < link.text.length) {
+      return link.text.substring(itemName.length + 1, link.text.length);
+    } else {
+      return null;
+    }
+  }
+
+  void _replaceWithParameterReference(AnchorElement link, DocsLocation loc,
+      String parameterName) {
+    loc.anchor = loc.toHash("${loc.subMemberName}_$parameterName");
+    loc.subMemberName = null;
+    link.replaceWith(new Element.html(
+        '<a href="#${loc.withAnchor}">$parameterName</a>',
+        validator: validator));
+  }
+
+  void _resolveLink(AnchorElement link) {
+    if (link.href != '') return;
+    var loc = new DocsLocation(link.text);
+    var parameterName = _parameterName(link, loc);
+    if (parameterName != null) {
+      _replaceWithParameterReference(link, loc, parameterName);
+      return;
+    }
+    if (index.containsKey(link.text)) {
+      _setLinkReference(link, loc);
+      return;
+    }
+    loc.packageName = null;
+    if (index.containsKey(loc.withAnchor)) {
+      _setLinkReference(link, loc);
+      return;
+    }
+    // If markdown links to private or otherwise unknown members are
+    // found, make them <i> tags instead of <a> tags for CSS.
+    link.replaceWith(new Element.html('<i>${link.text}</i>',
+        validator: validator));
+  }
+
+  void _setLinkReference(AnchorElement link, DocsLocation loc) {
+    var linkable = new LinkableType(loc.withAnchor);
+    link
+      ..href = '#${linkable.location}'
+      ..text = linkable.simpleType;
   }
 
   /// Creates an HTML element for a parameterized type.
@@ -231,11 +263,11 @@ class NullTreeSanitizer implements NodeTreeSanitizer {
     super.enteredView();
     if (isInherited) {
       inheritedFrom = new LinkableType(
-          new DocsLocation(item.inheritedFrom).parentQualifiedName);
+          new DocsLocation(item.inheritedFrom).asHash.withAnchor);
     }
     if (hasInheritedComment) {
       commentFrom = new LinkableType(
-          new DocsLocation(item.commentFrom).parentQualifiedName);
+          new DocsLocation(item.commentFrom).asHash.withAnchor);
     }
   }
 

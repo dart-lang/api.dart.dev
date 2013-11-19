@@ -63,7 +63,7 @@
       <span class="type">
         {{createType(item.type, 'variable-heading', 'type')}}
       </span>
-      {{getter}}&nbsp;<b><a id="{{idName}}" href="#{{item.anchorHref}}">
+      {{getter}}<b><a id="{{idName}}" href="#{{item.anchorHref}}">
           {{name}}</a></b>
     </template>
   </template>
@@ -129,7 +129,6 @@
             <span class="type">
             </span>
             {{createType(item.type, 'method-panel', 'type')}}
-            <template if="{{item.isOperator}}">operator</template>
             <b><a id="{{idName}}" href="#{{item.anchorHref}}">
                 {{item.decoratedName}}</a></b>            
              <!-- Parameters -->
@@ -260,7 +259,6 @@
       {{addInterfaceLinks()}}
 
       <p id="subclasses">
-           <a class="btn btn-link btn-xs" id="{{name}}-subclass-button" on-click="{{showSubclass}}">...</a>
       </p>
       <!-- Subclasses -->
       <template if="{{isNotObject}}">
@@ -279,12 +277,12 @@
             <dartdoc-category category="{{constructors}}" class="accordion-group">
             </dartdoc-category>
           </template>
-          <template if="{{shouldShowOperators}}">
-            <dartdoc-category category="{{operators}}" class="accordion-group">
-            </dartdoc-category>
-          </template>
           <template if="{{shouldShowMethods}}">
             <dartdoc-category category="{{methods}}" class="accordion-group">
+            </dartdoc-category>
+          </template>
+          <template if="{{shouldShowOperators}}">
+            <dartdoc-category category="{{operators}}" class="accordion-group">
             </dartdoc-category>
           </template>
           <template if="{{shouldShowStaticMethods}}">
@@ -477,7 +475,7 @@
       </a>
       <ul>
         <template if="{{operatorItemsIsNotEmpty}}">
-        <li><a href="{{currentLocation}}@operators" on-click="{{hideShow}}">
+        <li><a id="operators" on-click="{{hideShow}}">
           Operators<b class="caret"></b>
         </a></li>
         <ul id="minimap-operators" class="collapse in">
@@ -486,7 +484,7 @@
         </ul>
       </template>
       <template if="{{variableItemsIsNotEmpty}}">
-        <li><a href="{{currentLocation}}@properties" on-click="{{hideShow}}">
+        <li><a id="properties" on-click="{{hideShow}}">
           Properties<b class="caret"></b>
         </a></li>
         <ul id="minimap-properties" class="collapse in">
@@ -495,7 +493,7 @@
         </ul>
       </template>
       <template if="{{functionItemsIsNotEmpty}}">
-        <li><a href="{{currentLocation}}@functions" on-click="{{hideShow}}">
+        <li><a id="functions" on-click="{{hideShow}}">
           Functions<b class="caret"></b>
         </a></li>
         <ul id="minimap-functions" class="collapse in">
@@ -504,7 +502,7 @@
         </ul>
       </template>
       <template if="{{classItemsIsNotEmpty}}">
-        <li><a href="{{currentLocation}}@classes" on-click="{{hideShow}}">
+        <li><a id="classes" on-click="{{hideShow}}">
           Classes<b class="caret"></b>
         </a></li>
         <ul id="minimap-classes" class="collapse in">
@@ -513,7 +511,7 @@
          </ul>
       </template>
       <template if="{{typedefItemsIsNotEmpty}}">
-        <li><a href="{{currentLocation}}@typedefs" on-click="{{hideShow}}">
+        <li><a id="typedefs" on-click="{{hideShow}}">
           Typedefs<b class="caret"></b>
         </a></li>
         <ul id="minimap-typedefs" class="collapse in">
@@ -522,7 +520,7 @@
         </ul>
       </template>
       <template if="{{errorItemsIsNotEmpty}}">
-        <li><a href="{{currentLocation}}@exceptions" on-click="{{hideShow}}">
+        <li><a id="exceptions" on-click="{{hideShow}}">
           Exceptions<b class="caret"></b>
         </a></li>
         <ul id="minimap-exceptions" class="collapse in">
@@ -549,7 +547,7 @@
     </a>
     <ul>
           <template if="{{shouldShowConstructors}}">
-              <li><a href="{{currentLocation}}@constructors" on-click="{{hideShow}}">
+              <li><a id="constructors" on-click="{{hideShow}}">
               Constructors<b class="caret"></b>
             </a></li>
             <ul id="minimap-constructors" class="collapse in">
@@ -557,17 +555,8 @@
               </dartdoc-minimap>
             </ul>
           </template>
-          <template if="{{shouldShowOperators}}">
-            <li><a href="{{currentLocation}}@operators" on-click="{{hideShow}}">
-              Operators<b class="caret"></b>
-            </a></li>
-            <ul id="minimap-operators" class="collapse in">
-              <dartdoc-minimap items="{{operatorItems}}">
-              </dartdoc-minimap>
-            </ul>
-          </template>
           <template if="{{shouldShowFunctions}}">
-            <li><a href="{{currentLocation}}@functions" on-click="{{hideShow}}">
+            <li><a id="functions" on-click="{{hideShow}}">
               Methods<b class="caret"></b>
             </a></li>
             <ul id="minimap-functions" class="collapse in">
@@ -575,9 +564,18 @@
               </dartdoc-minimap>
             </ul>
           </template>
+          <template if="{{shouldShowOperators}}">
+            <li><a id="operators" on-click="{{hideShow}}">
+              Operators<b class="caret"></b>
+            </a></li>
+            <ul id="minimap-operators" class="collapse in">
+              <dartdoc-minimap items="{{operatorItems}}">
+              </dartdoc-minimap>
+            </ul>
+          </template>
           <template if="{{shouldShowStaticFunctions}}">
-            <li><a href="{{currentLocation}}@staticFunctions" on-click="{{hideShow}}">
-              Static Methods<b class="caret"></b>
+            <li><a id="staticFunctions" on-click="{{hideShow}}">
+              Static methods<b class="caret"></b>
             </a></li>
             <ul id="minimap-staticFunctions" class="collapse in">
               <dartdoc-minimap items="{{staticFunctionItems}}">
@@ -585,7 +583,7 @@
             </ul>
           </template> 
           <template if="{{shouldShowVariables}}">
-            <li><a href="{{currentLocation}}@properties" on-click="{{hideShow}}">
+            <li><a id="properties" on-click="{{hideShow}}">
               Properties<b class="caret"></b>
             </a></li>
             <ul id="minimap-properties" class="collapse in">
@@ -594,8 +592,8 @@
             </ul>
           </template>
           <template if="{{shouldShowStaticVariables}}">
-            <li><a href="{{currentLocation}}@staticProperties" on-click="{{hideShow}}">
-              Static Properties<b class="caret"></b>
+            <li><a id="staticProperties" on-click="{{hideShow}}">
+              Static properties<b class="caret"></b>
             </a></li>
             <ul id="minimap-staticProperties" class="collapse in">
               <dartdoc-minimap items="{{staticVariableItems}}">

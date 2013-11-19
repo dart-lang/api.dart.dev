@@ -4,6 +4,8 @@
 
 library location;
 
+import 'package:observe/observe.dart';
+
 // These regular expressions are not strictly accurate for picking Dart
 // identifiers out of arbitrary text, e.g. identifiers must start with an
 // alphabetic or underscore, this would allow "9a" as a library name. But
@@ -20,7 +22,7 @@ final libraryMatch = new RegExp(r'([\w\-\:]+)');
 final memberMatch = new RegExp(r'\.(\w+)');
 /// A sub-member can be a normal identifier but can also be an operator.
 final subMemberMatch = new RegExp(r'\.([\w\<\+\|\[\]\>\/\^\=\&\~\*\-\%]+)');
-final anchorMatch = new RegExp(r'\@(\w+)');
+final anchorMatch = new RegExp(r'\@([\w\<\+\|\[\]\>\/\^\=\&\~\*\-\%]+)');
 
 // This represents a component described by a URI and can give us
 // the URI given the component or vice versa.
@@ -31,6 +33,8 @@ class DocsLocation {
   String subMemberName;
   String anchor;
 
+  // TODO(alanknight): These might be nicer to work with as immutable value
+  // objects with methods to get modified versions.
   DocsLocation.empty();
 
   DocsLocation(String uri) {
@@ -43,6 +47,14 @@ class DocsLocation {
     if (components.length > 2) memberName = components[2];
     if (components.length > 3) subMemberName = components[3];
     if (components.length > 4) anchor = components[4];
+  }
+
+  DocsLocation.clone(DocsLocation original) {
+    packageName == original.packageName;
+    libraryName == original.libraryName;
+    memberName = original.memberName;
+    subMemberName = original.subMemberName;
+    anchor = original.anchor;
   }
 
   void _extractPieces(String uri) {
@@ -69,50 +81,54 @@ class DocsLocation {
   /// The URI hash string without its leading hash
   /// and without any trailing anchor portion, e.g. for
   /// http://site/#args/args.ArgParser#id_== it would return args/argsArgParser
-  String get withoutAnchor =>
+  @reflectable String get withoutAnchor =>
       [packagePlus, libraryPlus, memberPlus, subMemberPlus].join("");
 
   /// The URI hash for just the library portion of this location.
-  String get libraryQualifiedName => "$packagePlus$libraryPlus";
+  @reflectable String get libraryQualifiedName => "$packagePlus$libraryPlus";
 
   /// The full URI hash string without the leading hash character.
   /// e.g. for
   /// http://site/#args/args.ArgParser#id_==
   /// it would return args/argsArgParser#id_==
-  String get withAnchor => withoutAnchor + anchorPlus;
+  @reflectable String get withAnchor => withoutAnchor + anchorPlus;
+
+  @reflectable DocsLocation get locationWithoutAnchor =>
+      new DocsLocation.clone(this)..anchor = null;
 
   /// The package name with the trailing / separator, or the empty
   /// string if the package name is not set.
-  get packagePlus => packageName == null
+  @reflectable get packagePlus => packageName == null
       ? ''
       : libraryName == null
           ? packageName
           : '$packageName/';
   /// The name of the library. This never has leading or trailing separators,
   /// so it's the same as [libraryName].
-  get libraryPlus => libraryName == null ? '' :  libraryName;
+  @reflectable  get libraryPlus => libraryName == null ? '' :  libraryName;
   /// The name of the library member, with a leading period if the [memberName]
   /// is non-empty.
-  get memberPlus => memberName == null ? '' : '.$memberName';
+  @reflectable get memberPlus => memberName == null ? '' : '.$memberName';
   /// The name of the member's sub-member (e.g. the field of a class),
   /// with a leading period if the [subMemberName] is non-empty.
-  get subMemberPlus => subMemberName == null ? '' : '.$subMemberName';
+  @reflectable get subMemberPlus =>
+      subMemberName == null ? '' : '.$subMemberName';
   /// The trailing anchor e.g. #id_hashCode, including the leading hash.
-  get anchorPlus => anchor == null ? '' : '@$anchor';
+  @reflectable get anchorPlus => anchor == null ? '' : '@$anchor';
 
   /// Return a list of the components' basic names. Omits the anchor, but
   /// includes the package name, even if it is null.
-  List<String> get componentNames =>
+  @reflectable List<String> get componentNames =>
       [packageName]..addAll(
           [libraryName, memberName, subMemberName].where((x) => x != null));
 
   /// Return all component names, including the anchor, and including those
   /// which are null.
-  List<String> get allComponentNames =>
+  @reflectable List<String> get allComponentNames =>
       [packageName, libraryName, memberName, subMemberName, anchor];
 
   /// Return the simple name of the lowest-level component.
-  String get name {
+  @reflectable String get name {
     if (anchor != null) return anchor;
     if (subMemberName != null) return subMemberName;
     if (memberName != null) return memberName;
@@ -124,7 +140,7 @@ class DocsLocation {
   /// Return a minimal list of the items along our path, using [root] for
   /// context. The [root] is of type Home, and it returns a list of Item,
   /// but we can't see those types from here.
-  List items(root) {
+  @reflectable List items(root) {
     // TODO(alanknight): Re-arrange the structure so that we can see
     // those types without needing to import html as well.
     var items = [];
@@ -133,14 +149,16 @@ class DocsLocation {
         : root.memberNamed(packageName);
     if (package != null) items.add(package);
     if (libraryName == null) return items;
-    var library = items.last.memberNamed(libraryName);
+    var home = items.isEmpty ? root : items.last;
+    var library = home.memberNamed(libraryName);
+    if (library == null) return items;
     items.add(library);
     var member = memberName == null
-        ? library.memberNamed(memberName) : null;
+        ? null : library.memberNamed(memberName);
     if (member != null) {
       items.add(member);
       var subMember = subMemberName == null
-          ? member.memberNamed(subMemberName)  : null;
+          ? null : member.memberNamed(subMemberName);
       if (subMember != null) items.add(subMember);
     }
     return items;
@@ -149,34 +167,51 @@ class DocsLocation {
   /// Return the item in the list that corresponds to the thing we represent.
   /// Assumes that the items all match what we describe, so really amounts
   /// to finding the last non-nil entry.
-  itemFromList(List items) => items.reversed.firstWhere((x) => x != null);
+  @reflectable itemFromList(List items) => items.reversed
+      .firstWhere((x) => x != null, orElse: () => null);
 
   /// Change [hash] into the form we use for identifying a doc entry within
   /// a larger page.
-  String toHash(String hash) {
+  @reflectable String toHash(String hash) {
     return 'id_' + hash;
   }
 
   /// The string that identifies our parent (e.g. the package containing a
   /// library, or the class containing a method) or an empty string if
   /// we don't have a parent.
-  String get parentQualifiedName => parentLocation.withoutAnchor;
+  @reflectable String get parentQualifiedName => parentLocation.withoutAnchor;
 
   /// The [DocsLocation] that identifies our parent (e.g. the package
   /// containing a
   /// library, or the class containing a method)
-  DocsLocation get parentLocation =>
+  @reflectable DocsLocation get parentLocation =>
       new DocsLocation.fromList(componentNames..removeLast());
 
+  @reflectable DocsLocation get asHash {
+    var hash = parentLocation;
+    hash.anchor = toHash(name);
+    return hash;
+  }
+
   /// The simple name of our parent
-  String get parentName {
+  @reflectable String get parentName {
     var names = componentNames;
     if (names.length < 2) return '';
     return names[names.length - 2];
   }
 
-  bool get isEmpty => packageName == null && libraryName == null
+  @reflectable bool get isEmpty => packageName == null && libraryName == null
       && memberName == null && subMemberName == null && anchor == null;
 
-  toString() => 'DocsLocation($withAnchor)';
+  /// Return the last component for which we have a value, not counting
+  /// the anchor.
+  @reflectable String get lastName {
+    if (subMemberName != null) return subMemberName;
+    if (memberName != null) return memberName;
+    if (libraryName != null) return libraryName;
+    if (packageName != null) return packageName;
+    return null;
+  }
+
+  @reflectable toString() => 'DocsLocation($withAnchor)';
 }

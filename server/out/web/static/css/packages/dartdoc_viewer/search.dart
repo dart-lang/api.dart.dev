@@ -73,6 +73,10 @@ import 'package:dartdoc_viewer/location.dart';
   'constructor' : 4
 };
 
+bool _nullFilter(_) => true;
+
+const int MAX_RESULTS_TO_CONSIDER = 1000;
+
 /**
  * Returns a list of up to [maxResults] number of [SearchResult]s based off the
  * searchQuery.
@@ -82,7 +86,7 @@ import 'package:dartdoc_viewer/location.dart';
  */
 @reflectable
 List<SearchResult> lookupSearchResults(String query, int maxResults,
-    Function filter) {
+    [Function filter = _nullFilter]) {
   if (query == '') return [];
 
   var stopwatch = new Stopwatch()..start();
@@ -98,7 +102,7 @@ List<SearchResult> lookupSearchResults(String query, int maxResults,
     }
   }
 
-  for (var r in resultSet) {
+  for (var r in resultSet.take(MAX_RESULTS_TO_CONSIDER)) {
     /// If it is taking too long to compute the search results, time out and
     /// return an empty list of results.
    if (stopwatch.elapsedMilliseconds > 500) {

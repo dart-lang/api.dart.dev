@@ -1,6 +1,8 @@
 // This code was auto-generated, is not intended to be edited, and is subject to
 // significant change. Please see the README file for more information.
+
 library engine.scanner;
+
 import 'dart:collection';
 import 'java_core.dart';
 import 'java_engine.dart';
@@ -8,6 +10,7 @@ import 'source.dart';
 import 'error.dart';
 import 'instrumentation.dart';
 import 'utilities_collection.dart' show TokenMap;
+
 /**
  * Instances of the abstract class `KeywordState` represent a state in a state machine used to
  * scan keywords.
@@ -15,7 +18,6 @@ import 'utilities_collection.dart' show TokenMap;
  * @coverage dart.engine.parser
  */
 class KeywordState {
-
   /**
    * An empty transition table used by leaf states.
    */
@@ -130,6 +132,7 @@ class KeywordState {
    */
   KeywordState next(int c) => _table[c - 0x61];
 }
+
 /**
  * The enumeration `ScannerErrorCode` defines the error codes used for errors detected by the
  * scanner.
@@ -137,15 +140,19 @@ class KeywordState {
  * @coverage dart.engine.parser
  */
 class ScannerErrorCode extends Enum<ScannerErrorCode> implements ErrorCode {
-  static final ScannerErrorCode CHARACTER_EXPECTED_AFTER_SLASH = new ScannerErrorCode.con1('CHARACTER_EXPECTED_AFTER_SLASH', 0, "Character expected after slash");
-  static final ScannerErrorCode ILLEGAL_CHARACTER = new ScannerErrorCode.con1('ILLEGAL_CHARACTER', 1, "Illegal character %x");
-  static final ScannerErrorCode MISSING_DIGIT = new ScannerErrorCode.con1('MISSING_DIGIT', 2, "Decimal digit expected");
-  static final ScannerErrorCode MISSING_HEX_DIGIT = new ScannerErrorCode.con1('MISSING_HEX_DIGIT', 3, "Hexidecimal digit expected");
-  static final ScannerErrorCode MISSING_QUOTE = new ScannerErrorCode.con1('MISSING_QUOTE', 4, "Expected quote (' or \")");
-  static final ScannerErrorCode UNTERMINATED_MULTI_LINE_COMMENT = new ScannerErrorCode.con1('UNTERMINATED_MULTI_LINE_COMMENT', 5, "Unterminated multi-line comment");
-  static final ScannerErrorCode UNTERMINATED_STRING_LITERAL = new ScannerErrorCode.con1('UNTERMINATED_STRING_LITERAL', 6, "Unterminated string literal");
+  static final ScannerErrorCode ILLEGAL_CHARACTER = new ScannerErrorCode.con1('ILLEGAL_CHARACTER', 0, "Illegal character %x");
+
+  static final ScannerErrorCode MISSING_DIGIT = new ScannerErrorCode.con1('MISSING_DIGIT', 1, "Decimal digit expected");
+
+  static final ScannerErrorCode MISSING_HEX_DIGIT = new ScannerErrorCode.con1('MISSING_HEX_DIGIT', 2, "Hexidecimal digit expected");
+
+  static final ScannerErrorCode MISSING_QUOTE = new ScannerErrorCode.con1('MISSING_QUOTE', 3, "Expected quote (' or \")");
+
+  static final ScannerErrorCode UNTERMINATED_MULTI_LINE_COMMENT = new ScannerErrorCode.con1('UNTERMINATED_MULTI_LINE_COMMENT', 4, "Unterminated multi-line comment");
+
+  static final ScannerErrorCode UNTERMINATED_STRING_LITERAL = new ScannerErrorCode.con1('UNTERMINATED_STRING_LITERAL', 5, "Unterminated string literal");
+
   static final List<ScannerErrorCode> values = [
-      CHARACTER_EXPECTED_AFTER_SLASH,
       ILLEGAL_CHARACTER,
       MISSING_DIGIT,
       MISSING_HEX_DIGIT,
@@ -183,18 +190,22 @@ class ScannerErrorCode extends Enum<ScannerErrorCode> implements ErrorCode {
     this._message = message;
     this.correction10 = correction;
   }
+
   String get correction => correction10;
+
   ErrorSeverity get errorSeverity => ErrorSeverity.ERROR;
+
   String get message => _message;
+
   ErrorType get type => ErrorType.SYNTACTIC_ERROR;
 }
+
 /**
  * Instances of the class `SubSequenceReader` implement a [CharacterReader] that reads
  * characters from a character sequence, but adds a delta when reporting the current character
  * offset so that the character sequence can be a subsequence from a larger sequence.
  */
 class SubSequenceReader extends CharSequenceReader {
-
   /**
    * The offset from the beginning of the file to the beginning of the source being scanned.
    */
@@ -210,12 +221,16 @@ class SubSequenceReader extends CharSequenceReader {
   SubSequenceReader(CharSequence sequence, int offsetDelta) : super(sequence) {
     this._offsetDelta = offsetDelta;
   }
+
   int get offset => _offsetDelta + super.offset;
+
   String getString(int start, int endDelta) => super.getString(start - _offsetDelta, endDelta);
+
   void set offset(int offset) {
     super.offset = offset - _offsetDelta;
   }
 }
+
 /**
  * Instances of the class `TokenWithComment` represent a string token that is preceded by
  * comments.
@@ -223,7 +238,6 @@ class SubSequenceReader extends CharSequenceReader {
  * @coverage dart.engine.parser
  */
 class StringTokenWithComment extends StringToken {
-
   /**
    * The first comment in the list of comments that precede this token.
    */
@@ -240,8 +254,11 @@ class StringTokenWithComment extends StringToken {
   StringTokenWithComment(TokenType type, String value, int offset, Token precedingComment) : super(type, value, offset) {
     this._precedingComment = precedingComment;
   }
+
   Token copy() => new StringTokenWithComment(type, lexeme, offset, copyComments(_precedingComment));
+
   Token get precedingComments => _precedingComment;
+
   void applyDelta(int delta) {
     super.applyDelta(delta);
     Token token = _precedingComment;
@@ -251,6 +268,7 @@ class StringTokenWithComment extends StringToken {
     }
   }
 }
+
 /**
  * The enumeration `Keyword` defines the keywords in the Dart programming language.
  *
@@ -258,53 +276,101 @@ class StringTokenWithComment extends StringToken {
  */
 class Keyword extends Enum<Keyword> {
   static final Keyword ASSERT = new Keyword.con1('ASSERT', 0, "assert");
+
   static final Keyword BREAK = new Keyword.con1('BREAK', 1, "break");
+
   static final Keyword CASE = new Keyword.con1('CASE', 2, "case");
+
   static final Keyword CATCH = new Keyword.con1('CATCH', 3, "catch");
+
   static final Keyword CLASS = new Keyword.con1('CLASS', 4, "class");
+
   static final Keyword CONST = new Keyword.con1('CONST', 5, "const");
+
   static final Keyword CONTINUE = new Keyword.con1('CONTINUE', 6, "continue");
+
   static final Keyword DEFAULT = new Keyword.con1('DEFAULT', 7, "default");
+
   static final Keyword DO = new Keyword.con1('DO', 8, "do");
+
   static final Keyword ELSE = new Keyword.con1('ELSE', 9, "else");
+
   static final Keyword ENUM = new Keyword.con1('ENUM', 10, "enum");
+
   static final Keyword EXTENDS = new Keyword.con1('EXTENDS', 11, "extends");
+
   static final Keyword FALSE = new Keyword.con1('FALSE', 12, "false");
+
   static final Keyword FINAL = new Keyword.con1('FINAL', 13, "final");
+
   static final Keyword FINALLY = new Keyword.con1('FINALLY', 14, "finally");
+
   static final Keyword FOR = new Keyword.con1('FOR', 15, "for");
+
   static final Keyword IF = new Keyword.con1('IF', 16, "if");
+
   static final Keyword IN = new Keyword.con1('IN', 17, "in");
+
   static final Keyword IS = new Keyword.con1('IS', 18, "is");
+
   static final Keyword NEW = new Keyword.con1('NEW', 19, "new");
+
   static final Keyword NULL = new Keyword.con1('NULL', 20, "null");
+
   static final Keyword RETHROW = new Keyword.con1('RETHROW', 21, "rethrow");
+
   static final Keyword RETURN = new Keyword.con1('RETURN', 22, "return");
+
   static final Keyword SUPER = new Keyword.con1('SUPER', 23, "super");
+
   static final Keyword SWITCH = new Keyword.con1('SWITCH', 24, "switch");
+
   static final Keyword THIS = new Keyword.con1('THIS', 25, "this");
+
   static final Keyword THROW = new Keyword.con1('THROW', 26, "throw");
+
   static final Keyword TRUE = new Keyword.con1('TRUE', 27, "true");
+
   static final Keyword TRY = new Keyword.con1('TRY', 28, "try");
+
   static final Keyword VAR = new Keyword.con1('VAR', 29, "var");
+
   static final Keyword VOID = new Keyword.con1('VOID', 30, "void");
+
   static final Keyword WHILE = new Keyword.con1('WHILE', 31, "while");
+
   static final Keyword WITH = new Keyword.con1('WITH', 32, "with");
+
   static final Keyword ABSTRACT = new Keyword.con2('ABSTRACT', 33, "abstract", true);
+
   static final Keyword AS = new Keyword.con2('AS', 34, "as", true);
+
   static final Keyword DYNAMIC = new Keyword.con2('DYNAMIC', 35, "dynamic", true);
+
   static final Keyword EXPORT = new Keyword.con2('EXPORT', 36, "export", true);
+
   static final Keyword EXTERNAL = new Keyword.con2('EXTERNAL', 37, "external", true);
+
   static final Keyword FACTORY = new Keyword.con2('FACTORY', 38, "factory", true);
+
   static final Keyword GET = new Keyword.con2('GET', 39, "get", true);
+
   static final Keyword IMPLEMENTS = new Keyword.con2('IMPLEMENTS', 40, "implements", true);
+
   static final Keyword IMPORT = new Keyword.con2('IMPORT', 41, "import", true);
+
   static final Keyword LIBRARY = new Keyword.con2('LIBRARY', 42, "library", true);
+
   static final Keyword OPERATOR = new Keyword.con2('OPERATOR', 43, "operator", true);
+
   static final Keyword PART = new Keyword.con2('PART', 44, "part", true);
+
   static final Keyword SET = new Keyword.con2('SET', 45, "set", true);
+
   static final Keyword STATIC = new Keyword.con2('STATIC', 46, "static", true);
+
   static final Keyword TYPEDEF = new Keyword.con2('TYPEDEF', 47, "typedef", true);
+
   static final List<Keyword> values = [
       ASSERT,
       BREAK,
@@ -404,12 +470,12 @@ class Keyword extends Enum<Keyword> {
     this.isPseudoKeyword = isPseudoKeyword;
   }
 }
+
 /**
  * Instances of the class `CharSequenceReader` implement a [CharacterReader] that reads
  * characters from a character sequence.
  */
 class CharSequenceReader implements CharacterReader {
-
   /**
    * The sequence from which characters will be read.
    */
@@ -435,24 +501,30 @@ class CharSequenceReader implements CharacterReader {
     this._stringLength = sequence.length();
     this._charOffset = -1;
   }
+
   int advance() {
     if (_charOffset + 1 >= _stringLength) {
       return -1;
     }
     return _sequence.charAt(++_charOffset);
   }
+
   int get offset => _charOffset;
+
   String getString(int start, int endDelta) => _sequence.subSequence(start, _charOffset + 1 + endDelta).toString();
+
   int peek() {
     if (_charOffset + 1 >= _sequence.length()) {
       return -1;
     }
     return _sequence.charAt(_charOffset + 1);
   }
+
   void set offset(int offset) {
     _charOffset = offset;
   }
 }
+
 /**
  * Instances of the class `IncrementalScanner` implement a scanner that scans a subset of a
  * string and inserts the resulting tokens into the middle of an existing token stream.
@@ -460,7 +532,6 @@ class CharSequenceReader implements CharacterReader {
  * @coverage dart.engine.parser
  */
 class IncrementalScanner extends Scanner {
-
   /**
    * The reader used to access the characters in the source.
    */
@@ -469,7 +540,19 @@ class IncrementalScanner extends Scanner {
   /**
    * A map from tokens that were copied to the copies of the tokens.
    */
-  TokenMap _tokenMap = new TokenMap();
+  final TokenMap tokenMap = new TokenMap();
+
+  /**
+   * The first token in the range of tokens that are different from the tokens in the original token
+   * stream.
+   */
+  Token _firstToken;
+
+  /**
+   * The last token in the range of tokens that are different from the tokens in the original token
+   * stream.
+   */
+  Token lastToken;
 
   /**
    * Initialize a newly created scanner.
@@ -481,6 +564,15 @@ class IncrementalScanner extends Scanner {
   IncrementalScanner(Source source, CharacterReader reader, AnalysisErrorListener errorListener) : super(source, reader, errorListener) {
     this._reader = reader;
   }
+
+  /**
+   * Return the first token in the range of tokens that are different from the tokens in the
+   * original token stream or `null` if the new tokens are the same as the original tokens
+   * except for offset.
+   *
+   * @return the first token in the range of new tokens
+   */
+  Token get firstToken => _firstToken;
 
   /**
    * Given the stream of tokens scanned from the original source, the modified source (the result of
@@ -495,16 +587,32 @@ class IncrementalScanner extends Scanner {
    * @param insertedLength the number of characters added to the modified source
    */
   Token rescan(Token originalStream, int index, int removedLength, int insertedLength) {
-    while (originalStream.end < index) {
+    while (originalStream.type != TokenType.EOF && originalStream.end < index) {
       originalStream = copyAndAdvance(originalStream, 0);
     }
+    Token lastCopied = tail;
     int modifiedEnd = index + insertedLength - 1;
+    if (originalStream.offset < index) {
+      modifiedEnd += originalStream.end - index - removedLength;
+    }
     _reader.offset = Math.min(originalStream.offset, index) - 1;
     int next = _reader.advance();
     while (next != -1 && _reader.offset <= modifiedEnd) {
       next = bigSwitch(next);
     }
-    int removedEnd = index + removedLength - 1;
+    _firstToken = lastCopied.next;
+    lastToken = tail;
+    if (_firstToken == null || identical(_firstToken.type, TokenType.EOF)) {
+      _firstToken = null;
+      lastToken = null;
+    } else if (originalStream.end == index && _firstToken.end == index) {
+      tokenMap.put(originalStream, _firstToken);
+      if (identical(lastToken, _firstToken)) {
+        lastToken = lastToken.next;
+      }
+      _firstToken = _firstToken.next;
+    }
+    int removedEnd = index + removedLength - 1 + Math.max(0, tail.end - index - insertedLength);
     while (originalStream.offset <= removedEnd) {
       originalStream = originalStream.next;
     }
@@ -512,24 +620,27 @@ class IncrementalScanner extends Scanner {
     while (originalStream.type != TokenType.EOF) {
       originalStream = copyAndAdvance(originalStream, delta);
     }
-    copyAndAdvance(originalStream, delta);
-    return firstToken();
+    Token eof = copyAndAdvance(originalStream, delta);
+    eof.setNextWithoutSettingPrevious(eof);
+    return super.firstToken;
   }
+
   Token copyAndAdvance(Token originalToken, int delta) {
     Token copiedToken = originalToken.copy();
-    _tokenMap.put(originalToken, copiedToken);
+    tokenMap.put(originalToken, copiedToken);
     copiedToken.applyDelta(delta);
     appendToken(copiedToken);
     Token originalComment = originalToken.precedingComments;
     Token copiedComment = originalToken.precedingComments;
     while (originalComment != null) {
-      _tokenMap.put(originalComment, copiedComment);
+      tokenMap.put(originalComment, copiedComment);
       originalComment = originalComment.next;
       copiedComment = copiedComment.next;
     }
     return originalToken.next;
   }
 }
+
 /**
  * The class `Scanner` implements a scanner for Dart code.
  *
@@ -542,7 +653,6 @@ class IncrementalScanner extends Scanner {
  * @coverage dart.engine.parser
  */
 class Scanner {
-
   /**
    * The source being scanned.
    */
@@ -566,7 +676,7 @@ class Scanner {
   /**
    * The last token that was scanned.
    */
-  Token _tail;
+  Token tail;
 
   /**
    * The first token in the list of comment tokens found since the last non-comment token.
@@ -617,7 +727,7 @@ class Scanner {
     this._errorListener = errorListener;
     _tokens = new Token(TokenType.EOF, -1);
     _tokens.setNext(_tokens);
-    _tail = _tokens;
+    tail = _tokens;
     _tokenStart = -1;
     _lineStarts.add(0);
   }
@@ -674,7 +784,7 @@ class Scanner {
       }
       appendEofToken();
       instrumentation.metric2("tokensCount", tokenCounter);
-      return firstToken();
+      return firstToken;
     } finally {
       instrumentation.log2(2);
     }
@@ -688,8 +798,9 @@ class Scanner {
    * @param token the token to be appended
    */
   void appendToken(Token token) {
-    _tail = _tail.setNext(token);
+    tail = tail.setNext(token);
   }
+
   int bigSwitch(int next) {
     beginToken();
     if (next == 0xD) {
@@ -836,7 +947,7 @@ class Scanner {
    *
    * @return the first token in the token stream that was scanned
    */
-  Token firstToken() => _tokens.next;
+  Token get firstToken => _tokens.next;
 
   /**
    * Record the fact that we are at the beginning of a new line in the source.
@@ -844,6 +955,7 @@ class Scanner {
   void recordStartOfLine() {
     _lineStarts.add(_reader.offset);
   }
+
   void appendBeginToken(TokenType type) {
     BeginToken token;
     if (_firstComment == null) {
@@ -853,10 +965,11 @@ class Scanner {
       _firstComment = null;
       _lastComment = null;
     }
-    _tail = _tail.setNext(token);
+    tail = tail.setNext(token);
     _groupingStack.add(token);
     _stackEnd++;
   }
+
   void appendCommentToken(TokenType type, String value) {
     if (_firstComment == null) {
       _firstComment = new StringToken(type, value, _tokenStart);
@@ -865,6 +978,7 @@ class Scanner {
       _lastComment = _lastComment.setNext(new StringToken(type, value, _tokenStart));
     }
   }
+
   void appendEndToken(TokenType type, TokenType beginType) {
     Token token;
     if (_firstComment == null) {
@@ -874,7 +988,7 @@ class Scanner {
       _firstComment = null;
       _lastComment = null;
     }
-    _tail = _tail.setNext(token);
+    tail = tail.setNext(token);
     if (_stackEnd >= 0) {
       BeginToken begin = _groupingStack[_stackEnd];
       if (identical(begin.type, beginType)) {
@@ -883,6 +997,7 @@ class Scanner {
       }
     }
   }
+
   void appendEofToken() {
     Token eofToken;
     if (_firstComment == null) {
@@ -893,56 +1008,62 @@ class Scanner {
       _lastComment = null;
     }
     eofToken.setNext(eofToken);
-    _tail = _tail.setNext(eofToken);
+    tail = tail.setNext(eofToken);
     if (_stackEnd >= 0) {
       _hasUnmatchedGroups2 = true;
     }
   }
+
   void appendKeywordToken(Keyword keyword) {
     if (_firstComment == null) {
-      _tail = _tail.setNext(new KeywordToken(keyword, _tokenStart));
+      tail = tail.setNext(new KeywordToken(keyword, _tokenStart));
     } else {
-      _tail = _tail.setNext(new KeywordTokenWithComment(keyword, _tokenStart, _firstComment));
+      tail = tail.setNext(new KeywordTokenWithComment(keyword, _tokenStart, _firstComment));
       _firstComment = null;
       _lastComment = null;
     }
   }
+
   void appendStringToken(TokenType type, String value) {
     if (_firstComment == null) {
-      _tail = _tail.setNext(new StringToken(type, value, _tokenStart));
+      tail = tail.setNext(new StringToken(type, value, _tokenStart));
     } else {
-      _tail = _tail.setNext(new StringTokenWithComment(type, value, _tokenStart, _firstComment));
+      tail = tail.setNext(new StringTokenWithComment(type, value, _tokenStart, _firstComment));
       _firstComment = null;
       _lastComment = null;
     }
   }
+
   void appendStringToken2(TokenType type, String value, int offset) {
     if (_firstComment == null) {
-      _tail = _tail.setNext(new StringToken(type, value, _tokenStart + offset));
+      tail = tail.setNext(new StringToken(type, value, _tokenStart + offset));
     } else {
-      _tail = _tail.setNext(new StringTokenWithComment(type, value, _tokenStart + offset, _firstComment));
+      tail = tail.setNext(new StringTokenWithComment(type, value, _tokenStart + offset, _firstComment));
       _firstComment = null;
       _lastComment = null;
     }
   }
+
   void appendToken2(TokenType type) {
     if (_firstComment == null) {
-      _tail = _tail.setNext(new Token(type, _tokenStart));
+      tail = tail.setNext(new Token(type, _tokenStart));
     } else {
-      _tail = _tail.setNext(new TokenWithComment(type, _tokenStart, _firstComment));
+      tail = tail.setNext(new TokenWithComment(type, _tokenStart, _firstComment));
       _firstComment = null;
       _lastComment = null;
     }
   }
+
   void appendToken3(TokenType type, int offset) {
     if (_firstComment == null) {
-      _tail = _tail.setNext(new Token(type, offset));
+      tail = tail.setNext(new Token(type, offset));
     } else {
-      _tail = _tail.setNext(new TokenWithComment(type, offset, _firstComment));
+      tail = tail.setNext(new TokenWithComment(type, offset, _firstComment));
       _firstComment = null;
       _lastComment = null;
     }
   }
+
   void beginToken() {
     _tokenStart = _reader.offset;
   }
@@ -975,6 +1096,7 @@ class Scanner {
   void reportError(ScannerErrorCode errorCode, List<Object> arguments) {
     _errorListener.onError(new AnalysisError.con2(source, _reader.offset, 1, errorCode, arguments));
   }
+
   int select(int choice, TokenType yesType, TokenType noType) {
     int next = _reader.advance();
     if (next == choice) {
@@ -985,6 +1107,7 @@ class Scanner {
       return next;
     }
   }
+
   int select2(int choice, TokenType yesType, TokenType noType, int offset) {
     int next = _reader.advance();
     if (next == choice) {
@@ -995,6 +1118,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeAmpersand(int next) {
     next = _reader.advance();
     if (next == 0x26) {
@@ -1008,6 +1132,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeBar(int next) {
     next = _reader.advance();
     if (next == 0x7C) {
@@ -1021,7 +1146,9 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeCaret(int next) => select(0x3D, TokenType.CARET_EQ, TokenType.CARET);
+
   int tokenizeDotOrNumber(int next) {
     int start = _reader.offset;
     next = _reader.advance();
@@ -1034,6 +1161,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeEquals(int next) {
     next = _reader.advance();
     if (next == 0x3D) {
@@ -1046,6 +1174,7 @@ class Scanner {
     appendToken2(TokenType.EQ);
     return next;
   }
+
   int tokenizeExclamation(int next) {
     next = _reader.advance();
     if (next == 0x3D) {
@@ -1055,6 +1184,7 @@ class Scanner {
     appendToken2(TokenType.BANG);
     return next;
   }
+
   int tokenizeExponent(int next) {
     if (next == 0x2B || next == 0x2D) {
       next = _reader.advance();
@@ -1072,6 +1202,7 @@ class Scanner {
       next = _reader.advance();
     }
   }
+
   int tokenizeFractionPart(int next, int start) {
     bool done = false;
     bool hasDigit = false;
@@ -1100,6 +1231,7 @@ class Scanner {
     appendStringToken(TokenType.DOUBLE, _reader.getString(start, next < 0 ? 0 : -1));
     return next;
   }
+
   int tokenizeGreaterThan(int next) {
     next = _reader.advance();
     if (0x3D == next) {
@@ -1119,6 +1251,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeHex(int next) {
     int start = _reader.offset - 1;
     bool hasDigits = false;
@@ -1135,6 +1268,7 @@ class Scanner {
       }
     }
   }
+
   int tokenizeHexOrNumber(int next) {
     int x = _reader.peek();
     if (x == 0x78 || x == 0x58) {
@@ -1143,6 +1277,7 @@ class Scanner {
     }
     return tokenizeNumber(next);
   }
+
   int tokenizeIdentifier(int next, int start, bool allowDollar) {
     while ((0x61 <= next && next <= 0x7A) || (0x41 <= next && next <= 0x5A) || (0x30 <= next && next <= 0x39) || next == 0x5F || (next == 0x24 && allowDollar)) {
       next = _reader.advance();
@@ -1150,6 +1285,7 @@ class Scanner {
     appendStringToken(TokenType.IDENTIFIER, _reader.getString(start, next < 0 ? 0 : -1));
     return next;
   }
+
   int tokenizeInterpolatedExpression(int next, int start) {
     appendBeginToken(TokenType.STRING_INTERPOLATION_EXPRESSION);
     next = _reader.advance();
@@ -1185,6 +1321,7 @@ class Scanner {
     beginToken();
     return next;
   }
+
   int tokenizeInterpolatedIdentifier(int next, int start) {
     appendStringToken2(TokenType.STRING_INTERPOLATION_IDENTIFIER, "\$", 0);
     if ((0x41 <= next && next <= 0x5A) || (0x61 <= next && next <= 0x7A) || next == 0x5F) {
@@ -1194,6 +1331,7 @@ class Scanner {
     beginToken();
     return next;
   }
+
   int tokenizeKeywordOrIdentifier(int next, bool allowDollar) {
     KeywordState state = KeywordState.KEYWORD_STATE;
     int start = _reader.offset;
@@ -1213,6 +1351,7 @@ class Scanner {
       return tokenizeIdentifier(next, start, allowDollar);
     }
   }
+
   int tokenizeLessThan(int next) {
     next = _reader.advance();
     if (0x3D == next) {
@@ -1225,6 +1364,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeMinus(int next) {
     next = _reader.advance();
     if (next == 0x2D) {
@@ -1238,6 +1378,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeMultiLineComment(int next) {
     int nesting = 1;
     next = _reader.advance();
@@ -1277,6 +1418,7 @@ class Scanner {
       }
     }
   }
+
   int tokenizeMultiLineRawString(int quoteChar, int start) {
     int next = _reader.advance();
     outer: while (next != -1) {
@@ -1308,6 +1450,7 @@ class Scanner {
     appendStringToken(TokenType.STRING, _reader.getString(start, 0));
     return _reader.advance();
   }
+
   int tokenizeMultiLineString(int quoteChar, int start, bool raw) {
     if (raw) {
       return tokenizeMultiLineRawString(quoteChar, start);
@@ -1337,23 +1480,17 @@ class Scanner {
         if (next == -1) {
           break;
         }
-        bool missingCharacter = false;
         if (next == 0xD) {
-          missingCharacter = true;
           next = _reader.advance();
           if (next == 0xA) {
             next = _reader.advance();
           }
           recordStartOfLine();
         } else if (next == 0xA) {
-          missingCharacter = true;
           recordStartOfLine();
           next = _reader.advance();
         } else {
           next = _reader.advance();
-        }
-        if (missingCharacter) {
-          _errorListener.onError(new AnalysisError.con2(source, _reader.offset - 1, 1, ScannerErrorCode.CHARACTER_EXPECTED_AFTER_SLASH, []));
         }
       } else if (next == 0xD) {
         next = _reader.advance();
@@ -1372,7 +1509,9 @@ class Scanner {
     appendStringToken(TokenType.STRING, _reader.getString(start, 0));
     return _reader.advance();
   }
+
   int tokenizeMultiply(int next) => select(0x3D, TokenType.STAR_EQ, TokenType.STAR);
+
   int tokenizeNumber(int next) {
     int start = _reader.offset;
     while (true) {
@@ -1389,6 +1528,7 @@ class Scanner {
       }
     }
   }
+
   int tokenizeOpenSquareBracket(int next) {
     next = _reader.advance();
     if (next == 0x5D) {
@@ -1398,7 +1538,9 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizePercent(int next) => select(0x3D, TokenType.PERCENT_EQ, TokenType.PERCENT);
+
   int tokenizePlus(int next) {
     next = _reader.advance();
     if (0x2B == next) {
@@ -1412,6 +1554,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeSingleLineComment(int next) {
     while (true) {
       next = _reader.advance();
@@ -1424,6 +1567,7 @@ class Scanner {
       }
     }
   }
+
   int tokenizeSingleLineRawString(int next, int quoteChar, int start) {
     next = _reader.advance();
     while (next != -1) {
@@ -1441,6 +1585,7 @@ class Scanner {
     appendStringToken(TokenType.STRING, _reader.getString(start, 0));
     return _reader.advance();
   }
+
   int tokenizeSingleLineString(int next, int quoteChar, int start) {
     while (next != quoteChar) {
       if (next == 0x5C) {
@@ -1462,6 +1607,7 @@ class Scanner {
     appendStringToken(TokenType.STRING, _reader.getString(start, 0));
     return _reader.advance();
   }
+
   int tokenizeSlashOrComment(int next) {
     next = _reader.advance();
     if (0x2A == next) {
@@ -1476,6 +1622,7 @@ class Scanner {
       return next;
     }
   }
+
   int tokenizeString(int next, int start, bool raw) {
     int quoteChar = next;
     next = _reader.advance();
@@ -1494,6 +1641,7 @@ class Scanner {
       return tokenizeSingleLineString(next, quoteChar, start);
     }
   }
+
   int tokenizeStringInterpolation(int start) {
     beginToken();
     int next = _reader.advance();
@@ -1503,6 +1651,7 @@ class Scanner {
       return tokenizeInterpolatedIdentifier(next, start);
     }
   }
+
   int tokenizeTag(int next) {
     if (_reader.offset == 0) {
       if (_reader.peek() == 0x21) {
@@ -1516,6 +1665,7 @@ class Scanner {
     appendToken2(TokenType.HASH);
     return _reader.advance();
   }
+
   int tokenizeTilde(int next) {
     next = _reader.advance();
     if (next == 0x2F) {
@@ -1526,6 +1676,7 @@ class Scanner {
     }
   }
 }
+
 /**
  * Instances of the class `StringToken` represent a token whose value is independent of it's
  * type.
@@ -1533,7 +1684,6 @@ class Scanner {
  * @coverage dart.engine.parser
  */
 class StringToken extends Token {
-
   /**
    * The lexeme represented by this token.
    */
@@ -1549,10 +1699,14 @@ class StringToken extends Token {
   StringToken(TokenType type, String value, int offset) : super(type, offset) {
     this._value2 = StringUtilities.intern(value);
   }
+
   Token copy() => new StringToken(type, _value2, offset);
+
   String get lexeme => _value2;
+
   String value() => _value2;
 }
+
 /**
  * Instances of the class `TokenWithComment` represent a normal token that is preceded by
  * comments.
@@ -1560,7 +1714,6 @@ class StringToken extends Token {
  * @coverage dart.engine.parser
  */
 class TokenWithComment extends Token {
-
   /**
    * The first comment in the list of comments that precede this token.
    */
@@ -1577,9 +1730,12 @@ class TokenWithComment extends Token {
   TokenWithComment(TokenType type, int offset, Token precedingComment) : super(type, offset) {
     this._precedingComment = precedingComment;
   }
+
   Token copy() => new TokenWithComment(type, offset, _precedingComment);
+
   Token get precedingComments => _precedingComment;
 }
+
 /**
  * Instances of the class `Token` represent a token that was scanned from the input. Each
  * token knows which token follows it, acting as the head of a linked list of tokens.
@@ -1587,7 +1743,6 @@ class TokenWithComment extends Token {
  * @coverage dart.engine.parser
  */
 class Token {
-
   /**
    * The type of the token.
    */
@@ -1706,6 +1861,7 @@ class Token {
     next = token;
     return token;
   }
+
   String toString() => lexeme;
 
   /**
@@ -1740,15 +1896,16 @@ class Token {
     token = token.next;
     while (token != null) {
       tail = tail.setNext(token.copy());
+      token = token.next;
     }
     return head;
   }
 }
+
 /**
  * The interface `CharacterReader`
  */
 abstract class CharacterReader {
-
   /**
    * Advance the current position and return the character at the new current position.
    *
@@ -1792,6 +1949,7 @@ abstract class CharacterReader {
    */
   void set offset(int offset);
 }
+
 /**
  * Instances of the class `BeginTokenWithComment` represent a begin token that is preceded by
  * comments.
@@ -1799,7 +1957,6 @@ abstract class CharacterReader {
  * @coverage dart.engine.parser
  */
 class BeginTokenWithComment extends BeginToken {
-
   /**
    * The first comment in the list of comments that precede this token.
    */
@@ -1816,8 +1973,11 @@ class BeginTokenWithComment extends BeginToken {
   BeginTokenWithComment(TokenType type, int offset, Token precedingComment) : super(type, offset) {
     this._precedingComment = precedingComment;
   }
+
   Token copy() => new BeginTokenWithComment(type, offset, copyComments(_precedingComment));
+
   Token get precedingComments => _precedingComment;
+
   void applyDelta(int delta) {
     super.applyDelta(delta);
     Token token = _precedingComment;
@@ -1827,13 +1987,13 @@ class BeginTokenWithComment extends BeginToken {
     }
   }
 }
+
 /**
  * Instances of the class `KeywordToken` represent a keyword in the language.
  *
  * @coverage dart.engine.parser
  */
 class KeywordToken extends Token {
-
   /**
    * The keyword being represented by this token.
    */
@@ -1848,10 +2008,14 @@ class KeywordToken extends Token {
   KeywordToken(Keyword keyword, int offset) : super(TokenType.KEYWORD, offset) {
     this.keyword = keyword;
   }
+
   Token copy() => new KeywordToken(keyword, offset);
+
   String get lexeme => keyword.syntax;
+
   Keyword value() => keyword;
 }
+
 /**
  * Instances of the class `BeginToken` represent the opening half of a grouping pair of
  * tokens. This is used for curly brackets ('{'), parentheses ('('), and square brackets ('[').
@@ -1859,7 +2023,6 @@ class KeywordToken extends Token {
  * @coverage dart.engine.parser
  */
 class BeginToken extends Token {
-
   /**
    * The token that corresponds to this token.
    */
@@ -1874,15 +2037,16 @@ class BeginToken extends Token {
   BeginToken(TokenType type, int offset) : super(type, offset) {
     assert((identical(type, TokenType.OPEN_CURLY_BRACKET) || identical(type, TokenType.OPEN_PAREN) || identical(type, TokenType.OPEN_SQUARE_BRACKET) || identical(type, TokenType.STRING_INTERPOLATION_EXPRESSION)));
   }
+
   Token copy() => new BeginToken(type, offset);
 }
+
 /**
  * The enumeration `TokenClass` represents classes (or groups) of tokens with a similar use.
  *
  * @coverage dart.engine.parser
  */
 class TokenClass extends Enum<TokenClass> {
-
   /**
    * A value used to indicate that the token type is not part of any specific class of token.
    */
@@ -1962,6 +2126,7 @@ class TokenClass extends Enum<TokenClass> {
    * A value used to indicate that the token type is a unary operator.
    */
   static final TokenClass UNARY_PREFIX_OPERATOR = new TokenClass.con2('UNARY_PREFIX_OPERATOR', 15, 14);
+
   static final List<TokenClass> values = [
       NO_CLASS,
       ADDITIVE_OPERATOR,
@@ -1985,11 +2150,14 @@ class TokenClass extends Enum<TokenClass> {
    * operator.
    */
   int precedence = 0;
+
   TokenClass.con1(String name, int ordinal) : this.con2(name, ordinal, 0);
+
   TokenClass.con2(String name, int ordinal, int precedence) : super(name, ordinal) {
     this.precedence = precedence;
   }
 }
+
 /**
  * Instances of the class `KeywordTokenWithComment` implement a keyword token that is preceded
  * by comments.
@@ -1997,7 +2165,6 @@ class TokenClass extends Enum<TokenClass> {
  * @coverage dart.engine.parser
  */
 class KeywordTokenWithComment extends KeywordToken {
-
   /**
    * The first comment in the list of comments that precede this token.
    */
@@ -2014,8 +2181,11 @@ class KeywordTokenWithComment extends KeywordToken {
   KeywordTokenWithComment(Keyword keyword, int offset, Token precedingComment) : super(keyword, offset) {
     this._precedingComment = precedingComment;
   }
+
   Token copy() => new KeywordTokenWithComment(keyword, offset, copyComments(_precedingComment));
+
   Token get precedingComments => _precedingComment;
+
   void applyDelta(int delta) {
     super.applyDelta(delta);
     Token token = _precedingComment;
@@ -2025,6 +2195,7 @@ class KeywordTokenWithComment extends KeywordToken {
     }
   }
 }
+
 /**
  * The enumeration `TokenType` defines the types of tokens that can be returned by the
  * scanner.
@@ -2032,78 +2203,145 @@ class KeywordTokenWithComment extends KeywordToken {
  * @coverage dart.engine.parser
  */
 class TokenType extends Enum<TokenType> {
-
   /**
    * The type of the token that marks the end of the input.
    */
   static final TokenType EOF = new TokenType_EOF('EOF', 0, null, "");
+
   static final TokenType DOUBLE = new TokenType.con1('DOUBLE', 1);
+
   static final TokenType HEXADECIMAL = new TokenType.con1('HEXADECIMAL', 2);
+
   static final TokenType IDENTIFIER = new TokenType.con1('IDENTIFIER', 3);
+
   static final TokenType INT = new TokenType.con1('INT', 4);
+
   static final TokenType KEYWORD = new TokenType.con1('KEYWORD', 5);
+
   static final TokenType MULTI_LINE_COMMENT = new TokenType.con1('MULTI_LINE_COMMENT', 6);
+
   static final TokenType SCRIPT_TAG = new TokenType.con1('SCRIPT_TAG', 7);
+
   static final TokenType SINGLE_LINE_COMMENT = new TokenType.con1('SINGLE_LINE_COMMENT', 8);
+
   static final TokenType STRING = new TokenType.con1('STRING', 9);
+
   static final TokenType AMPERSAND = new TokenType.con2('AMPERSAND', 10, TokenClass.BITWISE_AND_OPERATOR, "&");
+
   static final TokenType AMPERSAND_AMPERSAND = new TokenType.con2('AMPERSAND_AMPERSAND', 11, TokenClass.LOGICAL_AND_OPERATOR, "&&");
+
   static final TokenType AMPERSAND_EQ = new TokenType.con2('AMPERSAND_EQ', 12, TokenClass.ASSIGNMENT_OPERATOR, "&=");
+
   static final TokenType AT = new TokenType.con2('AT', 13, null, "@");
+
   static final TokenType BANG = new TokenType.con2('BANG', 14, TokenClass.UNARY_PREFIX_OPERATOR, "!");
+
   static final TokenType BANG_EQ = new TokenType.con2('BANG_EQ', 15, TokenClass.EQUALITY_OPERATOR, "!=");
+
   static final TokenType BAR = new TokenType.con2('BAR', 16, TokenClass.BITWISE_OR_OPERATOR, "|");
+
   static final TokenType BAR_BAR = new TokenType.con2('BAR_BAR', 17, TokenClass.LOGICAL_OR_OPERATOR, "||");
+
   static final TokenType BAR_EQ = new TokenType.con2('BAR_EQ', 18, TokenClass.ASSIGNMENT_OPERATOR, "|=");
+
   static final TokenType COLON = new TokenType.con2('COLON', 19, null, ":");
+
   static final TokenType COMMA = new TokenType.con2('COMMA', 20, null, ",");
+
   static final TokenType CARET = new TokenType.con2('CARET', 21, TokenClass.BITWISE_XOR_OPERATOR, "^");
+
   static final TokenType CARET_EQ = new TokenType.con2('CARET_EQ', 22, TokenClass.ASSIGNMENT_OPERATOR, "^=");
+
   static final TokenType CLOSE_CURLY_BRACKET = new TokenType.con2('CLOSE_CURLY_BRACKET', 23, null, "}");
+
   static final TokenType CLOSE_PAREN = new TokenType.con2('CLOSE_PAREN', 24, null, ")");
+
   static final TokenType CLOSE_SQUARE_BRACKET = new TokenType.con2('CLOSE_SQUARE_BRACKET', 25, null, "]");
+
   static final TokenType EQ = new TokenType.con2('EQ', 26, TokenClass.ASSIGNMENT_OPERATOR, "=");
+
   static final TokenType EQ_EQ = new TokenType.con2('EQ_EQ', 27, TokenClass.EQUALITY_OPERATOR, "==");
+
   static final TokenType FUNCTION = new TokenType.con2('FUNCTION', 28, null, "=>");
+
   static final TokenType GT = new TokenType.con2('GT', 29, TokenClass.RELATIONAL_OPERATOR, ">");
+
   static final TokenType GT_EQ = new TokenType.con2('GT_EQ', 30, TokenClass.RELATIONAL_OPERATOR, ">=");
+
   static final TokenType GT_GT = new TokenType.con2('GT_GT', 31, TokenClass.SHIFT_OPERATOR, ">>");
+
   static final TokenType GT_GT_EQ = new TokenType.con2('GT_GT_EQ', 32, TokenClass.ASSIGNMENT_OPERATOR, ">>=");
+
   static final TokenType HASH = new TokenType.con2('HASH', 33, null, "#");
+
   static final TokenType INDEX = new TokenType.con2('INDEX', 34, TokenClass.UNARY_POSTFIX_OPERATOR, "[]");
+
   static final TokenType INDEX_EQ = new TokenType.con2('INDEX_EQ', 35, TokenClass.UNARY_POSTFIX_OPERATOR, "[]=");
+
   static final TokenType IS = new TokenType.con2('IS', 36, TokenClass.RELATIONAL_OPERATOR, "is");
+
   static final TokenType LT = new TokenType.con2('LT', 37, TokenClass.RELATIONAL_OPERATOR, "<");
+
   static final TokenType LT_EQ = new TokenType.con2('LT_EQ', 38, TokenClass.RELATIONAL_OPERATOR, "<=");
+
   static final TokenType LT_LT = new TokenType.con2('LT_LT', 39, TokenClass.SHIFT_OPERATOR, "<<");
+
   static final TokenType LT_LT_EQ = new TokenType.con2('LT_LT_EQ', 40, TokenClass.ASSIGNMENT_OPERATOR, "<<=");
+
   static final TokenType MINUS = new TokenType.con2('MINUS', 41, TokenClass.ADDITIVE_OPERATOR, "-");
+
   static final TokenType MINUS_EQ = new TokenType.con2('MINUS_EQ', 42, TokenClass.ASSIGNMENT_OPERATOR, "-=");
+
   static final TokenType MINUS_MINUS = new TokenType.con2('MINUS_MINUS', 43, TokenClass.UNARY_PREFIX_OPERATOR, "--");
+
   static final TokenType OPEN_CURLY_BRACKET = new TokenType.con2('OPEN_CURLY_BRACKET', 44, null, "{");
+
   static final TokenType OPEN_PAREN = new TokenType.con2('OPEN_PAREN', 45, TokenClass.UNARY_POSTFIX_OPERATOR, "(");
+
   static final TokenType OPEN_SQUARE_BRACKET = new TokenType.con2('OPEN_SQUARE_BRACKET', 46, TokenClass.UNARY_POSTFIX_OPERATOR, "[");
+
   static final TokenType PERCENT = new TokenType.con2('PERCENT', 47, TokenClass.MULTIPLICATIVE_OPERATOR, "%");
+
   static final TokenType PERCENT_EQ = new TokenType.con2('PERCENT_EQ', 48, TokenClass.ASSIGNMENT_OPERATOR, "%=");
+
   static final TokenType PERIOD = new TokenType.con2('PERIOD', 49, TokenClass.UNARY_POSTFIX_OPERATOR, ".");
+
   static final TokenType PERIOD_PERIOD = new TokenType.con2('PERIOD_PERIOD', 50, TokenClass.CASCADE_OPERATOR, "..");
+
   static final TokenType PLUS = new TokenType.con2('PLUS', 51, TokenClass.ADDITIVE_OPERATOR, "+");
+
   static final TokenType PLUS_EQ = new TokenType.con2('PLUS_EQ', 52, TokenClass.ASSIGNMENT_OPERATOR, "+=");
+
   static final TokenType PLUS_PLUS = new TokenType.con2('PLUS_PLUS', 53, TokenClass.UNARY_PREFIX_OPERATOR, "++");
+
   static final TokenType QUESTION = new TokenType.con2('QUESTION', 54, TokenClass.CONDITIONAL_OPERATOR, "?");
+
   static final TokenType SEMICOLON = new TokenType.con2('SEMICOLON', 55, null, ";");
+
   static final TokenType SLASH = new TokenType.con2('SLASH', 56, TokenClass.MULTIPLICATIVE_OPERATOR, "/");
+
   static final TokenType SLASH_EQ = new TokenType.con2('SLASH_EQ', 57, TokenClass.ASSIGNMENT_OPERATOR, "/=");
+
   static final TokenType STAR = new TokenType.con2('STAR', 58, TokenClass.MULTIPLICATIVE_OPERATOR, "*");
+
   static final TokenType STAR_EQ = new TokenType.con2('STAR_EQ', 59, TokenClass.ASSIGNMENT_OPERATOR, "*=");
+
   static final TokenType STRING_INTERPOLATION_EXPRESSION = new TokenType.con2('STRING_INTERPOLATION_EXPRESSION', 60, null, "\${");
+
   static final TokenType STRING_INTERPOLATION_IDENTIFIER = new TokenType.con2('STRING_INTERPOLATION_IDENTIFIER', 61, null, "\$");
+
   static final TokenType TILDE = new TokenType.con2('TILDE', 62, TokenClass.UNARY_PREFIX_OPERATOR, "~");
+
   static final TokenType TILDE_SLASH = new TokenType.con2('TILDE_SLASH', 63, TokenClass.MULTIPLICATIVE_OPERATOR, "~/");
+
   static final TokenType TILDE_SLASH_EQ = new TokenType.con2('TILDE_SLASH_EQ', 64, TokenClass.ASSIGNMENT_OPERATOR, "~/=");
+
   static final TokenType BACKPING = new TokenType.con2('BACKPING', 65, null, "`");
+
   static final TokenType BACKSLASH = new TokenType.con2('BACKSLASH', 66, null, "\\");
+
   static final TokenType PERIOD_PERIOD_PERIOD = new TokenType.con2('PERIOD_PERIOD_PERIOD', 67, null, "...");
+
   static final List<TokenType> values = [
       EOF,
       DOUBLE,
@@ -2184,7 +2422,9 @@ class TokenType extends Enum<TokenType> {
    * lexeme for this type of token.
    */
   String lexeme;
+
   TokenType.con1(String name, int ordinal) : this.con2(name, ordinal, TokenClass.NO_CLASS, null);
+
   TokenType.con2(String name, int ordinal, TokenClass tokenClass, String lexeme) : super(name, ordinal) {
     this._tokenClass = tokenClass == null ? TokenClass.NO_CLASS : tokenClass;
     this.lexeme = lexeme;
@@ -2288,7 +2528,9 @@ class TokenType extends Enum<TokenType> {
    */
   bool get isUserDefinableOperator => identical(lexeme, "==") || identical(lexeme, "~") || identical(lexeme, "[]") || identical(lexeme, "[]=") || identical(lexeme, "*") || identical(lexeme, "/") || identical(lexeme, "%") || identical(lexeme, "~/") || identical(lexeme, "+") || identical(lexeme, "-") || identical(lexeme, "<<") || identical(lexeme, ">>") || identical(lexeme, ">=") || identical(lexeme, ">") || identical(lexeme, "<=") || identical(lexeme, "<") || identical(lexeme, "&") || identical(lexeme, "^") || identical(lexeme, "|");
 }
+
 class TokenType_EOF extends TokenType {
   TokenType_EOF(String name, int ordinal, TokenClass arg0, String arg1) : super.con2(name, ordinal, arg0, arg1);
+
   String toString() => "-eof-";
 }
