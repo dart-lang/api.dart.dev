@@ -181,13 +181,14 @@ class Viewer extends ChangeNotifier {
 
   /// Updates [currentPage] to be [page].
   Future _updatePage(Item page, DocsLocation location) {
-    if (page != null) {
-      // Since currentPage is observable, if it changes the page reloads.
-      // This avoids reloading the page when it isn't necessary.
-      if (page != currentPage) currentPage = page;
-      _hash = location.anchorPlus;
-      _scrollScreen(location.anchorPlus);
+    // Avoid reloading the page if it isn't necessary.
+    if (page != null && page != currentPage) {
+      var main = window.document.querySelector("#dartdoc-main");
+      main.hideOrShowNavigation(hide: true);
+      currentPage = page;
     }
+    _hash = location.anchorPlus;
+    _scrollScreen(location.anchorPlus);
     return new Future.value(true);
   }
 
@@ -330,7 +331,13 @@ void navigate(event) {
 @initMethod _init() {
   window.onResize.listen((event) {
     viewer.isDesktop = window.innerWidth > desktopSizeBoundary;
+    dartdocMain.collapseSearchAndOptionsIfNeeded();
+    dartdocMain.hideOrShowNavigation();
   });
+  // If we do this directly, then the dartdocMain element may not be available
+  // yet. This happens when compiled to JS, but not in Dartium. So insert a
+  // delay. Ugh.
+  new Future.value(null).then((_) => dartdocMain.hideOrShowNavigation());
 
   startHistory();
   // If a user navigates to a page other than the homepage, the viewer
