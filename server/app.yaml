@@ -12,21 +12,24 @@ threadsafe: true
 #default_expiration: "2h"
 
 handlers:
-- url: /apidocs/static
-  static_dir: out/web/static
+- url: /apidocs/channels/be/
+  static_files: out/web/index.html
+  upload: out/web/index.htm
 
-- url: /apidocs/docs/.*
-  script: scripts.next.application
-  
-- url: /apidocs/
+- url: /apidocs/channels/be/docs/.*
+  script: scripts.redirector.application
+
+- url: /apidocs/channels/be
+  static_dir: out/web
+
+- url: /apidocs/channels/stable/
   static_files: out/web/index.html
   upload: out/web/index.html
 
-#- url: /apidocs
-#  static_files: out/web/index.html
-#  upload: out/web/index.html
+- url: /apidocs/channels/stable/docs/.*
+  script: scripts.redirector.application
 
-- url: /apidocs 
+- url: /apidocs/channels/stable
   static_dir: out/web
 
 - url: /.*

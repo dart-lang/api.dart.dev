@@ -76,6 +76,12 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         'channel': 'be',
       },
       {
+        'key': 'latest_be_docgen_version',
+        'prefix': '/apidocs/channels/be/latest',
+        'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
+        'channel': 'be',
+      },
+      {
         'prefix': '/docs/channels/be',
         'channel': 'be',
         'manual_revision': True,
@@ -94,6 +100,12 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       {
         'key': 'latest_stable_doc_version',
         'prefix': '/docs/channels/stable/latest',
+        'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
+        'channel': 'stable',
+      },
+      {
+        'key': 'latest_stable_docgen_version',
+        'prefix': '/apidocs/channels/stable/latest',
         'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
         'channel': 'stable',
       },
@@ -185,10 +197,11 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
-  if re.search(r'^(async|collection|convert|core|html|indexed_db|io|isolate|js|math|mirrors|svg|typed_data|web_audio|web_gl|web_sql)', path):
-    return '/docs/channels/stable/latest/dart_' + path
-  else:
-    return '/docs/channels/stable/latest/' + path
+  return '/apidocs/channels/stable/#home'
+#  if re.search(r'^(async|collection|convert|core|html|indexed_db|io|isolate|js|math|mirrors|svg|typed_data|web_audio|web_gl|web_sql)', path):
+#    return '/apidocs/channels/stable/latest/#dart:' + path
+#  else:
+#    return '/apidocs/channels/stable/latest/' + path
 
 def redir_dom(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/dart_html' + kwargs['path']
@@ -196,8 +209,17 @@ def redir_dom(handler, *args, **kwargs):
 def redir_continuous(handler, *args, **kwargs):
   return '/docs/channels/be/latest' + kwargs['path']
 
+def redir_docgen_continuous(handler, *args, **kwargs):
+  return '/docs/channels/be/latest/docgen' + kwargs['path']
+
 def redir_latest(handler, *args, **kwargs):
   return '/docs/channels/stable/latest' + kwargs['path']
+
+def redir_docgen_latest(handler, *args, **kwargs):
+  return '/docs/channels/stable/latest/docgen' + kwargs['path']
+
+def redir_docgen_stable(handler, *args, **kwargs):
+  return '/docs/channels/stable/latest/docgen' + kwargs['path']
 
 def redir_pkgs(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/' + kwargs['pkg'] + '.html'
@@ -208,8 +230,15 @@ application = WSGIApplication(
         RedirectHandler, defaults={'_uri': redir_pkgs, '_code': 302}),
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
     Route('/docs/bleeding_edge<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
+    Route('/apidocs/channels/be/docs<path:.*>', 
+        RedirectHandler, defaults={'_uri': redir_docgen_continuous}),
+    Route('/apidocs/channels/continuous/docs<path:.*>', 
+        RedirectHandler, defaults={'_uri': redir_docgen_continuous}),
+    Route('/apidocs/channels/stable/docs<path:.*>', 
+        RedirectHandler, defaults={'_uri': redir_docgen_stable}),
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),
+    Route('/apidocs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_docgen_latest}),
     ('/docs.*', ApiDocs),
     Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
   ],
