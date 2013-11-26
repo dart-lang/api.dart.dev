@@ -4,6 +4,7 @@
 
 application: dartlang-api
 version: dartdoc-next
+version: force-ssl
 
 runtime: python27
 api_version: 1
@@ -44,3 +45,4 @@ handlers:
 
 - url: /.*
   script: scripts.redirector.application
+  secure: always
