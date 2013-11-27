@@ -204,7 +204,8 @@
   </template>
 
   
-</polymer-element><polymer-element name="dartdoc-category" attributes="category">
+</polymer-element>
+<polymer-element name="dartdoc-category" attributes="category">
    <template>
    <div class="accordion-heading">
       <a class="accordion-toggle {{accordionStyle}}" on-click="{{hideShow}}" data-toggle="collapse" data-parent="{{accordionParent}}" data-target="#accordion-{{stylizedName}}">
@@ -222,7 +223,8 @@
 
 
 
-</polymer-element><polymer-element name="dartdoc-minimap" attributes="items">
+</polymer-element>
+<polymer-element name="dartdoc-minimap" attributes="items">
   <template>
     <template repeat="{{item in itemsToShow}}">
         <li>
@@ -233,7 +235,8 @@
     </template>
   </template>
   
-</polymer-element><polymer-element name="dartdoc-homepage" attributes="item">
+</polymer-element>
+<polymer-element name="dartdoc-homepage" attributes="item">
   <template>
         <!--  TODO(alanknight): The div with itemList and panel are here to
       convince it to use the right paragraph spacing. Seems pretty awful. -->
@@ -467,7 +470,9 @@
       </div>
 
   </template>
-</polymer-element><polymer-element name="dartdoc-minimap-library" attributes="item">
+</polymer-element>
+
+<polymer-element name="dartdoc-minimap-library" attributes="item">
  <template>
   <div class="well well-sm nav affix-right" id="minimap">
       <a href="#{{linkHref}}">
@@ -532,7 +537,8 @@
   </div>
   </template>
   
-  </polymer-element><polymer-element name="dartdoc-library-panel">
+  </polymer-element>
+  <polymer-element name="dartdoc-library-panel">
 <template>
    <div class="list-group affix-left" id="library-panel">
    </div>
@@ -685,6 +691,9 @@
   
   </template>
 </polymer-element>
+
+
+
 <script src="index.html_bootstrap.dart.js"></script>
 
 
