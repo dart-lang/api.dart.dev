@@ -44,4 +44,4 @@ handlers:
 
 - url: /.*
   script: scripts.redirector.application
-  secure: always
+#  secure: always
