@@ -146,7 +146,6 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   def get(self, *args, **kwargs):
     versionRequest = kwargs.pop('_versionRequest', None)
     if versionRequest:
-      
       version_file_entry = [x for x in self.docs_renames if x.get('key') == versionRequest]
       version_file = version_file_entry[0]['version_file']
       version_num = self.get_latest_version(
@@ -208,10 +207,6 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
   return '/apidocs/channels/stable/#home'
-#  if re.search(r'^(async|collection|convert|core|html|indexed_db|io|isolate|js|math|mirrors|svg|typed_data|web_audio|web_gl|web_sql)', path):
-#    return '/apidocs/channels/stable/latest/#dart:' + path
-#  else:
-#    return '/apidocs/channels/stable/latest/' + path
 
 def redir_dom(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/dart_html' + kwargs['path']
