@@ -249,7 +249,7 @@ application = WSGIApplication(
         ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
     Route('/docs/channels/continuous/latest/docgen/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_continuous_doc_version'}),
-    Route('docs/channels/stable/latest/docgen/VERSION', 
+    Route('/docs/channels/stable/latest/docgen/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
 
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
