@@ -11,39 +11,56 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import files, memcache
 
-LATEST_BE_CHANNEL_VERSION_FILE = '/gs/dart-archive/channels/be/raw/latest/VERSION'
-LATEST_DEV_CHANNEL_VERSION_FILE = '/gs/dart-archive/channels/dev/release/latest/VERSION'
-LATEST_STABLE_CHANNEL_VERSION_FILE = '/gs/dart-archive/channels/stable/release/latest/VERSION'
-
 ONE_HOUR = 60 * 60
 ONE_DAY = ONE_HOUR * 24
 ONE_WEEK = ONE_DAY * 7
 
 class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
-  next_doc_version_check = None
-
-  latest_versions = {
-    'latest_be_doc_version': None,
-    'latest_dev_doc_version': None,
-    'latest_stable_doc_version': None,
+  version_files = {
+    'be': '/gs/dart-archive/channels/be/raw/latest/VERSION',
+    'dev': '/gs/dart-archive/channels/dev/release/latest/VERSION',
+    'stable': '/gs/dart-archive/channels/stable/release/latest/VERSION',
   }
 
-  def reload_latest_version(self, version_file_location):
+  version_file_update_intervalls = {
+    'be': timedelta(minutes=30),
+    'dev': timedelta(hours=6),
+    'stable': timedelta(days=1),
+  }
+
+  next_version_checks = {
+    'be': None,
+    'dev': None,
+    'stable': None,
+  }
+
+  latest_versions = {
+    'be': None,
+    'dev': None,
+    'stable': None,
+  }
+
+  def reload_latest_version(self, channel):
     data = None
+    version_file_location = ApiDocs.version_files[channel]
+    update_interval = ApiDocs.version_file_update_intervalls[channel]
     with files.open(version_file_location, 'r') as f:
       data = json.loads(f.read(1024))
-      ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
-    return int(data['revision'])
+      ApiDocs.next_version_checks[channel] = datetime.now() + update_interval
+    revision = int(data['revision'])
+    ApiDocs.latest_versions[channel] = revision
+    return revision
 
   # TODO: put into memcache?
-  def get_latest_version(self, version, version_file_location):
+  def get_latest_version(self, channel):
     forced_reload = self.request.get('force_reload')
+    version = ApiDocs.latest_versions[channel]
+    next_version_check = ApiDocs.next_version_checks[channel]
     if (forced_reload or
-          version is None or
-          ApiDocs.next_doc_version_check is None or
-          datetime.now() > ApiDocs.next_doc_version_check):
-      new_version = self.reload_latest_version(version_file_location)
-      return new_version
+        version is None or
+        next_version_check is None or
+        datetime.now() > next_version_check):
+      return self.reload_latest_version(channel)
     else:
       return version
 
@@ -56,23 +73,17 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       age = ONE_HOUR
     return age
 
-  def build_gcs_path(self, version_num, postfix, channel=None):
-    if channel:
-      if version_num:
-        return '/gs/dartlang-api-docs/channels/%s/%s%s' % (
-            channel, version_num, postfix)
-      else:
-        return '/gs/dartlang-api-docs/channels/%s%s' % (
-            channel, postfix)
+  def build_gcs_path(self, version_num, postfix, channel):
+    if version_num:
+      return '/gs/dartlang-api-docs/channels/%s/%s%s' % (
+          channel, version_num, postfix)
     else:
-      return '/gs/dartlang-api-docs/%s%s' % (version_num, postfix)
+      return '/gs/dartlang-api-docs/channels/%s%s' % (channel, postfix)
 
   def resolve_doc_path(self):
     docs_renames = [
       {
-        'key': 'latest_be_doc_version',
         'prefix': '/docs/channels/be/latest',
-        'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
         'channel': 'be',
       },
       {
@@ -81,9 +92,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         'manual_revision': True,
       },
       {
-        'key': 'latest_dev_doc_version',
         'prefix': '/docs/channels/dev/latest',
-        'version_file': LATEST_DEV_CHANNEL_VERSION_FILE,
         'channel': 'dev',
       },
       {
@@ -92,9 +101,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         'manual_revision': True,
       },
       {
-        'key': 'latest_stable_doc_version',
         'prefix': '/docs/channels/stable/latest',
-        'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
         'channel': 'stable',
       },
       {
@@ -108,9 +115,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     for rename in docs_renames:
       prefix = rename['prefix']
       if self.request.path.startswith(prefix):
-        key = rename.get('key', None)
-        version_file = rename.get('version_file', None)
-        channel = rename.get('channel', None)
+        channel = rename['channel']
         manual_revision = rename.get('manual_revision', False)
 
         postfix = self.request.path[len(prefix):]
@@ -121,10 +126,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         if manual_revision:
           version_num = None
         else:
-          version_num = self.get_latest_version(
-              ApiDocs.latest_versions[key], version_file)
-          ApiDocs.latest_versions[key] = version_num
-        path = self.build_gcs_path(version_num, postfix, channel=channel)
+          version_num = self.get_latest_version(channel)
+        path = self.build_gcs_path(version_num, postfix, channel)
         break
 
     if path and path.endswith('/'):
