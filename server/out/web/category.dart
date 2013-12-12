@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library category;
+library web.category;
 
 import 'package:polymer/polymer.dart';
 import 'package:dartdoc_viewer/item.dart';
@@ -16,130 +16,61 @@ import 'dart:html';
  * Used as a placeholder for an CategoryItem object.
  */
  @CustomTag("dartdoc-category")
-class CategoryElement extends DartdocElement {
+class CategoryElement extends DartdocElement with ChangeNotifier  {
+  @reflectable @published Category get category => __$category; Category __$category; @reflectable set category(Category value) { __$category = notifyPropertyChange(#category, __$category, value); }
+
+  // Note: only one of these is used at any given time, the other two will be
+  // null. We do it this way to keep the <template if> outside of the
+  // <template repeat>, so the repeat is more strongly typed.
+  @reflectable @published ObservableList<Item> get items => __$items; ObservableList<Item> __$items; @reflectable set items(ObservableList<Item> value) { __$items = notifyPropertyChange(#items, __$items, value); }
+  @reflectable @published ObservableList<Variable> get variables => __$variables; ObservableList<Variable> __$variables; @reflectable set variables(ObservableList<Variable> value) { __$variables = notifyPropertyChange(#variables, __$variables, value); }
+  @reflectable @published ObservableList<Method> get methods => __$methods; ObservableList<Method> __$methods; @reflectable set methods(ObservableList<Method> value) { __$methods = notifyPropertyChange(#methods, __$methods, value); }
+
+  @reflectable @observable bool get hasItems => __$hasItems; bool __$hasItems = false; @reflectable set hasItems(bool value) { __$hasItems = notifyPropertyChange(#hasItems, __$hasItems, value); }
+
+  @reflectable @observable String get title => __$title; String __$title; @reflectable set title(String value) { __$title = notifyPropertyChange(#title, __$title, value); }
+  @reflectable @observable String get stylizedName => __$stylizedName; String __$stylizedName; @reflectable set stylizedName(String value) { __$stylizedName = notifyPropertyChange(#stylizedName, __$stylizedName, value); }
+
+  @reflectable @observable String get accordionStyle => __$accordionStyle; String __$accordionStyle; @reflectable set accordionStyle(String value) { __$accordionStyle = notifyPropertyChange(#accordionStyle, __$accordionStyle, value); }
+  @reflectable @observable String get divClass => __$divClass; String __$divClass; @reflectable set divClass(String value) { __$divClass = notifyPropertyChange(#divClass, __$divClass, value); }
+  @reflectable @observable String get caretStyle => __$caretStyle; String __$caretStyle; @reflectable set caretStyle(String value) { __$caretStyle = notifyPropertyChange(#caretStyle, __$caretStyle, value); }
+  @reflectable @observable String get lineHeight => __$lineHeight; String __$lineHeight; @reflectable set lineHeight(String value) { __$lineHeight = notifyPropertyChange(#lineHeight, __$lineHeight, value); }
 
   CategoryElement.created() : super.created() {
-    new PathObserver(viewer, "isDesktop").changes.listen((changes) {
-      var change = changes.first;
-      notifyPropertyChange(
-          #accordionStyle, accordionStyleFor(change.oldValue), accordionStyle);
-      notifyPropertyChange(#accordionParent,
-          accordionParentFor(change.oldValue), accordionParent);
-      notifyPropertyChange(#divClass, divClassFor(change.oldValue), divClass);
-    });
-    new PathObserver(viewer, "isInherited").changes.listen((changes) {
-      _flushCache();
-      addChildren();
-    });
-    style.setProperty('display', 'block');
-  }
-
-  @observable void addChildren() {
-    if (shadowRoot == null) return;
-
-    var elements = [];
-    var types = {
-      'dartdoc-variable' : categoryVariables,
-      'dartdoc-item' : categoryEverythingElse,
-      'method-panel' : categoryMethods
-    };
-    types.forEach((tagName, items) {
-      for (var subItem in items) {
-        var newItem = document.createElement(tagName);
-        newItem.item = subItem;
-        newItem.classes.add("panel");
-        elements.add(newItem);
+    registerObserver('viewer', viewer.changes.listen((changes) {
+      if (changes.any((c) => c.name == #isDesktop)) {
+        _isExpanded = viewer.isDesktop;
       }
-    });
-    var root = shadowRoot.querySelector("#itemList");
-    root.children.clear();
-    root.children.addAll(elements);
+    }));
+    _isExpanded = viewer.isDesktop;
   }
 
-  get observables => concat(super.observables,
-    const [#category, #categoryContent, #categoryVariables,
-    #categoryMethods, #categoryEverythingElse, #currentLocation, #title,
-    #stylizedName]);
-
-  Category _category;
-  @published Category get category => _category;
-  @published set category(newCategory) {
-    if (newCategory == null || newCategory is! Container ||
-        newCategory == _category) return;
-    _flushCache();
-    notifyObservables(() {
-      _category = newCategory;
-      _flushCache();
-    });
-    addChildren();
+  bool __isExpanded;
+  bool get _isExpanded => __isExpanded;
+  set _isExpanded(bool expanded) {
+    __isExpanded = expanded;
+    accordionStyle = expanded ? '' : 'collapsed';
+    divClass = expanded ? 'collapse in' : 'collapse';
+    caretStyle = expanded ? '' : 'caret';
+    lineHeight = expanded ? 'auto' : '0px';
   }
 
-  @observable String get title => category == null ? '' : category.name;
-
-  @observable String get stylizedName =>
-      category == null ? '' : category.name.replaceAll(' ', '-');
-
-  @observable get categoryContent => category == null ? [] : category.content;
-
-  @observable get categoryMethods {
-    if (_methodsCache != null) return _methodsCache;
-    _methodsCache = categoryContent.where(
-        (each) => each is Method && (!each.isInherited || viewer.isInherited))
-            .toList();
-    return _methodsCache;
+  void categoryChanged() {
+    title = category == null ? '' : category.name;
+    stylizedName = category == null ? '' : category.name.replaceAll(' ', '-');
   }
 
-  @observable get categoryVariables {
-    if (_variablesCache != null) return _variablesCache;
-    _variablesCache = categoryContent.where(
-        (each) => each is Variable && (!each.isInherited || viewer.isInherited))
-            .toList();
-    return _variablesCache;
+  void itemsChanged() => _updateHasItems();
+  void variablesChanged() => _updateHasItems();
+  void methodsChanged() => _updateHasItems();
+
+  _updateHasItems() {
+    hasItems = items != null && items.isNotEmpty ||
+        variables != null && variables.isNotEmpty ||
+        methods != null && methods.isNotEmpty;
   }
-
-  @observable get categoryEverythingElse {
-    if (_everythingElseCache != null) return _everythingElseCache;
-    _everythingElseCache = categoryContent.where(
-        (each) => each is! Variable && each is! Method &&
-            (!each.isInherited || viewer.isInherited)).toList();
-    return _everythingElseCache;
-  }
-  var _methodsCache = null;
-  var _variablesCache = null;
-  var _everythingElseCache = null;
-
-  _flushCache() {
-    _methodsCache = null;
-    _variablesCache = null;
-    _everythingElseCache = null;
-  }
-
-  @observable get accordionStyle => accordionStyleFor(viewer.isDesktop);
-  accordionStyleFor(isDesktop) => isDesktop ? '' : 'collapsed';
-  @observable get accordionParent => accordionParentFor(viewer.isDesktop);
-  accordionParentFor(isDesktop) => isDesktop ? '' : '#accordion-grouping';
-
-  @observable get divClass => divClassFor(viewer.isDesktop);
-  divClassFor(isDesktop) => isDesktop ? 'collapse in' : 'collapse';
-
-  var validator = new NodeValidatorBuilder()
-    ..allowHtml5(uriPolicy: new SameProtocolUriPolicy())
-    ..allowCustomElement("method-panel", attributes: ["item"])
-    ..allowCustomElement("dartdoc-item", attributes: ["item"])
-    ..allowCustomElement("dartdoc-variable", attributes: ["item"])
-    ..allowCustomElement("dartdoc-category-interior", attributes: ["item"])
-    ..allowTagExtension("method-panel", "div", attributes: ["item"]);
 
   hideShow(event, detail, AnchorElement target) {
-    var list = shadowRoot.querySelector(target.attributes["data-target"]);
-    if (list.classes.contains("in")) {
-      list.classes.remove("in");
-      list.style.height = '0px';
-    } else {
-      list.classes.add("in");
-      list.style.height = 'auto';
-    }
+    _isExpanded = !_isExpanded;
   }
-
-  @observable get currentLocation => window.location.toString();
 }

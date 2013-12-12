@@ -115,6 +115,21 @@ class AnalysisErrorWithProperties extends AnalysisError {
 }
 
 /**
+ * Instances of the class `BooleanErrorListener` implement a listener that keeps track of
+ * whether an error has been reported to it.
+ */
+class BooleanErrorListener implements AnalysisErrorListener {
+  /**
+   * A flag indicating whether an error has been reported to this listener.
+   */
+  bool errorReported = false;
+
+  void onError(AnalysisError error) {
+    errorReported = true;
+  }
+}
+
+/**
  * Instances of the class `ErrorReporter` wrap an error listener with utility methods used to
  * create the errors being reported.
  *
@@ -3115,7 +3130,7 @@ abstract class AnalysisErrorListener {
   /**
    * An error listener that ignores errors that are reported to it.
    */
-  static final AnalysisErrorListener _NULL_LISTENER = new AnalysisErrorListener_6();
+  static final AnalysisErrorListener NULL_LISTENER = new AnalysisErrorListener_6();
 
   /**
    * This method is invoked when an error has been found by the analysis engine.

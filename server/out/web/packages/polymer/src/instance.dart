@@ -24,6 +24,9 @@ class PublishedProperty extends ObservableProperty {
 /**
  * The mixin class for Polymer elements. It provides convenience features on top
  * of the custom elements web standard.
+ *
+ * If this class is used as a mixin,
+ * you must call `polymerCreated()` from the body of your constructor.
  */
 abstract class Polymer implements Element, Observable, NodeBindExtension {
   // Fully ported from revision:
@@ -124,6 +127,12 @@ abstract class Polymer implements Element, Observable, NodeBindExtension {
   // TODO(jmesserly): Polymer does not have this feature. Reconcile.
   ShadowRoot getShadowRoot(String customTagName) => _shadowRoots[customTagName];
 
+  /**
+   * If this class is used as a mixin, this method must be called from inside
+   * of the `created()` constructor.
+   *
+   * If this class is a superclass, calling `super.created()` is sufficient.
+   */
   void polymerCreated() {
     if (this.ownerDocument.window != null || alwaysPrepare ||
         _preparingElements > 0) {
@@ -736,8 +745,6 @@ abstract class Polymer implements Element, Observable, NodeBindExtension {
    * the bound path at event execution time.
    */
   // from src/instance/event.js#prepareBinding
-  // Dart note: template_binding doesn't have the notion of prepareBinding, so
-  // we implement this by wrapping/overriding getBinding instead.
   // TODO(sorvell): we're patching the syntax while evaluating
   // event bindings. we'll move this to a better spot when that's done
   static PrepareBindingFunction prepareBinding(String path, String name, node,
@@ -756,10 +763,9 @@ abstract class Polymer implements Element, Observable, NodeBindExtension {
       var translated = _eventTranslations[eventName];
       eventName = translated != null ? translated : eventName;
 
-      // TODO(jmesserly): returning a StreamSubscription as the model is quite
-      // strange. package:template_binding doesn't have any cleanup logic to
-      // handle that.
-      return node.on[eventName].listen((event) {
+      // TODO(jmesserly): we need a place to unregister this. See:
+      // https://code.google.com/p/dart/issues/detail?id=15574
+      node.on[eventName].listen((event) {
         var ctrlr = _findController(node);
         if (ctrlr is! Polymer) return;
         var obj = ctrlr;
@@ -772,6 +778,10 @@ abstract class Polymer implements Element, Observable, NodeBindExtension {
             (event as CustomEvent).detail : null;
         ctrlr.dispatchMethod(obj, method, [event, detail, node]);
       });
+
+      // TODO(jmesserly): this return value is bogus. Returning null here causes
+      // the wrong thing to happen in template_binding.
+      return new ObservableBox();
     };
   }
 
@@ -794,7 +804,7 @@ abstract class Polymer implements Element, Observable, NodeBindExtension {
     // explicitly. Unless VM mirrors are optimized first, this will be expensive
     // once custom elements extend directly from Element (see issue 11108).
     var receiverMirror = reflect(receiver);
-    var method = receiverMirror.type.methods[methodName];
+    var method = _findMethod(receiverMirror.type, methodName);
     if (method != null) {
       // This will either truncate the argument list or extend it with extra
       // null arguments, so it will match the signature.
@@ -803,6 +813,14 @@ abstract class Polymer implements Element, Observable, NodeBindExtension {
       args.length = method.parameters.where((p) => !p.isOptional).length;
     }
     return receiverMirror.invoke(methodName, args).reflectee;
+  }
+
+  static MethodMirror _findMethod(ClassMirror type, Symbol name) {
+    do {
+      var member = type.declarations[name];
+      if (member is MethodMirror) return member;
+      type = type.superclass;
+    } while (type != null);
   }
 
   /**
@@ -920,7 +938,7 @@ abstract class Polymer implements Element, Observable, NodeBindExtension {
     } else {
       // find the shadow root that contains this element
       var n = this;
-      while (n.parentNode) {
+      while (n.parentNode != null) {
         n = n.parentNode;
       }
       return identical(n, document) ? document.head : n;

@@ -220,7 +220,6 @@ class _ElementSummary {
 class _LinterVisitor extends TreeVisitor {
   TransformLogger _logger;
   bool _inPolymerElement = false;
-  bool _dartJSSeen = false;
   bool _dartTagSeen = false;
   bool _isEntrypoint;
   Map<String, _ElementSummary> _elements;
@@ -253,11 +252,6 @@ class _LinterVisitor extends TreeVisitor {
 
     if (_isEntrypoint && !_dartTagSeen) {
       _logger.error(USE_INIT_DART, span: doc.body.sourceSpan);
-    }
-
-    if (_isEntrypoint && !_dartJSSeen) {
-      // TODO(sigmund): remove this when webkitStartDart is gone.
-      _logger.error(USE_DART_JS, span: doc.body.sourceSpan);
     }
   }
 
@@ -372,11 +366,6 @@ class _LinterVisitor extends TreeVisitor {
 
     if (src == 'packages/polymer/boot.js') {
       _logger.warning(BOOT_JS_DEPRECATED, span: node.sourceSpan);
-      return;
-    }
-    if (src == 'packages/browser/dart.js' ||
-        src == 'packages/unittest/test_controller.js') {
-      _dartJSSeen = true;
       return;
     }
 
@@ -496,15 +485,6 @@ class _LinterVisitor extends TreeVisitor {
           span: node.attributeSpans[name]);
     }
 
-    var eventName = name.substring('on-'.length);
-    if (eventName.contains('-')) {
-      var newEvent = toCamelCase(eventName);
-      _logger.warning('Invalid event name "$name". After the "on-" the event '
-          'name should not use dashes. For example use "on-$newEvent" or '
-          '"on-${newEvent.toLowerCase()}" (both forms are equivalent in HTML).',
-          span: node.attributeSpans[name]);
-    }
-
     if (value.contains('.') || value.contains('(')) {
       _logger.warning('Invalid event handler body "$value". Declare a method '
           'in your custom element "void handlerName(event, detail, target)" '
@@ -542,15 +522,11 @@ const String _MAGENTA_COLOR = '\u001b[35m';
 const String _NO_COLOR = '\u001b[0m';
 
 const String USE_INIT_DART =
-    'To run a polymer applications, you need to call "initPolymer". You can '
+    'To run a polymer application, you need to call "initPolymer". You can '
     'either include a generic script tag that does this for you:'
     '\'<script type="application/dart">export "package:polymer/init.dart";'
     '</script>\' or add your own script tag and call that function. '
     'Make sure the script tag is placed after all HTML imports.';
-
-const String USE_DART_JS =
-    'To run a polymer applications in Dartium, make sure to include'
-    '\'<script src="packages/browser/dart.js"></script>\' in your page';
 
 const String BOOT_JS_DEPRECATED =
     '"boot.js" is now deprecated. Instead, you can initialize your polymer '

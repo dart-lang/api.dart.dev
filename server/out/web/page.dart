@@ -2,62 +2,29 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library page;
+library web.page;
 
-import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:dartdoc_viewer/item.dart';
-import 'app.dart' as app;
 import 'member.dart';
 
-/**
- * An HTML representation of a page
- */
+/** An HTML representation of a page */
 @CustomTag("dartdoc-page")
 class PageElement extends DartdocElement with ChangeNotifier  {
-  @reflectable @observable Home get home => __$home; Home __$home; @reflectable set home(Home value) { __$home = notifyPropertyChange(#home, __$home, value); }
+  @reflectable @published Item get item => __$item; Item __$item; @reflectable set item(Item value) { __$item = notifyPropertyChange(#item, __$item, value); }
+  @reflectable @observable bool get isLibrary => __$isLibrary; bool __$isLibrary; @reflectable set isLibrary(bool value) { __$isLibrary = notifyPropertyChange(#isLibrary, __$isLibrary, value); }
+  @reflectable @observable bool get isMethod => __$isMethod; bool __$isMethod; @reflectable set isMethod(bool value) { __$isMethod = notifyPropertyChange(#isMethod, __$isMethod, value); }
+  @reflectable @observable bool get isClass => __$isClass; bool __$isClass; @reflectable set isClass(bool value) { __$isClass = notifyPropertyChange(#isClass, __$isClass, value); }
+  @reflectable @observable bool get isTypedef => __$isTypedef; bool __$isTypedef; @reflectable set isTypedef(bool value) { __$isTypedef = notifyPropertyChange(#isTypedef, __$isTypedef, value); }
+  @reflectable @observable bool get isHome => __$isHome; bool __$isHome; @reflectable set isHome(bool value) { __$isHome = notifyPropertyChange(#isHome, __$isHome, value); }
 
   PageElement.created() : super.created();
 
-  enteredView() {
-    super.enteredView();
-    new PathObserver(this, "viewer.currentPage").changes.listen((changes) {
-      var change = changes.first;
-      notifyPropertyChange(#currentPage, change.oldValue, change.newValue);
-      notifyPropertyChange(#currentPageIsLibrary,
-          change.oldValue is Library,
-          change.newValue is Library);
-      notifyPropertyChange(#currentPageIsMethod,
-          change.oldValue is Method,
-          change.newValue is Method);
-      notifyPropertyChange(#currentPageIsClass,
-          change.oldValue is Class,
-          change.newValue is Class);
-      notifyPropertyChange(#currentPageIsTypedef,
-          change.oldValue is Typedef,
-          change.newValue is Typedef);
-      notifyPropertyChange(#isHome,
-          change.oldValue is Home,
-          change.newValue is Home);
-    });
-    new PathObserver(this, "viewer.homePage").bindSync(
-        (_) {
-          notifyPropertyChange(#hasHomePage, null, hasHomePage);
-          notifyPropertyChange(#homePage, null, homePage);
-          notifyPropertyChange(#isHome, null, isHome);
-    });
-    style.setProperty('display', 'block');
+  itemChanged() {
+    isLibrary = item is Library;
+    isMethod = item is Method;
+    isClass = item is Class;
+    isTypedef = item is Typedef;
+    isHome = item is Home;
   }
-
-  @observable get homePage => viewer.homePage;
-  @observable get isHome => currentPage is Home;
-  @observable get hasHomePage => viewer.homePage != null;
-
-  @observable get currentPageIsLibrary => currentPage is Library;
-  @observable get currentPageIsMethod => currentPage is Method;
-  @observable get currentPageIsClass => currentPage is Class;
-  @observable get currentPageIsTypedef => currentPage is Typedef;
-
-  @observable get currentPage => viewer.currentPage;
-  set currentPage(x) {}
 }

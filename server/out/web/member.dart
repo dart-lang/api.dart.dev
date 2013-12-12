@@ -2,16 +2,14 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library member;
+library web.member;
 
 import 'dart:html';
 
 import 'package:dartdoc_viewer/item.dart';
-import 'package:dartdoc_viewer/search.dart';
 import 'package:polymer/polymer.dart';
-@MirrorsUsed()
-import 'dart:mirrors';
-import 'app.dart' as app show viewer;
+import 'app.dart' as app;
+import 'app.dart' show Viewer, defaultSyntax;
 import 'package:dartdoc_viewer/location.dart';
 
 class SameProtocolUriPolicy implements UriPolicy {
@@ -36,7 +34,7 @@ var validator = new NodeValidatorBuilder()
     ..allowElement("a", attributes: ["rel"])
     ..allowHtml5(uriPolicy: uriPolicy);
 
-var sanitizer = new NullTreeSanitizer();
+var nullSanitizer = new NullTreeSanitizer();
 
 // TODO(alanknight): Switch to using the validator, verify it doesn't slow
 // things down too much, and that it's not disallowing valid content.
@@ -47,41 +45,14 @@ class NullTreeSanitizer implements NodeTreeSanitizer {
 }
 
 //// An abstract class for all Dartdoc elements.
-// TODO(sigmund): remove 'with ChangeNotifier', that wont be needed after the
-// next release of polymer
-@reflectable abstract class DartdocElement extends PolymerElement
-    with ChangeNotifier {
+@reflectable abstract class DartdocElement extends PolymerElement {
+
   DartdocElement.created() : super.created();
 
+  get syntax => defaultSyntax;
   get applyAuthorStyles => true;
 
-  @observable get viewer => app.viewer;
-
-  /// Find the old values of all of our [observables], run the function
-  /// [thingToDo], then find new values and call [notifyPropertyChange] for
-  /// each with the old and new values. Also notify all [methodsToCall].
-  notifyObservables(Function thingToDo) {
-    var oldValues = observableValues;
-    thingToDo();
-    var newValues = observableValues;
-    observables.forEach((symbol) =>
-      notifyPropertyChange(symbol, oldValues[symbol], newValues[symbol]));
-    methodsToCall.forEach((symbol) =>
-      notifyPropertyChange(symbol, null, 'changeNoMatterWhat'));
-  }
-
-  List<Symbol> get observables => const [];
-  List<Symbol> get methodsToCall => const [#addComment];
-  Iterable concat(Iterable list1, Iterable list2)
-      => [list1, list2].expand((x) => x);
-
-  get observableValues => new Map.fromIterables(
-      observables,
-      observables.map((symbol) => mirror.getField(symbol).reflectee));
-
-  InstanceMirror _cachedMirror;
-  get mirror =>
-      _cachedMirror == null ? _cachedMirror = reflect(this) : _cachedMirror;
+  Viewer get viewer => app.viewer;
 
   enteredView() {
     super.enteredView();
@@ -107,203 +78,72 @@ class NullTreeSanitizer implements NodeTreeSanitizer {
 //// This is a web component to be extended by all Dart members with comments.
 //// Each member has an [Item] associated with it as well as a comment to
 //// display, so this class handles those two aspects shared by all members.
-@reflectable abstract class MemberElement extends DartdocElement {
+@reflectable abstract class MemberElement extends DartdocElement with ChangeNotifier  {
   MemberElement.created() : super.created() {
     _item = defaultItem;
   }
 
   bool wrongClass(newItem);
-  get defaultItem;
-  var _item;
-
-  Iterable<Symbol> get observables =>
-      concat(super.observables, const [#item, #idName]);
+  Container get defaultItem;
+  Container _item;
 
   @published set item(newItem) {
     if (newItem == null || wrongClass(newItem)) return;
-    notifyObservables(() => _item = newItem);
+    _item = notifyPropertyChange(#item, _item, newItem);
   }
   @published get item => _item == null ? _item = defaultItem : _item;
 
   /// A valid string for an HTML id made from this [Item]'s name.
-  @observable String get idName {
-    if (item == null) return '';
-    var loc = item.anchorHrefLocation;
-    return loc.anchor == null ? '' : loc.anchor;
-  }
+  @reflectable @observable String get idName => __$idName; String __$idName; @reflectable set idName(String value) { __$idName = notifyPropertyChange(#idName, __$idName, value); }
 
-  /// Adds [item]'s comment to the the [elementName] element with markdown
-  /// links converted to working links.
-  void addComment(String elementName, [bool preview = false,
-      Element commentLocation]) {
-    if (item == null) return;
-    var comment = item.comment;
-    if (commentLocation == null) {
-      commentLocation = shadowRoot.querySelector('.description');
-    }
-    if (preview && (item is Class || item is Library))
-      comment = item.previewComment;
-    if (comment != '' && comment != null) {
-      if (commentLocation == null) {
-        commentLocation = shadowRoot.querySelector('.description');
-      }
-      if (commentLocation == null) return;
-      commentLocation.children.clear();
-      var commentElement = new Element.html(comment,
-          validator: validator);
-      var firstParagraph = (commentElement is ParagraphElement) ?
-          commentElement : commentElement.querySelector("p");
-      if (firstParagraph != null) {
-        firstParagraph.classes.add("firstParagraph");
-      }
-      var links = commentElement.querySelectorAll('a');
-      for (AnchorElement link in links) {
-        _resolveLink(link);
-      }
-      commentLocation.children.add(commentElement);
-    }
-  }
-
-  String _parameterName(AnchorElement link, DocsLocation loc) {
-    var items = loc.items(viewer.homePage);
-    if (items.isEmpty) return '';
-    var item = items.last;
-    var itemName = item.location.withoutAnchor;
-    if (item is Method && itemName.length < link.text.length) {
-      return link.text.substring(itemName.length + 1, link.text.length);
+  itemChanged() {
+    if (item == null) {
+      idName = '';
     } else {
-      return null;
-    }
-  }
-
-  void _replaceWithParameterReference(AnchorElement link, DocsLocation loc,
-      String parameterName) {
-    loc.anchor = loc.toHash("${loc.subMemberName}_$parameterName");
-    loc.subMemberName = null;
-    link.replaceWith(new Element.html(
-        '<a href="#${loc.withAnchor}">$parameterName</a>',
-        validator: validator));
-  }
-
-  void _resolveLink(AnchorElement link) {
-    if (link.href != '') return;
-    var loc = new DocsLocation(link.text);
-    var parameterName = _parameterName(link, loc);
-    if (parameterName != null) {
-      _replaceWithParameterReference(link, loc, parameterName);
-      return;
-    }
-    if (index.containsKey(link.text)) {
-      _setLinkReference(link, loc);
-      return;
-    }
-    loc.packageName = null;
-    if (index.containsKey(loc.withAnchor)) {
-      _setLinkReference(link, loc);
-      return;
-    }
-    // If markdown links to private or otherwise unknown members are
-    // found, make them <i> tags instead of <a> tags for CSS.
-    link.replaceWith(new Element.html('<i>${link.text}</i>',
-        validator: validator));
-  }
-
-  void _setLinkReference(AnchorElement link, DocsLocation loc) {
-    var linkable = new LinkableType(loc.withAnchor);
-    link
-      ..href = '#${linkable.location}'
-      ..text = linkable.simpleType;
-  }
-
-  /// Creates an HTML element for a parameterized type.
-  static Element createInner(NestedType type) {
-    var span = new SpanElement();
-    if (index.containsKey(type.outer.qualifiedName)) {
-      var outer = new AnchorElement()
-        ..text = type.outer.simpleType
-        ..href = '#${type.outer.location}';
-      span.append(outer);
-    } else {
-      span.appendText(type.outer.simpleType);
-    }
-    if (type.inner.isNotEmpty) {
-      span.appendText('<');
-      type.inner.forEach((element) {
-        span.append(createInner(element));
-        if (element != type.inner.last) span.appendText(', ');
-      });
-      span.appendText('>');
-    }
-    return span;
-  }
-
-  /// Creates a new HTML element describing a possibly parameterized type
-  /// and adds it to [memberName]'s tag with class [className].
-  void createType(NestedType type, String memberName, String className) {
-    if (type == null) return;
-    var location = shadowRoot.querySelector('.$className');
-    if (location == null) return;
-    location.children.clear();
-    if (!type.isDynamic) {
-      location.children.add(createInner(type));
+      var loc = item.anchorHrefLocation;
+      idName = loc.anchor == null ? '' : loc.anchor;
     }
   }
 }
 
 //// A [MemberElement] that could be inherited from another [MemberElement].
 @reflectable abstract class InheritedElement extends MemberElement with ChangeNotifier  {
-  InheritedElement.created() : super.created();
-
   @reflectable @observable LinkableType get inheritedFrom => __$inheritedFrom; LinkableType __$inheritedFrom; @reflectable set inheritedFrom(LinkableType value) { __$inheritedFrom = notifyPropertyChange(#inheritedFrom, __$inheritedFrom, value); }
   @reflectable @observable LinkableType get commentFrom => __$commentFrom; LinkableType __$commentFrom; @reflectable set commentFrom(LinkableType value) { __$commentFrom = notifyPropertyChange(#commentFrom, __$commentFrom, value); }
+  @reflectable @observable bool get isInherited => __$isInherited; bool __$isInherited; @reflectable set isInherited(bool value) { __$isInherited = notifyPropertyChange(#isInherited, __$isInherited, value); }
+  @reflectable @observable bool get hasInheritedComment => __$hasInheritedComment; bool __$hasInheritedComment; @reflectable set hasInheritedComment(bool value) { __$hasInheritedComment = notifyPropertyChange(#hasInheritedComment, __$hasInheritedComment, value); }
+  @reflectable @observable bool get shouldShowComment => __$shouldShowComment; bool __$shouldShowComment; @reflectable set shouldShowComment(bool value) { __$shouldShowComment = notifyPropertyChange(#shouldShowComment, __$shouldShowComment, value); }
+  @reflectable @observable bool get shouldShowCommentFrom => __$shouldShowCommentFrom; bool __$shouldShowCommentFrom; @reflectable set shouldShowCommentFrom(bool value) { __$shouldShowCommentFrom = notifyPropertyChange(#shouldShowCommentFrom, __$shouldShowCommentFrom, value); }
 
-  get observables => concat(super.observables,
-      const [#inheritedFrom, #commentFrom, #isInherited,
-             #hasInheritedComment]);
-
-  enteredView() {
-    super.enteredView();
-    if (isInherited) {
-      inheritedFrom = new LinkableType(
-          new DocsLocation(item.inheritedFrom).asHash.withAnchor);
-    }
-    if (hasInheritedComment) {
-      commentFrom = new LinkableType(
-          new DocsLocation(item.commentFrom).asHash.withAnchor);
-    }
+  InheritedElement.created() : super.created() {
+    registerObserver('isInherited', viewer.changes.listen((changes) {
+      for (var c in changes) {
+        if (c.name == #isInherited) {
+          _update();
+          return;
+        }
+      }
+    }));
   }
 
-  @observable bool get isInherited =>
-      item != null && item.inheritedFrom != '' && item.inheritedFrom != null;
-
-  @observable bool get hasInheritedComment =>
-      item != null && item.commentFrom != '' && item.commentFrom != null;
-
-  /// Returns whether [location] exists within the search index.
-  @observable bool exists(String location) {
-    if (location == null) return false;
-    return index.containsKey(location);
+  itemChanged() {
+    super.itemChanged();
+    _update();
   }
-}
 
-@reflectable class MethodElement extends InheritedElement {
+  _update() {
+    if (item == null) return;
 
-  bool wrongClass(newItem) => newItem is! Method;
+    isInherited = item.inheritedFrom != '' && item.inheritedFrom != null;
+    inheritedFrom = new LinkableType(
+        new DocsLocation(item.inheritedFrom).asHash.withAnchor);
+    hasInheritedComment = item.commentFrom != '' && item.commentFrom != null;
+    commentFrom = new LinkableType(
+        new DocsLocation(item.commentFrom).asHash.withAnchor);
 
-  MethodElement.created() : super.created();
-
-  get defaultItem => new Method({
-      "name" : "Loading",
-      "qualifiedName" : "Loading",
-      "comment" : "",
-      "parameters" : null,
-      "return" : [null],
-    }, isConstructor: true);
-
-  // TODO(alanknight): Remove this and other workarounds for bindings firing
-  // even when their surrounding test isn't true. This ignores values of the
-  // wrong type. IOssue 13386 and/or 13445
-  // TODO(alanknight): Remove duplicated subclass methods. Issue 13937
-
-  @observable List<Parameter> get parameters => item.parameters;
+    shouldShowComment = item.hasComment &&
+        (!hasInheritedComment || viewer.isInherited);
+    shouldShowCommentFrom = item.hasComment &&
+        hasInheritedComment && viewer.isInherited;
+  }
 }

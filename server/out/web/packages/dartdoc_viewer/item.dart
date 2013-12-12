@@ -19,20 +19,22 @@ import 'package:dartdoc_viewer/location.dart';
 /**
  * Anything that holds values and can be displayed.
  */
-
 nothing() => null;
 
 @reflectable class Container extends ChangeNotifier {
-  @observable final String name;
+  final String name;
   @reflectable @observable String get comment => __$comment; String __$comment = '<span></span>'; @reflectable set comment(String value) { __$comment = notifyPropertyChange(#comment, __$comment, value); }
+  bool get hasComment => !hasNoComment;
+  bool get hasNoComment =>
+      comment == '<span></span>' || comment == '<div></div>';
 
   Container(this.name, [comment]) : __$comment = comment;
 
   String toString() => "$runtimeType($name)";
 }
 
-// Wraps a comment in span element to make it a single HTML Element.
-@reflectable String _wrapComment(String comment) {
+/** Wraps a comment in span element to make it a single HTML Element. */
+String _wrapComment(String comment) {
   if (comment == null) comment = '';
   return '<div>$comment</div>';
 }
@@ -161,8 +163,11 @@ nothing() => null;
   Item(String name, this.qualifiedName, [String comment])
       : super(name, comment);
 
-  /// [Item]'s name with its properties properly appended.
+  /// [Item]'s name with its properties appended for user visible Strings.
   @observable String get decoratedName => name;
+
+  /// [Item]'s name with its properties properly appended for anchor linking.
+  @observable String get hashDecoratedName => name;
 
   /// Adds this [Item] to [pageIndex] and updates all necessary members.
   void addToHierarchy() {
@@ -205,7 +210,7 @@ nothing() => null;
 
   Item get owner => pageIndex[location.parentQualifiedName];
 
-  Item get home => owner == null ? null : owner.home;
+  Home get home => owner == null ? null : owner.home;
 }
 
 /// Sorts each inner [List] by qualified names.
@@ -366,11 +371,8 @@ int _compareLibraryNames(String a, String b) {
   Home home;
 
   /// Creates a [Library] placeholder object with null fields.
-  Library.forPlaceholder(Map library)
-    : super(
-        library['qualifiedName'],
-        library['name'],
-        library['preview']);
+  Library.forPlaceholder(Map map)
+      : super(map['qualifiedName'], map['name'], map['preview']);
 
   /// Normal constructor for testing.
   Library(Map yaml) : super(yaml['qualifiedName'], yaml['name'], '') {
@@ -380,11 +382,11 @@ int _compareLibraryNames(String a, String b) {
 
   void addToHierarchy() {
     super.addToHierarchy();
-    [classes, typedefs, errors, functions].forEach((category) {
-      category.content.forEach((clazz) {
+    for (var category in [classes, typedefs, errors, functions]) {
+      for (var clazz in category.content) {
         buildHierarchy(clazz, this);
-      });
-    });
+      }
+    }
   }
 
   void loadValues(Map yaml) {
@@ -451,9 +453,8 @@ int _compareLibraryNames(String a, String b) {
   Category operators;
   LinkableType superClass;
   bool isAbstract;
-  String previewComment;
   AnnotationGroup annotations;
-  List<LinkableType> implements = [];
+  List<LinkableType> interfaces = [];
   List<LinkableType> subclasses = [];
   List<String> generics = [];
 
@@ -534,7 +535,7 @@ int _compareLibraryNames(String a, String b) {
     subclasses = yaml['subclass'] == null ? [] :
       yaml['subclass'].map((item) => new LinkableType(item)).toList();
     annotations = new AnnotationGroup(yaml['annotations']);
-    implements = yaml['implements'] == null ? [] :
+    interfaces = yaml['implements'] == null ? [] :
         yaml['implements'].map((item) => new LinkableType(item)).toList();
     var genericValues = yaml['generics'];
     if (genericValues != null) {
@@ -636,7 +637,7 @@ int _compareLibraryNames(String a, String b) {
 
   Item memberNamed(String name, {Function orElse : nothing}) {
     for (var annotation in annotations) {
-      if (annotation.name == name) return annotation;
+      if (annotation.qualifiedName == name) return annotation;
     }
     return orElse();
   }
@@ -747,7 +748,7 @@ int _compareLibraryNames(String a, String b) {
   }
 
   void addInheritedComment(item) {
-    if (comment == '<span></span>') {
+    if (hasNoComment) {
       comment = item.comment;
       commentFrom = item.commentFrom;
     }
@@ -758,21 +759,42 @@ int _compareLibraryNames(String a, String b) {
   String get decoratedName => isConstructor ?
       (name != '' ? '$className.$name' : className) : name;
 
+  /// [Item]'s name with its properties properly appended for anchor linking.
+  /// Overridden to allow for different behavior for constructor "methods"
+  /// (we append the className in case the constructor is unnamed).
+  String get hashDecoratedName => isConstructor ? '$className.$name' : name;
+
   get linkHref => anchorHref;
+
+  /// The link to an anchor within a larger page, if appropriate.
+  DocsLocation anchorHrefLocationFrom(DocsLocation aLocation) {
+    if (isConstructor) {
+      // Constructor anchor links require special parsing because in the
+      // yaml/json data we prepend the class in the "member name" so that
+      // unnamed constructors have a distinct, linkable reference.
+      var parent = aLocation.parentLocation;
+      if (!parent.isEmpty) {
+        // Update the anchor.
+        parent.anchor = parent.toHash(
+            '${aLocation.memberName}.${aLocation.subMemberName}');
+      }
+      return parent;
+    } else {
+      return super.anchorHrefLocationFrom(aLocation);
+    }
+  }
 
   /// The link to an anchor within a larger page, if appropriate.
   /// Note that for an inherited method, the qualified name refers to where
   /// it is actually defined. This returns a link into the local page, which
   /// is based on the owner.
   DocsLocation get anchorHrefLocation {
-    var baseLocation = localLocation;
-    if (isConstructor && name == '') {
-      var locationForUnnamed = baseLocation;
-      locationForUnnamed.anchor =
-          locationForUnnamed.toHash(locationForUnnamed.memberName);
-      return locationForUnnamed;
+    if (isUnnamedConstructor) {
+        localLocation.anchor =
+            localLocation.toHash(localLocation.memberName);
+        return localLocation;
     } else {
-      return anchorHrefLocationFrom(baseLocation);
+      return anchorHrefLocationFrom(localLocation);
     }
   }
 
@@ -784,6 +806,9 @@ int _compareLibraryNames(String a, String b) {
     local.subMemberName = name;
     return local;
   }
+
+  // Helper to determine if this method is actually an unnamed constructor.
+  bool get isUnnamedConstructor => isConstructor && name == '';
 
   String toString() => decoratedName;
 }
@@ -829,7 +854,13 @@ int _compareLibraryNames(String a, String b) {
   DocsLocation get anchorHrefLocation {
     if (owner == null) return null;
     var parameterLoc = owner.location.parentLocation;
-    parameterLoc.anchor = parameterLoc.toHash("${owner.decoratedName}_$name");
+    // TODO(efortuna): Refactor DocsLocation so we don't do this special casing
+    // of unnamed methods (constructors).
+    if (owner is Method && (owner as Method).isUnnamedConstructor) {
+      parameterLoc = owner.location;
+    }
+    parameterLoc.anchor = parameterLoc.toHash(
+        "${owner.hashDecoratedName}_$name");
     return parameterLoc;
   }
 
@@ -883,7 +914,7 @@ int _compareLibraryNames(String a, String b) {
   }
 
   void addInheritedComment(Item item) {
-    if (comment == '<span></span>') {
+    if (hasNoComment) {
       comment = item.comment;
       if (item is Variable) commentFrom = item.commentFrom;
     }

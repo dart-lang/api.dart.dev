@@ -51,7 +51,7 @@
 library logging;
 
 import 'dart:async';
-import 'package:unmodifiable_collection/unmodifiable_collection.dart';
+import 'package:collection_helpers/wrappers.dart';
 
 /**
  * Whether to allow fine-grain logging and configuration of loggers in a
@@ -310,6 +310,9 @@ class Level implements Comparable<Level> {
 
   /** Key for extra debugging loudness ([value] = 1200). */
   static const Level SHOUT = const Level('SHOUT', 1200);
+
+  static const List<Level> LEVELS = const
+      [ALL, FINEST, FINER, FINE, CONFIG, INFO, WARNING, SEVERE, SHOUT, OFF];
 
   bool operator ==(Object other) => other is Level && value == other.value;
   bool operator <(Level other) => value < other.value;

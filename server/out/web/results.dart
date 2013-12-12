@@ -2,14 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library results;
+library web.results;
 
 import 'package:dartdoc_viewer/data.dart';
-import 'package:dartdoc_viewer/item.dart';
 import 'package:dartdoc_viewer/search.dart';
 import 'package:dartdoc_viewer/location.dart';
 import 'package:polymer/polymer.dart';
-import 'member.dart';
 import 'dart:html';
 
 /**
@@ -17,31 +15,33 @@ import 'dart:html';
  */
 @CustomTag("search-result")
 class Result extends AnchorElement with Polymer, ChangeNotifier {
+  @reflectable @published SearchResult get item => __$item; SearchResult __$item; @reflectable set item(SearchResult value) { __$item = notifyPropertyChange(#item, __$item, value); }
 
-  Result.created() : super.created();
+  /// The name of this member.
+  @reflectable @observable String get descriptiveName => __$descriptiveName; String __$descriptiveName; @reflectable set descriptiveName(String value) { __$descriptiveName = notifyPropertyChange(#descriptiveName, __$descriptiveName, value); }
 
-  SearchResult _item;
+  /// The type of this member.
+  @reflectable @observable String get descriptiveType => __$descriptiveType; String __$descriptiveType; @reflectable set descriptiveType(String value) { __$descriptiveType = notifyPropertyChange(#descriptiveType, __$descriptiveType, value); }
 
-  @published get item => _item;
-  set item(newItem) {
-    var oldItem = item;
-    var oldObservables = [descriptiveName, descriptiveType, outerLibrary];
-    _item = newItem;
-    notifyPropertyChange(#item, oldItem, newItem);
-    notifyPropertyChange(#descriptiveName, oldObservables.first,
-        descriptiveName);
-    notifyPropertyChange(#descriptiveType, oldObservables[1],
-        descriptiveName);
-    notifyPropertyChange(#outerLibrary, oldObservables.last, descriptiveName);
+  /// The library containing this member.
+  @reflectable @observable String get outerLibrary => __$outerLibrary; String __$outerLibrary; @reflectable set outerLibrary(String value) { __$outerLibrary = notifyPropertyChange(#outerLibrary, __$outerLibrary, value); }
+
+  Result.created() : super.created() {
+    polymerCreated();
+  }
+
+  itemChanged() {
+    descriptiveName = _getDescriptiveName();
+    descriptiveType = _getDescriptiveType();
+    outerLibrary = _getOuterLibrary();
   }
 
   get applyAuthorStyles => true;
 
-  @observable String get membertype => item == null ? 'none' : item.type;
-  @observable String get qualifiedname => item == null ? 'none' : item.element;
+  String get membertype => item == null ? 'none' : item.type;
+  String get qualifiedname => item == null ? 'none' : item.element;
 
-  /// The name of this member.
-  String get descriptiveName {
+  String _getDescriptiveName() {
     if (qualifiedname == null) return '';
     // TODO(alanknight) : Look at unifying this with Location
     var name = qualifiedname.split('.');
@@ -58,8 +58,7 @@ class Result extends AnchorElement with Polymer, ChangeNotifier {
     return name.last;
   }
 
-  /// The type of this member.
-  String get descriptiveType {
+  String _getDescriptiveType() {
     if (item == null) return '';
     var loc = new DocsLocation(item.element);
     if (membertype == 'class')
@@ -68,14 +67,13 @@ class Result extends AnchorElement with Polymer, ChangeNotifier {
       return loc.packageName == null ?
           'library' : 'library in ${loc.packageName}';
     }
-    var ownerType = index[loc.parentQualifiedName];
+    var ownerType = searchIndex.map[loc.parentQualifiedName];
     if (ownerType == 'class')
       return '$membertype in ${loc.parentName}';
     return membertype;
   }
 
-  /// The library containing this member.
-  String get outerLibrary {
+  String _getOuterLibrary() {
     if (membertype == 'library') return '';
     var loc = new DocsLocation(qualifiedname);
     var libraryName = loc.libraryQualifiedName;
