@@ -2428,6 +2428,7 @@ this.NM=z}return z},null,null,1,0,461,"owner"],
 zA:[function(a){if(this.gXP()==null||a==null)return!1
 if(J.de(this.gXP(),a)===!0)return!0
 return this.gXP().zA(a)},"call$1","gxU",2,0,462,463,"isOwnedBy"],
+gWw:[function(){return this},null,null,1,0,461,"firstItemUsableAsPage"],
 gn4:[function(){return this.gXP()==null?null:this.gXP().gn4()},null,null,1,0,464,"home"],
 $isVO:true,
 "@":function(){return[C.nJ]},
@@ -2610,7 +2611,7 @@ z=z!=null&&z.gME()===!0
 y=this.oc
 if(z)return C.xB.h8(J.JA(y,"-dom-","-"),"-",":")
 else return J.JA(y,"-",".")},null,null,1,0,435,"decoratedName"],
-gT7:[function(){var z=this.n4
+gXf:[function(){var z=this.n4
 return z!=null&&z.gME()===!0},null,null,1,0,437,"isDartLibrary"],
 P9:[function(a,b){var z,y
 if(a==null)return b.call$0()
@@ -2994,6 +2995,7 @@ v=z.rh
 y=C.Nm.zV([y,x,w,v==null?"":"."+H.d(v)],"")
 z=z.dU
 return y+(z==null?"":"@"+H.d(z))},null,null,1,0,435,"anchorHref"],
+gWw:[function(){return this.gXP()},null,null,1,0,461,"firstItemUsableAsPage"],
 bu:[function(a){return"Parameter named "+H.d(this.oc)+" in "+H.d(this.gXP())},"call$0","gXo",0,0,108,"toString"],
 Ko:[function(a,b,c){var z
 this.Q2=E.pt("optional",b)
@@ -3026,6 +3028,7 @@ return z}y=J.UX(this.gXP())
 y.srh(this.oc)
 return y},null,null,1,0,459,"localLocation"],
 k7:[function(a){return},"call$1","gWr",2,0,490,12,"parameterNamed"],
+gWw:[function(){return this.gXP()},null,null,1,0,461,"firstItemUsableAsPage"],
 vO:[function(a,b,c,d,e,f){var z,y,x
 this.lT=d
 this.hB=e
@@ -11257,8 +11260,8 @@ y=r==null
 if(!y)z.push(r)
 s=this.dU
 if(s!=null){q=y?u:r
-p=q.k7(s)
-if(p==null)p=q.k7(C.xB.g("id_",this.dU))
+p=q.f2(s)
+if(p==null)p=q.f2(C.xB.g("id_",this.dU))
 if(p!=null)z.push(p)}else p=null}else{r=null
 p=null}if(c===!0)return[x,v,u,r,p]
 else return z},function(a,b){return this.tm(a,b,!1)},"hC","call$2$includeAllItems","call$1","ghL",2,3,588,112,589,590,"items",132],
@@ -15164,12 +15167,12 @@ a.Hs.u(0,new H.GD(H.wX(w)),y.gIf())}}},"call$1","gbe",2,0,null,306],
 Pv:[function(a,b){var z=P.L5(null,null,null,J.O,null)
 b.aN(0,new A.MX(z))
 return z},"call$1","gvX",2,0,null,629],
-du:function(a){a.S6=a.getAttribute("name")
+T7:function(a){a.S6=a.getAttribute("name")
 this.yx(a)},
 $isXP:true,
 static:{"":"uW",XL:function(a){a.EX=H.B7([],P.L5(null,null,null,null,null))
 C.OA.ZL(a)
-C.OA.du(a)
+C.OA.T7(a)
 return a}}},
 G0:{
 "":"Tp:108;",
@@ -15951,7 +15954,7 @@ xl:{
 "":"a0;Jd",
 xn:[function(a){a.BC(0,this.Jd)},"call$1","gBe",2,0,null,18],
 CB:[function(a){J.DU(a.gip(a),this)
-a.BC(0,this.Jd)},"call$1","gXf",2,0,null,331]},
+a.BC(0,this.Jd)},"call$1","glD",2,0,null,331]},
 zK:{
 "":"Fy;Jd,Df",
 DA:[function(a){return new K.DK(a,null,null,null,P.bK(null,null,!1,null))},"call$1","glO",2,0,null,18],
@@ -16009,7 +16012,7 @@ z=J.DU(a.gBb(a),this)
 y=J.DU(a.gip(a),this)
 x=new K.Zq(z,y,a,null,null,null,P.bK(null,null,!1,null))
 y.sqF(x)
-return x},"call$1","gXf",2,0,null,418]},
+return x},"call$1","glD",2,0,null,418]},
 Os:{
 "":"Tp:271;a",
 call$1:[function(a){var z=this.a
@@ -16759,7 +16762,7 @@ Hx:[function(a){J.DU(a.gwz(),this)
 this.xn(a)},"call$1","gYCC",2,0,null,91],
 CB:[function(a){J.DU(a.gBb(a),this)
 J.DU(a.gip(a),this)
-this.xn(a)},"call$1","gXf",2,0,null,331]}}],["search","package:dartdoc_viewer/search.dart",,B,{
+this.xn(a)},"call$1","glD",2,0,null,331]}}],["search","package:dartdoc_viewer/search.dart",,B,{
 "":"",
 dh:[function(a){return!0},"call$1","Hx",2,0,334,335],
 W1:[function(a){var z,y,x,w,v
@@ -17862,20 +17865,31 @@ z=new H.rR(C.Nm.gA(z),y,C.Gw,null)
 z.$builtinTypeInfo=[H.Kp(v,0),H.Kp(v,1)]
 for(;z.G();){u=this.ZF(z.lo,b)
 if(u!=null)return u}return},"call$2","gAC",4,0,null,206,682],
-Dy:[function(a,b){var z,y,x,w,v,u,t
-z=b.gvQ().Ar(this.dk)
-y=J.x(a)
-if(y.n(a,z)!==!0)x=z!=null&&z.zA(a)
-else x=!0
-w=a!=null
-if(a==null||!x){v=this.dk
-u=b.xd(0,v)
-t=u==null?J.UX(v):J.UX(u)
-if(J.de(t,b)!==!0)return this.ny(this.Hh(t))}if(w&&y.n(a,this.YI)!==!0){J.vZ(window.document.querySelector("#dartdoc-main"),!0)
-this.sGZ(a)}y=b.dU
-this.hN=y==null?"":"@"+H.d(y)
-y=b.dU
-this.iV(y==null?"":"@"+H.d(y))
+du:[function(a,b){var z,y,x,w,v,u
+if(b.gl0(b)||b.n(0,J.UX(this.dk))){z=this.dk
+return[z,J.UX(z)]}y=a.gWw()
+x=b.gvQ()
+w=x.Ar(this.dk)
+if(J.de(y,w)===!0)return[y,b]
+if(w==null){z=x.gyf()
+if(0>=z.length)return H.e(z,0)
+z.pop()
+return this.du(y,Y.Lm(z))}if(w.zA(y))return[y,w.gq0()]
+z=this.dk
+v=b.xd(0,z)
+u=v==null?J.UX(z):J.UX(v)
+return[u.Ar(this.dk),b]},"call$2","gqA",4,0,null,136,142],
+Dy:[function(a,b){var z,y,x,w
+z=this.du(a,b)
+y=C.Nm.gFV(z)
+x=C.Nm.grZ(z)
+w=J.x(a)
+if(w.n(a,y)!==!0||!b.n(0,x))return this.ny(this.Hh(x))
+if(a!=null&&w.n(a,this.YI)!==!0){J.vZ(window.document.querySelector("#dartdoc-main"),!0)
+this.sGZ(a)}w=b.dU
+this.hN=w==null?"":"@"+H.d(w)
+w=b.dU
+this.iV(w==null?"":"@"+H.d(w))
 return P.Ab(!0,null)},"call$2","gpl",4,0,null,136,142],
 Yp:[function(a){var z,y,x,w,v
 if(a.rh==null)return a
@@ -20819,7 +20833,7 @@ $.To=null
 $.HF="docs/library_list.json"
 $.Ro=null
 $.qy=null
-$.Dq=["Ay","B0","BC","BF","BN","BT","BX","Ba","Bf","C","C0","C8","CH","CK","CQ","Ch","D","D3","D6","DT","DY","Dd","E","Ec","F","FF","Fm","Fr","Fz","GB","GG","GI","GT","Ge","Gp","H2","H4","HG","Hr","Id","Ih","Im","Is","J","J3","JP","JT","JV","Ja","Jk","Jo","KJ","Kb","Kr","L9","LI","LV","MI","Md","Mi","Mu","NB","NR","NZ","Nj","O","On","PM","Pa","Pk","Pv","QI","QR","Qb","Qi","Qk","Qo","R3","R4","RB","RQ","RR","RW","Rf","Rg","Rl","Rz","SZ","Sw","T","T2","TJ","TP","TT","TW","Tc","Th","Tk","Tp","U","UD","UH","UZ","Uc","Uy","V","V1","VD","VZ","Vk","Vr","Vw","W","W3","W4","W7","WC","WL","WO","WZ","Wf","Wk","Wt","XG","XK","XU","XX","Xl","Y9","YU","YW","Yv","Z","Z1","Z2","ZL","Zi","Zv","aC","aN","aq","bA","bI","bS","bp","br","bu","c5","cO","cU","cn","ct","d0","dR","dd","ds","du","e6","eC","eR","ea","ek","er","es","ev","ez","f6","fS","fd","fk","fm","ft","g","gA","gA1","gA8","gAG","gAV","gAd","gAh","gB","gBI","gBb","gBp","gBz","gCX","gCd","gCf","gCj","gCx","gDD","gDa","gDe","gDg","gDv","gE7","gEB","gEX","gEt","gEx","gFR","gFV","gFe","gFp","gG0","gG1","gG3","gG6","gGAR","gGL","gGO","gGU","gGn","gGy","gH0","gHs","gHv","gHz","gI","gI5","gIG","gIJ","gIQ","gIc","gIk","gIr","gJ6","gJH","gJS","gJZ","gJb","gJf","gK4","gKE","gKLT","gKV","gKc","gKg","gLA","gLL","gLN","gLX","gLm","gM0","gM7","gMB","gMP","gMU","gMs","gMt","gN","gNE","gNt","gO3","gOC","gOJ","gOK","gOZ","gOc","gP","gP1","gPK","gPV","gPX","gPY","gPu","gQ0","gQY","gQc","gQg","gQv","gQw","gR","gREX","gRY","gRh","gSN","gShx","gSm","gT5","gTq","gUA","gUG","gUN","gUQ","gUV","gUj","gV5","gVT","gVi","gVl","gWA","gWz","gXO","gXT","gXt","gXv","gYe","gYr","gZ3","gZf","gZm","gZw","ga4","gaeZ","gaj","gam","gay","gbM","gbP","gbg","gbx","gcC","gdH","gde","geE","geG","geN","geT","gee","gey","gf3","gfF","gfN","gfR","gfY","gfg","ghL","gha","ghb","ghm","ghu","gi1","gi9","giO","gib","gig","gil","gip","gj4","gjF","gjL","gjO","gjU","gjZ","gjb","gjt","gkD","gkU","gkX","gkc","gkf","gkg","gkm","gkp","gkv","gl0","gl3","gmAu","gmH","gmW","gmd","gmh","gmk","gmt","gnN","gnf","gni","gnl","gns","goA","goc","gor","gpQ","gpg","gpi","gps","gq5","gq6","gqE","gqI","gqb","gqe","gqi","gqj","gqn","gqv","gqx","gr4","gr8","grZ","gt5","gtQ","gtY","guD","guL","guV","guz","gvH","gvg","gvz","gw1c","gwD","gwQ","gwa","gwd","gwl","gxE","gxR","gxr","gxx","gyC","gyP","gye","gysR","gyz","gz1","gzG","gzP","gzZ","gzh","gzp","gzt","h","h5","h8","hA","hC","hV","hc","hr","i","i3","i4","iA","iM","ih","j","j5","jT","jV","je","jh","jpE","jx","k0","kF","kO","l5","lE","lj","ln","lu","m","mK","mv","mw","n","n5","nC","nH","nI","nP","nR","nY","nZ","oB","oC","oI","oP","oW","oX","od","pY","pZ","poq","pr","pv","q1","q3","qD","qK","qZ","r6","rJ","ri","sA1","sAG","sAh","sB","sBI","sBp","sBu","sBz","sCX","sCf","sDD","sDa","sDv","sE7","sEx","sFR","sFe","sFp","sFx","sGAR","sGO","sGU","sGn","sGy","sH0","sIJ","sIc","sIr","sJ6","sJH","sJb","sK4","sKLT","sKc","sKg","sLL","sLX","sM3","sM7","sMP","sMU","sMs","sMt","sNE","sNt","sOC","sOJ","sOK","sOc","sP","sPX","sPY","sQc","sQw","sREX","sRY","sSN","sShx","sSm","sT5","sTq","sUA","sUG","sUN","sV5","sVT","sVi","sWA","sWz","sXT","sXv","sZ3","sa4","saeZ","saj","sam","say","sbM","sbg","scC","sdH","sde","seE","seN","sf3","sfF","sfR","shL","sha","shb","shm","shu","si1","sib","sig","sj4","sjF","sjU","sjZ","sjb","sjt","skD","skX","skg","skm","skv","sl3","smAu","smH","smh","smk","smt","snN","snf","snl","soc","spg","spi","sps","sq5","sqE","sqI","sqb","sqe","sqj","sqv","sqx","sr4","st5","stY","suV","suz","svg","svw","svz","sw1c","swQ","swa","swl","sxE","sxR","sxr","sxx","syC","sysR","syz","sz1","szG","szZ","szt","t","tR","tX","tZ","te","tg","tk","tl","tm","tt","u","u8","vJ","vS","vs","w","wE","wL","wR","wW","wY","wZw","wg","x3","x8","xK","xW","xd","xo","xt","y0","yF","yH","yZ","yh","yn","yq","yu","yx","yy","z2","zL","zV","zxt"]
+$.Dq=["Ay","B0","BC","BF","BN","BT","BX","Ba","Bf","C","C0","C8","CH","CK","CQ","Ch","D","D3","D6","DT","DY","Dd","E","Ec","F","FF","Fm","Fr","Fz","GB","GG","GI","GT","Ge","Gp","H2","H4","HG","Hr","Id","Ih","Im","Is","J","J3","JP","JT","JV","Ja","Jk","Jo","KJ","Kb","Kr","L9","LI","LV","MI","Md","Mi","Mu","NB","NR","NZ","Nj","O","On","PM","Pa","Pk","Pv","QI","QR","Qb","Qi","Qk","Qo","R3","R4","RB","RQ","RR","RW","Rf","Rg","Rl","Rz","SZ","Sw","T","T2","T7","TJ","TP","TT","TW","Tc","Th","Tk","Tp","U","UD","UH","UZ","Uc","Uy","V","V1","VD","VZ","Vk","Vr","Vw","W","W3","W4","W7","WC","WL","WO","WZ","Wf","Wk","Wt","XG","XK","XU","XX","Xl","Y9","YU","YW","Yv","Z","Z1","Z2","ZL","Zi","Zv","aC","aN","aq","bA","bI","bS","bp","br","bu","c5","cO","cU","cn","ct","d0","dR","dd","ds","e6","eC","eR","ea","ek","er","es","ev","ez","f6","fS","fd","fk","fm","ft","g","gA","gA1","gA8","gAG","gAV","gAd","gAh","gB","gBI","gBb","gBp","gBz","gCX","gCd","gCf","gCj","gCx","gDD","gDa","gDe","gDg","gDv","gE7","gEB","gEX","gEt","gEx","gFR","gFV","gFe","gFp","gG0","gG1","gG3","gG6","gGAR","gGL","gGO","gGU","gGn","gGy","gH0","gHs","gHv","gHz","gI","gI5","gIG","gIJ","gIQ","gIc","gIk","gIr","gJ6","gJH","gJS","gJZ","gJb","gJf","gK4","gKE","gKLT","gKV","gKc","gKg","gLA","gLL","gLN","gLX","gLm","gM0","gM7","gMB","gMP","gMU","gMs","gMt","gN","gNE","gNt","gO3","gOC","gOJ","gOK","gOZ","gOc","gP","gP1","gPK","gPV","gPX","gPY","gPu","gQ0","gQY","gQc","gQg","gQv","gQw","gR","gREX","gRY","gRh","gSN","gShx","gSm","gT5","gTq","gUA","gUG","gUN","gUQ","gUV","gUj","gV5","gVT","gVi","gVl","gWA","gWz","gXO","gXT","gXt","gXv","gYe","gYr","gZ3","gZf","gZm","gZw","ga4","gaeZ","gaj","gam","gay","gbM","gbP","gbg","gbx","gcC","gdH","gde","geE","geG","geN","geT","gee","gey","gf3","gfF","gfN","gfR","gfY","gfg","ghL","gha","ghb","ghm","ghu","gi1","gi9","giO","gib","gig","gil","gip","gj4","gjF","gjL","gjO","gjU","gjZ","gjb","gjt","gkD","gkU","gkX","gkc","gkf","gkg","gkm","gkp","gkv","gl0","gl3","gmAu","gmH","gmW","gmd","gmh","gmk","gmt","gnN","gnf","gni","gnl","gns","goA","goc","gor","gpQ","gpg","gpi","gps","gq5","gq6","gqE","gqI","gqb","gqe","gqi","gqj","gqn","gqv","gqx","gr4","gr8","grZ","gt5","gtQ","gtY","guD","guL","guV","guz","gvH","gvg","gvz","gw1c","gwD","gwQ","gwa","gwd","gwl","gxE","gxR","gxr","gxx","gyC","gyP","gye","gysR","gyz","gz1","gzG","gzP","gzZ","gzh","gzp","gzt","h","h5","h8","hA","hC","hV","hc","hr","i","i3","i4","iA","iM","ih","j","j5","jT","jV","je","jh","jpE","jx","k0","kF","kO","l5","lE","lj","ln","lu","m","mK","mv","mw","n","n5","nC","nH","nI","nP","nR","nY","nZ","oB","oC","oI","oP","oW","oX","od","pY","pZ","poq","pr","pv","q1","q3","qD","qK","qZ","r6","rJ","ri","sA1","sAG","sAh","sB","sBI","sBp","sBu","sBz","sCX","sCf","sDD","sDa","sDv","sE7","sEx","sFR","sFe","sFp","sFx","sGAR","sGO","sGU","sGn","sGy","sH0","sIJ","sIc","sIr","sJ6","sJH","sJb","sK4","sKLT","sKc","sKg","sLL","sLX","sM3","sM7","sMP","sMU","sMs","sMt","sNE","sNt","sOC","sOJ","sOK","sOc","sP","sPX","sPY","sQc","sQw","sREX","sRY","sSN","sShx","sSm","sT5","sTq","sUA","sUG","sUN","sV5","sVT","sVi","sWA","sWz","sXT","sXv","sZ3","sa4","saeZ","saj","sam","say","sbM","sbg","scC","sdH","sde","seE","seN","sf3","sfF","sfR","shL","sha","shb","shm","shu","si1","sib","sig","sj4","sjF","sjU","sjZ","sjb","sjt","skD","skX","skg","skm","skv","sl3","smAu","smH","smh","smk","smt","snN","snf","snl","soc","spg","spi","sps","sq5","sqE","sqI","sqb","sqe","sqj","sqv","sqx","sr4","st5","stY","suV","suz","svg","svw","svz","sw1c","swQ","swa","swl","sxE","sxR","sxr","sxx","syC","sysR","syz","sz1","szG","szZ","szt","t","tR","tX","tZ","te","tg","tk","tl","tm","tt","u","u8","vJ","vS","vs","w","wE","wL","wR","wW","wY","wZw","wg","x3","x8","xK","xW","xd","xo","xt","y0","yF","yH","yZ","yh","yn","yq","yu","yx","yy","z2","zL","zV","zxt"]
 $.Au=[C.ZvP,Q.ob,{created:Q.m9},C.aqw,P.u0p,{},C.RnS,Z.ywc,{created:Z.qQ},C.HjP,Z.YQ,{created:Z.Io},C.JFJ,T.CJ,{created:T.B9},C.p2Z,S.dS,{created:S.qK},C.hG,A.ir,{created:A.Fh},C.VJn,U.bn,{created:U.QK},C.NM,P.fbd,{},C.yLT,U.Por,{created:U.PJ},C.Bo,N.Fe,{created:N.Ui},C.Km7,Y.nDh,{created:Y.Xx},C.DSq,E.kb,{created:E.FP},C.Ft,W.Fi,{},C.CO,P.iY,{"":P.nR},C.NFu,G.J0,{created:G.p4},C.yA,N.Ry,{created:N.FV},C.ov,E.fi,{created:E.u67},C.WfH,U.Sb,{created:U.PS},C.KB,P.Eux,{"":P.yI},C.qYG,Q.eJ,{created:Q.cF},C.nW,P.GG,{"":P.DR},C.BW,G.Xa,{created:G.VJ},C.tv,M.LN,{created:M.oQ},C.pJ,U.xN,{created:U.id},C.lS,A.to,{created:A.fh},C.vu,X.ZsG,{created:X.qs},C.Bm,A.XP,{created:A.XL},C.z3,M.TW,{created:M.eh},C.Cn,X.dY,{created:X.Wt},C.Zkh,O.SB,{created:O.qBo},C.Tn,F.jy,{created:F.Pg},C.NSr,O.PRf,{created:O.yD},C.XWY,W.uEY,{},C.YU,E.F9,{created:E.S3}]
 I.$lazy($,"globalThis","DX","jk",function(){return function() { return this; }()})
 I.$lazy($,"globalWindow","UW","fE",function(){return $.jk().window})
