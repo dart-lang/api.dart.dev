@@ -25,6 +25,7 @@ class MainElement extends DartdocElement with ChangeNotifier  {
   @reflectable @observable String get showOrHideLibraries => __$showOrHideLibraries; String __$showOrHideLibraries; @reflectable set showOrHideLibraries(String value) { __$showOrHideLibraries = notifyPropertyChange(#showOrHideLibraries, __$showOrHideLibraries, value); }
   @reflectable @observable String get showOrHideMinimap => __$showOrHideMinimap; String __$showOrHideMinimap; @reflectable set showOrHideMinimap(String value) { __$showOrHideMinimap = notifyPropertyChange(#showOrHideMinimap, __$showOrHideMinimap, value); }
   @reflectable @observable String get showOrHideInherited => __$showOrHideInherited; String __$showOrHideInherited; @reflectable set showOrHideInherited(String value) { __$showOrHideInherited = notifyPropertyChange(#showOrHideInherited, __$showOrHideInherited, value); }
+  @reflectable @observable String get showOrHideObjectMembers => __$showOrHideObjectMembers; String __$showOrHideObjectMembers; @reflectable set showOrHideObjectMembers(String value) { __$showOrHideObjectMembers = notifyPropertyChange(#showOrHideObjectMembers, __$showOrHideObjectMembers, value); }
   @reflectable @observable String get showOrHidePackages => __$showOrHidePackages; String __$showOrHidePackages; @reflectable set showOrHidePackages(String value) { __$showOrHidePackages = notifyPropertyChange(#showOrHidePackages, __$showOrHidePackages, value); }
 
   /// Records the timestamp of the event that opened the options menu.
@@ -66,6 +67,7 @@ class MainElement extends DartdocElement with ChangeNotifier  {
     showOrHideLibraries = viewer.isPanel ? 'Hide' : 'Show';
     showOrHideMinimap = viewer.isMinimap ? 'Hide' : 'Show';
     showOrHideInherited = viewer.isInherited ? 'Hide' : 'Show';
+    showOrHideObjectMembers = viewer.showObjectMembers ? 'Hide' : 'Show';
     showOrHidePackages = viewer.showPkgLibraries ? 'Hide' : 'Show';
   }
 
@@ -73,6 +75,7 @@ class MainElement extends DartdocElement with ChangeNotifier  {
 
   togglePanel() => viewer.togglePanel();
   toggleInherited() => viewer.toggleInherited();
+  toggleObjectMembers() => viewer.toggleObjectMembers();
   toggleMinimap() => viewer.toggleMinimap();
   togglePkg() => viewer.togglePkg();
 
@@ -91,6 +94,8 @@ class MainElement extends DartdocElement with ChangeNotifier  {
     // but it could still use cleanup.
     var permanentHeaders = shadowRoot.querySelectorAll(".navbar-brand");
     var searchAndOptions = shadowRoot.querySelector("#searchAndOptions");
+    var searchBox = shadowRoot.querySelector("search-box");
+    if (searchBox.isFocused) return;
     var wholeThing = shadowRoot.querySelector(".navbar-fixed-top");
     var navbar = shadowRoot.querySelector("#navbar");
     var collapsible = shadowRoot.querySelector("#nav-collapse-content");
@@ -157,6 +162,8 @@ class MainElement extends DartdocElement with ChangeNotifier  {
   }
 
   void hideOrShowNavigation({bool hide: true, Element nav}) {
+    var searchBox = shadowRoot.querySelector("search-box");
+    if (searchBox.isFocused) return;
     if (nav == null) nav = shadowRoot.querySelector("#nav-collapse-content");
     var button = shadowRoot.querySelector("#nav-collapse-button");
     if (hide && button.getComputedStyle().display != 'none') {

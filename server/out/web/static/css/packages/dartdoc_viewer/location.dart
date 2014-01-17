@@ -25,7 +25,18 @@ final memberMatch = new RegExp(r'\.(\w+)');
 /// "className-constructorName" (if constructorName is empty, it will just be
 /// "className-".
 final subMemberMatch = new RegExp(r'\.([\w\<\+\|\[\]\>\/\^\=\&\~\*\-\%]+)');
-final anchorMatch = new RegExp(r'\@([\w\<\+\|\[\]\>\/\^\=\&\~\*\-\%\.]+)');
+final anchorMatch = new RegExp(r'\@([\w\<\+\|\[\]\>\/\^\=\&\~\*\-\%\.\,]+)');
+
+/// The character used to separator the parameter from the method in a
+/// link which is to a method on the same page as its class. So, e.g.
+/// in `dart-core.Object@id_noSuchMethod,invocation` this separates
+/// the method `noSuchMethod` from the parameter `invocation`.
+const PARAMETER_SEPARATOR = ",";
+
+/// The character used to separate the class name from the constructor
+/// name, e.g. `Future.Future-delayed`. Will occur by itself for
+/// an unnamed constructor. e.g. `Future.Future-`
+const CONSTRUCTOR_SEPARATOR = "-";
 
 // This represents a component described by a URI and can give us
 // the URI given the component or vice versa.
@@ -53,12 +64,26 @@ class DocsLocation {
   }
 
   DocsLocation.clone(DocsLocation original) {
-    packageName == original.packageName;
-    libraryName == original.libraryName;
+    packageName = original.packageName;
+    libraryName = original.libraryName;
     memberName = original.memberName;
     subMemberName = original.subMemberName;
     anchor = original.anchor;
   }
+
+  bool operator ==(other) {
+    if (other is! DocsLocation) return false;
+    return packageName == other.packageName
+        && libraryName == other.libraryName
+        && memberName == other.memberName
+        && subMemberName == other.subMemberName
+        && anchor == other.anchor;
+  }
+
+  /// This isn't a particularly good hash code, but we don't really hash
+  /// these very much. Just XOR together all the fields.
+  int get hashCode => packageName.hashCode ^ libraryName.hashCode ^
+      memberName.hashCode ^ subMemberName.hashCode ^ anchor.hashCode;
 
   void _extractPieces(String uri) {
 
@@ -79,6 +104,11 @@ class DocsLocation {
     memberName = _check(memberMatch);
     subMemberName = _check(subMemberMatch);
     anchor = _check(anchorMatch);
+    if (position < uri.length && anchor == null) {
+      // allow an anchor that's just dotted, not @ if we don't find an @
+      // form and we haven't reached the end.
+      anchor = uri.substring(position + 1, uri.length);
+    }
   }
 
   /// The URI hash string without its leading hash
@@ -116,7 +146,7 @@ class DocsLocation {
   /// with a leading period if the [subMemberName] is non-empty.
   @reflectable get subMemberPlus =>
       subMemberName == null ? '' : '.$subMemberName';
-  /// The trailing anchor e.g. #id_hashCode, including the leading hash.
+  /// The trailing anchor e.g. @id_hashCode, including the leading @.
   @reflectable get anchorPlus => anchor == null ? '' : '@$anchor';
 
   /// Return a list of the components' basic names. Omits the anchor, but
@@ -142,28 +172,30 @@ class DocsLocation {
 
   /// Return a minimal list of the items along our path, using [root] for
   /// context. The [root] is of type Home, and it returns a list of Item,
-  /// but we can't see those types from here.
-  @reflectable List items(root) {
+  /// but we can't see those types from here. The [includeAllItems] parameter
+  /// determines if we return a fixed-length list with all items included,
+  /// which may be null, or if we just include the items with values.
+  @reflectable List items(root, {bool includeAllItems: false}) {
     // TODO(alanknight): Re-arrange the structure so that we can see
     // those types without needing to import html as well.
     var items = [];
-    var package = packageName == null
+    var package, library, member, subMember, anchorItem;
+    package = packageName == null
         ? null
         : root.memberNamed(packageName);
     if (package != null) items.add(package);
     if (libraryName == null) return items;
     var home = items.isEmpty ? root : items.last;
-    var library = home.memberNamed(libraryName);
-    if (library == null) return items;
+    library = home.memberNamed(libraryName);
+    if (library == null && !includeAllItems) return items;
     items.add(library);
-    var member = memberName == null
+    member = memberName == null
         ? null : library.memberNamed(memberName);
     if (member != null) {
       items.add(member);
-      var subMember = subMemberName;
-      if (subMember != null) {
+      if (subMemberName != null) {
         var lookupName = subMemberName;
-        if (subMember.contains('-')) {
+        if (subMemberName.contains('-')) {
           // Constructors are hyphenated Classname-constructorname. We want to
           // look up just the constructor name.
           lookupName = subMemberName.substring(subMemberName.indexOf('-') + 1);
@@ -171,8 +203,22 @@ class DocsLocation {
         subMember = member.memberNamed(lookupName);
       }
       if (subMember != null) items.add(subMember);
+      if (anchor != null) {
+        // The anchor might be for a parameter of either a method or a function.
+        var container = subMember == null ? member : subMember;
+        // Try the anchor both as itself and as id_$anchor
+        anchorItem = container.parameterNamed(anchor);
+        if (anchorItem == null) {
+          anchorItem = container.parameterNamed(toHash(anchor));
+        }
+        if (anchorItem != null) items.add(anchorItem);
+      }
     }
-    return items;
+    if (includeAllItems) {
+      return [package, library, member, subMember, anchorItem];
+    } else {
+      return items;
+    }
   }
 
   /// Find the part of us that refers to an [Item] accessible from
@@ -191,6 +237,50 @@ class DocsLocation {
     var myItems = items(root);
     if (myItems.isEmpty) return null;
     return myItems.last;
+  }
+
+  /// Find the item that corresponds to the last field in the location.
+  /// As compared to [item], which will just return the last found
+  /// [Item], this will return null if there's not a match for the
+  /// last item.
+  exactItem(root) {
+    var myItems = items(root, includeAllItems: true);
+    if (anchor != null) return myItems[4];
+    if (subMemberName != null) return myItems[3];
+    if (memberName != null) return myItems[2];
+    if (libraryName != null) return myItems[1];
+    if (packageName != null) return myItems[0];
+    return null;
+  }
+
+  /// Given a location with an @id_ anchor, transform it into one with
+  /// a corresponding sub-member.
+  DocsLocation get asMemberOrSubMemberNotAnchor {
+    if (anchor == null) return this;
+    if (subMemberName != null || anchor.length <= 3) {
+      throw new FormatException("DocsLocation invalid: $this");
+    }
+    var result = new DocsLocation.clone(this);
+    result.anchor = null;
+    var newName = anchor.substring(3, anchor.length);
+    var withParameterName = newName.split(PARAMETER_SEPARATOR);
+    var parameterName =
+        (withParameterName.length > 1) ? withParameterName[1] : null;
+    if (result.memberName == null) {
+      result.memberName = withParameterName.first;
+      result.subMemberName = parameterName;
+    } else {
+      result.subMemberName = withParameterName.first;
+      result.anchor = parameterName;
+    }
+    return result;
+  }
+
+  /// Given a potentially invalid location, find the parent location
+  /// which is valid.
+  DocsLocation firstValidParent(root) {
+    var myItem = item(root);
+    return myItem == null ? root.location : myItem.location;
   }
 
   /// Return the item in the list that corresponds to the thing we represent.
@@ -235,6 +325,7 @@ class DocsLocation {
   /// Return the last component for which we have a value, not counting
   /// the anchor.
   @reflectable String get lastName {
+    if (anchor != null) return anchor;
     if (subMemberName != null) return subMemberName;
     if (memberName != null) return memberName;
     if (libraryName != null) return libraryName;

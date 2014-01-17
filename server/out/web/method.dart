@@ -21,7 +21,6 @@ class MethodElement extends InheritedElement with ChangeNotifier  {
   @reflectable @observable bool get isNotConstructor => __$isNotConstructor; bool __$isNotConstructor; @reflectable set isNotConstructor(bool value) { __$isNotConstructor = notifyPropertyChange(#isNotConstructor, __$isNotConstructor, value); }
   @reflectable @observable String get modifiers => __$modifiers; String __$modifiers; @reflectable set modifiers(String value) { __$modifiers = notifyPropertyChange(#modifiers, __$modifiers, value); }
   @reflectable @observable String get constantModifier => __$constantModifier; String __$constantModifier; @reflectable set constantModifier(String value) { __$constantModifier = notifyPropertyChange(#constantModifier, __$constantModifier, value); }
-  @reflectable @observable String get abstractModifier => __$abstractModifier; String __$abstractModifier; @reflectable set abstractModifier(String value) { __$abstractModifier = notifyPropertyChange(#abstractModifier, __$abstractModifier, value); }
   @reflectable @observable String get staticModifier => __$staticModifier; String __$staticModifier; @reflectable set staticModifier(String value) { __$staticModifier = notifyPropertyChange(#staticModifier, __$staticModifier, value); }
 
   MethodElement.created() : super.created();
@@ -34,7 +33,6 @@ class MethodElement extends InheritedElement with ChangeNotifier  {
 
     isNotConstructor = !item.isConstructor;
     constantModifier = item.isConstant ? 'const' : '';
-    abstractModifier = item.isAbstract ? 'abstract' : '';
     staticModifier = item.isStatic ? 'static' : '';
     modifiers = constantModifier + staticModifier;
   }

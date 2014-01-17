@@ -12,15 +12,17 @@ import 'package:dartdoc_viewer/read_yaml.dart';
 import 'package:polymer/polymer.dart';
 import 'package:yaml/yaml.dart';
 import 'package:dartdoc_viewer/location.dart';
+import 'package:dartdoc_viewer/search.dart' show searchIndex;
+import 'package:collection/equality.dart';
 
 // TODO(tmandel): Don't hardcode in a path if it can be avoided.
 @reflectable const docsPath = 'docs/';
 
-/**
- * Anything that holds values and can be displayed.
- */
 nothing() => null;
 
+/**
+ * Abstract class for anything that holds values and can be displayed.
+ */
 @reflectable class Container extends ChangeNotifier {
   final String name;
   @reflectable @observable String get comment => __$comment; String __$comment = '<span></span>'; @reflectable set comment(String value) { __$comment = notifyPropertyChange(#comment, __$comment, value); }
@@ -139,7 +141,6 @@ String _wrapComment(String comment) {
     if (!memberNames.contains(item.name)) {
       memberCounter++;
       inheritedCounter++;
-      pageIndex['${clazz.qualifiedName}.${item.name}'] = item;
       content.add(item);
     } else {
       var member = content.firstWhere((innerItem) =>
@@ -150,6 +151,31 @@ String _wrapComment(String comment) {
 
   bool get hasNonInherited => inheritedCounter < memberCounter;
 
+  List filteredContent(Filter filter) {
+    if (filter.shouldShowEverything) return content;
+    return content.where((c) => filter.shouldShow(c)).toList();
+  }
+}
+
+/**
+ * Filters [Item]s according to visibility settings, primarily
+ * inheritance.
+ */
+class Filter {
+  bool showInherited = true;
+  bool showObjectMembers = false;
+
+  bool get shouldShowEverything => showInherited && showObjectMembers;
+
+  bool shouldShow(Item item) {
+    if (!item.isInherited) return true;
+    var itemWeKnowCanBeInherited = item;
+    if (itemWeKnowCanBeInherited.inheritedFrom.startsWith('dart-core.Object')) {
+      return showInherited && showObjectMembers;
+    } else {
+      return showInherited;
+    }
+  }
 }
 
 /**
@@ -159,6 +185,7 @@ String _wrapComment(String comment) {
   /// A list of [Item]s representing the path to this [Item].
   List<Item> path = [];
   @observable final String qualifiedName;
+  Item _owner;
 
   Item(String name, this.qualifiedName, [String comment])
       : super(name, comment);
@@ -191,16 +218,22 @@ String _wrapComment(String comment) {
   /// The [DocsLocation] for our URI.
   DocsLocation get location => new DocsLocation(qualifiedName);
 
-  /// The link to an anchor within a larger page, if appropriate.
-  DocsLocation anchorHrefLocationFrom(aLocation) {
-    var basic = aLocation;
-    var parent = aLocation.parentLocation;
+  /// The link to an anchor within a larger page, if appropriate. So
+  /// e.g. instead of `dart-core.Object.toString`,
+  /// `dart-core.Object@id_toString`
+  DocsLocation get anchorHrefLocation {
+    var basic = localLocation;
+    var parent = basic.parentLocation;
     if (parent.isEmpty) return parent;
-    parent.anchor = parent.toHash(basic.componentNames.last);
+    parent.anchor = parent.toHash(hashDecoratedName);
     return parent;
   }
 
-  DocsLocation get anchorHrefLocation => anchorHrefLocationFrom(location);
+  /// A location based on the actual page we're in, rather than our inherited
+  /// location. e.g. `dart-async.Future.noSuchMethod` rather than
+  /// the original method location of `dart-core.Object.noSuchMethod`.
+  /// For non-inherited items, this will just be the [location].
+  DocsLocation get localLocation => location;
 
   String get anchorHref => anchorHrefLocation.withAnchor;
 
@@ -208,7 +241,15 @@ String _wrapComment(String comment) {
 
   Item memberNamed(String name, {Function orElse : nothing}) => nothing();
 
-  Item get owner => pageIndex[location.parentQualifiedName];
+  Item get owner => _owner == null ?
+      _owner = pageIndex[location.parentQualifiedName] : _owner;
+
+  /// Return true if [possibleOwner] is anywhere in our chain of owners.
+  bool isOwnedBy(Item possibleOwner) {
+    if (owner == null || possibleOwner == null) return false;
+    if (owner == possibleOwner) return true;
+    return owner.isOwnedBy(possibleOwner);
+  }
 
   Home get home => owner == null ? null : owner.home;
 }
@@ -427,7 +468,7 @@ int _compareLibraryNames(String a, String b) {
     }
   }
 
-  bool get isDartLibrary => name.startsWith("dart-");
+  bool get isDartLibrary => home != null && home.isTopLevelHome;
 
   Item memberNamed(String name, {Function orElse : nothing}) {
     if (name == null) return orElse();
@@ -498,6 +539,9 @@ int _compareLibraryNames(String a, String b) {
     return _staticFunctions;
   }
 
+  List<Category> get categories => [constructors, operators,
+      instanceFunctions, staticFunctions, instanceVariables, staticVariables];
+
   /// Creates a [Class] placeholder object with null fields.
   Class.forPlaceholder(String location, String previewComment)
       : super(location, new DocsLocation(location).memberName, previewComment) {
@@ -530,7 +574,7 @@ int _compareLibraryNames(String a, String b) {
   void loadValues(Map yaml) {
     flushCaches();
     comment = _wrapComment(yaml['comment']);
-    isAbstract = yaml['isAbstract'] == 'true';
+    isAbstract = _boolFor('isAbstract', yaml);
     superClass = new LinkableType(yaml['superclass']);
     subclasses = yaml['subclass'] == null ? [] :
       yaml['subclass'].map((item) => new LinkableType(item)).toList();
@@ -580,7 +624,7 @@ int _compareLibraryNames(String a, String b) {
     if (items != null) {
       items.values.forEach((item) {
         var object = new Variable(item, isSetter: isSetter,
-            isGetter: isGetter, inheritedFrom: item['qualifiedName'],
+            isGetter: isGetter, inheritedFrom: item['inheritedFrom'],
             commentFrom: item['commentFrom'], owner: this);
         variables.addInheritedItem(this, object);
       });
@@ -592,7 +636,7 @@ int _compareLibraryNames(String a, String b) {
     if (items != null) {
       items.values.forEach((item) {
         var object = new Method(item, isOperator: isOperator,
-            inheritedFrom: item['qualifiedName'],
+            inheritedFrom: item['inheritedFrom'],
             commentFrom: item['commentFrom'], className: name, owner: this);
         var location = isOperator ? this.operators : this.functions;
         location.addInheritedItem(this, object);
@@ -643,16 +687,19 @@ int _compareLibraryNames(String a, String b) {
   }
 
   AnnotationGroup(List annotes) {
+    var set = new Set();
     if (annotes != null) {
       annotes.forEach((annotation) {
-        if (annotation['name'] == 'metadata.SupportedBrowser') {
+        if (annotation['name'].split(".").last == 'SupportedBrowser') {
           supportedBrowsers.add(annotation['parameters'].toList().join(' '));
-        } else if (annotation['name'] == 'metadata.DomName') {
+        } else if (annotation['name'].split(".").last == 'DomName') {
           domName = annotation['parameters'].first;
         } else {
-          annotations.add(new Annotation(annotation));
+          set.add(new Annotation(annotation));
         }
       });
+    annotations = set.toList();
+    annotations.sort((a, b) => a.shortName.compareTo(b.shortName));
     }
   }
 }
@@ -671,6 +718,18 @@ int _compareLibraryNames(String a, String b) {
     link = new LinkableType(qualifiedName);
     parameters = yaml['parameters'] == null ? [] : yaml['parameters'];
   }
+
+  /// Hash by XORing together our name and parameters.
+  get hashCode => parameters.fold(
+      qualifiedName.hashCode,
+      (a, param) => a ^ param.hashCode);
+
+  operator ==(other) => qualifiedName == other.qualifiedName &&
+      const ListEquality().equals(parameters, other.parameters);
+
+  get shortName => new DocsLocation(qualifiedName).lastName;
+
+  toString() => 'Annotation($shortName)';
 }
 
 /**
@@ -692,6 +751,14 @@ int _compareLibraryNames(String a, String b) {
       });
     }
     return values;
+  }
+
+  Parameter parameterNamed(String name) =>
+      parameters.firstWhere((x) => x.name == name, orElse: () => null);
+
+  Item memberNamed(String name, {Function orElse : nothing}) {
+    var result = parameterNamed(name);
+    return result == null ? orElse() : result;
   }
 }
 
@@ -723,29 +790,26 @@ int _compareLibraryNames(String a, String b) {
   String inheritedFrom;
   String commentFrom;
   String className;
-  Class owner;
   bool isOperator;
   AnnotationGroup annotations;
   NestedType type;
 
   Method(Map yaml, {this.isConstructor: false, this.className: '',
       this.isOperator: false, this.inheritedFrom: '',
-      String commentFrom: '', this.owner})
+      String commentFrom: '', owner: null})
         : super(yaml['name'], yaml['qualifiedName'],
             _wrapComment(yaml['comment'])) {
-    this.isStatic = yaml['static'] == 'true';
-    this.isAbstract = yaml['abstract'] == 'true';
-    this.isConstant = yaml['constant'] == 'true';
-    this.commentFrom = commentFrom == '' ? yaml['commentFrom'] : commentFrom;
-    this.type = new NestedType(yaml['return'].first);
+    isStatic = _boolFor('static', yaml);
+    isAbstract = _boolFor('abstract', yaml);
+    isConstant = _boolFor('constant', yaml);
+    commentFrom = commentFrom == '' ? yaml['commentFrom'] : commentFrom;
+    type = new NestedType(yaml['return'].first);
     parameters = getParameters(yaml['parameters']);
     annotations = new AnnotationGroup(yaml['annotations']);
+    _owner = owner;
   }
 
-  void addToHierarchy() {
-    // TODO(alanknight): Conditionally calling super is very unpleasant.
-    if (inheritedFrom != '') super.addToHierarchy();
-  }
+  void addToHierarchy() {}
 
   void addInheritedComment(item) {
     if (hasNoComment) {
@@ -762,41 +826,10 @@ int _compareLibraryNames(String a, String b) {
   /// [Item]'s name with its properties properly appended for anchor linking.
   /// Overridden to allow for different behavior for constructor "methods"
   /// (we append the className in case the constructor is unnamed).
-  String get hashDecoratedName => isConstructor ? '$className.$name' : name;
+  String get hashDecoratedName => isConstructor ?
+      '$className$CONSTRUCTOR_SEPARATOR$name' : name;
 
   get linkHref => anchorHref;
-
-  /// The link to an anchor within a larger page, if appropriate.
-  DocsLocation anchorHrefLocationFrom(DocsLocation aLocation) {
-    if (isConstructor) {
-      // Constructor anchor links require special parsing because in the
-      // yaml/json data we prepend the class in the "member name" so that
-      // unnamed constructors have a distinct, linkable reference.
-      var parent = aLocation.parentLocation;
-      if (!parent.isEmpty) {
-        // Update the anchor.
-        parent.anchor = parent.toHash(
-            '${aLocation.memberName}.${aLocation.subMemberName}');
-      }
-      return parent;
-    } else {
-      return super.anchorHrefLocationFrom(aLocation);
-    }
-  }
-
-  /// The link to an anchor within a larger page, if appropriate.
-  /// Note that for an inherited method, the qualified name refers to where
-  /// it is actually defined. This returns a link into the local page, which
-  /// is based on the owner.
-  DocsLocation get anchorHrefLocation {
-    if (isUnnamedConstructor) {
-        localLocation.anchor =
-            localLocation.toHash(localLocation.memberName);
-        return localLocation;
-    } else {
-      return anchorHrefLocationFrom(localLocation);
-    }
-  }
 
   /// A location based on the actual page we're in, rather than our inherited
   /// location.
@@ -816,23 +849,22 @@ int _compareLibraryNames(String a, String b) {
 /**
  * A single parameter to a [Method].
  */
-@reflectable class Parameter {
+@reflectable class Parameter extends Item {
 
-  String name;
   bool isOptional;
   bool isNamed;
   bool hasDefault;
   NestedType type;
   String defaultValue;
   AnnotationGroup annotations;
-  Item owner;
 
-  Parameter(this.name, Map yaml, [this.owner]) {
-    this.isOptional = yaml['optional'] == 'true';
-    this.isNamed = yaml['named'] == 'true';
-    this.hasDefault = yaml['default'] == 'true';
-    this.type = new NestedType(yaml['type'].first);
-    this.defaultValue = yaml['value'];
+  Parameter(name, Map yaml, [owner]) : super(name, null) {
+    isOptional = _boolFor('optional', yaml);
+    isNamed = _boolFor('named', yaml);
+    hasDefault = _boolFor('default', yaml);
+    type = new NestedType(yaml['type'].first);
+    defaultValue = yaml['value'];
+    _owner = owner;
     annotations = new AnnotationGroup(yaml['annotations']);
   }
 
@@ -849,20 +881,25 @@ int _compareLibraryNames(String a, String b) {
     return '';
   }
 
-  // For a method parameter we use the special anchor @method.parameter
+  /// Return true if [possibleOwner] is anywhere in our chain of owners.
+  bool isOwnedBy(Item possibleOwner) {
+    if (owner == null || possibleOwner == null) return false;
+    if (owner == possibleOwner) return true;
+    return owner.isOwnedBy(possibleOwner);
+  }
+
+  // For a method parameter we use the special anchor @method,parameter
   // because the parameter name may not be unique on the page
   DocsLocation get anchorHrefLocation {
     if (owner == null) return null;
-    var parameterLoc = owner.location.parentLocation;
-    // TODO(efortuna): Refactor DocsLocation so we don't do this special casing
-    // of unnamed methods (constructors).
-    if (owner is Method && (owner as Method).isUnnamedConstructor) {
-      parameterLoc = owner.location;
-    }
-    parameterLoc.anchor = parameterLoc.toHash(
-        "${owner.hashDecoratedName}_$name");
-    return parameterLoc;
+    var ownerLocation = owner.anchorHrefLocation;
+    var ownerAnchor = ownerLocation.anchor;
+    ownerLocation.anchor = ownerAnchor == null ?
+        hashDecoratedName : "$ownerAnchor$hashDecoratedName";
+    return ownerLocation;
   }
+
+  String get hashDecoratedName => "$PARAMETER_SEPARATOR$name";
 
   String get anchorHref => anchorHrefLocation.withAnchor;
 
@@ -885,20 +922,20 @@ int _compareLibraryNames(String a, String b) {
   Parameter setterParameter;
   NestedType type;
   AnnotationGroup annotations;
-  Class owner;
 
   Variable(Map yaml, {bool isGetter: false, bool isSetter: false,
-      String inheritedFrom: '', String commentFrom: '', this.owner})
+      String inheritedFrom: '', String commentFrom: '', owner: null})
       : super(yaml['name'], yaml['qualifiedName'],
           _wrapComment(yaml['comment'])) {
     this.isGetter = isGetter;
     this.isSetter = isSetter;
     this.inheritedFrom = inheritedFrom;
     this.commentFrom = commentFrom == '' ? yaml['commentFrom'] : commentFrom;
-    isFinal = yaml['final'] == 'true';
-    isStatic = yaml['static'] == 'true';
-    isConstant = yaml['constant'] == 'true';
-    isAbstract = yaml['abstract'] == 'true';
+    _owner = owner;
+    isFinal = _boolFor('final', yaml);
+    isStatic = _boolFor('static', yaml);
+    isConstant = _boolFor('constant', yaml);
+    isAbstract = _boolFor('abstract', yaml);
     if (isGetter) {
       type = new NestedType(yaml['return'].first);
     } else if (isSetter) {
@@ -926,20 +963,19 @@ int _compareLibraryNames(String a, String b) {
     if (inheritedFrom != '') super.addToHierarchy();
   }
 
-  /// The link to an anchor within a larger page, if appropriate.
-  /// Note that for an inherited variable, the qualified name refers to where
-  /// it is actually defined. This returns a link into the local page, which
-  /// is based on the owner.
-  DocsLocation get anchorHrefLocation => anchorHrefLocationFrom(localLocation);
-
   /// A location based on the actual page we're in, rather than our inherited
-  /// location.
+  /// location, since the qualified name refers to the original.
   DocsLocation get localLocation {
     if (!isInherited || owner == null) return location;
     var local = owner.location;
     local.subMemberName = name;
     return local;
   }
+
+  /// Setters come out as variables, and can have parameter names, but
+  /// we ignore them in comments right now.
+  // TODO(alanknight): Handle setter parameter references properly.
+  Parameter parameterNamed(String name) => null;
 }
 
 /**
@@ -977,6 +1013,8 @@ int _compareLibraryNames(String a, String b) {
     loc = new DocsLocation(type);
   }
 
+  bool get isDocumented => searchIndex.map.containsKey(qualifiedName);
+
   /// The simple name for this type.
   String get simpleType => loc.locationWithoutAnchor.name;
 
@@ -986,4 +1024,13 @@ int _compareLibraryNames(String a, String b) {
   String get qualifiedName => location;
 
   get isDynamic => simpleType == 'dynamic';
+}
+
+
+bool _boolFor(String key, Map input) {
+  var value = input[key];
+  if (value == true || value == 'true') return true;
+  if (value == null || value == false || value == 'false') return false;
+  throw new FormatException("Invalid format, expected boolean key: $key"
+      " value: $value");
 }

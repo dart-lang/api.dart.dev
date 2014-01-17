@@ -17,7 +17,7 @@ import 'package:polymer/polymer.dart';
  */
 @CustomTag("search-box")
 class Search extends PolymerElement with ChangeNotifier  {
-  @reflectable @published String get searchQuery => __$searchQuery; String __$searchQuery; @reflectable set searchQuery(String value) { __$searchQuery = notifyPropertyChange(#searchQuery, __$searchQuery, value); }
+  @reflectable @published String get searchQuery => __$searchQuery; String __$searchQuery = ''; @reflectable set searchQuery(String value) { __$searchQuery = notifyPropertyChange(#searchQuery, __$searchQuery, value); }
 
   @reflectable @observable bool get isFocused => __$isFocused; bool __$isFocused = false; @reflectable set isFocused(bool value) { __$isFocused = notifyPropertyChange(#isFocused, __$isFocused, value); }
   @reflectable @observable ObservableList<SearchResult> get results => __$results; ObservableList<SearchResult> __$results = toObservable([]); @reflectable set results(ObservableList<SearchResult> value) { __$results = notifyPropertyChange(#results, __$results, value); }

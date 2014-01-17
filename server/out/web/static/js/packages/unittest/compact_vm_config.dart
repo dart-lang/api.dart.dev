@@ -8,7 +8,7 @@
  * you should only see a couple lines in the terminal. If a test fails, the
  * failure is shown and the progress bar continues to be updated below it.
  */
-library compact_vm_config;
+library unittest.compact_vm_config;
 
 import 'dart:async';
 import 'dart:io';
@@ -64,6 +64,20 @@ class CompactVMConfiguration extends VMConfiguration {
       if (test.stackTrace != null) {
         print(indent(test.stackTrace.toString()));
       }
+    }
+  }
+
+  void onTestResultChanged(TestCase test) {
+    _pass--;
+    _fail++;
+    _progressLine(_start, _pass, _fail, test.description);
+    print('');
+    if (test.message != '') {
+      print(indent(test.message));
+    }
+
+    if (test.stackTrace != null) {
+      print(indent(test.stackTrace.toString()));
     }
   }
 

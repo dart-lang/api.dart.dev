@@ -122,7 +122,7 @@
  * [pub]: http://pub.dartlang.org
  */
 
-library mock;
+library unittest.mock;
 
 import 'dart:mirrors';
 import 'dart:collection' show LinkedHashMap;
@@ -1244,6 +1244,7 @@ Matcher neverThrew(value) =>
 LogEntryList sharedLog = null;
 
 /** The base class for all mocked objects. */
+@proxy
 class Mock {
   /** The mock name. Needed if the log is shared; optional otherwise. */
   final String name;

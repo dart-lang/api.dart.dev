@@ -40,7 +40,10 @@ const int desktopSizeBoundary = 1006;
 /// The [Viewer] object being displayed.
 final Viewer viewer = new Viewer._();
 
-MainElement dartdocMain = querySelector("#dartdoc-main");
+MainElement get dartdocMain => _dartdocMain == null ?
+    _dartdocMain = querySelector("#dartdoc-main") :
+    _dartdocMain;
+MainElement _dartdocMain;
 
 /// The Dartdoc Viewer application state.
 class Viewer extends ChangeNotifier {
@@ -100,6 +103,13 @@ class Viewer extends ChangeNotifier {
   /// State for whether or not inherited members should be shown.
   @reflectable @observable bool get isInherited => __$isInherited; bool __$isInherited = true; @reflectable set isInherited(bool value) { __$isInherited = notifyPropertyChange(#isInherited, __$isInherited, value); }
 
+  /// Should members inherited from Object be shown.
+  @reflectable @observable bool get showObjectMembers => __$showObjectMembers; bool __$showObjectMembers = false; @reflectable set showObjectMembers(bool value) { __$showObjectMembers = notifyPropertyChange(#showObjectMembers, __$showObjectMembers, value); }
+
+  Filter get filter => new Filter()
+    ..showInherited = isInherited
+    ..showObjectMembers = showObjectMembers;
+
   /// The current element on the current page being shown (e.g. #dartdoc-top).
   String _hash;
 
@@ -110,12 +120,16 @@ class Viewer extends ChangeNotifier {
   // Private constructor for singleton instantiation.
   Viewer._() {
     var manifest = retrieveFileContents(sourcePath);
-    finished = manifest.then((response) {
+    var libraryFuture = manifest.then((response) {
       var libraries = JSON.decode(response);
       isYaml = libraries['filetype'] == 'yaml';
       homePage = new Home(libraries);
     });
-
+    var indexFuture = retrieveFileContents('docs/index.json').then(
+        (String json) {
+            searchIndex.map = JSON.decode(json);
+         });
+    finished = Future.wait([libraryFuture, indexFuture]);
     _updateDesktopMode(null);
     window.onResize.listen(_updateDesktopMode);
   }
@@ -172,6 +186,18 @@ class Viewer extends ChangeNotifier {
 
   /// Updates [currentPage] to be [page].
   Future _updatePage(Item page, DocsLocation location) {
+    // If we have an invalid location, we walk up until we find the first
+    // portion that's valid. e.g. dare-core.Object@id_blah => dart-core.Object
+    var canonicalLocation = location.asMemberOrSubMemberNotAnchor;
+    var matchingItem = canonicalLocation.exactItem(homePage);
+    var pageAndLocationAgree = (page == matchingItem ||
+        (matchingItem != null && matchingItem.isOwnedBy(page)));
+    if (page == null || !pageAndLocationAgree) {
+      var newLocation = location.firstValidParent(homePage);
+      if (newLocation != location) {
+        return handleLink(_replaceLocation(newLocation));
+      }
+    }
     // Avoid reloading the page if it isn't necessary.
     if (page != null && page != currentPage) {
       var main = window.document.querySelector("#dartdoc-main");
@@ -183,6 +209,24 @@ class Viewer extends ChangeNotifier {
     return new Future.value(true);
   }
 
+  /// Rewrite the location to correspond to something that exists. We
+  /// rewrite bottom-level member references from e.g. class.method to
+  /// class@id_method.
+  DocsLocation _rewriteLocation(DocsLocation location) {
+    if (location.subMemberName == null) return location;
+    var newLocation = new DocsLocation(location.parentQualifiedName);
+    newLocation.anchor = newLocation.toHash(location.subMemberName);
+    return newLocation;
+  }
+
+  /// Replace the window location with [location]
+  String _replaceLocation(DocsLocation location) {
+    var newUri = location.withAnchor;
+    var encoded = Uri.encodeFull(newUri);
+    window.location.replace("#$encoded");
+    return encoded;
+  }
+
   /// Loads the [libraryName] [Library] and [className] [Class] if necessary
   /// and updates the current page to the member described by [location]
   /// once the correct member is found and loaded.
@@ -190,18 +234,13 @@ class Viewer extends ChangeNotifier {
     // If it's loaded, it will be in the index.
     var destination = pageIndex[location.withoutAnchor];
     if (destination == null) {
-      // TODO(alanknight) : A cleaner way to do this.
-      // Transform references to sub-members into anchors
-      if (location.subMemberName != null) {
-        var newLocation = new DocsLocation(location.parentQualifiedName);
-        newLocation.anchor = newLocation.toHash(location.subMemberName);
-        var newUri = newLocation.withAnchor;
-        var encoded = Uri.encodeFull(newUri);
-        window.location.replace("#$encoded");
-        return handleLink(encoded);
+      var newLocation = _rewriteLocation(location);
+      if (newLocation != location) {
+        return handleLink(_replaceLocation(newLocation));
+      } else {
+        return getItem(location).then((items) =>
+            _updatePage(location.itemFromList(items.toList()), location));
       }
-      return getItem(location).then((items)
-          => _updatePage(location.itemFromList(items.toList()), location));
     } else {
       return destination.load().then((_) => _updatePage(destination, location));
     }
@@ -318,6 +357,11 @@ class Viewer extends ChangeNotifier {
   void toggleInherited() {
     isInherited = !isInherited;
   }
+
+  /// Toggles showing members inherited from Object.
+  void toggleObjectMembers() {
+    showObjectMembers = !showObjectMembers;
+  }
 }
 
 /// The path of this app on startup.
@@ -349,10 +393,10 @@ void navigate(event) {
     dartdocMain.collapseSearchAndOptionsIfNeeded();
     dartdocMain.hideOrShowNavigation();
   });
-  // If we do this directly, then the dartdocMain element may not be available
-  // yet. This happens when compiled to JS, but not in Dartium. So insert a
-  // delay. Ugh.
-  new Future.value(null).then((_) => dartdocMain.hideOrShowNavigation());
+
+  Polymer.onReady.then((_) {
+    dartdocMain.hideOrShowNavigation();
+  });
 
   startHistory();
   // If a user navigates to a page other than the homepage, the viewer
@@ -363,9 +407,6 @@ void navigate(event) {
     } else {
       viewer.currentPage = viewer.homePage;
     }
-    retrieveFileContents('docs/index.json').then((String json) {
-      searchIndex.map = JSON.decode(json);
-    });
   });
 }
 
