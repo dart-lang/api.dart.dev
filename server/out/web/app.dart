@@ -250,7 +250,7 @@ class Viewer extends ChangeNotifier {
   String _replaceLocation(DocsLocation location) {
     var newUri = location.withAnchor;
     var encoded = Uri.encodeFull(newUri);
-    window.location.replace("#$encoded");
+    window.location.replace(locationPrefixed(encoded));
     return encoded;
   }
 
@@ -294,7 +294,7 @@ class Viewer extends ChangeNotifier {
     if (lib == null) {
       lib = viewer.homePage.memberNamed(location.libraryName);
     }
-    if (lib == null) return new Future.value(null);
+    if (lib == null) return new Future.value(homePage);
     return lib.load();
   }
 
@@ -359,7 +359,8 @@ class Viewer extends ChangeNotifier {
       _updatePage(viewer.homePage, location);
       return new Future.value(true);
     }
-    return _loadAndUpdatePage(location);
+    showLoadIndicator();
+    return _loadAndUpdatePage(location)..whenComplete(hideLoadIndicator);
     // TODO(alanknight) : This is now letting the history automatically
     // update, even for non-found items. Is that an issue?
   }
@@ -389,6 +390,25 @@ class Viewer extends ChangeNotifier {
   void toggleObjectMembers() {
     showObjectMembers = !showObjectMembers;
   }
+
+
+  Element _loadIndicator;
+
+  /// When we have to fetch the JSON for an Item, display a spinning
+  /// indicator to show the user that something is happening.
+  Element get loadIndicator {
+    if (_loadIndicator == null) {
+      _loadIndicator = dartdocMain.shadowRoot
+          .querySelector("#loading-indicator");
+    }
+    return _loadIndicator;
+  }
+
+  /// Make the indicator that we're loading data visible.
+  showLoadIndicator() => loadIndicator.style.display = '';
+
+  /// Hide the indicator that we're loading data.
+  hideLoadIndicator() => loadIndicator.style.display = 'none';
 }
 
 /// The path of this app on startup.
@@ -397,17 +417,29 @@ String _pathname;
 /// The latest url reached by a popState event.
 String location;
 
+/// The google crawler will try to translate #! anchors into query parameters
+/// with an _escaped_fragment_ in front of them. Assume that's the only query
+/// parameter.
+const _ESCAPED_FRAGMENT = '?_escaped_fragment_=';
+String findLocation() {
+  var hash = window.location.hash;
+  var query = window.location.search;
+  if (query.startsWith(_ESCAPED_FRAGMENT)) {
+    return query.substring(_ESCAPED_FRAGMENT.length, query.length);
+  } else {
+    return locationDeprefixed(hash);
+  }
+}
+
 /// Listens for browser navigation and acts accordingly.
 void startHistory() {
-  location = window.location.hash.replaceFirst('#', '');
-  // TODO(alanknight): onPopState doesn't work in IE, so using onHashChange.
-  // window.onPopState.listen(navigate);
-  window.onHashChange.listen(navigate);
+  location = findLocation();
+  windowLocation.changes.listen(navigate);
 }
 
 void navigate(event) {
   // TODO(alanknight): Should we be URI encoding/decoding this?
-  var newLocation = window.location.hash.replaceFirst('#', '');
+  var newLocation = findLocation();
   if (viewer.homePage != null) {
     viewer.handleLink(newLocation);
   }

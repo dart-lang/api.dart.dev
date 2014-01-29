@@ -227,7 +227,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
-  return '/apidocs/channels/stable/#home'
+  return '/apidocs/channels/stable/#!home'
 
 def redir_dom(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/dart_html' + kwargs['path']

@@ -38,6 +38,18 @@ const PARAMETER_SEPARATOR = ",";
 /// an unnamed constructor. e.g. `Future.Future-`
 const CONSTRUCTOR_SEPARATOR = "-";
 
+
+const LOCATION_PREFIX = "#!";
+
+// Prefix the string with the separator we are using between the main
+// URL and the location.
+locationPrefixed(String s) => "$LOCATION_PREFIX$s";
+
+// Remove the anchor prefix from [s] if it's present.
+locationDeprefixed(String s) =>
+    (s.length > 0 && s.startsWith(LOCATION_PREFIX)) ?
+        s.substring(LOCATION_PREFIX.length, s.length) : s;
+
 // This represents a component described by a URI and can give us
 // the URI given the component or vice versa.
 class DocsLocation {
@@ -88,7 +100,7 @@ class DocsLocation {
   void _extractPieces(String uri) {
 
     if (uri == null || uri.length == 0) return;
-    var position = (uri[0] == "#") ? 1 : 0;
+    var position = uri.startsWith(LOCATION_PREFIX) ? LOCATION_PREFIX.length : 0;
 
     _check(regex) {
       var match = regex.matchAsPrefix(uri, position);
@@ -113,7 +125,7 @@ class DocsLocation {
 
   /// The URI hash string without its leading hash
   /// and without any trailing anchor portion, e.g. for
-  /// http://site/#args/args.ArgParser#id_== it would return args/argsArgParser
+  /// http://site/#args/args.ArgParser@id_== it would return args/argsArgParser
   @reflectable String get withoutAnchor =>
       [packagePlus, libraryPlus, memberPlus, subMemberPlus].join("");
 
@@ -122,8 +134,8 @@ class DocsLocation {
 
   /// The full URI hash string without the leading hash character.
   /// e.g. for
-  /// http://site/#args/args.ArgParser#id_==
-  /// it would return args/argsArgParser#id_==
+  /// http://site/#args/args.ArgParser@id_==
+  /// it would return args/argsArgParser@id_==
   @reflectable String get withAnchor => withoutAnchor + anchorPlus;
 
   @reflectable DocsLocation get locationWithoutAnchor =>
@@ -189,6 +201,12 @@ class DocsLocation {
     library = home.memberNamed(libraryName);
     if (library == null && !includeAllItems) return items;
     items.add(library);
+    // If we don't have a library, we can't have members or sub-members,
+    // so short-circuit out of here. Either this is just a package, or it's
+    // an invalid location.
+    if (library == null) {
+      return includeAllItems ? [null, null, null, null, null] : items;
+    }
     member = memberName == null
         ? null : library.memberNamed(memberName);
     if (member != null) {
@@ -214,11 +232,9 @@ class DocsLocation {
         if (anchorItem != null) items.add(anchorItem);
       }
     }
-    if (includeAllItems) {
-      return [package, library, member, subMember, anchorItem];
-    } else {
-      return items;
-    }
+    return includeAllItems ?
+        [package, library, member, subMember, anchorItem] :
+        items;
   }
 
   /// Find the part of us that refers to an [Item] accessible from

@@ -65,7 +65,7 @@ class Search extends PolymerElement with ChangeNotifier  {
 
   void onBlurCallback(_) {
     isFocused = false;
-    _updateDropdownOpen();
+    new Future.value(null).then((_) => _updateDropdownOpen());
   }
 
   void onFocusCallback(_) {
@@ -90,7 +90,8 @@ class Search extends PolymerElement with ChangeNotifier  {
     var newLocation = new LinkableType(refId).location;
     var encoded = Uri.encodeFull(newLocation);
     viewer.handleLink(encoded);
-    window.history.pushState("#$encoded", viewer.title, "#$encoded");
+    window.history.pushState(locationPrefixed(encoded),
+        viewer.title, locationPrefixed(encoded));
     searchQuery = "";
     results.clear();
   }

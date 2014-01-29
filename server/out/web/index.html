@@ -29,7 +29,8 @@
   <template>
     <ul class="nav nav-pills nav-stacked">
       <li id="nameGoesHere">
-        <a href="#{{item.linkHref}}" id="{{idName}}">{{item.decoratedName}}</a>
+        <a href="{{item.prefixedLinkHref}}" id="{{idName}}">
+            {{item.decoratedName}}</a>
         <template if="{{item.previewComment}}">
           <hr><div is="dartdoc-comment" preview="" item="{{item}}"></div>
         </template>
@@ -54,7 +55,7 @@
     <template if="{{item.isConstant}}">const</template>
     <template if="{{item.isSetter}}">
       set&nbsp;
-      <b><a id="{{idName}}" href="#{{item.anchorHref}}">{{name}}</a></b>(
+      <b><a id="{{idName}}" href="{{item.prefixedAnchorHref}}">{{name}}</a></b>(
       <dartdoc-annotation annotations="{{item.setterParameter.annotations}}">
       </dartdoc-annotation>
       <dartdoc-type type="{{item.setterParameter.type}}"></dartdoc-type>
@@ -63,7 +64,7 @@
     <template if="{{isNotSetter}}">
       <dartdoc-type type="{{item.type}}"></dartdoc-type>
       {{getter}}
-      <b><a id="{{idName}}" href="#{{item.anchorHref}}">{{name}}</a></b>
+      <b><a id="{{idName}}" href="{{item.prefixedAnchorHref}}">{{name}}</a></b>
     </template>
   </template>
   
@@ -152,7 +153,7 @@
           <template if="{{isNotConstructor}}">
             <dartdoc-type type="{{item.type}}"></dartdoc-type>
           </template>
-          <b><a id="{{idName}}" href="#{{item.anchorHref}}">
+          <b><a id="{{idName}}" href="{{item.prefixedAnchorHref}}">
           {{item.decoratedName}}</a></b>
           <dartdoc-parameter parameters="{{item.parameters}}">
           </dartdoc-parameter>
@@ -192,7 +193,7 @@
       </dartdoc-annotation>
 
       <p class="panel-title">typedef
-        <a href="#{{item.type.location}}">{{item.type.simpleType}}</a>
+        <a href="{{prefixedLocation}}">{{item.type.simpleType}}</a>
         {{item.name}}
         <dartdoc-parameter parameters="{{item.parameters}}"></dartdoc-parameter>
       </p>
@@ -234,14 +235,13 @@
 </polymer-element>
 <polymer-element name="dartdoc-minimap">
   <template>
-    <style>a { color: #fff; }</style>
     <template if="{{itemsToShow.isNotEmpty}}">
       <li>
         <a id="{{camelCaseName}}" href="{{categoryLink}}">{{category.name}}</a>
       </li>
-      <ul class="collapse in">
+      <ul class="minimap-sublist collapse in">
         <template repeat="{{itemsToShow}}">
-          <li><a href="#{{anchorHref}}">{{decoratedName}}</a></li>
+          <li><a href="{{prefixedAnchorHref}}">{{decoratedName}}</a></li>
         </template>
       </ul>
     </template>
@@ -390,7 +390,7 @@
 <polymer-element name="dartdoc-minimap-library">
   <template>
     <div class="well well-sm nav affix-right" id="minimap">
-      <a href="#{{item.linkHref}}">{{item.decoratedName}}</a>
+      <a href="{{item.prefixedLinkHref}}">{{item.decoratedName}}</a>
       <ul>
         <dartdoc-minimap category="{{item.operators}}" item="{{item}}">
         </dartdoc-minimap>
@@ -413,7 +413,8 @@
 <template>
   <div class="list-group affix-left" id="library-panel">
     <template repeat="{{viewer.libraries}}">
-      <a href="#{{linkHref}}" class="list-group-item">{{decoratedName}}</a>
+      <a href="{{prefixedLinkHref}}" class="list-group-item">
+          {{decoratedName}}</a>
     </template>
   </div>
 </template>
@@ -422,7 +423,7 @@
 <polymer-element name="dartdoc-minimap-class">
   <template>
     <div class="well well-sm nav affix-right" id="minimap">
-      <a href="#{{item.linkHref}}">{{item.decoratedName}}</a>
+      <a href="{{item.anchorLinkHref}}">{{item.decoratedName}}</a>
       <ul>
         <dartdoc-minimap category="{{item.constructors}}" item="{{item}}">
         </dartdoc-minimap>
@@ -445,7 +446,8 @@
   <template>
     <ul class="nav navbar-nav">
       <template repeat="{{breadcrumbs}}">
-        <li><a class="btn-link" href="#{{linkHref}}">{{decoratedName}}</a></li>
+        <li><a class="btn-link" href="{{prefixedLinkHref}}">
+          {{decoratedName}}</a></li>
       </template>
       <template if="{{lastCrumb}}">
         <li class="active">
@@ -459,6 +461,7 @@
 <polymer-element name="dartdoc-main">
   <template>
     <div class="navbar navbar-fixed-top">
+      <img src="static/loading.gif" id="loading-indicator" style="display:none">
       <div class="navbar-inner">
         <button type="button" class="navbar-toggle" id="nav-collapse-button" on-click="{{navHideShow}}">
           <span class="icon-bar"></span>
