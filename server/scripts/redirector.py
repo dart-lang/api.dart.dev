@@ -49,13 +49,6 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     },
     {
       'key': 'latest_be_docgen_version',
-      'prefix': '/apidocs/channels/be/latest',
-      'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
-      'channel': 'be',
-      'docgen' : True,
-    },
-    {
-      'key': 'latest_be_docgen_version',
       'prefix': '/apidocs/channels/be/docs',
       'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
       'channel': 'be',
@@ -85,14 +78,16 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     },
     {
       'key': 'latest_dev_docgen_version',
-      'prefix': '/apidocs/channels/dev/latest',
+      'prefix': '/apidocs/channels/dev/docs',
       'version_file': LATEST_DEV_CHANNEL_VERSION_FILE,
       'channel': 'dev',
+      'docgen' : 'true',
     },
     {
       'prefix': '/apidocs/channels/dev',
       'channel': 'dev',
       'manual_revision': True,
+      'docgen' : True,
     },
     {
       'key': 'latest_stable_doc_version',
@@ -102,9 +97,10 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     },
     {
       'key': 'latest_stable_docgen_version',
-      'prefix': '/apidocs/channels/stable/latest',
+      'prefix': '/apidocs/channels/stable/docs',
       'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
       'channel': 'stable',
+      'docgen' : True,
     },
     {
       'prefix': '/docs/channels/stable',
@@ -115,6 +111,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       'prefix': '/apidocs/channels/stable',
         'channel': 'stable',
         'manual_revision': True,
+        'docgen' : True,
     },
   ]
 
@@ -283,15 +280,6 @@ application = WSGIApplication(
     Route('/docs/bleeding_edge<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
 
     # If it requests a VERSION file, just serve up the version from our internal storage.
-#### Are these first three lines necessary?
-#### Redirect for #home to #!home
-#### Redirects for apidoc?
-    Route('/docs/channels/be/latest/docgen/VERSION', 
-        ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
-    Route('/docs/channels/dev/latest/docgen/VERSION', 
-        ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
-    Route('/docs/channels/stable/latest/docgen/VERSION', 
-        ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
     Route('/apidocs/channels/be/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
     Route('/apidocs/channels/dev/docs/VERSION', 
@@ -299,12 +287,10 @@ application = WSGIApplication(
     Route('/apidocs/channels/stable/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
 
-    # Redirect docs requests to the data directories.
+    # Data requests go to cloud storage
     Route('/apidocs/channels/be/docs<path:.*>', ApiDocs),
-    Route('/apidocs/channels/dev/docs<path:.*>', 
-        RedirectHandler, defaults={'_uri': redir_docgen_dev}),
-    Route('/apidocs/channels/stable/docs<path:.*>', 
-        RedirectHandler, defaults={'_uri': redir_docgen_stable}),
+    Route('/apidocs/channels/dev/docs<path:.*>', ApiDocs),
+    Route('/apidocs/channels/stable/docs<path:.*>', ApiDocs),
 
     # Add the trailing / if necessary.
     Route('/apidocs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
