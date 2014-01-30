@@ -31,6 +31,15 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     'latest_stable_docgen_version': None,
   }
 
+  latest_version_names = {
+    'latest_be_doc_version': None,
+    'latest_dev_doc_version': None,
+    'latest_stable_doc_version': None,
+    'latest_be_docgen_version': None,
+    'latest_dev_docgen_version': None,
+    'latest_stable_docgen_version': None,
+  }
+
   docs_renames = [
     {
       'key': 'latest_be_doc_version',
@@ -109,22 +118,25 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     },
   ]
 
-  def reload_latest_version(self, version_file_location):
+  def reload_latest_version(self, version_file_location, version_key):
     data = None
     with files.open(version_file_location, 'r') as f:
       data = json.loads(f.read(1024))
       ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
-    return int(data['revision'])
-
+    revision = int(data['revision'])
+    version = data['version']
+    ApiDocs.latest_versions[version_key] = revision
+    ApiDocs.latest_version_names[version_key] = version
+    return revision
 
   # TODO: put into memcache?
-  def get_latest_version(self, version, version_file_location):
+  def get_latest_version(self, version, version_file_location, version_key):
     forced_reload = self.request.get('force_reload')
     if (forced_reload or
           version is None or
           ApiDocs.next_doc_version_check is None or
           datetime.now() > ApiDocs.next_doc_version_check):
-      new_version = self.reload_latest_version(version_file_location)
+      new_version = self.reload_latest_version(version_file_location, version_key)
       return new_version
     else:
       return version
@@ -170,8 +182,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           version_num = None
         else:
           version_num = self.get_latest_version(
-              ApiDocs.latest_versions[key], version_file)
-          ApiDocs.latest_versions[key] = version_num
+              ApiDocs.latest_versions[key], version_file, key)
         path = self.build_gcs_path(version_num, postfix, channel=channel)
         break
 
@@ -184,10 +195,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     if versionRequest:
       version_file_entry = [x for x in self.docs_renames if x.get('key') == versionRequest]
       version_file = version_file_entry[0]['version_file']
-      version_num = self.get_latest_version(
-          ApiDocs.latest_versions[versionRequest], version_file)
-      ApiDocs.latest_versions[versionRequest] = version_num
-      self.response.text = unicode(version_num)
+      self.get_latest_version(
+          ApiDocs.latest_versions[versionRequest], version_file, versionRequest)
+      self.response.text = ApiDocs.latest_version_names[versionRequest]
       return
     gcs_path = self.resolve_doc_path()
     if not gcs_path:
@@ -284,9 +294,9 @@ application = WSGIApplication(
         ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
     Route('/apidocs/channels/be/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
-    Route('/docs/channels/dev/docs/VERSION', 
+    Route('/apidocs/channels/dev/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
-    Route('/docs/channels/stable/docs/VERSION', 
+    Route('/apidocs/channels/stable/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
 
     # Redirect docs requests to the data directories.

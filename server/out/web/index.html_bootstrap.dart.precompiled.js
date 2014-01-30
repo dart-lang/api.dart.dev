@@ -18953,7 +18953,7 @@ gPV:[function(a){var z,y,x
 z=a.pg
 if(z!=null)return z
 a.pg=""
-z=W.It(P.jW(C.o5,"VERSION",C.dy,!1),null,null).ml(new A.hz(a))
+z=W.It(P.jW(C.o5,"docs/VERSION",C.dy,!1),null,null).ml(new A.hz(a))
 y=$.X3
 x=P.VH(new A.OdH(),y)
 z.au(H.VM(new P.vs(0,y,null,null,null,$.X3.cR(null),x,null),[null]))
