@@ -146,7 +146,7 @@ class MainElement extends DartdocElement with ChangeNotifier  {
     if (_buildIdentifier != null) return _buildIdentifier;
 
     _buildIdentifier = ''; // Don't try twice.
-    retrieveFileContents('docs/VERSION').then((version) {
+    retrieveFileContents('VERSION').then((version) {
       _buildIdentifier = notifyPropertyChange(#buildIdentifier,
           _buildIdentifier, "r $version");
     }).catchError((_) => null);

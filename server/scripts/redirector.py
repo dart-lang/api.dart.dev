@@ -26,6 +26,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     'latest_be_doc_version': None,
     'latest_dev_doc_version': None,
     'latest_stable_doc_version': None,
+    'latest_be_docgen_version': None,
+    'latest_dev_docgen_version': None,
+    'latest_stable_docgen_version': None,
   }
 
   docs_renames = [
@@ -40,6 +43,14 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       'prefix': '/apidocs/channels/be/latest',
       'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
       'channel': 'be',
+      'docgen' : True,
+    },
+    {
+      'key': 'latest_be_docgen_version',
+      'prefix': '/apidocs/channels/be/docs',
+      'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
+      'channel': 'be',
+      'docgen' : True,
     },
     {
       'prefix': '/docs/channels/be',
@@ -50,6 +61,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       'prefix': '/apidocs/channels/be',
       'channel': 'be',
       'manual_revision': True,
+      'docgen' : True,
     },
     {
       'key': 'latest_dev_doc_version',
@@ -104,6 +116,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
     return int(data['revision'])
 
+
   # TODO: put into memcache?
   def get_latest_version(self, version, version_file_location):
     forced_reload = self.request.get('force_reload')
@@ -147,6 +160,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         manual_revision = rename.get('manual_revision', False)
 
         postfix = self.request.path[len(prefix):]
+        if (rename.get('docgen', False)) :
+          postfix = "/docgen" + postfix
 
         # If the URL doesn't include '/latest', we assume it's starting with a
         # revision number, so we don't prepend the gcs path with the latest
@@ -257,9 +272,25 @@ application = WSGIApplication(
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
     Route('/docs/bleeding_edge<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
 
+    # If it requests a VERSION file, just serve up the version from our internal storage.
+#### Are these first three lines necessary?
+#### Redirect for #home to #!home
+#### Redirects for apidoc?
+    Route('/docs/channels/be/latest/docgen/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
+    Route('/docs/channels/dev/latest/docgen/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
+    Route('/docs/channels/stable/latest/docgen/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
+    Route('/apidocs/channels/be/docs/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
+    Route('/docs/channels/dev/docs/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
+    Route('/docs/channels/stable/docs/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
+
     # Redirect docs requests to the data directories.
-    Route('/apidocs/channels/be/docs<path:.*>', 
-        RedirectHandler, defaults={'_uri': redir_docgen_be}),
+    Route('/apidocs/channels/be/docs<path:.*>', ApiDocs),
     Route('/apidocs/channels/dev/docs<path:.*>', 
         RedirectHandler, defaults={'_uri': redir_docgen_dev}),
     Route('/apidocs/channels/stable/docs<path:.*>', 
@@ -269,14 +300,6 @@ application = WSGIApplication(
     Route('/apidocs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
     Route('/apidocs/channels/dev', RedirectHandler, defaults={'_uri': '/apidocs/channels/dev/'}),
     Route('/apidocs/channels/stable', RedirectHandler, defaults={'_uri': '/apidocs/channels/stable/'}),
-
-    # If it requests a VERSION file, just serve up the version from our internal storage.
-    Route('/docs/channels/be/latest/docgen/VERSION', 
-        ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
-    Route('/docs/channels/dev/latest/docgen/VERSION', 
-        ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
-    Route('/docs/channels/stable/latest/docgen/VERSION', 
-        ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
 
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),

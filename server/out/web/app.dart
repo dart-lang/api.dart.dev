@@ -345,11 +345,11 @@ class Viewer extends ChangeNotifier {
     // Links are the hash part of the URI without the leading #.
     // Valid forms for links are
     // home - the global home page
-    // library.memberName.subMember#anchor
-    // where #anchor is optional and library can be any of
+    // library.memberName.subMember@anchor
+    // where @anchor is optional and library can be any of
     // dart:library, library-foo, package-foo/library-bar
     // So we need an unambiguous form.
-    // [package/]libraryWithDashes[.class.method]#anchor
+    // [package/]libraryWithDashes[.class.method]@anchor
 
     // We will tolerate colons in the location instead of dashes, though
     var decoded = Uri.decodeFull(uri);

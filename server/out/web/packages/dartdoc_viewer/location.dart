@@ -40,15 +40,22 @@ const CONSTRUCTOR_SEPARATOR = "-";
 
 
 const LOCATION_PREFIX = "#!";
+const OLD_LOCATION_PREFIX = "#";
 
 // Prefix the string with the separator we are using between the main
 // URL and the location.
 locationPrefixed(String s) => "$LOCATION_PREFIX$s";
 
 // Remove the anchor prefix from [s] if it's present.
-locationDeprefixed(String s) =>
-    (s.length > 0 && s.startsWith(LOCATION_PREFIX)) ?
-        s.substring(LOCATION_PREFIX.length, s.length) : s;
+locationDeprefixed(String s) {
+  if (s.startsWith(LOCATION_PREFIX)) {
+    return s.substring(LOCATION_PREFIX.length, s.length);
+  } else if (s.startsWith(OLD_LOCATION_PREFIX)) {
+    return s.substring(OLD_LOCATION_PREFIX.length, s.length);
+  } else {
+    return s;
+  }
+}
 
 // This represents a component described by a URI and can give us
 // the URI given the component or vice versa.

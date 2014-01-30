@@ -11203,6 +11203,10 @@ GS:{
 call$1:[function(a){return J.QC(a)},"call$1",null,2,0,null,343,"call"],
 $isEH:true}}],["location","package:dartdoc_viewer/location.dart",,Y,{
 "":"",
+j9:[function(a){var z=J.rY(a)
+if(z.nC(a,"#!"))return z.JT(a,2,z.gB(a))
+else if(z.nC(a,"#"))return z.JT(a,1,z.gB(a))
+else return a},"call$1","Nu",2,0,null,86],
 Mm:{
 "":"a;rn<,oH,Wa<,rh?,dU?",
 n:[function(a,b){var z
@@ -17846,8 +17850,7 @@ z=J.j0(C.ol.gmW(window))
 y=J.Ot(C.ol.gmW(window))
 x=J.rY(y)
 if(x.nC(y,"?_escaped_fragment_="))return x.JT(y,20,x.gB(y))
-else{x=J.U6(z)
-return J.xZ(x.gB(z),0)&&x.nC(z,"#!")?x.JT(z,2,x.gB(z)):z}},"call$0","IK",0,0,null],
+else return Y.j9(z)},"call$0","IK",0,0,null],
 af:[function(a){var z,y
 z=V.YE()
 y=$.eU()
@@ -18950,7 +18953,7 @@ gPV:[function(a){var z,y,x
 z=a.pg
 if(z!=null)return z
 a.pg=""
-z=W.It(P.jW(C.o5,"docs/VERSION",C.dy,!1),null,null).ml(new A.hz(a))
+z=W.It(P.jW(C.o5,"VERSION",C.dy,!1),null,null).ml(new A.hz(a))
 y=$.X3
 x=P.VH(new A.OdH(),y)
 z.au(H.VM(new P.vs(0,y,null,null,null,$.X3.cR(null),x,null),[null]))
