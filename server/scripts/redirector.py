@@ -270,7 +270,33 @@ def redir_docgen_stable(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/docgen' + kwargs['path']
 
 def redir_pkgs(handler, *args, **kwargs):
-  return '/docs/channels/stable/latest/' + kwargs['pkg'] + '.html'
+  return '/apidocs/channels/stable/#!' + kwargs['pkg']
+
+# Redirect old apidoc URIs
+def redir_old(kwargs, channel):
+  old_path = kwargs['path'][1:]
+  split = old_path.split('/')
+  firstPart = split[0]
+  packages = ['args', 'crypto', 'custom_element', 'fixnum', 'http_server',
+    'intl', 'json', 'logging', 'matcher', 'mime', 'mock', 'observe', 'path',
+    'polymer', 'polymer_expressions', 'sequence_zip', 'serialization',
+    'source_maps', 'template_binding', 'unittest', 'unmodifiable_collection',
+    'utf']
+  if firstPart in packages:
+    prefix = firstPart + '/' + firstPart
+  else: 
+    prefix = firstPart.replace('_', ':', 1)
+  new_path = prefix + '.' + split[1].replace('.html','')
+  return '/apidocs/channels/' + channel + '/#!' + new_path
+
+def redir_old_be(handler, *args, **kwargs):
+  return redir_old(kwargs, 'be')
+
+def redir_old_dev(handler, *args, **kwargs):
+  return redir_old(kwargs, 'dev')
+
+def redir_old_stable(handler, *args, **kwargs):
+  return redir_old(kwargs, 'stable')
 
 application = WSGIApplication(
   [
@@ -293,13 +319,23 @@ application = WSGIApplication(
     Route('/apidocs/channels/stable/docs<path:.*>', ApiDocs),
 
     # Add the trailing / if necessary.
+    Route('/docs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
+    Route('/docs/channels/dev', RedirectHandler, defaults={'_uri': '/apidocs/channels/dev/'}),
+    Route('/docs/channels/stable', RedirectHandler, defaults={'_uri': '/apidocs/channels/stable/'}),
     Route('/apidocs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
     Route('/apidocs/channels/dev', RedirectHandler, defaults={'_uri': '/apidocs/channels/dev/'}),
     Route('/apidocs/channels/stable', RedirectHandler, defaults={'_uri': '/apidocs/channels/stable/'}),
 
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),
+
+     # Redirect apidoc links
+    Route('/docs/channels/be/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_old_be}),
+    Route('/docs/channels/dev/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_old_dev}),
+    Route('/docs/channels/stable/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_old_stable}),
+
     ('/docs.*', ApiDocs),
+
     Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
   ],
   debug=True)
