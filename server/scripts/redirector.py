@@ -249,7 +249,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
-  return '/apidocs/channels/stable/#!home'
+  # Should be #! if we use that scheme.
+  return '/apidocs/channels/stable/#home'
 
 def redir_dom(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/dart_html' + kwargs['path']
@@ -270,7 +271,8 @@ def redir_docgen_stable(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/docgen' + kwargs['path']
 
 def redir_pkgs(handler, *args, **kwargs):
-  return '/apidocs/channels/stable/#!' + kwargs['pkg']
+  # Should be #! if we use that scheme
+  return '/apidocs/channels/stable/#' + kwargs['pkg']
 
 # Redirect old apidoc URIs
 def redir_old(kwargs, channel):
@@ -287,7 +289,8 @@ def redir_old(kwargs, channel):
   else: 
     prefix = firstPart.replace('_', ':', 1)
   new_path = prefix + '.' + split[1].replace('.html','')
-  return '/apidocs/channels/' + channel + '/#!' + new_path
+  # Should be #! if we use that scheme
+  return '/apidocs/channels/' + channel + '/#' + new_path
 
 def redir_old_be(handler, *args, **kwargs):
   return redir_old(kwargs, 'be')

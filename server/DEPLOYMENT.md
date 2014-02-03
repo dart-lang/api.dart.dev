@@ -1,4 +1,8 @@
-Deploying the dartdoc polymer viewer is interesting.
+This includes a copy of the dartdoc_viewer application in the out directory.
 
-We put the compiled version of the dartdoc-viewer project on github into the server/out directory.
-So you need to copy that over top of /out, then deploy the app. 
+To deploy it, git clone dartdoc-viewer from github and either run
+   pub build
+or
+   dart deploy.dart
+and replace the existing "server/out" directory with the resulting compiled code.
+
