@@ -38,20 +38,22 @@ const PARAMETER_SEPARATOR = ",";
 /// an unnamed constructor. e.g. `Future.Future-`
 const CONSTRUCTOR_SEPARATOR = "-";
 
-
-const LOCATION_PREFIX = "#!";
-const OLD_LOCATION_PREFIX = "#";
+/// The prefix to be used for anchors. This is here so that we can easily
+/// factor it out into being #! and use the _escaped_fragment_ scheme
+/// for providing static versions of pages if we get them.
+const AJAX_LOCATION_PREFIX = "#!";
+const BASIC_LOCATION_PREFIX = "#";
 
 // Prefix the string with the separator we are using between the main
 // URL and the location.
-locationPrefixed(String s) => "$LOCATION_PREFIX$s";
+locationPrefixed(String s) => "$BASIC_LOCATION_PREFIX$s";
 
 // Remove the anchor prefix from [s] if it's present.
 locationDeprefixed(String s) {
-  if (s.startsWith(LOCATION_PREFIX)) {
-    return s.substring(LOCATION_PREFIX.length, s.length);
-  } else if (s.startsWith(OLD_LOCATION_PREFIX)) {
-    return s.substring(OLD_LOCATION_PREFIX.length, s.length);
+  if (s.startsWith(AJAX_LOCATION_PREFIX)) {
+    return s.substring(AJAX_LOCATION_PREFIX.length, s.length);
+  } else if (s.startsWith(BASIC_LOCATION_PREFIX)) {
+    return s.substring(BASIC_LOCATION_PREFIX.length, s.length);
   } else {
     return s;
   }
@@ -107,7 +109,7 @@ class DocsLocation {
   void _extractPieces(String uri) {
 
     if (uri == null || uri.length == 0) return;
-    var position = uri.startsWith(LOCATION_PREFIX) ? LOCATION_PREFIX.length : 0;
+    var position = uri.startsWith(AJAX_LOCATION_PREFIX) ? AJAX_LOCATION_PREFIX.length : 0;
 
     _check(regex) {
       var match = regex.matchAsPrefix(uri, position);
