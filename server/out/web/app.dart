@@ -55,6 +55,12 @@ class Viewer extends ChangeNotifier {
   /// The homepage from which every [Item] can be reached.
   @reflectable @observable Home get homePage => __$homePage; Home __$homePage; @reflectable set homePage(Home value) { __$homePage = notifyPropertyChange(#homePage, __$homePage, value); }
 
+  /// The page we should display first and which we go back to if
+  /// there's an error and we can't find any sub-page. By default
+  /// this is the same as the homePage, but if we're showing
+  /// docs for a package, it may be different.
+  @reflectable @observable Item get startPage => __$startPage; Item __$startPage; @reflectable set startPage(Item value) { __$startPage = notifyPropertyChange(#startPage, __$startPage, value); }
+
   bool _showPkgLibraries = false;
   @observable bool get showPkgLibraries => _showPkgLibraries;
   @observable set showPkgLibraries(bool newValue) {
@@ -124,6 +130,9 @@ class Viewer extends ChangeNotifier {
       var libraries = JSON.decode(response);
       isYaml = libraries['filetype'] == 'yaml';
       homePage = new Home(libraries);
+      var startPageName = libraries['startPage'];
+      startPage = startPageName == null ? homePage :
+          homePage.memberNamed(startPageName, orElse: () => homePage);
     });
     var indexFuture = retrieveFileContents('docs/index.json').then(
         (String json) {
@@ -191,7 +200,7 @@ class Viewer extends ChangeNotifier {
     // Fall back to home if we haven't found anything at all. This should
     // only happen on an invalid initial page or to terminate recursion.
     if (location.isEmpty || location == homePage.location) {
-       return [homePage, homePage.location];
+       return [startPage, startPage.location];
     }
 
     var usablePage = page.firstItemUsableAsPage;
@@ -421,6 +430,10 @@ String location;
 /// with an _escaped_fragment_ in front of them. Assume that's the only query
 /// parameter.
 const _ESCAPED_FRAGMENT = '?_escaped_fragment_=';
+
+/// From the URL, determine what location it corresponds to. We will
+/// accept hashes that start with [AJAX_LOCATION_PREFIX],
+/// [BASIC_LOCATION_PREFIX], and [_ESCAPED_FRAGMENT].
 String findLocation() {
   var hash = window.location.hash;
   var query = window.location.search;
@@ -464,7 +477,7 @@ void navigate(event) {
     if (location != null && location != '') {
       viewer.handleLink(location);
     } else {
-      viewer.currentPage = viewer.homePage;
+      viewer.currentPage = viewer.startPage;
     }
   });
 }

@@ -40,7 +40,8 @@ const CONSTRUCTOR_SEPARATOR = "-";
 
 /// The prefix to be used for anchors. This is here so that we can easily
 /// factor it out into being #! and use the _escaped_fragment_ scheme
-/// for providing static versions of pages if we get them.
+/// for providing static versions of pages if we get them. See
+/// https://developers.google.com/webmasters/ajax-crawling/
 const AJAX_LOCATION_PREFIX = "#!";
 const BASIC_LOCATION_PREFIX = "#";
 
@@ -109,7 +110,8 @@ class DocsLocation {
   void _extractPieces(String uri) {
 
     if (uri == null || uri.length == 0) return;
-    var position = uri.startsWith(AJAX_LOCATION_PREFIX) ? AJAX_LOCATION_PREFIX.length : 0;
+    var position = uri.startsWith(AJAX_LOCATION_PREFIX) ?
+        AJAX_LOCATION_PREFIX.length : 0;
 
     _check(regex) {
       var match = regex.matchAsPrefix(uri, position);

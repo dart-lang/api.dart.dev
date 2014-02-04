@@ -279,6 +279,10 @@ def redir_old(kwargs, channel):
   old_path = kwargs['path'][1:]
   split = old_path.split('/')
   firstPart = split[0]
+  if (len(split) > 1):
+    secondPart = '.' + split[1]
+  else:
+    secondPart = ''
   packages = ['args', 'crypto', 'custom_element', 'fixnum', 'http_server',
     'intl', 'json', 'logging', 'matcher', 'mime', 'mock', 'observe', 'path',
     'polymer', 'polymer_expressions', 'sequence_zip', 'serialization',
@@ -287,8 +291,8 @@ def redir_old(kwargs, channel):
   if firstPart in packages:
     prefix = firstPart + '/' + firstPart
   else: 
-    prefix = firstPart.replace('_', ':', 1)
-  new_path = prefix + '.' + split[1].replace('.html','')
+    prefix = firstPart.replace('_', ':', 1).replace('.html', '')
+  new_path = prefix + secondPart.replace('.html','')
   # Should be #! if we use that scheme
   return '/apidocs/channels/' + channel + '/#' + new_path
 

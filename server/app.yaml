@@ -36,6 +36,10 @@ handlers:
   static_files: out/web/index.html
   upload: out/web/index.html
 
+- url: /favicon.ico
+  static_files: out/web/static/favicon.ico
+  upload: out/web/static.favicon.ico
+
 - url: /apidocs/channels/stable/docs/.*
   script: scripts.redirector.application
 
