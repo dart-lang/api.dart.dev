@@ -344,6 +344,6 @@ application = WSGIApplication(
 
     ('/docs.*', ApiDocs),
 
-    Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
+    Route('<path:.*>', RedirectHandler, defaults={'_uri': redir_old_stable})
   ],
   debug=True)
