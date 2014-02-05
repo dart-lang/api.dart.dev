@@ -131,6 +131,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     forced_reload = self.request.get('force_reload')
     if (forced_reload or
           version is None or
+          version_file_location == LATEST_BE_CHANNEL_VERSION_FILE or
           ApiDocs.next_doc_version_check is None or
           datetime.now() > ApiDocs.next_doc_version_check):
       new_version = self.reload_latest_version(version_file_location, version_key)
