@@ -38,7 +38,15 @@ handlers:
 
 - url: /favicon.ico
   static_files: out/web/static/favicon.ico
-  upload: out/web/static.favicon.ico
+  upload: out/web/static/favicon.ico
+
+- url: /sitemap.txt
+  static_files: out/web/sitemap.txt
+  upload: out/web/sitemap.txt
+
+- url: /google76d23419c98fdd46.html
+  static_files: out/web/google76d23419c98fdd46.html
+  upload: out/web/google76d23419c98fdd46.html
 
 - url: /apidocs/channels/stable/docs/.*
   script: scripts.redirector.application
