@@ -293,6 +293,10 @@ def redir_old(kwargs, channel):
     prefix = firstPart + '/' + firstPart
   else: 
     prefix = firstPart.replace('_', ':', 1).replace('.html', '')
+    # For old URLs like core/String.html. We know it's not a package, so
+    # it ought to start with a dart: library
+    if (not prefix.startswith("dart:")):
+      prefix = "dart:" + prefix
   new_path = prefix + secondPart.replace('.html','')
   # Should be #! if we use that scheme
   return '/apidocs/channels/' + channel + '/#' + new_path

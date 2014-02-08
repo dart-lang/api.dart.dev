@@ -55,11 +55,9 @@
     <template if="{{item.isStatic}}">static</template>
     <template if="{{item.isConstant}}">const</template>
     <template if="{{item.isSetter}}">
-      set&nbsp;
-      <b><a id="{{idName}}" href="{{item.prefixedAnchorHref}}">{{name}}</a></b>(
-      <dartdoc-annotation annotations="{{item.setterParameter.annotations}}">
-      </dartdoc-annotation>
-      <dartdoc-type type="{{item.setterParameter.type}}"></dartdoc-type>
+      set
+      <b><a id="{{idName}}" href="{{item.prefixedAnchorHref}}">{{name}}</a></b>(<dartdoc-annotation annotations="{{item.setterParameter.annotations}}">
+      </dartdoc-annotation><dartdoc-type type="{{item.setterParameter.type}}"></dartdoc-type>
       {{item.setterParameter.decoratedName}})
     </template>
     <template if="{{isNotSetter}}">
@@ -155,8 +153,7 @@
             <dartdoc-type type="{{item.type}}"></dartdoc-type>
           </template>
           <b><a id="{{idName}}" href="{{item.prefixedAnchorHref}}">
-          {{item.decoratedName}}</a></b>
-          <dartdoc-parameter parameters="{{item.parameters}}">
+          {{item.decoratedName}}</a></b><dartdoc-parameter parameters="{{item.parameters}}">
           </dartdoc-parameter>
         </span>
       </p>
@@ -462,7 +459,7 @@
 <polymer-element name="dartdoc-main">
   <template>
     <div class="navbar navbar-fixed-top">
-      <img src="static/loading.gif" id="loading-indicator" style="display:none">
+      <img src="packages/dartdoc_viewer/components/loading.gif" id="loading-indicator" style="display:none">
       <div class="navbar-inner">
         <button type="button" class="navbar-toggle" id="nav-collapse-button" on-click="{{navHideShow}}">
           <span class="icon-bar"></span>
