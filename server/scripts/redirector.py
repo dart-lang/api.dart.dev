@@ -26,23 +26,115 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     'latest_be_doc_version': None,
     'latest_dev_doc_version': None,
     'latest_stable_doc_version': None,
+    'latest_be_docgen_version': None,
+    'latest_dev_docgen_version': None,
+    'latest_stable_docgen_version': None,
   }
 
-  def reload_latest_version(self, version_file_location):
+  latest_version_names = {
+    'latest_be_doc_version': None,
+    'latest_dev_doc_version': None,
+    'latest_stable_doc_version': None,
+    'latest_be_docgen_version': None,
+    'latest_dev_docgen_version': None,
+    'latest_stable_docgen_version': None,
+  }
+
+  docs_renames = [
+    {
+      'key': 'latest_be_doc_version',
+      'prefix': '/docs/channels/be/latest',
+      'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
+      'channel': 'be',
+    },
+    {
+      'key': 'latest_be_docgen_version',
+      'prefix': '/apidocs/channels/be/docs',
+      'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
+      'channel': 'be',
+      'docgen' : True,
+    },
+    {
+      'prefix': '/docs/channels/be',
+      'channel': 'be',
+      'manual_revision': True,
+    },
+    {
+      'prefix': '/apidocs/channels/be',
+      'channel': 'be',
+      'manual_revision': True,
+      'docgen' : True,
+    },
+    {
+      'key': 'latest_dev_doc_version',
+      'prefix': '/docs/channels/dev/latest',
+      'version_file': LATEST_DEV_CHANNEL_VERSION_FILE,
+      'channel': 'dev',
+    },
+    {
+      'prefix': '/docs/channels/dev',
+      'channel': 'dev',
+      'manual_revision': True,
+    },
+    {
+      'key': 'latest_dev_docgen_version',
+      'prefix': '/apidocs/channels/dev/docs',
+      'version_file': LATEST_DEV_CHANNEL_VERSION_FILE,
+      'channel': 'dev',
+      'docgen' : 'true',
+    },
+    {
+      'prefix': '/apidocs/channels/dev',
+      'channel': 'dev',
+      'manual_revision': True,
+      'docgen' : True,
+    },
+    {
+      'key': 'latest_stable_doc_version',
+      'prefix': '/docs/channels/stable/latest',
+      'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
+      'channel': 'stable',
+    },
+    {
+      'key': 'latest_stable_docgen_version',
+      'prefix': '/apidocs/channels/stable/docs',
+      'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
+      'channel': 'stable',
+      'docgen' : True,
+    },
+    {
+      'prefix': '/docs/channels/stable',
+        'channel': 'stable',
+        'manual_revision': True,
+    },
+    {
+      'prefix': '/apidocs/channels/stable',
+        'channel': 'stable',
+        'manual_revision': True,
+        'docgen' : True,
+    },
+  ]
+
+  def reload_latest_version(self, version_file_location, version_key):
     data = None
     with files.open(version_file_location, 'r') as f:
       data = json.loads(f.read(1024))
       ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
-    return int(data['revision'])
+    revision = int(data['revision'])
+    version = data['version']
+    ApiDocs.latest_versions[version_key] = revision
+    ApiDocs.latest_version_names[version_key] = version
+    return revision
 
   # TODO: put into memcache?
-  def get_latest_version(self, version, version_file_location):
+  def get_latest_version(self, version, version_file_location, version_key):
     forced_reload = self.request.get('force_reload')
     if (forced_reload or
           version is None or
+          version_file_location == LATEST_BE_CHANNEL_VERSION_FILE or
           ApiDocs.next_doc_version_check is None or
           datetime.now() > ApiDocs.next_doc_version_check):
-      new_version = self.reload_latest_version(version_file_location)
+      new_version = self.reload_latest_version(version_file_location, version_key)
       return new_version
     else:
       return version
@@ -68,44 +160,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       return '/gs/dartlang-api-docs/%s%s' % (version_num, postfix)
 
   def resolve_doc_path(self):
-    docs_renames = [
-      {
-        'key': 'latest_be_doc_version',
-        'prefix': '/docs/channels/be/latest',
-        'version_file': LATEST_BE_CHANNEL_VERSION_FILE,
-        'channel': 'be',
-      },
-      {
-        'prefix': '/docs/channels/be',
-        'channel': 'be',
-        'manual_revision': True,
-      },
-      {
-        'key': 'latest_dev_doc_version',
-        'prefix': '/docs/channels/dev/latest',
-        'version_file': LATEST_DEV_CHANNEL_VERSION_FILE,
-        'channel': 'dev',
-      },
-      {
-        'prefix': '/docs/channels/dev',
-        'channel': 'dev',
-        'manual_revision': True,
-      },
-      {
-        'key': 'latest_stable_doc_version',
-        'prefix': '/docs/channels/stable/latest',
-        'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
-        'channel': 'stable',
-      },
-      {
-        'prefix': '/docs/channels/stable',
-        'channel': 'stable',
-        'manual_revision': True,
-      },
-    ]
-
     path = None
-    for rename in docs_renames:
+    for rename in self.docs_renames:
       prefix = rename['prefix']
       if self.request.path.startswith(prefix):
         key = rename.get('key', None)
@@ -114,6 +170,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         manual_revision = rename.get('manual_revision', False)
 
         postfix = self.request.path[len(prefix):]
+        if (rename.get('docgen', False)) :
+          postfix = "/docgen" + postfix
 
         # If the URL doesn't include '/latest', we assume it's starting with a
         # revision number, so we don't prepend the gcs path with the latest
@@ -122,8 +180,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           version_num = None
         else:
           version_num = self.get_latest_version(
-              ApiDocs.latest_versions[key], version_file)
-          ApiDocs.latest_versions[key] = version_num
+              ApiDocs.latest_versions[key], version_file, key)
         path = self.build_gcs_path(version_num, postfix, channel=channel)
         break
 
@@ -131,7 +188,15 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       path = path + 'index.html'
     return path
 
-  def get(self):
+  def get(self, *args, **kwargs):
+    versionRequest = kwargs.pop('_versionRequest', None)
+    if versionRequest:
+      version_file_entry = [x for x in self.docs_renames if x.get('key') == versionRequest]
+      version_file = version_file_entry[0]['version_file']
+      self.get_latest_version(
+          ApiDocs.latest_versions[versionRequest], version_file, versionRequest)
+      self.response.text = ApiDocs.latest_version_names[versionRequest]
+      return
     gcs_path = self.resolve_doc_path()
     if not gcs_path:
       self.error(404)
@@ -185,10 +250,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
-  if re.search(r'^(async|collection|convert|core|html|indexed_db|io|isolate|js|math|mirrors|svg|typed_data|web_audio|web_gl|web_sql)', path):
-    return '/docs/channels/stable/latest/dart_' + path
-  else:
-    return '/docs/channels/stable/latest/' + path
+  # Should be #! if we use that scheme.
+  return '/apidocs/channels/stable/#home'
 
 def redir_dom(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/dart_html' + kwargs['path']
@@ -196,11 +259,58 @@ def redir_dom(handler, *args, **kwargs):
 def redir_continuous(handler, *args, **kwargs):
   return '/docs/channels/be/latest' + kwargs['path']
 
+def redir_docgen_be(handler, *args, **kwargs):
+  return '/docs/channels/be/latest/docgen' + kwargs['path']
+
+def redir_docgen_dev(handler, *args, **kwargs):
+  return '/docs/channels/dev/latest/docgen' + kwargs['path']
+
 def redir_latest(handler, *args, **kwargs):
   return '/docs/channels/stable/latest' + kwargs['path']
 
+def redir_docgen_stable(handler, *args, **kwargs):
+  return '/docs/channels/stable/latest/docgen' + kwargs['path']
+
 def redir_pkgs(handler, *args, **kwargs):
-  return '/docs/channels/stable/latest/' + kwargs['pkg'] + '.html'
+  # Should be #! if we use that scheme
+  return '/apidocs/channels/stable/#' + kwargs['pkg']
+
+# Redirect old apidoc URIs
+def redir_old(kwargs, channel):
+  old_path = kwargs['path'][1:]
+  if (old_path == ''): 
+    return '/apidocs/channels/stable/#home'
+  split = old_path.split('/')
+  firstPart = split[0]
+  if (len(split) > 1):
+    secondPart = '.' + split[1]
+  else:
+    secondPart = ''
+  packages = ['args', 'crypto', 'custom_element', 'fixnum', 'http_server',
+    'intl', 'json', 'logging', 'matcher', 'mime', 'mock', 'observe', 'path',
+    'polymer', 'polymer_expressions', 'sequence_zip', 'serialization',
+    'source_maps', 'template_binding', 'unittest', 'unmodifiable_collection',
+    'utf']
+  if firstPart in packages:
+    prefix = firstPart + '/' + firstPart
+  else: 
+    prefix = firstPart.replace('_', ':', 1).replace('.html', '')
+    # For old URLs like core/String.html. We know it's not a package, so
+    # it ought to start with a dart: library
+    if (not prefix.startswith("dart:")):
+      prefix = "dart:" + prefix
+  new_path = prefix + secondPart.replace('.html','')
+  # Should be #! if we use that scheme
+  return '/apidocs/channels/' + channel + '/#' + new_path
+
+def redir_old_be(handler, *args, **kwargs):
+  return redir_old(kwargs, 'be')
+
+def redir_old_dev(handler, *args, **kwargs):
+  return redir_old(kwargs, 'dev')
+
+def redir_old_stable(handler, *args, **kwargs):
+  return redir_old(kwargs, 'stable')
 
 application = WSGIApplication(
   [
@@ -208,9 +318,38 @@ application = WSGIApplication(
         RedirectHandler, defaults={'_uri': redir_pkgs, '_code': 302}),
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
     Route('/docs/bleeding_edge<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
+
+    # If it requests a VERSION file, just serve up the version from our internal storage.
+    Route('/apidocs/channels/be/docs/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
+    Route('/apidocs/channels/dev/docs/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
+    Route('/apidocs/channels/stable/docs/VERSION', 
+        ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
+
+    # Data requests go to cloud storage
+    Route('/apidocs/channels/be/docs<path:.*>', ApiDocs),
+    Route('/apidocs/channels/dev/docs<path:.*>', ApiDocs),
+    Route('/apidocs/channels/stable/docs<path:.*>', ApiDocs),
+
+    # Add the trailing / if necessary.
+    Route('/docs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
+    Route('/docs/channels/dev', RedirectHandler, defaults={'_uri': '/apidocs/channels/dev/'}),
+    Route('/docs/channels/stable', RedirectHandler, defaults={'_uri': '/apidocs/channels/stable/'}),
+    Route('/apidocs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
+    Route('/apidocs/channels/dev', RedirectHandler, defaults={'_uri': '/apidocs/channels/dev/'}),
+    Route('/apidocs/channels/stable', RedirectHandler, defaults={'_uri': '/apidocs/channels/stable/'}),
+
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),
+
+     # Redirect apidoc links
+    Route('/docs/channels/be/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_old_be}),
+    Route('/docs/channels/dev/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_old_dev}),
+    Route('/docs/channels/stable/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_old_stable}),
+
     ('/docs.*', ApiDocs),
-    Route('/<path:.*>', RedirectHandler, defaults={'_uri': redir_to_latest})
+
+    Route('<path:.*>', RedirectHandler, defaults={'_uri': redir_old_stable})
   ],
   debug=True)

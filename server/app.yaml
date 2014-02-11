@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: force-ssl
+version: dartdoc-next
 
 runtime: python27
 api_version: 1
@@ -12,6 +12,47 @@ threadsafe: true
 #default_expiration: "2h"
 
 handlers:
+- url: /apidocs/channels/be/
+  static_files: out/web/index.html
+  upload: out/web/index.htm
+
+- url: /apidocs/channels/be/docs/.*
+  script: scripts.redirector.application
+
+- url: /apidocs/channels/be
+  static_dir: out/web
+
+- url: /apidocs/channels/dev/
+  static_files: out/web/index.html
+  upload: out/web/index.htm
+
+- url: /apidocs/channels/dev/docs/.*
+  script: scripts.redirector.application
+
+- url: /apidocs/channels/dev
+  static_dir: out/web
+
+- url: /apidocs/channels/stable/
+  static_files: out/web/index.html
+  upload: out/web/index.html
+
+- url: /favicon.ico
+  static_files: out/web/static/favicon.ico
+  upload: out/web/static/favicon.ico
+
+- url: /sitemap.txt
+  static_files: out/web/sitemap.txt
+  upload: out/web/sitemap.txt
+
+- url: /google76d23419c98fdd46.html
+  static_files: out/web/google76d23419c98fdd46.html
+  upload: out/web/google76d23419c98fdd46.html
+
+- url: /apidocs/channels/stable/docs/.*
+  script: scripts.redirector.application
+
+- url: /apidocs/channels/stable
+  static_dir: out/web
 
 - url: /.*
   script: scripts.redirector.application
