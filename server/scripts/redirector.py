@@ -278,6 +278,8 @@ def redir_pkgs(handler, *args, **kwargs):
 # Redirect old apidoc URIs
 def redir_old(kwargs, channel):
   old_path = kwargs['path'][1:]
+  if (old_path == ''): 
+    return '/apidocs/channels/stable/#home'
   split = old_path.split('/')
   firstPart = split[0]
   if (len(split) > 1):
