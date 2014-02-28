@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: dartdoc-next
+version: nofragments
 
 runtime: python27
 api_version: 1
@@ -12,7 +12,7 @@ threadsafe: true
 #default_expiration: "2h"
 
 handlers:
-- url: /apidocs/channels/be/
+- url: /apidocs/channels/be/dartdoc-viewer
   static_files: out/web/index.html
   upload: out/web/index.htm
 
@@ -22,7 +22,7 @@ handlers:
 - url: /apidocs/channels/be
   static_dir: out/web
 
-- url: /apidocs/channels/dev/
+- url: /apidocs/channels/dev/dartdoc-viewer
   static_files: out/web/index.html
   upload: out/web/index.htm
 
@@ -32,7 +32,7 @@ handlers:
 - url: /apidocs/channels/dev
   static_dir: out/web
 
-- url: /apidocs/channels/stable/
+- url: /apidocs/channels/stable/dartdoc-viewer
   static_files: out/web/index.html
   upload: out/web/index.html
 
@@ -51,7 +51,7 @@ handlers:
 - url: /apidocs/channels/stable/docs/.*
   script: scripts.redirector.application
 
-- url: /apidocs/channels/stable
+- url: /apidocs/channels/stable/dartdoc-viewer
   static_dir: out/web
 
 - url: /.*
