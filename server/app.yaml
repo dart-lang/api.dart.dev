@@ -12,7 +12,7 @@ threadsafe: true
 #default_expiration: "2h"
 
 handlers:
-- url: /apidocs/channels/be/dartdoc-viewer
+- url: /apidocs/channels/be/dartdoc-viewer/home
   static_files: out/web/index.html
   upload: out/web/index.htm
 
@@ -22,7 +22,7 @@ handlers:
 - url: /apidocs/channels/be
   static_dir: out/web
 
-- url: /apidocs/channels/dev/dartdoc-viewer
+- url: /apidocs/channels/dev/dartdoc-viewer/home
   static_files: out/web/index.html
   upload: out/web/index.htm
 
@@ -32,7 +32,7 @@ handlers:
 - url: /apidocs/channels/dev
   static_dir: out/web
 
-- url: /apidocs/channels/stable/dartdoc-viewer
+- url: /apidocs/channels/stable/dartdoc-viewer/home
   static_files: out/web/index.html
   upload: out/web/index.html
 
@@ -48,7 +48,7 @@ handlers:
   static_files: out/web/google76d23419c98fdd46.html
   upload: out/web/google76d23419c98fdd46.html
 
-- url: /apidocs/channels/stable/docs/.*
+- url: /apidocs/channels/stable/dartdoc-viewer/docs/.*
   script: scripts.redirector.application
 
 - url: /apidocs/channels/stable/dartdoc-viewer

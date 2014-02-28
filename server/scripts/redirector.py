@@ -97,7 +97,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     },
     {
       'key': 'latest_stable_docgen_version',
-      'prefix': '/apidocs/channels/stable/docs',
+      'prefix': '/apidocs/channels/stable/dartdoc-viewer/docs',
       'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
       'channel': 'stable',
       'docgen' : True,
@@ -129,12 +129,16 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   # TODO: put into memcache?
   def get_latest_version(self, version, version_file_location, version_key):
     forced_reload = self.request.get('force_reload')
+    logging.debug("getting latest version")
     if (forced_reload or
           version is None or
           version_file_location == LATEST_BE_CHANNEL_VERSION_FILE or
           ApiDocs.next_doc_version_check is None or
           datetime.now() > ApiDocs.next_doc_version_check):
+      logging.debug("Reloading with %s" % version_file_location)
+      logging.debug("And key = %s" % version_key)
       new_version = self.reload_latest_version(version_file_location, version_key)
+      logging.debug("Got %s " % new_version)
       return new_version
     else:
       return version
@@ -164,12 +168,15 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     for rename in self.docs_renames:
       prefix = rename['prefix']
       if self.request.path.startswith(prefix):
+        logging.debug("Processing %s" % prefix)
         key = rename.get('key', None)
         version_file = rename.get('version_file', None)
         channel = rename.get('channel', None)
         manual_revision = rename.get('manual_revision', False)
+        logging.debug("foo")
 
         postfix = self.request.path[len(prefix):]
+        logging.debug("postfix = %s" % postfix)
         if (rename.get('docgen', False)) :
           postfix = "/docgen" + postfix
 
@@ -179,9 +186,14 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         if manual_revision:
           version_num = None
         else:
+          logging.debug("Getting version from %s" % ApiDocs.latest_versions[key])
+          logging.debug(" and %s " % version_file)
+          logging.debug(" key %s" % key)
           version_num = self.get_latest_version(
               ApiDocs.latest_versions[key], version_file, key)
+        logging.debug("version_num = %s" % version_num)
         path = self.build_gcs_path(version_num, postfix, channel=channel)
+        logging.debug("path = %s" % path)
         break
 
     if path and path.endswith('/'):
@@ -197,7 +209,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           ApiDocs.latest_versions[versionRequest], version_file, versionRequest)
       self.response.text = ApiDocs.latest_version_names[versionRequest]
       return
+    logging.debug("Got request %s" % self.request.path)
     gcs_path = self.resolve_doc_path()
+    logging.debug("Turned into %s" % gcs_path)
     if not gcs_path:
       self.error(404)
       return
@@ -251,7 +265,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
   # Should be #! if we use that scheme.
-  return '/apidocs/channels/stable/#home'
+  return '/apidocs/channels/stable/dartdoc-viewer/home'
 
 def redir_dom(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/dart_html' + kwargs['path']
@@ -273,13 +287,14 @@ def redir_docgen_stable(handler, *args, **kwargs):
 
 def redir_pkgs(handler, *args, **kwargs):
   # Should be #! if we use that scheme
-  return '/apidocs/channels/stable/#' + kwargs['pkg']
+  return '/apidocs/channels/stable/dartdoc-viewer/' + kwargs['pkg']
 
 # Redirect old apidoc URIs
 def redir_old(kwargs, channel):
   old_path = kwargs['path'][1:]
+  logging.debug("Redirecting old path %s" % old_path)
   if (old_path == ''): 
-    return '/apidocs/channels/stable/#home'
+    return '/apidocs/channels/stable/dartdoc-viewer/home'
   split = old_path.split('/')
   firstPart = split[0]
   if (len(split) > 1):
@@ -301,7 +316,7 @@ def redir_old(kwargs, channel):
       prefix = "dart:" + prefix
   new_path = prefix + secondPart.replace('.html','')
   # Should be #! if we use that scheme
-  return '/apidocs/channels/' + channel + '/#' + new_path
+  return '/apidocs/channels/' + channel + '/dartdoc-viewer/' + new_path
 
 def redir_old_be(handler, *args, **kwargs):
   return redir_old(kwargs, 'be')
@@ -324,21 +339,24 @@ application = WSGIApplication(
         ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
     Route('/apidocs/channels/dev/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
-    Route('/apidocs/channels/stable/docs/VERSION', 
+    Route('/apidocs/channels/stable/dartdoc-viewer/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
 
     # Data requests go to cloud storage
     Route('/apidocs/channels/be/docs<path:.*>', ApiDocs),
     Route('/apidocs/channels/dev/docs<path:.*>', ApiDocs),
-    Route('/apidocs/channels/stable/docs<path:.*>', ApiDocs),
+    Route('/apidocs/channels/stable/dartdoc-viewer/docs<path:.*>', ApiDocs),
 
     # Add the trailing / if necessary.
     Route('/docs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
     Route('/docs/channels/dev', RedirectHandler, defaults={'_uri': '/apidocs/channels/dev/'}),
     Route('/docs/channels/stable', RedirectHandler, defaults={'_uri': '/apidocs/channels/stable/'}),
-    Route('/apidocs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
-    Route('/apidocs/channels/dev', RedirectHandler, defaults={'_uri': '/apidocs/channels/dev/'}),
-    Route('/apidocs/channels/stable', RedirectHandler, defaults={'_uri': '/apidocs/channels/stable/'}),
+    Route('/apidocs/channels/be/dartdoc-viewer', RedirectHandler, 
+        defaults={'_uri': '/apidocs/channels/be/dartdoc-viewer/'}),
+    Route('/apidocs/channels/dev/dartdoc-viewer', RedirectHandler, 
+        defaults={'_uri': '/apidocs/channels/dev/dartoc-viewer/'}),
+    Route('/apidocs/channels/stable/dartdoc-viewer', RedirectHandler, 
+        defaults={'_uri': '/apidocs/channels/stable/dartdoc-viewer/'}),
 
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),
