@@ -97,7 +97,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     },
     {
       'key': 'latest_stable_docgen_version',
-      'prefix': '/apidocs/channels/stable/dartdoc-viewer/docs',
+      'prefix': '/apidocs/channels/stable/docs',
       'version_file': LATEST_STABLE_CHANNEL_VERSION_FILE,
       'channel': 'stable',
       'docgen' : True,
@@ -292,7 +292,6 @@ def redir_pkgs(handler, *args, **kwargs):
 # Redirect old apidoc URIs
 def redir_old(kwargs, channel):
   old_path = kwargs['path'][1:]
-  logging.debug("Redirecting old path %s" % old_path)
   if (old_path == ''): 
     return '/apidocs/channels/stable/dartdoc-viewer/home'
   split = old_path.split('/')
@@ -339,13 +338,13 @@ application = WSGIApplication(
         ApiDocs, defaults={'_versionRequest' : 'latest_be_doc_version'}),
     Route('/apidocs/channels/dev/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_dev_doc_version'}),
-    Route('/apidocs/channels/stable/dartdoc-viewer/docs/VERSION', 
+    Route('/apidocs/channels/stable/docs/VERSION', 
         ApiDocs, defaults={'_versionRequest' : 'latest_stable_doc_version'}),
 
     # Data requests go to cloud storage
     Route('/apidocs/channels/be/docs<path:.*>', ApiDocs),
     Route('/apidocs/channels/dev/docs<path:.*>', ApiDocs),
-    Route('/apidocs/channels/stable/dartdoc-viewer/docs<path:.*>', ApiDocs),
+    Route('/apidocs/channels/stable/docs<path:.*>', ApiDocs),
 
     # Add the trailing / if necessary.
     Route('/docs/channels/be', RedirectHandler, defaults={'_uri': '/apidocs/channels/be/'}),
@@ -357,6 +356,8 @@ application = WSGIApplication(
         defaults={'_uri': '/apidocs/channels/dev/dartoc-viewer/'}),
     Route('/apidocs/channels/stable/dartdoc-viewer', RedirectHandler, 
         defaults={'_uri': '/apidocs/channels/stable/dartdoc-viewer/'}),
+
+#    Route('/apidocs/channels/stable/dartdoc-viewer/.*', FragmentHandler),
 
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),
