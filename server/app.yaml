@@ -12,45 +12,27 @@ threadsafe: true
 #default_expiration: "2h"
 
 handlers:
-- url: /apidocs/channels/be/dartdoc-viewer/home
-  static_files: out/web/index.html
-  upload: out/web/index.htm
-
-- url: /apidocs/channels/be/docs/.*
-  script: scripts.redirector.application
-
-- url: /apidocs/channels/be
-  static_dir: out/web
-
-- url: /apidocs/channels/dev/dartdoc-viewer/home
-  static_files: out/web/index.html
-  upload: out/web/index.htm
-
-- url: /apidocs/channels/dev/docs/.*
-  script: scripts.redirector.application
-
-- url: /apidocs/channels/dev
-  static_dir: out/web
-
-- url: /apidocs/channels/stable/dartdoc-viewer/.*static
+# It seems considerably cleaner to write (stable|dev|be) instead of .*, but it
+# doesn't work for some reason.
+- url: /apidocs/channels/.*/dartdoc-viewer/.*static
   static_dir: out/web/static
 
-- url: /apidocs/channels/stable/dartdoc-viewer/.*packages
+- url: /apidocs/channels/.*/dartdoc-viewer/.*packages
   static_dir: out/web/packages
 
-- url: /apidocs/channels/stable/dartdoc-viewer/.*index.html_bootstrap.dart.js
+- url: /apidocs/channels/.*/dartdoc-viewer/.*index.html_bootstrap.dart.js
   static_files: out/web/index.html_bootstrap.dart.js
   upload: out/web/index.html_bootstrap.js
 
-- url: /apidocs/channels/stable/dartdoc-viewer/.*index.html_bootstrap.dart.precompiled.js
+- url: /apidocs/channels/.*/dartdoc-viewer/.*index.html_bootstrap.dart.precompiled.js
   static_files: out/web/index.html_bootstrap.dart.precompiled.js
   upload: out/web/index.html_bootstrap.dart.precompiled.js
 
-- url: /apidocs/channels/stable/dartdoc-viewer/home
+- url: /apidocs/channels/.*/dartdoc-viewer/home
   static_files: out/web/index.html
   upload: out/web/index.html
 
-- url: /apidocs/channels/stable/dartdoc-viewer/.*
+- url: /apidocs/channels/.*/dartdoc-viewer/.*
   static_files: out/web/index.html
   upload: out/web/index.html
 
@@ -66,10 +48,10 @@ handlers:
   static_files: out/web/google76d23419c98fdd46.html
   upload: out/web/google76d23419c98fdd46.html
 
-- url: /apidocs/channels/stable/docs/.*
+- url: /apidocs/channels/.*/docs/.*
   script: scripts.redirector.application
 
-- url: /apidocs/channels/stable/dartdoc-viewer
+- url: /apidocs/channels/.*/dartdoc-viewer
   static_dir: out/web
 
 - url: /.*

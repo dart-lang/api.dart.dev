@@ -357,8 +357,6 @@ application = WSGIApplication(
     Route('/apidocs/channels/stable/dartdoc-viewer', RedirectHandler, 
         defaults={'_uri': '/apidocs/channels/stable/dartdoc-viewer/'}),
 
-#    Route('/apidocs/channels/stable/dartdoc-viewer/.*', FragmentHandler),
-
     Route('/docs/continuous<path:.*>', RedirectHandler, defaults={'_uri': redir_continuous}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler, defaults={'_uri': redir_latest}),
 
