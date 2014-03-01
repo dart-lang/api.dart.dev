@@ -32,7 +32,25 @@ handlers:
 - url: /apidocs/channels/dev
   static_dir: out/web
 
+- url: /apidocs/channels/stable/dartdoc-viewer/.*static
+  static_dir: out/web/static
+
+- url: /apidocs/channels/stable/dartdoc-viewer/.*packages
+  static_dir: out/web/packages
+
+- url: /apidocs/channels/stable/dartdoc-viewer/.*index.html_bootstrap.dart.js
+  static_files: out/web/index.html_bootstrap.dart.js
+  upload: out/web/index.html_bootstrap.js
+
+- url: /apidocs/channels/stable/dartdoc-viewer/.*index.html_bootstrap.dart.precompiled.js
+  static_files: out/web/index.html_bootstrap.dart.precompiled.js
+  upload: out/web/index.html_bootstrap.dart.precompiled.js
+
 - url: /apidocs/channels/stable/dartdoc-viewer/home
+  static_files: out/web/index.html
+  upload: out/web/index.html
+
+- url: /apidocs/channels/stable/dartdoc-viewer/.*
   static_files: out/web/index.html
   upload: out/web/index.html
 
