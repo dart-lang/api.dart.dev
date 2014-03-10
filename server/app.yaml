@@ -44,6 +44,10 @@ handlers:
   static_files: out/web/sitemap.txt
   upload: out/web/sitemap.txt
 
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+
 - url: /google76d23419c98fdd46.html
   static_files: out/web/google76d23419c98fdd46.html
   upload: out/web/google76d23419c98fdd46.html
