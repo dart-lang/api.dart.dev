@@ -41,8 +41,8 @@ handlers:
   upload: out/web/static/favicon.ico
 
 - url: /sitemap.txt
-  static_files: out/web/sitemap.txt
-  upload: out/web/sitemap.txt
+  static_files: sitemap.txt
+  upload: sitemap.txt
 
 - url: /robots.txt
   static_files: robots.txt

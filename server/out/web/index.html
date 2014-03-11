@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="static/css/dart-style.css">
   <link rel="stylesheet" href="static/css/pics.css">
   <link rel="stylesheet" href="static/css/prettify.css">
+  <link rel="stylesheet" href="static/css/print.css">
   
   
   
@@ -519,7 +520,9 @@
         <dartdoc-minimap-class item="{{viewer.currentPage}}">
         </dartdoc-minimap-class>
       </template>
-      <div>Dart Build {{buildIdentifier}}</div>
+      <template if="{{showVersion}}">
+        <div>Version {{version}}</div>
+      </template>
     </div>
   </template>
 </polymer-element>
@@ -528,15 +531,6 @@
   <dartdoc-main id="dartdoc-main"></dartdoc-main>
   <script src="static/js/prettify.js"></script>
   <script src="index.html_bootstrap.dart.js"></script>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-26406144-9', 'dartlang.org');
-  ga('send', 'pageview');
-
-</script>
+  <!-- Google Analytics -->
 
 </body></html>

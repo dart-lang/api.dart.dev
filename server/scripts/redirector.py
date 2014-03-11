@@ -129,16 +129,12 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   # TODO: put into memcache?
   def get_latest_version(self, version, version_file_location, version_key):
     forced_reload = self.request.get('force_reload')
-    logging.debug("getting latest version")
     if (forced_reload or
           version is None or
           version_file_location == LATEST_BE_CHANNEL_VERSION_FILE or
           ApiDocs.next_doc_version_check is None or
           datetime.now() > ApiDocs.next_doc_version_check):
-      logging.debug("Reloading with %s" % version_file_location)
-      logging.debug("And key = %s" % version_key)
       new_version = self.reload_latest_version(version_file_location, version_key)
-      logging.debug("Got %s " % new_version)
       return new_version
     else:
       return version
@@ -168,15 +164,12 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     for rename in self.docs_renames:
       prefix = rename['prefix']
       if self.request.path.startswith(prefix):
-        logging.debug("Processing %s" % prefix)
         key = rename.get('key', None)
         version_file = rename.get('version_file', None)
         channel = rename.get('channel', None)
         manual_revision = rename.get('manual_revision', False)
-        logging.debug("foo")
 
         postfix = self.request.path[len(prefix):]
-        logging.debug("postfix = %s" % postfix)
         if (rename.get('docgen', False)) :
           postfix = "/docgen" + postfix
 
@@ -186,14 +179,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         if manual_revision:
           version_num = None
         else:
-          logging.debug("Getting version from %s" % ApiDocs.latest_versions[key])
-          logging.debug(" and %s " % version_file)
-          logging.debug(" key %s" % key)
           version_num = self.get_latest_version(
               ApiDocs.latest_versions[key], version_file, key)
-        logging.debug("version_num = %s" % version_num)
         path = self.build_gcs_path(version_num, postfix, channel=channel)
-        logging.debug("path = %s" % path)
         break
 
     if path and path.endswith('/'):
@@ -209,9 +197,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           ApiDocs.latest_versions[versionRequest], version_file, versionRequest)
       self.response.text = ApiDocs.latest_version_names[versionRequest]
       return
-    logging.debug("Got request %s" % self.request.path)
     gcs_path = self.resolve_doc_path()
-    logging.debug("Turned into %s" % gcs_path)
     if not gcs_path:
       self.error(404)
       return
