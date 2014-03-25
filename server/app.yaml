@@ -33,8 +33,8 @@ handlers:
   upload: out/web/index.html
 
 - url: /apidocs/channels/.*/dartdoc-viewer/.*
-  static_files: out/web/index.html
-  upload: out/web/index.html
+  script: scripts.insertname.application
+  secure: always
 
 - url: /favicon.ico
   static_files: out/web/static/favicon.ico
