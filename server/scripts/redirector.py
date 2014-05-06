@@ -122,7 +122,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       ApiDocs.next_doc_version_check = datetime.now() + timedelta(days=1)
     revision = int(data['revision'])
     version = data['version']
-    logging.debug('Updating version for ' + version_key + ' to ' + str(revision))
+    logging.debug('Updated version for ' + version_key + ' to ' + str(revision))
     ApiDocs.latest_versions[version_key] = revision
     ApiDocs.latest_version_names[version_key] = version
     return revision 
