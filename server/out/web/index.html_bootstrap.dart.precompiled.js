@@ -1359,14 +1359,14 @@ var $$ = {};
     return x == null || typeof x === "string" || typeof x === "number" || typeof x === "boolean";
   }, "call$1", "_Deserializer_isPrimitive$closure", 2, 0, null, 22],
   startRootIsolate_closure: {
-    "^": "Closure:107;box_0,entry_1",
+    "^": "Closure0:107;box_0,entry_1",
     call$0: [function() {
       this.entry_1.call$1(this.box_0.args_0);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   startRootIsolate_closure0: {
-    "^": "Closure:107;box_0,entry_2",
+    "^": "Closure0:107;box_0,entry_2",
     call$0: [function() {
       this.entry_2.call$2(this.box_0.args_0, null);
     }, "call$0", null, 0, 0, null, "call"],
@@ -1519,7 +1519,7 @@ var $$ = {};
     $is_IsolateContext: true
   },
   _IsolateContext_handlePing_closure: {
-    "^": "Closure:107;responsePort_0",
+    "^": "Closure0:107;responsePort_0",
     call$0: [function() {
       J.send$1$x(this.responsePort_0, null);
     }, "call$0", null, 0, 0, null, "call"],
@@ -1588,7 +1588,7 @@ var $$ = {};
     }
   },
   _EventLoop__runHelper_next: {
-    "^": "Closure:106;this_0",
+    "^": "Closure0:106;this_0",
     call$0: [function() {
       if (!this.this_0.runIteration$0())
         return;
@@ -1612,14 +1612,14 @@ var $$ = {};
     "^": "Object;"
   },
   IsolateNatives__processWorkerMessage_closure: {
-    "^": "Closure:107;entryPoint_0,args_1,message_2,isSpawnUri_3,startPaused_4,replyTo_5",
+    "^": "Closure0:107;entryPoint_0,args_1,message_2,isSpawnUri_3,startPaused_4,replyTo_5",
     call$0: [function() {
       H.IsolateNatives__startIsolate(this.entryPoint_0, this.args_1, this.message_2, this.isSpawnUri_3, this.startPaused_4, this.replyTo_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   IsolateNatives__startIsolate_runStartFunction: {
-    "^": "Closure:106;topLevel_0,args_1,message_2,isSpawnUri_3",
+    "^": "Closure0:106;topLevel_0,args_1,message_2,isSpawnUri_3",
     call$0: [function() {
       var t1, t2, t3;
       if (this.isSpawnUri_3 !== true)
@@ -1683,7 +1683,7 @@ var $$ = {};
     $isCapability: true
   },
   _NativeJsSendPort_send_closure: {
-    "^": "Closure:107;box_0,this_1,shouldSerialize_2",
+    "^": "Closure0:107;box_0,this_1,shouldSerialize_2",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_1._receivePort;
@@ -1922,7 +1922,7 @@ var $$ = {};
     }
   },
   _Copier_visitMap_closure: {
-    "^": "Closure:292;box_0,this_1",
+    "^": "Closure0:292;box_0,this_1",
     call$2: [function(key, val) {
       var t1 = this.this_1;
       J.$indexSet$ax(this.box_0.copy_0, t1._dispatch$1(key), t1._dispatch$1(val));
@@ -2090,7 +2090,7 @@ var $$ = {};
       }}
   },
   TimerImpl_internalCallback: {
-    "^": "Closure:106;this_0,callback_1",
+    "^": "Closure0:106;this_0,callback_1",
     call$0: [function() {
       this.this_0._handle = null;
       this.callback_1.call$0();
@@ -2098,7 +2098,7 @@ var $$ = {};
     $isFunction: true
   },
   TimerImpl_internalCallback0: {
-    "^": "Closure:106;this_2,callback_3",
+    "^": "Closure0:106;this_2,callback_3",
     call$0: [function() {
       this.this_2._handle = null;
       H.leaveJsAsync();
@@ -3306,7 +3306,7 @@ var $$ = {};
     $isEfficientLength: true
   },
   ConstantStringMap_values_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(key) {
       return this.this_0._fetch$1(key);
     }, "call$1", null, 2, 0, null, 41, "call"],
@@ -3438,7 +3438,7 @@ var $$ = {};
       }}
   },
   ReflectionInfo_sortedIndex_closure: {
-    "^": "Closure:25;box_0,this_1,positions_2",
+    "^": "Closure0:25;box_0,this_1,positions_2",
     call$1: [function($name) {
       var t1, t2, t3;
       t1 = this.this_1.cachedSortedIndices;
@@ -3453,7 +3453,7 @@ var $$ = {};
     $isFunction: true
   },
   Primitives_functionNoSuchMethod_closure: {
-    "^": "Closure:293;box_0,arguments_1,namedArgumentList_2",
+    "^": "Closure0:293;box_0,arguments_1,namedArgumentList_2",
     call$2: [function($name, argument) {
       var t1 = this.box_0;
       t1.names_1 = t1.names_1 + "$" + H.S($name);
@@ -3464,7 +3464,7 @@ var $$ = {};
     $isFunction: true
   },
   Primitives_applyFunction_closure: {
-    "^": "Closure:293;box_0,defaultArguments_1",
+    "^": "Closure0:293;box_0,defaultArguments_1",
     call$2: [function(parameter, value) {
       var t1 = this.defaultArguments_1;
       if (t1.containsKey$1(parameter))
@@ -3571,7 +3571,7 @@ var $$ = {};
     }
   },
   unwrapException_saveStackTrace: {
-    "^": "Closure:200;ex_0",
+    "^": "Closure0:200;ex_0",
     call$1: [function(error) {
       if (!!J.getInterceptor(error).$isError)
         if (error.$thrownJsError == null)
@@ -3595,41 +3595,41 @@ var $$ = {};
     }
   },
   invokeClosure_closure: {
-    "^": "Closure:107;closure_0",
+    "^": "Closure0:107;closure_0",
     call$0: [function() {
       return this.closure_0.call$0();
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   invokeClosure_closure0: {
-    "^": "Closure:107;closure_1,arg1_2",
+    "^": "Closure0:107;closure_1,arg1_2",
     call$0: [function() {
       return this.closure_1.call$1(this.arg1_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   invokeClosure_closure1: {
-    "^": "Closure:107;closure_3,arg1_4,arg2_5",
+    "^": "Closure0:107;closure_3,arg1_4,arg2_5",
     call$0: [function() {
       return this.closure_3.call$2(this.arg1_4, this.arg2_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   invokeClosure_closure2: {
-    "^": "Closure:107;closure_6,arg1_7,arg2_8,arg3_9",
+    "^": "Closure0:107;closure_6,arg1_7,arg2_8,arg3_9",
     call$0: [function() {
       return this.closure_6.call$3(this.arg1_7, this.arg2_8, this.arg3_9);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   invokeClosure_closure3: {
-    "^": "Closure:107;closure_10,arg1_11,arg2_12,arg3_13,arg4_14",
+    "^": "Closure0:107;closure_10,arg1_11,arg2_12,arg3_13,arg4_14",
     call$0: [function() {
       return this.closure_10.call$4(this.arg1_11, this.arg2_12, this.arg3_13, this.arg4_14);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  Closure: {
+  Closure0: {
     "^": "Object;",
     toString$0: function(_) {
       return "Closure";
@@ -3637,7 +3637,7 @@ var $$ = {};
     $isFunction: true
   },
   TearOffClosure: {
-    "^": "Closure;"
+    "^": "Closure0;"
   },
   BoundClosure: {
     "^": "TearOffClosure;_self,__js_helper$_target,_receiver,__js_helper$_name",
@@ -3707,7 +3707,7 @@ var $$ = {};
     "^": "Object;"
   },
   RuntimeFunctionType: {
-    "^": "RuntimeType;returnType,parameterTypes,optionalParameterTypes,namedParameters",
+    "^": "RuntimeType;returnType<,parameterTypes,optionalParameterTypes,namedParameters",
     _isTest$1: function(expression) {
       var functionTypeObject = this._extractFunctionTypeObjectFrom$1(expression);
       return functionTypeObject == null ? false : H.isFunctionSubtype(functionTypeObject, this.toRti$0());
@@ -3863,21 +3863,21 @@ var $$ = {};
     $isType: true
   },
   initHooks_closure: {
-    "^": "Closure:200;getTag_0",
+    "^": "Closure0:200;getTag_0",
     call$1: [function(o) {
       return this.getTag_0(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   initHooks_closure0: {
-    "^": "Closure:295;getUnknownTag_1",
+    "^": "Closure0:295;getUnknownTag_1",
     call$2: [function(o, tag) {
       return this.getUnknownTag_1(o, tag);
     }, "call$2", null, 4, 0, null, 90, 93, "call"],
     $isFunction: true
   },
   initHooks_closure1: {
-    "^": "Closure:25;prototypeForTag_2",
+    "^": "Closure0:25;prototypeForTag_2",
     call$1: [function(tag) {
       return this.prototypeForTag_2(tag);
     }, "call$1", null, 2, 0, null, 93, "call"],
@@ -4047,1579 +4047,1614 @@ var $$ = {};
   "^": "",
   main1: [function() {
     var t1, t2, t3, t4, t5;
-    t1 = H.fillLiteralMap([C.Symbol_accordionStyle, new E.main_closure(), C.Symbol_anchorHref, new E.main_closure0(), C.Symbol_annotations, new E.main_closure1(), C.Symbol_annotationsChanged, new E.main_closure2(), C.Symbol_breadcrumbs, new E.main_closure3(), C.Symbol_camelCaseName, new E.main_closure4(), C.Symbol_caretStyle, new E.main_closure5(), C.Symbol_category, new E.main_closure6(), C.Symbol_categoryChanged, new E.main_closure7(), C.Symbol_categoryLink, new E.main_closure8(), C.Symbol_classes, new E.main_closure9(), C.Symbol_kCz, new E.main_closure10(), C.Symbol_commentFrom, new E.main_closure11(), C.Symbol_constantModifier, new E.main_closure12(), C.Symbol_constructors, new E.main_closure13(), C.Symbol_currentPage, new E.main_closure14(), C.Symbol_decoratedName, new E.main_closure15(), C.Symbol_descriptiveName, new E.main_closure16(), C.Symbol_descriptiveType, new E.main_closure17(), C.Symbol_divClass, new E.main_closure18(), C.Symbol_dropdownOpen, new E.main_closure19(), C.Symbol_errors, new E.main_closure20(), C.Symbol_functions, new E.main_closure21(), C.Symbol_getter, new E.main_closure22(), C.Symbol_hasInheritedComment, new E.main_closure23(), C.Symbol_hasItems, new E.main_closure24(), C.Symbol_hideShow, new E.main_closure25(), C.Symbol_homePage, new E.main_closure26(), C.Symbol_idName, new E.main_closure27(), C.Symbol_inheritedFrom, new E.main_closure28(), C.Symbol_instanceFunctions, new E.main_closure29(), C.Symbol_instanceVariables, new E.main_closure30(), C.Symbol_isAbstract, new E.main_closure31(), C.Symbol_isClass, new E.main_closure32(), C.Symbol_isConstant, new E.main_closure33(), C.Symbol_isEmpty, new E.main_closure34(), C.Symbol_isFinal, new E.main_closure35(), C.Symbol_isFocused, new E.main_closure36(), C.Symbol_isHome, new E.main_closure37(), C.Symbol_isInherited, new E.main_closure38(), C.Symbol_isLibrary, new E.main_closure39(), C.Symbol_isMethod, new E.main_closure40(), C.Symbol_isNotConstructor, new E.main_closure41(), C.Symbol_isNotEmpty, new E.main_closure42(), C.Symbol_isNotSetter, new E.main_closure43(), C.Symbol_isOperator, new E.main_closure44(), C.Symbol_isSetter, new E.main_closure45(), C.Symbol_isStatic, new E.main_closure46(), C.Symbol_isTypedef, new E.main_closure47(), C.Symbol_item, new E.main_closure48(), C.Symbol_itemChanged, new E.main_closure49(), C.Symbol_items, new E.main_closure50(), C.Symbol_itemsChanged, new E.main_closure51(), C.Symbol_itemsToShow, new E.main_closure52(), C.Symbol_lastCrumb, new E.main_closure53(), C.Symbol_lazyClasses, new E.main_closure54(), C.Symbol_lazyConstructors, new E.main_closure55(), C.Symbol_lazyErrors, new E.main_closure56(), C.Symbol_lazyFunctions, new E.main_closure57(), C.Symbol_lazyInstanceFunctions, new E.main_closure58(), C.Symbol_lazyInstanceVariables, new E.main_closure59(), C.Symbol_lazyOperators, new E.main_closure60(), C.Symbol_lazyStaticFunctions, new E.main_closure61(), C.Symbol_lazyStaticVariables, new E.main_closure62(), C.Symbol_lazyTypedefs, new E.main_closure63(), C.Symbol_lazyVariables, new E.main_closure64(), C.Symbol_libraries, new E.main_closure65(), C.Symbol_lineHeight, new E.main_closure66(), C.Symbol_methods, new E.main_closure67(), C.Symbol_methodsChanged, new E.main_closure68(), C.Symbol_modifiers, new E.main_closure69(), C.Symbol_name, new E.main_closure70(), C.Symbol_nameWithGeneric, new E.main_closure71(), C.Symbol_navHideShow, new E.main_closure72(), C.Symbol_operators, new E.main_closure73(), C.Symbol_outerLibrary, new E.main_closure74(), C.Symbol_pageContentClass, new E.main_closure75(), C.Symbol_parameters, new E.main_closure76(), C.Symbol_parametersChanged, new E.main_closure77(), C.Symbol_position, new E.main_closure78(), C.Symbol_prefixedAnchorHref, new E.main_closure79(), C.Symbol_prefixedLinkHref, new E.main_closure80(), C.Symbol_prefixedLocation, new E.main_closure81(), C.Symbol_preview, new E.main_closure82(), C.Symbol_previewChanged, new E.main_closure83(), C.Symbol_previewComment, new E.main_closure84(), C.Symbol_rerouteLink, new E.main_closure85(), C.Symbol_results, new E.main_closure86(), C.Symbol_searchQuery, new E.main_closure87(), C.Symbol_searchQueryChanged, new E.main_closure88(), C.Symbol_selectDropDownItem, new E.main_closure89(), C.Symbol_shouldShowClassMinimap, new E.main_closure90(), C.Symbol_shouldShowComment, new E.main_closure91(), C.Symbol_shouldShowCommentFrom, new E.main_closure92(), C.Symbol_shouldShowLibraryMinimap, new E.main_closure93(), C.Symbol_shouldShowLibraryPanel, new E.main_closure94(), C.Symbol_showOrHideInherited, new E.main_closure95(), C.Symbol_showOrHideLibraries, new E.main_closure96(), C.Symbol_showOrHideMinimap, new E.main_closure97(), C.Symbol_showOrHideObjectMembers, new E.main_closure98(), C.Symbol_showOrHidePackages, new E.main_closure99(), C.Symbol_showVersion, new E.main_closure100(), C.Symbol_simpleType, new E.main_closure101(), C.Symbol_staticFunctions, new E.main_closure102(), C.Symbol_staticModifier, new E.main_closure103(), C.Symbol_staticVariables, new E.main_closure104(), C.Symbol_stylizedName, new E.main_closure105(), C.Symbol_title, new E.main_closure106(), C.Symbol_toggleInherited, new E.main_closure107(), C.Symbol_toggleMinimap, new E.main_closure108(), C.Symbol_toggleObjectMembers, new E.main_closure109(), C.Symbol_toggleOptionsMenu, new E.main_closure110(), C.Symbol_togglePanel, new E.main_closure111(), C.Symbol_togglePkg, new E.main_closure112(), C.Symbol_type, new E.main_closure113(), C.Symbol_typeChanged, new E.main_closure114(), C.Symbol_typedefs, new E.main_closure115(), C.Symbol_url, new E.main_closure116(), C.Symbol_variables, new E.main_closure117(), C.Symbol_variablesChanged, new E.main_closure118(), C.Symbol_version, new E.main_closure119(), C.Symbol_viewer, new E.main_closure120()], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
-    t2 = H.fillLiteralMap([C.Symbol_accordionStyle, new E.main_closure121(), C.Symbol_annotations, new E.main_closure122(), C.Symbol_breadcrumbs, new E.main_closure123(), C.Symbol_camelCaseName, new E.main_closure124(), C.Symbol_caretStyle, new E.main_closure125(), C.Symbol_category, new E.main_closure126(), C.Symbol_categoryLink, new E.main_closure127(), C.Symbol_classes, new E.main_closure128(), C.Symbol_commentFrom, new E.main_closure129(), C.Symbol_constantModifier, new E.main_closure130(), C.Symbol_constructors, new E.main_closure131(), C.Symbol_currentPage, new E.main_closure132(), C.Symbol_descriptiveName, new E.main_closure133(), C.Symbol_descriptiveType, new E.main_closure134(), C.Symbol_divClass, new E.main_closure135(), C.Symbol_dropdownOpen, new E.main_closure136(), C.Symbol_errors, new E.main_closure137(), C.Symbol_functions, new E.main_closure138(), C.Symbol_getter, new E.main_closure139(), C.Symbol_hasInheritedComment, new E.main_closure140(), C.Symbol_hasItems, new E.main_closure141(), C.Symbol_idName, new E.main_closure142(), C.Symbol_inheritedFrom, new E.main_closure143(), C.Symbol_instanceFunctions, new E.main_closure144(), C.Symbol_instanceVariables, new E.main_closure145(), C.Symbol_isClass, new E.main_closure146(), C.Symbol_isFocused, new E.main_closure147(), C.Symbol_isHome, new E.main_closure148(), C.Symbol_isInherited, new E.main_closure149(), C.Symbol_isLibrary, new E.main_closure150(), C.Symbol_isMethod, new E.main_closure151(), C.Symbol_isNotConstructor, new E.main_closure152(), C.Symbol_isNotSetter, new E.main_closure153(), C.Symbol_isTypedef, new E.main_closure154(), C.Symbol_item, new E.main_closure155(), C.Symbol_items, new E.main_closure156(), C.Symbol_itemsToShow, new E.main_closure157(), C.Symbol_lastCrumb, new E.main_closure158(), C.Symbol_lazyClasses, new E.main_closure159(), C.Symbol_lazyConstructors, new E.main_closure160(), C.Symbol_lazyErrors, new E.main_closure161(), C.Symbol_lazyFunctions, new E.main_closure162(), C.Symbol_lazyInstanceFunctions, new E.main_closure163(), C.Symbol_lazyInstanceVariables, new E.main_closure164(), C.Symbol_lazyOperators, new E.main_closure165(), C.Symbol_lazyStaticFunctions, new E.main_closure166(), C.Symbol_lazyStaticVariables, new E.main_closure167(), C.Symbol_lazyTypedefs, new E.main_closure168(), C.Symbol_lazyVariables, new E.main_closure169(), C.Symbol_lineHeight, new E.main_closure170(), C.Symbol_methods, new E.main_closure171(), C.Symbol_modifiers, new E.main_closure172(), C.Symbol_name, new E.main_closure173(), C.Symbol_operators, new E.main_closure174(), C.Symbol_outerLibrary, new E.main_closure175(), C.Symbol_pageContentClass, new E.main_closure176(), C.Symbol_parameters, new E.main_closure177(), C.Symbol_preview, new E.main_closure178(), C.Symbol_results, new E.main_closure179(), C.Symbol_searchQuery, new E.main_closure180(), C.Symbol_shouldShowClassMinimap, new E.main_closure181(), C.Symbol_shouldShowComment, new E.main_closure182(), C.Symbol_shouldShowCommentFrom, new E.main_closure183(), C.Symbol_shouldShowLibraryMinimap, new E.main_closure184(), C.Symbol_shouldShowLibraryPanel, new E.main_closure185(), C.Symbol_showOrHideInherited, new E.main_closure186(), C.Symbol_showOrHideLibraries, new E.main_closure187(), C.Symbol_showOrHideMinimap, new E.main_closure188(), C.Symbol_showOrHideObjectMembers, new E.main_closure189(), C.Symbol_showOrHidePackages, new E.main_closure190(), C.Symbol_staticFunctions, new E.main_closure191(), C.Symbol_staticModifier, new E.main_closure192(), C.Symbol_staticVariables, new E.main_closure193(), C.Symbol_stylizedName, new E.main_closure194(), C.Symbol_title, new E.main_closure195(), C.Symbol_type, new E.main_closure196(), C.Symbol_typedefs, new E.main_closure197(), C.Symbol_url, new E.main_closure198(), C.Symbol_variables, new E.main_closure199(), C.Symbol_version, new E.main_closure200()], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
-    t3 = H.fillLiteralMap([C.Type_EkK, C.Type_rxe, C.Type_q6V, C.Type_rxe, C.Type_8TW, C.Type_oyU, C.Type_Ybt, C.Type_0uu, C.Type_fzi, C.Type_EOZ, C.Type_EsU, C.Type_0uu, C.Type_rt6, C.Type_0uu, C.Type_QXN, C.Type_nVD, C.Type_sBE, C.Type_0uu, C.Type_2pn, C.Type_rxe, C.Type_Y5Q, C.Type_oyU, C.Type_ASc, C.Type_QGy, C.Type_VEs, C.Type_0uu, C.Type_81T, C.Type_rxe, C.Type_IRg, C.Type_0uu, C.Type_IFE, C.Type_oyU, C.Type_ECG, C.Type_oyU, C.Type_j7u, C.Type_HVx, C.Type_8Wd, C.Type_rxe, C.Type_MhD, C.Type_rxe, C.Type_EOZ0, C.Type_0uu, C.Type_ZMt, C.Type_Opy, C.Type_AHF, C.Type_QGy, C.Type_nVD, C.Type_I2I, C.Type_wtN, C.Type_Opy, C.Type_0uu, C.Type_oyU, C.Type_GNh, C.Type_6dg, C.Type_EOZ, C.Type_GNh, C.Type_oyU, C.Type_nVD, C.Type_rxe, C.Type_I2I, C.Type_Opy, C.Type_0uu, C.Type_QGy, C.Type_wtN, C.Type_CxZ, C.Type_NQk, C.Type_HVx, C.Type_CxZ], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
-    t4 = H.fillLiteralMap([C.Type_EkK, H.fillLiteralMap([C.Symbol_annotations, C.Declaration_wsa, C.Symbol_annotationsChanged, C.Declaration_m3R], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_q6V, H.fillLiteralMap([C.Symbol_breadcrumbs, C.Declaration_2p9, C.Symbol_lastCrumb, C.Declaration_oqK], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_8TW, H.fillLiteralMap([C.Symbol_accordionStyle, C.Declaration_CTk, C.Symbol_caretStyle, C.Declaration_wsa0, C.Symbol_category, C.Declaration_if1, C.Symbol_categoryChanged, C.Declaration_MYA, C.Symbol_divClass, C.Declaration_vEP, C.Symbol_hasItems, C.Declaration_ilW, C.Symbol_items, C.Declaration_sYh, C.Symbol_itemsChanged, C.Declaration_23h, C.Symbol_lineHeight, C.Declaration_0Sa, C.Symbol_methods, C.Declaration_kyU, C.Symbol_methodsChanged, C.Declaration_Chj, C.Symbol_stylizedName, C.Declaration_oc4, C.Symbol_title, C.Declaration_GNx, C.Symbol_variables, C.Declaration_YyH, C.Symbol_variablesChanged, C.Declaration_AHJ], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_Ybt, H.fillLiteralMap([C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_fzi, H.fillLiteralMap([C.Symbol_item, C.Declaration_S49, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_preview, C.Declaration_lYV, C.Symbol_previewChanged, C.Declaration_XR8], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_EsU, C.Map_empty, C.Type_rt6, C.Map_empty, C.Type_QXN, C.Map_empty, C.Type_sBE, H.fillLiteralMap([C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_2pn, H.fillLiteralMap([C.Symbol_type, C.Declaration_ESz, C.Symbol_typeChanged, C.Declaration_BeS], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_Y5Q, H.fillLiteralMap([C.Symbol_homePage, C.Declaration_Kvr, C.Symbol_pageContentClass, C.Declaration_VyH, C.Symbol_shouldShowClassMinimap, C.Declaration_OWn, C.Symbol_shouldShowLibraryMinimap, C.Declaration_IfQ, C.Symbol_shouldShowLibraryPanel, C.Declaration_mJb, C.Symbol_showOrHideInherited, C.Declaration_hvg, C.Symbol_showOrHideLibraries, C.Declaration_6L0, C.Symbol_showOrHideMinimap, C.Declaration_mou, C.Symbol_showOrHideObjectMembers, C.Declaration_6Vn, C.Symbol_showOrHidePackages, C.Declaration_YYR, C.Symbol_showVersion, C.Declaration_SDM, C.Symbol_version, C.Declaration_7Vh], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_ASc, H.fillLiteralMap([C.Symbol_constantModifier, C.Declaration_aZ8, C.Symbol_isNotConstructor, C.Declaration_36D, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_modifiers, C.Declaration_tsz, C.Symbol_staticModifier, C.Declaration_aoF], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_VEs, C.Map_empty, C.Type_81T, H.fillLiteralMap([C.Symbol_camelCaseName, C.Declaration_4wd, C.Symbol_category, C.Declaration_if1, C.Symbol_categoryChanged, C.Declaration_MYA, C.Symbol_categoryLink, C.Declaration_VWS, C.Symbol_item, C.Declaration_EOZ, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_itemsToShow, C.Declaration_Gds], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_IRg, C.Map_empty, C.Type_IFE, H.fillLiteralMap([C.Symbol_isClass, C.Declaration_aZM, C.Symbol_isHome, C.Declaration_1R3, C.Symbol_isLibrary, C.Declaration_ffs, C.Symbol_isMethod, C.Declaration_qtW, C.Symbol_isTypedef, C.Declaration_QGk, C.Symbol_item, C.Declaration_EOZ, C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_ECG, H.fillLiteralMap([C.Symbol_parameters, C.Declaration_43h, C.Symbol_parametersChanged, C.Declaration_iGr], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_j7u, H.fillLiteralMap([C.Symbol_descriptiveName, C.Declaration_4GC, C.Symbol_descriptiveType, C.Declaration_DCQ, C.Symbol_item, C.Declaration_oQz, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_outerLibrary, C.Declaration_ESz0], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_8Wd, H.fillLiteralMap([C.Symbol_dropdownOpen, C.Declaration_cUs, C.Symbol_isFocused, C.Declaration_mlf, C.Symbol_results, C.Declaration_ggw, C.Symbol_searchQuery, C.Declaration_rPg, C.Symbol_searchQueryChanged, C.Declaration_ewF], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_MhD, H.fillLiteralMap([C.Symbol_type, C.Declaration_MSN, C.Symbol_typeChanged, C.Declaration_BeS], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_EOZ0, C.Map_empty, C.Type_ZMt, H.fillLiteralMap([C.Symbol_getter, C.Declaration_cw1, C.Symbol_isNotSetter, C.Declaration_wEo, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_name, C.Declaration_2T1], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_AHF, H.fillLiteralMap([C.Symbol_annotations, C.Declaration_96m], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_wtN, H.fillLiteralMap([C.Symbol_commentFrom, C.Declaration_iL9, C.Symbol_hasInheritedComment, C.Declaration_yHT, C.Symbol_inheritedFrom, C.Declaration_s6Q, C.Symbol_isInherited, C.Declaration_qBr, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_shouldShowComment, C.Declaration_QHx, C.Symbol_shouldShowCommentFrom, C.Declaration_NYu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_0uu, H.fillLiteralMap([C.Symbol_idName, C.Declaration_DZ5, C.Symbol_item, C.Declaration_5l6, C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_Opy, H.fillLiteralMap([C.Symbol_item, C.Declaration_5l6], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null))], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
-    t5 = O.GeneratedSymbolConverterService$(new O.StaticConfiguration(t1, t2, t3, t4, C.Map_empty, H.fillLiteralMap([C.Symbol_accordionStyle, "accordionStyle", C.Symbol_anchorHref, "anchorHref", C.Symbol_annotations, "annotations", C.Symbol_annotationsChanged, "annotationsChanged", C.Symbol_breadcrumbs, "breadcrumbs", C.Symbol_camelCaseName, "camelCaseName", C.Symbol_caretStyle, "caretStyle", C.Symbol_category, "category", C.Symbol_categoryChanged, "categoryChanged", C.Symbol_categoryLink, "categoryLink", C.Symbol_classes, "classes", C.Symbol_kCz, "collapseSearchAndOptionsIfNeeded", C.Symbol_commentFrom, "commentFrom", C.Symbol_constantModifier, "constantModifier", C.Symbol_constructors, "constructors", C.Symbol_currentPage, "currentPage", C.Symbol_decoratedName, "decoratedName", C.Symbol_descriptiveName, "descriptiveName", C.Symbol_descriptiveType, "descriptiveType", C.Symbol_divClass, "divClass", C.Symbol_dropdownOpen, "dropdownOpen", C.Symbol_errors, "errors", C.Symbol_functions, "functions", C.Symbol_getter, "getter", C.Symbol_hasInheritedComment, "hasInheritedComment", C.Symbol_hasItems, "hasItems", C.Symbol_hideShow, "hideShow", C.Symbol_homePage, "homePage", C.Symbol_idName, "idName", C.Symbol_inheritedFrom, "inheritedFrom", C.Symbol_instanceFunctions, "instanceFunctions", C.Symbol_instanceVariables, "instanceVariables", C.Symbol_isAbstract, "isAbstract", C.Symbol_isClass, "isClass", C.Symbol_isConstant, "isConstant", C.Symbol_isEmpty, "isEmpty", C.Symbol_isFinal, "isFinal", C.Symbol_isFocused, "isFocused", C.Symbol_isHome, "isHome", C.Symbol_isInherited, "isInherited", C.Symbol_isLibrary, "isLibrary", C.Symbol_isMethod, "isMethod", C.Symbol_isNotConstructor, "isNotConstructor", C.Symbol_isNotEmpty, "isNotEmpty", C.Symbol_isNotSetter, "isNotSetter", C.Symbol_isOperator, "isOperator", C.Symbol_isSetter, "isSetter", C.Symbol_isStatic, "isStatic", C.Symbol_isTypedef, "isTypedef", C.Symbol_item, "item", C.Symbol_itemChanged, "itemChanged", C.Symbol_items, "items", C.Symbol_itemsChanged, "itemsChanged", C.Symbol_itemsToShow, "itemsToShow", C.Symbol_lastCrumb, "lastCrumb", C.Symbol_lazyClasses, "lazyClasses", C.Symbol_lazyConstructors, "lazyConstructors", C.Symbol_lazyErrors, "lazyErrors", C.Symbol_lazyFunctions, "lazyFunctions", C.Symbol_lazyInstanceFunctions, "lazyInstanceFunctions", C.Symbol_lazyInstanceVariables, "lazyInstanceVariables", C.Symbol_lazyOperators, "lazyOperators", C.Symbol_lazyStaticFunctions, "lazyStaticFunctions", C.Symbol_lazyStaticVariables, "lazyStaticVariables", C.Symbol_lazyTypedefs, "lazyTypedefs", C.Symbol_lazyVariables, "lazyVariables", C.Symbol_libraries, "libraries", C.Symbol_lineHeight, "lineHeight", C.Symbol_methods, "methods", C.Symbol_methodsChanged, "methodsChanged", C.Symbol_modifiers, "modifiers", C.Symbol_name, "name", C.Symbol_nameWithGeneric, "nameWithGeneric", C.Symbol_navHideShow, "navHideShow", C.Symbol_operators, "operators", C.Symbol_outerLibrary, "outerLibrary", C.Symbol_pageContentClass, "pageContentClass", C.Symbol_parameters, "parameters", C.Symbol_parametersChanged, "parametersChanged", C.Symbol_position, "position", C.Symbol_prefixedAnchorHref, "prefixedAnchorHref", C.Symbol_prefixedLinkHref, "prefixedLinkHref", C.Symbol_prefixedLocation, "prefixedLocation", C.Symbol_preview, "preview", C.Symbol_previewChanged, "previewChanged", C.Symbol_previewComment, "previewComment", C.Symbol_rerouteLink, "rerouteLink", C.Symbol_results, "results", C.Symbol_searchQuery, "searchQuery", C.Symbol_searchQueryChanged, "searchQueryChanged", C.Symbol_selectDropDownItem, "selectDropDownItem", C.Symbol_shouldShowClassMinimap, "shouldShowClassMinimap", C.Symbol_shouldShowComment, "shouldShowComment", C.Symbol_shouldShowCommentFrom, "shouldShowCommentFrom", C.Symbol_shouldShowLibraryMinimap, "shouldShowLibraryMinimap", C.Symbol_shouldShowLibraryPanel, "shouldShowLibraryPanel", C.Symbol_showOrHideInherited, "showOrHideInherited", C.Symbol_showOrHideLibraries, "showOrHideLibraries", C.Symbol_showOrHideMinimap, "showOrHideMinimap", C.Symbol_showOrHideObjectMembers, "showOrHideObjectMembers", C.Symbol_showOrHidePackages, "showOrHidePackages", C.Symbol_showVersion, "showVersion", C.Symbol_simpleType, "simpleType", C.Symbol_staticFunctions, "staticFunctions", C.Symbol_staticModifier, "staticModifier", C.Symbol_staticVariables, "staticVariables", C.Symbol_stylizedName, "stylizedName", C.Symbol_title, "title", C.Symbol_toggleInherited, "toggleInherited", C.Symbol_toggleMinimap, "toggleMinimap", C.Symbol_toggleObjectMembers, "toggleObjectMembers", C.Symbol_toggleOptionsMenu, "toggleOptionsMenu", C.Symbol_togglePanel, "togglePanel", C.Symbol_togglePkg, "togglePkg", C.Symbol_type, "type", C.Symbol_typeChanged, "typeChanged", C.Symbol_typedefs, "typedefs", C.Symbol_url, "url", C.Symbol_variables, "variables", C.Symbol_variablesChanged, "variablesChanged", C.Symbol_version, "version", C.Symbol_viewer, "viewer"], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), false));
+    t1 = H.fillLiteralMap([C.Symbol_accordionStyle, new E.main_closure(), C.Symbol_anchorHref, new E.main_closure0(), C.Symbol_annotations, new E.main_closure1(), C.Symbol_annotationsChanged, new E.main_closure2(), C.Symbol_breadcrumbs, new E.main_closure3(), C.Symbol_camelCaseName, new E.main_closure4(), C.Symbol_caretStyle, new E.main_closure5(), C.Symbol_category, new E.main_closure6(), C.Symbol_categoryChanged, new E.main_closure7(), C.Symbol_categoryLink, new E.main_closure8(), C.Symbol_classes, new E.main_closure9(), C.Symbol_closure, new E.main_closure10(), C.Symbol_closureChanged, new E.main_closure11(), C.Symbol_kCz, new E.main_closure12(), C.Symbol_commentFrom, new E.main_closure13(), C.Symbol_constantModifier, new E.main_closure14(), C.Symbol_constructors, new E.main_closure15(), C.Symbol_currentPage, new E.main_closure16(), C.Symbol_decoratedName, new E.main_closure17(), C.Symbol_descriptiveName, new E.main_closure18(), C.Symbol_descriptiveType, new E.main_closure19(), C.Symbol_divClass, new E.main_closure20(), C.Symbol_dropdownOpen, new E.main_closure21(), C.Symbol_errors, new E.main_closure22(), C.Symbol_functions, new E.main_closure23(), C.Symbol_getter, new E.main_closure24(), C.Symbol_hasInheritedComment, new E.main_closure25(), C.Symbol_hasItems, new E.main_closure26(), C.Symbol_hideShow, new E.main_closure27(), C.Symbol_homePage, new E.main_closure28(), C.Symbol_idName, new E.main_closure29(), C.Symbol_inheritedFrom, new E.main_closure30(), C.Symbol_instanceFunctions, new E.main_closure31(), C.Symbol_instanceVariables, new E.main_closure32(), C.Symbol_isAbstract, new E.main_closure33(), C.Symbol_isClass, new E.main_closure34(), C.Symbol_isConstant, new E.main_closure35(), C.Symbol_isEmpty, new E.main_closure36(), C.Symbol_isFinal, new E.main_closure37(), C.Symbol_isFocused, new E.main_closure38(), C.Symbol_isHome, new E.main_closure39(), C.Symbol_isInherited, new E.main_closure40(), C.Symbol_isLibrary, new E.main_closure41(), C.Symbol_isMethod, new E.main_closure42(), C.Symbol_isNotConstructor, new E.main_closure43(), C.Symbol_isNotEmpty, new E.main_closure44(), C.Symbol_isNotSetter, new E.main_closure45(), C.Symbol_isOperator, new E.main_closure46(), C.Symbol_isSetter, new E.main_closure47(), C.Symbol_isStatic, new E.main_closure48(), C.Symbol_isTypedef, new E.main_closure49(), C.Symbol_item, new E.main_closure50(), C.Symbol_itemChanged, new E.main_closure51(), C.Symbol_items, new E.main_closure52(), C.Symbol_itemsChanged, new E.main_closure53(), C.Symbol_itemsToShow, new E.main_closure54(), C.Symbol_lastCrumb, new E.main_closure55(), C.Symbol_lazyClasses, new E.main_closure56(), C.Symbol_lazyConstructors, new E.main_closure57(), C.Symbol_lazyErrors, new E.main_closure58(), C.Symbol_lazyFunctions, new E.main_closure59(), C.Symbol_lazyInstanceFunctions, new E.main_closure60(), C.Symbol_lazyInstanceVariables, new E.main_closure61(), C.Symbol_lazyOperators, new E.main_closure62(), C.Symbol_lazyStaticFunctions, new E.main_closure63(), C.Symbol_lazyStaticVariables, new E.main_closure64(), C.Symbol_lazyTypedefs, new E.main_closure65(), C.Symbol_lazyVariables, new E.main_closure66(), C.Symbol_libraries, new E.main_closure67(), C.Symbol_lineHeight, new E.main_closure68(), C.Symbol_methods, new E.main_closure69(), C.Symbol_methodsChanged, new E.main_closure70(), C.Symbol_modifiers, new E.main_closure71(), C.Symbol_name, new E.main_closure72(), C.Symbol_nameWithGeneric, new E.main_closure73(), C.Symbol_navHideShow, new E.main_closure74(), C.Symbol_operators, new E.main_closure75(), C.Symbol_outerLibrary, new E.main_closure76(), C.Symbol_pageContentClass, new E.main_closure77(), C.Symbol_parameters, new E.main_closure78(), C.Symbol_parametersChanged, new E.main_closure79(), C.Symbol_position, new E.main_closure80(), C.Symbol_prefixedAnchorHref, new E.main_closure81(), C.Symbol_prefixedLinkHref, new E.main_closure82(), C.Symbol_prefixedLocation, new E.main_closure83(), C.Symbol_preview, new E.main_closure84(), C.Symbol_previewChanged, new E.main_closure85(), C.Symbol_previewComment, new E.main_closure86(), C.Symbol_rerouteLink, new E.main_closure87(), C.Symbol_results, new E.main_closure88(), C.Symbol_searchQuery, new E.main_closure89(), C.Symbol_searchQueryChanged, new E.main_closure90(), C.Symbol_selectDropDownItem, new E.main_closure91(), C.Symbol_shouldShowClassMinimap, new E.main_closure92(), C.Symbol_shouldShowComment, new E.main_closure93(), C.Symbol_shouldShowCommentFrom, new E.main_closure94(), C.Symbol_shouldShowLibraryMinimap, new E.main_closure95(), C.Symbol_shouldShowLibraryPanel, new E.main_closure96(), C.Symbol_showOrHideInherited, new E.main_closure97(), C.Symbol_showOrHideLibraries, new E.main_closure98(), C.Symbol_showOrHideMinimap, new E.main_closure99(), C.Symbol_showOrHideObjectMembers, new E.main_closure100(), C.Symbol_showOrHidePackages, new E.main_closure101(), C.Symbol_showVersion, new E.main_closure102(), C.Symbol_simpleType, new E.main_closure103(), C.Symbol_staticFunctions, new E.main_closure104(), C.Symbol_staticModifier, new E.main_closure105(), C.Symbol_staticVariables, new E.main_closure106(), C.Symbol_stylizedName, new E.main_closure107(), C.Symbol_title, new E.main_closure108(), C.Symbol_toggleInherited, new E.main_closure109(), C.Symbol_toggleMinimap, new E.main_closure110(), C.Symbol_toggleObjectMembers, new E.main_closure111(), C.Symbol_toggleOptionsMenu, new E.main_closure112(), C.Symbol_togglePanel, new E.main_closure113(), C.Symbol_togglePkg, new E.main_closure114(), C.Symbol_type, new E.main_closure115(), C.Symbol_typeChanged, new E.main_closure116(), C.Symbol_typedefs, new E.main_closure117(), C.Symbol_typedefsChanged, new E.main_closure118(), C.Symbol_url, new E.main_closure119(), C.Symbol_variables, new E.main_closure120(), C.Symbol_variablesChanged, new E.main_closure121(), C.Symbol_version, new E.main_closure122(), C.Symbol_viewer, new E.main_closure123()], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
+    t2 = H.fillLiteralMap([C.Symbol_accordionStyle, new E.main_closure124(), C.Symbol_annotations, new E.main_closure125(), C.Symbol_breadcrumbs, new E.main_closure126(), C.Symbol_camelCaseName, new E.main_closure127(), C.Symbol_caretStyle, new E.main_closure128(), C.Symbol_category, new E.main_closure129(), C.Symbol_categoryLink, new E.main_closure130(), C.Symbol_classes, new E.main_closure131(), C.Symbol_closure, new E.main_closure132(), C.Symbol_commentFrom, new E.main_closure133(), C.Symbol_constantModifier, new E.main_closure134(), C.Symbol_constructors, new E.main_closure135(), C.Symbol_currentPage, new E.main_closure136(), C.Symbol_descriptiveName, new E.main_closure137(), C.Symbol_descriptiveType, new E.main_closure138(), C.Symbol_divClass, new E.main_closure139(), C.Symbol_dropdownOpen, new E.main_closure140(), C.Symbol_errors, new E.main_closure141(), C.Symbol_functions, new E.main_closure142(), C.Symbol_getter, new E.main_closure143(), C.Symbol_hasInheritedComment, new E.main_closure144(), C.Symbol_hasItems, new E.main_closure145(), C.Symbol_idName, new E.main_closure146(), C.Symbol_inheritedFrom, new E.main_closure147(), C.Symbol_instanceFunctions, new E.main_closure148(), C.Symbol_instanceVariables, new E.main_closure149(), C.Symbol_isClass, new E.main_closure150(), C.Symbol_isFocused, new E.main_closure151(), C.Symbol_isHome, new E.main_closure152(), C.Symbol_isInherited, new E.main_closure153(), C.Symbol_isLibrary, new E.main_closure154(), C.Symbol_isMethod, new E.main_closure155(), C.Symbol_isNotConstructor, new E.main_closure156(), C.Symbol_isNotSetter, new E.main_closure157(), C.Symbol_isTypedef, new E.main_closure158(), C.Symbol_item, new E.main_closure159(), C.Symbol_items, new E.main_closure160(), C.Symbol_itemsToShow, new E.main_closure161(), C.Symbol_lastCrumb, new E.main_closure162(), C.Symbol_lazyClasses, new E.main_closure163(), C.Symbol_lazyConstructors, new E.main_closure164(), C.Symbol_lazyErrors, new E.main_closure165(), C.Symbol_lazyFunctions, new E.main_closure166(), C.Symbol_lazyInstanceFunctions, new E.main_closure167(), C.Symbol_lazyInstanceVariables, new E.main_closure168(), C.Symbol_lazyOperators, new E.main_closure169(), C.Symbol_lazyStaticFunctions, new E.main_closure170(), C.Symbol_lazyStaticVariables, new E.main_closure171(), C.Symbol_lazyTypedefs, new E.main_closure172(), C.Symbol_lazyVariables, new E.main_closure173(), C.Symbol_lineHeight, new E.main_closure174(), C.Symbol_methods, new E.main_closure175(), C.Symbol_modifiers, new E.main_closure176(), C.Symbol_name, new E.main_closure177(), C.Symbol_operators, new E.main_closure178(), C.Symbol_outerLibrary, new E.main_closure179(), C.Symbol_pageContentClass, new E.main_closure180(), C.Symbol_parameters, new E.main_closure181(), C.Symbol_preview, new E.main_closure182(), C.Symbol_results, new E.main_closure183(), C.Symbol_searchQuery, new E.main_closure184(), C.Symbol_shouldShowClassMinimap, new E.main_closure185(), C.Symbol_shouldShowComment, new E.main_closure186(), C.Symbol_shouldShowCommentFrom, new E.main_closure187(), C.Symbol_shouldShowLibraryMinimap, new E.main_closure188(), C.Symbol_shouldShowLibraryPanel, new E.main_closure189(), C.Symbol_showOrHideInherited, new E.main_closure190(), C.Symbol_showOrHideLibraries, new E.main_closure191(), C.Symbol_showOrHideMinimap, new E.main_closure192(), C.Symbol_showOrHideObjectMembers, new E.main_closure193(), C.Symbol_showOrHidePackages, new E.main_closure194(), C.Symbol_staticFunctions, new E.main_closure195(), C.Symbol_staticModifier, new E.main_closure196(), C.Symbol_staticVariables, new E.main_closure197(), C.Symbol_stylizedName, new E.main_closure198(), C.Symbol_title, new E.main_closure199(), C.Symbol_type, new E.main_closure200(), C.Symbol_typedefs, new E.main_closure201(), C.Symbol_url, new E.main_closure202(), C.Symbol_variables, new E.main_closure203(), C.Symbol_version, new E.main_closure204()], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
+    t3 = H.fillLiteralMap([C.Type_EkK, C.Type_oyU, C.Type_q6V, C.Type_oyU, C.Type_8TW, C.Type_rxe, C.Type_Ybt, C.Type_0uu, C.Type_UkW, C.Type_oyU, C.Type_fzi, C.Type_EOZ, C.Type_EsU, C.Type_0uu, C.Type_rt6, C.Type_0uu, C.Type_QXN, C.Type_nVD, C.Type_sBE, C.Type_0uu, C.Type_2pn, C.Type_oyU, C.Type_Y5Q, C.Type_rxe, C.Type_ASc, C.Type_QGy, C.Type_VEs, C.Type_0uu, C.Type_81T, C.Type_oyU, C.Type_IRg, C.Type_0uu, C.Type_IFE, C.Type_rxe, C.Type_ECG, C.Type_rxe, C.Type_j7u, C.Type_HVx, C.Type_8Wd, C.Type_oyU, C.Type_MhD, C.Type_oyU, C.Type_EOZ0, C.Type_0uu, C.Type_ZMt, C.Type_Opy, C.Type_AHF, C.Type_QGy, C.Type_nVD, C.Type_I2I, C.Type_wtN, C.Type_Opy, C.Type_0uu, C.Type_rxe, C.Type_GNh, C.Type_6dg, C.Type_EOZ, C.Type_GNh, C.Type_oyU, C.Type_I2I, C.Type_rxe, C.Type_nVD, C.Type_Opy, C.Type_0uu, C.Type_QGy, C.Type_wtN, C.Type_CxZ, C.Type_NQk, C.Type_HVx, C.Type_CxZ], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
+    t4 = H.fillLiteralMap([C.Type_EkK, H.fillLiteralMap([C.Symbol_annotations, C.Declaration_wsa, C.Symbol_annotationsChanged, C.Declaration_m3R], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_q6V, H.fillLiteralMap([C.Symbol_breadcrumbs, C.Declaration_2p9, C.Symbol_lastCrumb, C.Declaration_oqK], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_8TW, H.fillLiteralMap([C.Symbol_accordionStyle, C.Declaration_CTk, C.Symbol_caretStyle, C.Declaration_wsa0, C.Symbol_category, C.Declaration_if1, C.Symbol_categoryChanged, C.Declaration_MYA, C.Symbol_divClass, C.Declaration_vEP, C.Symbol_hasItems, C.Declaration_ilW, C.Symbol_items, C.Declaration_sYh, C.Symbol_itemsChanged, C.Declaration_23h, C.Symbol_lineHeight, C.Declaration_0Sa, C.Symbol_methods, C.Declaration_kyU, C.Symbol_methodsChanged, C.Declaration_Chj, C.Symbol_stylizedName, C.Declaration_oc4, C.Symbol_title, C.Declaration_GNx, C.Symbol_typedefs, C.Declaration_PqF, C.Symbol_typedefsChanged, C.Declaration_0, C.Symbol_variables, C.Declaration_YyH, C.Symbol_variablesChanged, C.Declaration_AHJ], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_Ybt, H.fillLiteralMap([C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_UkW, H.fillLiteralMap([C.Symbol_closure, C.Declaration_Ecu, C.Symbol_closureChanged, C.Declaration_RWS], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_fzi, H.fillLiteralMap([C.Symbol_item, C.Declaration_S49, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_preview, C.Declaration_lYV, C.Symbol_previewChanged, C.Declaration_XR8], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_EsU, C.Map_empty, C.Type_rt6, C.Map_empty, C.Type_QXN, C.Map_empty, C.Type_sBE, H.fillLiteralMap([C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_2pn, H.fillLiteralMap([C.Symbol_type, C.Declaration_ESz, C.Symbol_typeChanged, C.Declaration_BeS], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_Y5Q, H.fillLiteralMap([C.Symbol_homePage, C.Declaration_Kvr, C.Symbol_pageContentClass, C.Declaration_VyH, C.Symbol_shouldShowClassMinimap, C.Declaration_OWn, C.Symbol_shouldShowLibraryMinimap, C.Declaration_IfQ, C.Symbol_shouldShowLibraryPanel, C.Declaration_mJb, C.Symbol_showOrHideInherited, C.Declaration_hvg, C.Symbol_showOrHideLibraries, C.Declaration_6L0, C.Symbol_showOrHideMinimap, C.Declaration_mou, C.Symbol_showOrHideObjectMembers, C.Declaration_6Vn, C.Symbol_showOrHidePackages, C.Declaration_YYR, C.Symbol_showVersion, C.Declaration_SDM, C.Symbol_version, C.Declaration_7Vh], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_ASc, H.fillLiteralMap([C.Symbol_constantModifier, C.Declaration_aZ8, C.Symbol_isNotConstructor, C.Declaration_36D, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_modifiers, C.Declaration_tsz, C.Symbol_staticModifier, C.Declaration_aoF], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_VEs, C.Map_empty, C.Type_81T, H.fillLiteralMap([C.Symbol_camelCaseName, C.Declaration_4wd, C.Symbol_category, C.Declaration_if1, C.Symbol_categoryChanged, C.Declaration_MYA, C.Symbol_categoryLink, C.Declaration_VWS, C.Symbol_item, C.Declaration_EOZ, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_itemsToShow, C.Declaration_Gds], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_IRg, C.Map_empty, C.Type_IFE, H.fillLiteralMap([C.Symbol_isClass, C.Declaration_aZM, C.Symbol_isHome, C.Declaration_1R3, C.Symbol_isLibrary, C.Declaration_ffs, C.Symbol_isMethod, C.Declaration_qtW, C.Symbol_isTypedef, C.Declaration_QGk, C.Symbol_item, C.Declaration_EOZ, C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_ECG, H.fillLiteralMap([C.Symbol_parameters, C.Declaration_43h, C.Symbol_parametersChanged, C.Declaration_iGr], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_j7u, H.fillLiteralMap([C.Symbol_descriptiveName, C.Declaration_4GC, C.Symbol_descriptiveType, C.Declaration_DCQ, C.Symbol_item, C.Declaration_oQz, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_outerLibrary, C.Declaration_ESz0], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_8Wd, H.fillLiteralMap([C.Symbol_dropdownOpen, C.Declaration_cUs, C.Symbol_isFocused, C.Declaration_mlf, C.Symbol_results, C.Declaration_ggw, C.Symbol_searchQuery, C.Declaration_rPg, C.Symbol_searchQueryChanged, C.Declaration_ewF], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_MhD, H.fillLiteralMap([C.Symbol_type, C.Declaration_MSN, C.Symbol_typeChanged, C.Declaration_BeS], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_EOZ0, C.Map_empty, C.Type_ZMt, H.fillLiteralMap([C.Symbol_getter, C.Declaration_cw1, C.Symbol_isNotSetter, C.Declaration_wEo, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_name, C.Declaration_2T1], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_AHF, H.fillLiteralMap([C.Symbol_annotations, C.Declaration_96m], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_wtN, H.fillLiteralMap([C.Symbol_commentFrom, C.Declaration_iL9, C.Symbol_hasInheritedComment, C.Declaration_yHT, C.Symbol_inheritedFrom, C.Declaration_s6Q, C.Symbol_isInherited, C.Declaration_qBr, C.Symbol_itemChanged, C.Declaration_oRu, C.Symbol_shouldShowComment, C.Declaration_QHx, C.Symbol_shouldShowCommentFrom, C.Declaration_NYu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_0uu, H.fillLiteralMap([C.Symbol_idName, C.Declaration_DZ5, C.Symbol_item, C.Declaration_5l6, C.Symbol_itemChanged, C.Declaration_oRu], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), C.Type_Opy, H.fillLiteralMap([C.Symbol_item, C.Declaration_5l6], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null))], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
+    t5 = O.GeneratedSymbolConverterService$(new O.StaticConfiguration(t1, t2, t3, t4, C.Map_empty, H.fillLiteralMap([C.Symbol_accordionStyle, "accordionStyle", C.Symbol_anchorHref, "anchorHref", C.Symbol_annotations, "annotations", C.Symbol_annotationsChanged, "annotationsChanged", C.Symbol_breadcrumbs, "breadcrumbs", C.Symbol_camelCaseName, "camelCaseName", C.Symbol_caretStyle, "caretStyle", C.Symbol_category, "category", C.Symbol_categoryChanged, "categoryChanged", C.Symbol_categoryLink, "categoryLink", C.Symbol_classes, "classes", C.Symbol_closure, "closure", C.Symbol_closureChanged, "closureChanged", C.Symbol_kCz, "collapseSearchAndOptionsIfNeeded", C.Symbol_commentFrom, "commentFrom", C.Symbol_constantModifier, "constantModifier", C.Symbol_constructors, "constructors", C.Symbol_currentPage, "currentPage", C.Symbol_decoratedName, "decoratedName", C.Symbol_descriptiveName, "descriptiveName", C.Symbol_descriptiveType, "descriptiveType", C.Symbol_divClass, "divClass", C.Symbol_dropdownOpen, "dropdownOpen", C.Symbol_errors, "errors", C.Symbol_functions, "functions", C.Symbol_getter, "getter", C.Symbol_hasInheritedComment, "hasInheritedComment", C.Symbol_hasItems, "hasItems", C.Symbol_hideShow, "hideShow", C.Symbol_homePage, "homePage", C.Symbol_idName, "idName", C.Symbol_inheritedFrom, "inheritedFrom", C.Symbol_instanceFunctions, "instanceFunctions", C.Symbol_instanceVariables, "instanceVariables", C.Symbol_isAbstract, "isAbstract", C.Symbol_isClass, "isClass", C.Symbol_isConstant, "isConstant", C.Symbol_isEmpty, "isEmpty", C.Symbol_isFinal, "isFinal", C.Symbol_isFocused, "isFocused", C.Symbol_isHome, "isHome", C.Symbol_isInherited, "isInherited", C.Symbol_isLibrary, "isLibrary", C.Symbol_isMethod, "isMethod", C.Symbol_isNotConstructor, "isNotConstructor", C.Symbol_isNotEmpty, "isNotEmpty", C.Symbol_isNotSetter, "isNotSetter", C.Symbol_isOperator, "isOperator", C.Symbol_isSetter, "isSetter", C.Symbol_isStatic, "isStatic", C.Symbol_isTypedef, "isTypedef", C.Symbol_item, "item", C.Symbol_itemChanged, "itemChanged", C.Symbol_items, "items", C.Symbol_itemsChanged, "itemsChanged", C.Symbol_itemsToShow, "itemsToShow", C.Symbol_lastCrumb, "lastCrumb", C.Symbol_lazyClasses, "lazyClasses", C.Symbol_lazyConstructors, "lazyConstructors", C.Symbol_lazyErrors, "lazyErrors", C.Symbol_lazyFunctions, "lazyFunctions", C.Symbol_lazyInstanceFunctions, "lazyInstanceFunctions", C.Symbol_lazyInstanceVariables, "lazyInstanceVariables", C.Symbol_lazyOperators, "lazyOperators", C.Symbol_lazyStaticFunctions, "lazyStaticFunctions", C.Symbol_lazyStaticVariables, "lazyStaticVariables", C.Symbol_lazyTypedefs, "lazyTypedefs", C.Symbol_lazyVariables, "lazyVariables", C.Symbol_libraries, "libraries", C.Symbol_lineHeight, "lineHeight", C.Symbol_methods, "methods", C.Symbol_methodsChanged, "methodsChanged", C.Symbol_modifiers, "modifiers", C.Symbol_name, "name", C.Symbol_nameWithGeneric, "nameWithGeneric", C.Symbol_navHideShow, "navHideShow", C.Symbol_operators, "operators", C.Symbol_outerLibrary, "outerLibrary", C.Symbol_pageContentClass, "pageContentClass", C.Symbol_parameters, "parameters", C.Symbol_parametersChanged, "parametersChanged", C.Symbol_position, "position", C.Symbol_prefixedAnchorHref, "prefixedAnchorHref", C.Symbol_prefixedLinkHref, "prefixedLinkHref", C.Symbol_prefixedLocation, "prefixedLocation", C.Symbol_preview, "preview", C.Symbol_previewChanged, "previewChanged", C.Symbol_previewComment, "previewComment", C.Symbol_rerouteLink, "rerouteLink", C.Symbol_results, "results", C.Symbol_searchQuery, "searchQuery", C.Symbol_searchQueryChanged, "searchQueryChanged", C.Symbol_selectDropDownItem, "selectDropDownItem", C.Symbol_shouldShowClassMinimap, "shouldShowClassMinimap", C.Symbol_shouldShowComment, "shouldShowComment", C.Symbol_shouldShowCommentFrom, "shouldShowCommentFrom", C.Symbol_shouldShowLibraryMinimap, "shouldShowLibraryMinimap", C.Symbol_shouldShowLibraryPanel, "shouldShowLibraryPanel", C.Symbol_showOrHideInherited, "showOrHideInherited", C.Symbol_showOrHideLibraries, "showOrHideLibraries", C.Symbol_showOrHideMinimap, "showOrHideMinimap", C.Symbol_showOrHideObjectMembers, "showOrHideObjectMembers", C.Symbol_showOrHidePackages, "showOrHidePackages", C.Symbol_showVersion, "showVersion", C.Symbol_simpleType, "simpleType", C.Symbol_staticFunctions, "staticFunctions", C.Symbol_staticModifier, "staticModifier", C.Symbol_staticVariables, "staticVariables", C.Symbol_stylizedName, "stylizedName", C.Symbol_title, "title", C.Symbol_toggleInherited, "toggleInherited", C.Symbol_toggleMinimap, "toggleMinimap", C.Symbol_toggleObjectMembers, "toggleObjectMembers", C.Symbol_toggleOptionsMenu, "toggleOptionsMenu", C.Symbol_togglePanel, "togglePanel", C.Symbol_togglePkg, "togglePkg", C.Symbol_type, "type", C.Symbol_typeChanged, "typeChanged", C.Symbol_typedefs, "typedefs", C.Symbol_typedefsChanged, "typedefsChanged", C.Symbol_url, "url", C.Symbol_variables, "variables", C.Symbol_variablesChanged, "variablesChanged", C.Symbol_version, "version", C.Symbol_viewer, "viewer"], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), false));
     $.objectAccessor = new O.GeneratedObjectAccessorService(t1, t2, C.Map_empty);
     $.typeInspector = new O.GeneratedTypeInspectorService(t3, t4, false);
     $.symbolConverter = t5;
-    A.startPolymer([new E.main_closure201(), new E.main_closure202(), new E.main_closure203(), new E.main_closure204(), new E.main_closure205(), new E.main_closure206(), new E.main_closure207(), new E.main_closure208(), X.registerMethodElement$closure(), new E.main_closure209(), new E.main_closure210(), new E.main_closure211(), new E.main_closure212(), new E.main_closure213(), new E.main_closure214(), new E.main_closure215(), new E.main_closure216(), new E.main_closure217(), new E.main_closure218(), new E.main_closure219(), new E.main_closure220(), new E.main_closure221(), new E.main_closure222(), L.main$closure()], true);
+    A.startPolymer([new E.main_closure205(), new E.main_closure206(), new E.main_closure207(), new E.main_closure208(), new E.main_closure209(), new E.main_closure210(), new E.main_closure211(), new E.main_closure212(), new E.main_closure213(), X.registerMethodElement$closure(), new E.main_closure214(), new E.main_closure215(), new E.main_closure216(), new E.main_closure217(), new E.main_closure218(), new E.main_closure219(), new E.main_closure220(), new E.main_closure221(), new E.main_closure222(), new E.main_closure223(), new E.main_closure224(), new E.main_closure225(), new E.main_closure226(), new E.main_closure227(), L.main$closure()], true);
   }, "call$0", "main1$closure", 0, 0, 106],
   main_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$accordionStyle$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure0: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$anchorHref();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure1: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$annotations$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure2: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$annotationsChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure3: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$breadcrumbs$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure4: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$camelCaseName$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure5: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$caretStyle$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure6: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$category$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure7: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$categoryChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure8: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$categoryLink$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure9: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$classes$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   main_closure10: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
+    call$1: [function(o) {
+      return J.get$closure$x(o);
+    }, "call$1", null, 2, 0, null, 90, "call"],
+    $isFunction: true
+  },
+  main_closure11: {
+    "^": "Closure0:200;",
+    call$1: [function(o) {
+      return J.get$closureChanged$x(o);
+    }, "call$1", null, 2, 0, null, 90, "call"],
+    $isFunction: true
+  },
+  main_closure12: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$collapseSearchAndOptionsIfNeeded$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure11: {
-    "^": "Closure:200;",
+  main_closure13: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$commentFrom$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure12: {
-    "^": "Closure:200;",
+  main_closure14: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$constantModifier$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure13: {
-    "^": "Closure:200;",
+  main_closure15: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$constructors();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure14: {
-    "^": "Closure:200;",
+  main_closure16: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$currentPage();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure15: {
-    "^": "Closure:200;",
+  main_closure17: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$decoratedName();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure16: {
-    "^": "Closure:200;",
+  main_closure18: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$descriptiveName$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure17: {
-    "^": "Closure:200;",
+  main_closure19: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$descriptiveType$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure18: {
-    "^": "Closure:200;",
+  main_closure20: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$divClass$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure19: {
-    "^": "Closure:200;",
+  main_closure21: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$dropdownOpen$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure20: {
-    "^": "Closure:200;",
+  main_closure22: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$errors();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure21: {
-    "^": "Closure:200;",
+  main_closure23: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$functions();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure22: {
-    "^": "Closure:200;",
+  main_closure24: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$getter$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure23: {
-    "^": "Closure:200;",
+  main_closure25: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$hasInheritedComment$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure24: {
-    "^": "Closure:200;",
+  main_closure26: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$hasItems$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure25: {
-    "^": "Closure:200;",
+  main_closure27: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$hideShow$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure26: {
-    "^": "Closure:200;",
+  main_closure28: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$homePage$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure27: {
-    "^": "Closure:200;",
+  main_closure29: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$idName$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure28: {
-    "^": "Closure:200;",
+  main_closure30: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$inheritedFrom$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure29: {
-    "^": "Closure:200;",
+  main_closure31: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$instanceFunctions();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure30: {
-    "^": "Closure:200;",
+  main_closure32: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$instanceVariables();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure31: {
-    "^": "Closure:200;",
+  main_closure33: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$isAbstract();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure32: {
-    "^": "Closure:200;",
+  main_closure34: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isClass$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure33: {
-    "^": "Closure:200;",
+  main_closure35: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$isConstant();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure34: {
-    "^": "Closure:200;",
+  main_closure36: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isEmpty$asx(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure35: {
-    "^": "Closure:200;",
+  main_closure37: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isFinal$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure36: {
-    "^": "Closure:200;",
+  main_closure38: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isFocused$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure37: {
-    "^": "Closure:200;",
+  main_closure39: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isHome$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure38: {
-    "^": "Closure:200;",
+  main_closure40: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isInherited$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure39: {
-    "^": "Closure:200;",
+  main_closure41: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isLibrary$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure40: {
-    "^": "Closure:200;",
+  main_closure42: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isMethod$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure41: {
-    "^": "Closure:200;",
+  main_closure43: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isNotConstructor$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure42: {
-    "^": "Closure:200;",
+  main_closure44: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isNotEmpty$asx(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure43: {
-    "^": "Closure:200;",
+  main_closure45: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isNotSetter$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure44: {
-    "^": "Closure:200;",
+  main_closure46: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$isOperator();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure45: {
-    "^": "Closure:200;",
+  main_closure47: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$isSetter();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure46: {
-    "^": "Closure:200;",
+  main_closure48: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$isStatic();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure47: {
-    "^": "Closure:200;",
+  main_closure49: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$isTypedef$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure48: {
-    "^": "Closure:200;",
+  main_closure50: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$item$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure49: {
-    "^": "Closure:200;",
+  main_closure51: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$itemChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure50: {
-    "^": "Closure:200;",
+  main_closure52: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$items$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure51: {
-    "^": "Closure:200;",
+  main_closure53: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$itemsChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure52: {
-    "^": "Closure:200;",
+  main_closure54: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$itemsToShow$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure53: {
-    "^": "Closure:200;",
+  main_closure55: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lastCrumb$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure54: {
-    "^": "Closure:200;",
+  main_closure56: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyClasses$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure55: {
-    "^": "Closure:200;",
+  main_closure57: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyConstructors$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure56: {
-    "^": "Closure:200;",
+  main_closure58: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyErrors$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure57: {
-    "^": "Closure:200;",
+  main_closure59: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyFunctions$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure58: {
-    "^": "Closure:200;",
+  main_closure60: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyInstanceFunctions$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure59: {
-    "^": "Closure:200;",
+  main_closure61: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyInstanceVariables$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure60: {
-    "^": "Closure:200;",
+  main_closure62: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyOperators$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure61: {
-    "^": "Closure:200;",
+  main_closure63: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyStaticFunctions$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure62: {
-    "^": "Closure:200;",
+  main_closure64: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyStaticVariables$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure63: {
-    "^": "Closure:200;",
+  main_closure65: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyTypedefs$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure64: {
-    "^": "Closure:200;",
+  main_closure66: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lazyVariables$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure65: {
-    "^": "Closure:200;",
+  main_closure67: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$libraries();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure66: {
-    "^": "Closure:200;",
+  main_closure68: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$lineHeight$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure67: {
-    "^": "Closure:200;",
+  main_closure69: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$methods$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure68: {
-    "^": "Closure:200;",
+  main_closure70: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$methodsChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure69: {
-    "^": "Closure:200;",
+  main_closure71: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$modifiers$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure70: {
-    "^": "Closure:200;",
+  main_closure72: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$name$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure71: {
-    "^": "Closure:200;",
+  main_closure73: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$nameWithGeneric();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure72: {
-    "^": "Closure:200;",
+  main_closure74: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$navHideShow$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure73: {
-    "^": "Closure:200;",
+  main_closure75: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$operators();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure74: {
-    "^": "Closure:200;",
+  main_closure76: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$outerLibrary$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure75: {
-    "^": "Closure:200;",
+  main_closure77: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$pageContentClass$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure76: {
-    "^": "Closure:200;",
+  main_closure78: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$parameters$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure77: {
-    "^": "Closure:200;",
+  main_closure79: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$parametersChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure78: {
-    "^": "Closure:200;",
+  main_closure80: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$position$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure79: {
-    "^": "Closure:200;",
+  main_closure81: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$prefixedAnchorHref();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure80: {
-    "^": "Closure:200;",
+  main_closure82: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$prefixedLinkHref();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure81: {
-    "^": "Closure:200;",
+  main_closure83: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$prefixedLocation$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure82: {
-    "^": "Closure:200;",
+  main_closure84: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$preview$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure83: {
-    "^": "Closure:200;",
+  main_closure85: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$previewChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure84: {
-    "^": "Closure:200;",
+  main_closure86: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$previewComment();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure85: {
-    "^": "Closure:200;",
+  main_closure87: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$rerouteLink$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure86: {
-    "^": "Closure:200;",
+  main_closure88: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$results$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure87: {
-    "^": "Closure:200;",
+  main_closure89: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$searchQuery$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure88: {
-    "^": "Closure:200;",
+  main_closure90: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$searchQueryChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure89: {
-    "^": "Closure:200;",
+  main_closure91: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$selectDropDownItem$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure90: {
-    "^": "Closure:200;",
+  main_closure92: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$shouldShowClassMinimap$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure91: {
-    "^": "Closure:200;",
+  main_closure93: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$shouldShowComment$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure92: {
-    "^": "Closure:200;",
+  main_closure94: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$shouldShowCommentFrom$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure93: {
-    "^": "Closure:200;",
+  main_closure95: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$shouldShowLibraryMinimap$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure94: {
-    "^": "Closure:200;",
+  main_closure96: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$shouldShowLibraryPanel$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure95: {
-    "^": "Closure:200;",
+  main_closure97: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$showOrHideInherited$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure96: {
-    "^": "Closure:200;",
+  main_closure98: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$showOrHideLibraries$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure97: {
-    "^": "Closure:200;",
+  main_closure99: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$showOrHideMinimap$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure98: {
-    "^": "Closure:200;",
+  main_closure100: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$showOrHideObjectMembers$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure99: {
-    "^": "Closure:200;",
+  main_closure101: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$showOrHidePackages$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure100: {
-    "^": "Closure:200;",
+  main_closure102: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$showVersion$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure101: {
-    "^": "Closure:200;",
+  main_closure103: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$simpleType();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure102: {
-    "^": "Closure:200;",
+  main_closure104: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$staticFunctions();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure103: {
-    "^": "Closure:200;",
+  main_closure105: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$staticModifier$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure104: {
-    "^": "Closure:200;",
+  main_closure106: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return o.get$staticVariables();
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure105: {
-    "^": "Closure:200;",
+  main_closure107: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$stylizedName$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure106: {
-    "^": "Closure:200;",
+  main_closure108: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$title$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure107: {
-    "^": "Closure:200;",
+  main_closure109: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$toggleInherited$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure108: {
-    "^": "Closure:200;",
+  main_closure110: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$toggleMinimap$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure109: {
-    "^": "Closure:200;",
+  main_closure111: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$toggleObjectMembers$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure110: {
-    "^": "Closure:200;",
+  main_closure112: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$toggleOptionsMenu$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure111: {
-    "^": "Closure:200;",
+  main_closure113: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$togglePanel$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure112: {
-    "^": "Closure:200;",
+  main_closure114: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$togglePkg$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure113: {
-    "^": "Closure:200;",
+  main_closure115: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$type$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure114: {
-    "^": "Closure:200;",
+  main_closure116: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$typeChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure115: {
-    "^": "Closure:200;",
+  main_closure117: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
-      return o.get$typedefs();
+      return J.get$typedefs$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure116: {
-    "^": "Closure:200;",
+  main_closure118: {
+    "^": "Closure0:200;",
+    call$1: [function(o) {
+      return J.get$typedefsChanged$x(o);
+    }, "call$1", null, 2, 0, null, 90, "call"],
+    $isFunction: true
+  },
+  main_closure119: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$url$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure117: {
-    "^": "Closure:200;",
+  main_closure120: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$variables$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure118: {
-    "^": "Closure:200;",
+  main_closure121: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$variablesChanged$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure119: {
-    "^": "Closure:200;",
+  main_closure122: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$version$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure120: {
-    "^": "Closure:200;",
+  main_closure123: {
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return J.get$viewer$x(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
-  main_closure121: {
-    "^": "Closure:292;",
+  main_closure124: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$accordionStyle$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure122: {
-    "^": "Closure:292;",
+  main_closure125: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$annotations$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure123: {
-    "^": "Closure:292;",
+  main_closure126: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$breadcrumbs$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure124: {
-    "^": "Closure:292;",
+  main_closure127: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$camelCaseName$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure125: {
-    "^": "Closure:292;",
+  main_closure128: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$caretStyle$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure126: {
-    "^": "Closure:292;",
+  main_closure129: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$category$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure127: {
-    "^": "Closure:292;",
+  main_closure130: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$categoryLink$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure128: {
-    "^": "Closure:292;",
+  main_closure131: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$classes$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure129: {
-    "^": "Closure:292;",
+  main_closure132: {
+    "^": "Closure0:292;",
+    call$2: [function(o, v) {
+      J.set$closure$x(o, v);
+    }, "call$2", null, 4, 0, null, 90, 251, "call"],
+    $isFunction: true
+  },
+  main_closure133: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$commentFrom$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure130: {
-    "^": "Closure:292;",
+  main_closure134: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$constantModifier$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure131: {
-    "^": "Closure:292;",
+  main_closure135: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$constructors(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure132: {
-    "^": "Closure:292;",
+  main_closure136: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$currentPage(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure133: {
-    "^": "Closure:292;",
+  main_closure137: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$descriptiveName$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure134: {
-    "^": "Closure:292;",
+  main_closure138: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$descriptiveType$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure135: {
-    "^": "Closure:292;",
+  main_closure139: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$divClass$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure136: {
-    "^": "Closure:292;",
+  main_closure140: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$dropdownOpen$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure137: {
-    "^": "Closure:292;",
+  main_closure141: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$errors(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure138: {
-    "^": "Closure:292;",
+  main_closure142: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$functions(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure139: {
-    "^": "Closure:292;",
+  main_closure143: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$getter$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure140: {
-    "^": "Closure:292;",
+  main_closure144: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$hasInheritedComment$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure141: {
-    "^": "Closure:292;",
+  main_closure145: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$hasItems$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure142: {
-    "^": "Closure:292;",
+  main_closure146: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$idName$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure143: {
-    "^": "Closure:292;",
+  main_closure147: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$inheritedFrom$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure144: {
-    "^": "Closure:292;",
+  main_closure148: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$instanceFunctions(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure145: {
-    "^": "Closure:292;",
+  main_closure149: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$instanceVariables(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure146: {
-    "^": "Closure:292;",
+  main_closure150: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isClass$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure147: {
-    "^": "Closure:292;",
+  main_closure151: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isFocused$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure148: {
-    "^": "Closure:292;",
+  main_closure152: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isHome$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure149: {
-    "^": "Closure:292;",
+  main_closure153: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isInherited$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure150: {
-    "^": "Closure:292;",
+  main_closure154: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isLibrary$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure151: {
-    "^": "Closure:292;",
+  main_closure155: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isMethod$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure152: {
-    "^": "Closure:292;",
+  main_closure156: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isNotConstructor$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure153: {
-    "^": "Closure:292;",
+  main_closure157: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isNotSetter$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure154: {
-    "^": "Closure:292;",
+  main_closure158: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$isTypedef$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure155: {
-    "^": "Closure:292;",
+  main_closure159: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$item$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure156: {
-    "^": "Closure:292;",
+  main_closure160: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$items$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure157: {
-    "^": "Closure:292;",
+  main_closure161: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$itemsToShow$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure158: {
-    "^": "Closure:292;",
+  main_closure162: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lastCrumb$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure159: {
-    "^": "Closure:292;",
+  main_closure163: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyClasses$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure160: {
-    "^": "Closure:292;",
+  main_closure164: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyConstructors$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure161: {
-    "^": "Closure:292;",
+  main_closure165: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyErrors$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure162: {
-    "^": "Closure:292;",
+  main_closure166: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyFunctions$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure163: {
-    "^": "Closure:292;",
+  main_closure167: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyInstanceFunctions$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure164: {
-    "^": "Closure:292;",
+  main_closure168: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyInstanceVariables$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure165: {
-    "^": "Closure:292;",
+  main_closure169: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyOperators$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure166: {
-    "^": "Closure:292;",
+  main_closure170: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyStaticFunctions$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure167: {
-    "^": "Closure:292;",
+  main_closure171: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyStaticVariables$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure168: {
-    "^": "Closure:292;",
+  main_closure172: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyTypedefs$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure169: {
-    "^": "Closure:292;",
+  main_closure173: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lazyVariables$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure170: {
-    "^": "Closure:292;",
+  main_closure174: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$lineHeight$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure171: {
-    "^": "Closure:292;",
+  main_closure175: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$methods$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure172: {
-    "^": "Closure:292;",
+  main_closure176: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$modifiers$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure173: {
-    "^": "Closure:292;",
+  main_closure177: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$name$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure174: {
-    "^": "Closure:292;",
+  main_closure178: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$operators(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure175: {
-    "^": "Closure:292;",
+  main_closure179: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$outerLibrary$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure176: {
-    "^": "Closure:292;",
+  main_closure180: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$pageContentClass$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure177: {
-    "^": "Closure:292;",
+  main_closure181: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$parameters$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure178: {
-    "^": "Closure:292;",
+  main_closure182: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$preview$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure179: {
-    "^": "Closure:292;",
+  main_closure183: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$results$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure180: {
-    "^": "Closure:292;",
+  main_closure184: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$searchQuery$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure181: {
-    "^": "Closure:292;",
+  main_closure185: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$shouldShowClassMinimap$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure182: {
-    "^": "Closure:292;",
+  main_closure186: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$shouldShowComment$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure183: {
-    "^": "Closure:292;",
+  main_closure187: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$shouldShowCommentFrom$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure184: {
-    "^": "Closure:292;",
+  main_closure188: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$shouldShowLibraryMinimap$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure185: {
-    "^": "Closure:292;",
+  main_closure189: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$shouldShowLibraryPanel$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure186: {
-    "^": "Closure:292;",
+  main_closure190: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$showOrHideInherited$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure187: {
-    "^": "Closure:292;",
+  main_closure191: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$showOrHideLibraries$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure188: {
-    "^": "Closure:292;",
+  main_closure192: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$showOrHideMinimap$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure189: {
-    "^": "Closure:292;",
+  main_closure193: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$showOrHideObjectMembers$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure190: {
-    "^": "Closure:292;",
+  main_closure194: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$showOrHidePackages$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure191: {
-    "^": "Closure:292;",
+  main_closure195: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$staticFunctions(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure192: {
-    "^": "Closure:292;",
+  main_closure196: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$staticModifier$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure193: {
-    "^": "Closure:292;",
+  main_closure197: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       o.set$staticVariables(v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure194: {
-    "^": "Closure:292;",
+  main_closure198: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$stylizedName$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure195: {
-    "^": "Closure:292;",
+  main_closure199: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$title$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure196: {
-    "^": "Closure:292;",
+  main_closure200: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$type$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure197: {
-    "^": "Closure:292;",
+  main_closure201: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
-      o.set$typedefs(v);
+      J.set$typedefs$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure198: {
-    "^": "Closure:292;",
+  main_closure202: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$url$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure199: {
-    "^": "Closure:292;",
+  main_closure203: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$variables$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure200: {
-    "^": "Closure:292;",
+  main_closure204: {
+    "^": "Closure0:292;",
     call$2: [function(o, v) {
       J.set$version$x(o, v);
     }, "call$2", null, 4, 0, null, 90, 251, "call"],
     $isFunction: true
   },
-  main_closure201: {
-    "^": "Closure:107;",
+  main_closure205: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-comment", C.Type_fzi);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure202: {
-    "^": "Closure:107;",
+  main_closure206: {
+    "^": "Closure0:107;",
+    call$0: [function() {
+      return A.Polymer_register("dartdoc-closure", C.Type_UkW);
+    }, "call$0", null, 0, 0, null, "call"],
+    $isFunction: true
+  },
+  main_closure207: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-parameter", C.Type_ECG);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure203: {
-    "^": "Closure:107;",
+  main_closure208: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-item", C.Type_rt6);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure204: {
-    "^": "Closure:107;",
+  main_closure209: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-annotation", C.Type_EkK);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure205: {
-    "^": "Closure:107;",
+  main_closure210: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-link", C.Type_2pn);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure206: {
-    "^": "Closure:107;",
+  main_closure211: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-type", C.Type_MhD);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure207: {
-    "^": "Closure:107;",
+  main_closure212: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("variable-heading", C.Type_ZMt);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure208: {
-    "^": "Closure:107;",
+  main_closure213: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-variable", C.Type_AHF);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure209: {
-    "^": "Closure:107;",
+  main_closure214: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-typedef", C.Type_EOZ0);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure210: {
-    "^": "Closure:107;",
+  main_closure215: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-category", C.Type_8TW);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure211: {
-    "^": "Closure:107;",
+  main_closure216: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-minimap", C.Type_81T);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure212: {
-    "^": "Closure:107;",
+  main_closure217: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-homepage", C.Type_EsU);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure213: {
-    "^": "Closure:107;",
+  main_closure218: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-class", C.Type_Ybt);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure214: {
-    "^": "Closure:107;",
+  main_closure219: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-library", C.Type_sBE);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure215: {
-    "^": "Closure:107;",
+  main_closure220: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-page", C.Type_IFE);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure216: {
-    "^": "Closure:107;",
+  main_closure221: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("search-result", C.Type_j7u);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure217: {
-    "^": "Closure:107;",
+  main_closure222: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("search-box", C.Type_8Wd);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure218: {
-    "^": "Closure:107;",
+  main_closure223: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-minimap-library", C.Type_IRg);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure219: {
-    "^": "Closure:107;",
+  main_closure224: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-library-panel", C.Type_QXN);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure220: {
-    "^": "Closure:107;",
+  main_closure225: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-minimap-class", C.Type_VEs);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure221: {
-    "^": "Closure:107;",
+  main_closure226: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-breadcrumbs", C.Type_q6V);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
-  main_closure222: {
-    "^": "Closure:107;",
+  main_closure227: {
+    "^": "Closure0:107;",
     call$0: [function() {
       return A.Polymer_register("dartdoc-main", C.Type_Y5Q);
     }, "call$0", null, 0, 0, null, "call"],
@@ -5673,7 +5708,7 @@ var $$ = {};
       return !(J.$eq(this._category_item$__$comment, "<span></span>") === true || J.$eq(this._category_item$__$comment, "<div></div>") === true);
     },
     toString$0: function(_) {
-      return H.S(new H.TypeImpl(H.getRuntimeTypeString(this), null)) + "(" + H.S(this.name) + ")";
+      return H.S(new H.TypeImpl(H.getRuntimeTypeString(this), null)) + "(" + H.S(this.get$name(this)) + ")";
     }
   },
   Category: {
@@ -5771,14 +5806,14 @@ var $$ = {};
       }}
   },
   Category_memberNamed_closure: {
-    "^": "Closure:200;name_0",
+    "^": "Closure0:200;name_0",
     call$1: [function(x) {
       return J.$eq(J.get$name$x(x), this.name_0);
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   Category$forClasses_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(clazz) {
       var t1 = J.getInterceptor$asx(clazz);
       return J.add$1$ax(this.this_0.content, E.Class$forPlaceholder(t1.$index(clazz, "qualifiedName"), t1.$index(clazz, "preview")));
@@ -5786,7 +5821,7 @@ var $$ = {};
     $isFunction: true
   },
   Category$forVariables_closure: {
-    "^": "Closure:200;this_0,variables_1",
+    "^": "Closure0:200;this_0,variables_1",
     call$1: [function(key) {
       var t1 = this.this_0;
       t1.memberNames.add$1(0, key);
@@ -5796,7 +5831,7 @@ var $$ = {};
     $isFunction: true
   },
   Category$forVariables_closure0: {
-    "^": "Closure:200;this_2,getters_3",
+    "^": "Closure0:200;this_2,getters_3",
     call$1: [function(key) {
       var t1 = this.this_2;
       t1.memberNames.add$1(0, key);
@@ -5806,7 +5841,7 @@ var $$ = {};
     $isFunction: true
   },
   Category$forVariables_closure1: {
-    "^": "Closure:200;this_4,setters_5",
+    "^": "Closure0:200;this_4,setters_5",
     call$1: [function(key) {
       var t1 = this.this_4;
       t1.memberNames.add$1(0, key);
@@ -5816,7 +5851,7 @@ var $$ = {};
     $isFunction: true
   },
   Category$forFunctions_closure: {
-    "^": "Closure:200;this_0,yaml_1,isConstructor_2,className_3,isOperator_4,owner_5",
+    "^": "Closure0:200;this_0,yaml_1,isConstructor_2,className_3,isOperator_4,owner_5",
     call$1: [function(key) {
       var t1 = this.this_0;
       t1.memberNames.add$1(0, key);
@@ -5826,21 +5861,21 @@ var $$ = {};
     $isFunction: true
   },
   Category$forTypedefs_closure: {
-    "^": "Closure:200;this_0,yaml_1",
+    "^": "Closure0:200;this_0,yaml_1",
     call$1: [function(key) {
       return J.add$1$ax(this.this_0.content, E.Typedef$(J.$index$asx(this.yaml_1, key)));
     }, "call$1", null, 2, 0, null, 41, "call"],
     $isFunction: true
   },
   Category_addInheritedItem_closure: {
-    "^": "Closure:200;item_0",
+    "^": "Closure0:200;item_0",
     call$1: [function(innerItem) {
       return J.$eq(J.get$name$x(innerItem), this.item_0.name);
     }, "call$1", null, 2, 0, null, 297, "call"],
     $isFunction: true
   },
   Category_filteredContent_closure: {
-    "^": "Closure:200;filter_0",
+    "^": "Closure0:200;filter_0",
     call$1: [function(c) {
       return this.filter_0.shouldShow$1(c);
     }, "call$1", null, 2, 0, null, 256, "call"],
@@ -5861,10 +5896,10 @@ var $$ = {};
   Item: {
     "^": "Container;path>,qualifiedName<",
     get$decoratedName: function() {
-      return this.name;
+      return this.get$name(this);
     },
     get$hashDecoratedName: function() {
-      return this.name;
+      return this.get$name(this);
     },
     addToHierarchy$0: function() {
       $.get$pageIndex().$indexSet(0, this.qualifiedName, this);
@@ -5982,14 +6017,14 @@ var $$ = {};
     $isItem: true
   },
   _sort_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(item) {
       J.sort$1$ax(item, new E._sort__closure());
     }, "call$1", null, 2, 0, null, 298, "call"],
     $isFunction: true
   },
   _sort__closure: {
-    "^": "Closure:299;",
+    "^": "Closure0:299;",
     call$2: [function(a, b) {
       return E._compareLibraryNames(a.get$decoratedName(), b.get$decoratedName());
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
@@ -6074,21 +6109,21 @@ var $$ = {};
       }}
   },
   Home_closure: {
-    "^": "Closure:200;packages_0",
+    "^": "Closure0:200;packages_0",
     call$1: [function(each) {
       return J.add$1$ax(this.packages_0.putIfAbsent$2(J.$index$asx(each, "packageName"), new E.Home__closure1()), each);
     }, "call$1", null, 2, 0, null, 300, "call"],
     $isFunction: true
   },
   Home__closure1: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       return [];
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Home_closure0: {
-    "^": "Closure:292;this_1",
+    "^": "Closure0:292;this_1",
     call$2: [function(packageName, libraries) {
       var $package, t1;
       J.firstWhere$2$orElse$ax(libraries, new E.Home__closure(packageName), new E.Home__closure0(libraries));
@@ -6100,28 +6135,28 @@ var $$ = {};
     $isFunction: true
   },
   Home__closure: {
-    "^": "Closure:200;packageName_2",
+    "^": "Closure0:200;packageName_2",
     call$1: [function(each) {
       return J.$eq(J.$index$asx(each, "name"), this.packageName_2);
     }, "call$1", null, 2, 0, null, 300, "call"],
     $isFunction: true
   },
   Home__closure0: {
-    "^": "Closure:107;libraries_3",
+    "^": "Closure0:107;libraries_3",
     call$0: [function() {
       return J.get$first$ax(this.libraries_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Home_makeMainLibrarySpecial_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(each) {
       return J.$eq(J.get$name$x(each), this.this_0.name);
     }, "call$1", null, 2, 0, null, 300, "call"],
     $isFunction: true
   },
   Home_makeMainLibrarySpecial_closure0: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       var t1 = this.this_1.libraries;
       return t1.length === 0 ? null : C.JSArray_methods.get$first(t1);
@@ -6129,14 +6164,14 @@ var $$ = {};
     $isFunction: true
   },
   Home_makeMainLibrarySpecial_closure1: {
-    "^": "Closure:200;mainLib_2",
+    "^": "Closure0:200;mainLib_2",
     call$1: [function(each) {
       return J.$eq(J.$index$asx(each, "name"), J.get$name$x(this.mainLib_2));
     }, "call$1", null, 2, 0, null, 300, "call"],
     $isFunction: true
   },
   Home_memberNamed_closure: {
-    "^": "Closure:200;name_0",
+    "^": "Closure0:200;name_0",
     call$1: [function(each) {
       var t1 = this.name_0;
       return J.$eq(J.get$name$x(each), t1) === true || J.$eq(each.get$decoratedName(), t1) === true;
@@ -6155,7 +6190,7 @@ var $$ = {};
     $isLazyItem: true
   },
   LazyItem_load_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(response) {
       var stream, t1, yaml;
       if ($.isYaml === true) {
@@ -6176,7 +6211,7 @@ var $$ = {};
     $isFunction: true
   },
   Library: {
-    "^": "LazyItem;classes*,errors@,typedefs@,variables*,functions@,operators@,home<,isLoaded,previewComment,path,qualifiedName,_owner,name,_category_item$__$comment,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records",
+    "^": "LazyItem;classes*,errors@,typedefs*,variables*,functions@,operators@,home<,isLoaded,previewComment,path,qualifiedName,_owner,name,_category_item$__$comment,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records",
     addToHierarchy$0: function() {
       var t1, t2, t3, clazz, t4, t5;
       E.Item.prototype.addToHierarchy$0.call(this);
@@ -6429,21 +6464,21 @@ var $$ = {};
       }}
   },
   Class_addToHierarchy_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(category) {
       J.forEach$1$ax(J.get$content$x(category), new E.Class_addToHierarchy__closure(this.this_0));
     }, "call$1", null, 2, 0, null, 304, "call"],
     $isFunction: true
   },
   Class_addToHierarchy__closure: {
-    "^": "Closure:200;this_1",
+    "^": "Closure0:200;this_1",
     call$1: [function(clazz) {
       E.buildHierarchy(clazz, this.this_1);
     }, "call$1", null, 2, 0, null, 296, "call"],
     $isFunction: true
   },
   Class_loadValues_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(item) {
       var t1 = new Y.DocsLocation(null, null, null, null, null);
       t1._extractPieces$1(item);
@@ -6452,7 +6487,7 @@ var $$ = {};
     $isFunction: true
   },
   Class_loadValues_closure0: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(item) {
       var t1 = new Y.DocsLocation(null, null, null, null, null);
       t1._extractPieces$1(item);
@@ -6461,14 +6496,14 @@ var $$ = {};
     $isFunction: true
   },
   Class_loadValues_closure1: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(generic) {
       return this.this_0.generics.push(generic);
     }, "call$1", null, 2, 0, null, 305, "call"],
     $isFunction: true
   },
   Class__addVariable_closure: {
-    "^": "Closure:200;this_0,isSetter_1,isGetter_2",
+    "^": "Closure0:200;this_0,isSetter_1,isGetter_2",
     call$1: [function(item) {
       var t1, t2, t3, object;
       t1 = J.getInterceptor$asx(item);
@@ -6480,7 +6515,7 @@ var $$ = {};
     $isFunction: true
   },
   Class__addMethod_closure: {
-    "^": "Closure:200;this_0,isOperator_1",
+    "^": "Closure0:200;this_0,isOperator_1",
     call$1: [function(item) {
       var t1, t2, t3, t4, object;
       t1 = this.isOperator_1;
@@ -6494,6 +6529,10 @@ var $$ = {};
   },
   AnnotationGroup: {
     "^": "Object;supportedBrowsers<,annotations*,domName",
+    _stripOffQuotes$1: function(s) {
+      var t1 = J.getInterceptor$s(s);
+      return t1.startsWith$1(s, "'") || t1.startsWith$1(s, "\"") ? t1.substring$2(s, 1, J.$sub$n(t1.get$length(s), 1)) : s;
+    },
     AnnotationGroup$1: function(annotes) {
       var set, t1;
       set = P.LinkedHashSet_LinkedHashSet(null, null, null, null);
@@ -6511,15 +6550,19 @@ var $$ = {};
       }}
   },
   AnnotationGroup_closure: {
-    "^": "Closure:200;this_0,set_1",
+    "^": "Closure0:200;this_0,set_1",
     call$1: [function(annotation) {
       var t1, t2, t3;
       t1 = J.getInterceptor$asx(annotation);
-      if (J.endsWith$1$s(t1.$index(annotation, "name"), ".SupportedBrowser") === true)
-        this.this_0.supportedBrowsers.push(J.join$1$ax(J.toList$0$ax(t1.$index(annotation, "parameters")), " "));
-      else if (J.endsWith$1$s(t1.$index(annotation, "name"), ".DomName") === true)
-        this.this_0.domName = J.get$first$ax(t1.$index(annotation, "parameters"));
-      else {
+      if (J.endsWith$1$s(t1.$index(annotation, "name"), ".SupportedBrowser") === true) {
+        t2 = this.this_0;
+        t2.supportedBrowsers.push(H.setRuntimeTypeInfo(new H.MappedListIterable(J.map$1$ax(J.toList$0$ax(t1.$index(annotation, "parameters")), new E.AnnotationGroup__closure(t2)), new E.AnnotationGroup__closure0(t2)), [null, null]).join$1(0, " "));
+      } else if (J.endsWith$1$s(t1.$index(annotation, "name"), ".DomName") === true) {
+        t2 = this.this_0;
+        t1 = J.get$first$ax(t1.$index(annotation, "parameters"));
+        t2.domName = t1;
+        t2.domName = t2._stripOffQuotes$1(t1);
+      } else {
         t2 = t1.$index(annotation, "name");
         t3 = new Y.DocsLocation(null, null, null, null, null);
         t3._extractPieces$1(t1.$index(annotation, "name"));
@@ -6529,8 +6572,25 @@ var $$ = {};
     }, "call$1", null, 2, 0, null, 306, "call"],
     $isFunction: true
   },
+  AnnotationGroup__closure: {
+    "^": "Closure0:200;this_2",
+    call$1: [function(e) {
+      return this.this_2._stripOffQuotes$1(e);
+    }, "call$1", null, 2, 0, null, 15, "call"],
+    $isFunction: true
+  },
+  AnnotationGroup__closure0: {
+    "^": "Closure0:200;this_3",
+    call$1: [function(e) {
+      var s = C.JSString_methods.toLowerCase$0(J.replaceAll$2$s(e, "SupportedBrowser.", ""));
+      if (0 >= s.length)
+        return H.ioore(s, 0);
+      return s[0].toUpperCase() + C.JSString_methods.substring$1(s, 1);
+    }, "call$1", null, 2, 0, null, 15, "call"],
+    $isFunction: true
+  },
   AnnotationGroup_closure0: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.compareTo$1$ns(a.get$shortName(), b.get$shortName());
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
@@ -6559,7 +6619,7 @@ var $$ = {};
     $isAnnotation: true
   },
   Annotation_hashCode_closure: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, param) {
       return J.$xor$n(a, J.get$hashCode$(param));
     }, "call$2", null, 4, 0, null, 109, 307, "call"],
@@ -6585,21 +6645,21 @@ var $$ = {};
     }
   },
   Parameterized_getParameters_closure: {
-    "^": "Closure:292;this_0,values_1",
+    "^": "Closure0:292;this_0,values_1",
     call$2: [function($name, data) {
       this.values_1.push(E.Parameter$($name, data, this.this_0));
     }, "call$2", null, 4, 0, null, 6, 207, "call"],
     $isFunction: true
   },
   Parameterized_parameterNamed_closure: {
-    "^": "Closure:200;name_0",
+    "^": "Closure0:200;name_0",
     call$1: [function(x) {
       return J.$eq(J.get$name$x(x), this.name_0);
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   Parameterized_parameterNamed_closure0: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       return;
     }, "call$0", null, 0, 0, null, "call"],
@@ -6708,8 +6768,40 @@ var $$ = {};
         return t4;
       }}
   },
+  Closure: {
+    "^": "Parameterized;parameters:category_item$Closure$parameters*,returnType<,name:category_item$Closure$name>,parameters,path,qualifiedName,_owner,name,_category_item$__$comment,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records",
+    get$anchorHrefLocation: function() {
+      var ownerLocation, ownerAnchor, t1;
+      if (this.get$owner() == null)
+        return;
+      ownerLocation = this.get$owner().get$anchorHrefLocation();
+      ownerAnchor = ownerLocation.anchor;
+      t1 = this.category_item$Closure$name;
+      ownerLocation.anchor = ownerAnchor == null ? "," + H.S(t1) : H.S(ownerAnchor) + ("," + H.S(t1));
+      return ownerLocation;
+    },
+    get$anchorHref: function() {
+      var t1, t2, t3, t4, t5;
+      t1 = this.get$anchorHrefLocation();
+      t2 = t1.get$packagePlus();
+      t3 = t1.libraryName;
+      if (t3 == null)
+        t3 = "";
+      t4 = t1.memberName;
+      t4 = t4 == null ? "" : "." + H.S(t4);
+      t5 = t1.subMemberName;
+      return C.JSArray_methods.join$1([t2, t3, t4, t5 == null ? "" : "." + H.S(t5)], "") + t1.get$anchorPlus();
+    },
+    get$hashDecoratedName: function() {
+      return "," + H.S(this.category_item$Closure$name);
+    },
+    Closure$3: function($name, yaml, owner) {
+      this.category_item$Closure$parameters = this.getParameters$1(J.$index$asx(yaml, "parameters"));
+      this._owner = owner;
+    }
+  },
   Parameter: {
-    "^": "Item;isOptional<,isNamed<,hasDefault,type>,defaultValue,annotations>,path,qualifiedName,_owner,name,_category_item$__$comment,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records",
+    "^": "Item;isOptional<,isNamed<,hasDefault,type>,defaultValue,annotations>,functionDeclaration<,path,qualifiedName,_owner,name,_category_item$__$comment,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records",
     get$decoratedName: function() {
       return H.S(this.name) + this.get$decoration();
     },
@@ -6765,10 +6857,25 @@ var $$ = {};
     },
     $isParameter: true,
     static: {Parameter$: function($name, yaml, owner) {
-        var t1 = J.getInterceptor$asx(yaml);
-        t1 = new E.Parameter(E._boolFor("optional", yaml), E._boolFor("named", yaml), E._boolFor("default", yaml), E.NestedType_NestedType(J.get$first$ax(t1.$index(yaml, "type"))), t1.$index(yaml, "value"), E.AnnotationGroup$(t1.$index(yaml, "annotations")), [], null, null, $name, null, null, null);
-        t1.Parameter$3($name, yaml, owner);
-        return t1;
+        var t1, t2, t3, t4, t5, t6, t7, t8;
+        t1 = E._boolFor("optional", yaml);
+        t2 = E._boolFor("named", yaml);
+        t3 = E._boolFor("default", yaml);
+        t4 = J.getInterceptor$asx(yaml);
+        t5 = E.NestedType_NestedType(J.get$first$ax(t4.$index(yaml, "type")));
+        t6 = t4.$index(yaml, "value");
+        t7 = E.AnnotationGroup$(t4.$index(yaml, "annotations"));
+        if (t4.$index(yaml, "functionDeclaration") == null)
+          t4 = null;
+        else {
+          t4 = t4.$index(yaml, "functionDeclaration");
+          t8 = new E.Closure(null, E.NestedType_NestedType(J.get$first$ax(J.$index$asx(t4, "return"))), $name, null, [], null, null, "closure", null, null, null);
+          t8.Closure$3($name, t4, owner);
+          t4 = t8;
+        }
+        t4 = new E.Parameter(t1, t2, t3, t5, t6, t7, t4, [], null, null, $name, null, null, null);
+        t4.Parameter$3($name, yaml, owner);
+        return t4;
       }}
   },
   Variable: {
@@ -6884,7 +6991,7 @@ var $$ = {};
       }}
   },
   NestedType_NestedType_closure: {
-    "^": "Closure:200;inner_0",
+    "^": "Closure0:200;inner_0",
     call$1: [function(element) {
       return this.inner_0.push(E.NestedType_NestedType(element));
     }, "call$1", null, 2, 0, null, 132, "call"],
@@ -7124,7 +7231,7 @@ var $$ = {};
     }
   },
   Constructor_visitMapping_closure: {
-    "^": "Closure:292;dartMap_0",
+    "^": "Closure0:292;dartMap_0",
     call$2: [function(k, v) {
       J.$indexSet$ax(this.dartMap_0, k, v);
     }, "call$2", null, 4, 0, null, 309, 251, "call"],
@@ -8439,7 +8546,7 @@ var $$ = {};
     }
   },
   _SyncBroadcastStreamController__sendData_closure: {
-    "^": "Closure;this_0,data_1",
+    "^": "Closure0;this_0,data_1",
     call$1: [function(subscription) {
       subscription._async$_add$1(0, this.data_1);
     }, "call$1", null, 2, 0, null, 152, "call"],
@@ -8451,7 +8558,7 @@ var $$ = {};
     }
   },
   _SyncBroadcastStreamController__sendError_closure: {
-    "^": "Closure;this_0,error_1,stackTrace_2",
+    "^": "Closure0;this_0,error_1,stackTrace_2",
     call$1: [function(subscription) {
       subscription._addError$2(this.error_1, this.stackTrace_2);
     }, "call$1", null, 2, 0, null, 152, "call"],
@@ -8463,7 +8570,7 @@ var $$ = {};
     }
   },
   _SyncBroadcastStreamController__sendDone_closure: {
-    "^": "Closure;this_0",
+    "^": "Closure0;this_0",
     call$1: [function(subscription) {
       subscription._close$0();
     }, "call$1", null, 2, 0, null, 152, "call"],
@@ -8503,7 +8610,7 @@ var $$ = {};
     $isFuture: true
   },
   Future_wait_handleError: {
-    "^": "Closure:292;box_0,eagerError_1",
+    "^": "Closure0:292;box_0,eagerError_1",
     call$2: [function(theError, theStackTrace) {
       var t1, t2, remaining;
       t1 = this.box_0;
@@ -8524,7 +8631,7 @@ var $$ = {};
     $isFunction: true
   },
   Future_wait_closure: {
-    "^": "Closure:313;box_0,eagerError_2,pos_3",
+    "^": "Closure0:313;box_0,eagerError_2,pos_3",
     call$1: [function(value) {
       var t1, remaining, t2, t3;
       t1 = this.box_0;
@@ -8837,21 +8944,21 @@ var $$ = {};
       }, "call$2", "_Future__propagateToListeners$closure", 4, 0, null, 26, 142]}
   },
   _Future__addListener_closure: {
-    "^": "Closure:107;this_0,listener_1",
+    "^": "Closure0:107;this_0,listener_1",
     call$0: [function() {
       P._Future__propagateToListeners(this.this_0, this.listener_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _Future__chainForeignFuture_closure: {
-    "^": "Closure:200;target_0",
+    "^": "Closure0:200;target_0",
     call$1: [function(value) {
       this.target_0._completeWithValue$1(value);
     }, "call$1", null, 2, 0, null, 24, "call"],
     $isFunction: true
   },
   _Future__chainForeignFuture_closure0: {
-    "^": "Closure:314;target_1",
+    "^": "Closure0:314;target_1",
     call$2: [function(error, stackTrace) {
       this.target_1._completeError$2(error, stackTrace);
     }, function(error) {
@@ -8860,28 +8967,28 @@ var $$ = {};
     $isFunction: true
   },
   _Future__asyncComplete_closure: {
-    "^": "Closure:107;this_0,coreFuture_1",
+    "^": "Closure0:107;this_0,coreFuture_1",
     call$0: [function() {
       P._Future__chainCoreFuture(this.coreFuture_1, this.this_0);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _Future__asyncComplete_closure0: {
-    "^": "Closure:107;this_2,value_3",
+    "^": "Closure0:107;this_2,value_3",
     call$0: [function() {
       this.this_2._completeWithValue$1(this.value_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _Future__asyncCompleteError_closure: {
-    "^": "Closure:107;this_0,error_1,stackTrace_2",
+    "^": "Closure0:107;this_0,error_1,stackTrace_2",
     call$0: [function() {
       this.this_0._completeError$2(this.error_1, this.stackTrace_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _Future__propagateToListeners_handleValueCallback: {
-    "^": "Closure:315;box_1,listener_3,sourceValue_4,zone_5",
+    "^": "Closure0:315;box_1,listener_3,sourceValue_4,zone_5",
     call$0: [function() {
       var e, s, t1, t2, exception;
       try {
@@ -8902,7 +9009,7 @@ var $$ = {};
     $isFunction: true
   },
   _Future__propagateToListeners_handleError: {
-    "^": "Closure:106;box_2,box_1,listener_6,zone_7",
+    "^": "Closure0:106;box_2,box_1,listener_6,zone_7",
     call$0: [function() {
       var asyncError, test, matchesTest, e, s, errorCallback, e0, s0, t1, t2, t3, exception, listenerValueOrError, t4;
       asyncError = this.box_2.source_4.get$_error();
@@ -8969,7 +9076,7 @@ var $$ = {};
     $isFunction: true
   },
   _Future__propagateToListeners_handleWhenCompleteCallback: {
-    "^": "Closure:106;box_2,box_1,hasError_8,listener_9,zone_10",
+    "^": "Closure0:106;box_2,box_1,hasError_8,listener_9,zone_10",
     call$0: [function() {
       var t1, e, s, t2, t3, exception;
       t1 = {};
@@ -9008,14 +9115,14 @@ var $$ = {};
     $isFunction: true
   },
   _Future__propagateToListeners_handleWhenCompleteCallback_closure: {
-    "^": "Closure:200;box_2,listener_11",
+    "^": "Closure0:200;box_2,listener_11",
     call$1: [function(ignored) {
       P._Future__propagateToListeners(this.box_2.source_4, this.listener_11);
     }, "call$1", null, 2, 0, null, 316, "call"],
     $isFunction: true
   },
   _Future__propagateToListeners_handleWhenCompleteCallback_closure0: {
-    "^": "Closure:314;box_0,listener_12",
+    "^": "Closure0:314;box_0,listener_12",
     call$2: [function(error, stackTrace) {
       var t1, completeResult;
       t1 = this.box_0;
@@ -9141,7 +9248,7 @@ var $$ = {};
     $isStream: true
   },
   Stream_fold_closure: {
-    "^": "Closure;box_0,this_1,combine_2,result_3",
+    "^": "Closure0;box_0,this_1,combine_2,result_3",
     call$1: [function(element) {
       var t1 = this.box_0;
       P._runUserCode(new P.Stream_fold__closure(t1, this.combine_2, element), new P.Stream_fold__closure0(t1), P._cancelAndErrorClosure(t1.subscription_1, this.result_3));
@@ -9154,35 +9261,35 @@ var $$ = {};
     }
   },
   Stream_fold__closure: {
-    "^": "Closure:107;box_0,combine_4,element_5",
+    "^": "Closure0:107;box_0,combine_4,element_5",
     call$0: [function() {
       return this.combine_4.call$2(this.box_0.value_0, this.element_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_fold__closure0: {
-    "^": "Closure:200;box_0",
+    "^": "Closure0:200;box_0",
     call$1: [function(newValue) {
       this.box_0.value_0 = newValue;
     }, "call$1", null, 2, 0, null, 203, "call"],
     $isFunction: true
   },
   Stream_fold_closure1: {
-    "^": "Closure:292;result_6",
+    "^": "Closure0:292;result_6",
     call$2: [function(e, st) {
       this.result_6._completeError$2(e, st);
     }, "call$2", null, 4, 0, null, 15, 317, "call"],
     $isFunction: true
   },
   Stream_fold_closure0: {
-    "^": "Closure:107;box_0,result_7",
+    "^": "Closure0:107;box_0,result_7",
     call$0: [function() {
       this.result_7._complete$1(this.box_0.value_0);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_join_closure: {
-    "^": "Closure;box_0,this_1,separator_2,result_3,buffer_4",
+    "^": "Closure0;box_0,this_1,separator_2,result_3,buffer_4",
     call$1: [function(element) {
       var e, s, t1, exception, t2;
       t1 = this.box_0;
@@ -9207,21 +9314,21 @@ var $$ = {};
     }
   },
   Stream_join_closure1: {
-    "^": "Closure:200;result_5",
+    "^": "Closure0:200;result_5",
     call$1: [function(e) {
       this.result_5._completeError$1(e);
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   Stream_join_closure0: {
-    "^": "Closure:107;result_6,buffer_7",
+    "^": "Closure0:107;result_6,buffer_7",
     call$0: [function() {
       this.result_6._complete$1(this.buffer_7._contents);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_contains_closure: {
-    "^": "Closure;box_0,this_1,needle_2,future_3",
+    "^": "Closure0;box_0,this_1,needle_2,future_3",
     call$1: [function(element) {
       var t1, t2;
       t1 = this.box_0;
@@ -9236,14 +9343,14 @@ var $$ = {};
     }
   },
   Stream_contains__closure: {
-    "^": "Closure:107;needle_4,element_5",
+    "^": "Closure0:107;needle_4,element_5",
     call$0: [function() {
       return J.$eq(this.element_5, this.needle_4);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_contains__closure0: {
-    "^": "Closure:319;box_0,future_6",
+    "^": "Closure0:319;box_0,future_6",
     call$1: [function(isMatch) {
       if (isMatch === true)
         P._cancelAndValue(this.box_0.subscription_0, this.future_6, true);
@@ -9251,14 +9358,14 @@ var $$ = {};
     $isFunction: true
   },
   Stream_contains_closure0: {
-    "^": "Closure:107;future_7",
+    "^": "Closure0:107;future_7",
     call$0: [function() {
       this.future_7._complete$1(false);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_forEach_closure: {
-    "^": "Closure;box_0,this_1,action_2,future_3",
+    "^": "Closure0;box_0,this_1,action_2,future_3",
     call$1: [function(element) {
       P._runUserCode(new P.Stream_forEach__closure(this.action_2, element), new P.Stream_forEach__closure0(), P._cancelAndErrorClosure(this.box_0.subscription_0, this.future_3));
     }, "call$1", null, 2, 0, null, 132, "call"],
@@ -9270,27 +9377,27 @@ var $$ = {};
     }
   },
   Stream_forEach__closure: {
-    "^": "Closure:107;action_4,element_5",
+    "^": "Closure0:107;action_4,element_5",
     call$0: [function() {
       return this.action_4.call$1(this.element_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_forEach__closure0: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(_) {
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   Stream_forEach_closure0: {
-    "^": "Closure:107;future_6",
+    "^": "Closure0:107;future_6",
     call$0: [function() {
       this.future_6._complete$1(null);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_any_closure: {
-    "^": "Closure;box_0,this_1,test_2,future_3",
+    "^": "Closure0;box_0,this_1,test_2,future_3",
     call$1: [function(element) {
       var t1, t2;
       t1 = this.box_0;
@@ -9305,14 +9412,14 @@ var $$ = {};
     }
   },
   Stream_any__closure: {
-    "^": "Closure:107;test_4,element_5",
+    "^": "Closure0:107;test_4,element_5",
     call$0: [function() {
       return this.test_4.call$1(this.element_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_any__closure0: {
-    "^": "Closure:319;box_0,future_6",
+    "^": "Closure0:319;box_0,future_6",
     call$1: [function(isMatch) {
       if (isMatch === true)
         P._cancelAndValue(this.box_0.subscription_0, this.future_6, true);
@@ -9320,14 +9427,14 @@ var $$ = {};
     $isFunction: true
   },
   Stream_any_closure0: {
-    "^": "Closure:107;future_7",
+    "^": "Closure0:107;future_7",
     call$0: [function() {
       this.future_7._complete$1(false);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_length_closure: {
-    "^": "Closure:200;box_0",
+    "^": "Closure0:200;box_0",
     call$1: [function(_) {
       var t1 = this.box_0;
       t1.count_0 = t1.count_0 + 1;
@@ -9335,28 +9442,28 @@ var $$ = {};
     $isFunction: true
   },
   Stream_length_closure0: {
-    "^": "Closure:107;box_0,future_1",
+    "^": "Closure0:107;box_0,future_1",
     call$0: [function() {
       this.future_1._complete$1(this.box_0.count_0);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_isEmpty_closure: {
-    "^": "Closure:200;box_0,future_1",
+    "^": "Closure0:200;box_0,future_1",
     call$1: [function(_) {
       P._cancelAndValue(this.box_0.subscription_0, this.future_1, false);
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   Stream_isEmpty_closure0: {
-    "^": "Closure:107;future_2",
+    "^": "Closure0:107;future_2",
     call$0: [function() {
       this.future_2._complete$1(true);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_toList_closure: {
-    "^": "Closure;this_0,result_1",
+    "^": "Closure0;this_0,result_1",
     call$1: [function(data) {
       this.result_1.push(data);
     }, "call$1", null, 2, 0, null, 207, "call"],
@@ -9368,14 +9475,14 @@ var $$ = {};
     }
   },
   Stream_toList_closure0: {
-    "^": "Closure:107;result_2,future_3",
+    "^": "Closure0:107;result_2,future_3",
     call$0: [function() {
       this.future_3._complete$1(this.result_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_first_closure: {
-    "^": "Closure;box_0,this_1,future_2",
+    "^": "Closure0;box_0,this_1,future_2",
     call$1: [function(value) {
       P._cancelAndValue(this.box_0.subscription_0, this.future_2, value);
     }, "call$1", null, 2, 0, null, 24, "call"],
@@ -9387,14 +9494,14 @@ var $$ = {};
     }
   },
   Stream_first_closure0: {
-    "^": "Closure:107;future_3",
+    "^": "Closure0:107;future_3",
     call$0: [function() {
       this.future_3._completeError$1(new P.StateError("No elements"));
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_last_closure: {
-    "^": "Closure;box_0,this_1",
+    "^": "Closure0;box_0,this_1",
     call$1: [function(value) {
       var t1 = this.box_0;
       t1.foundResult_1 = true;
@@ -9408,7 +9515,7 @@ var $$ = {};
     }
   },
   Stream_last_closure0: {
-    "^": "Closure:107;box_0,future_2",
+    "^": "Closure0:107;box_0,future_2",
     call$0: [function() {
       var t1 = this.box_0;
       if (t1.foundResult_1) {
@@ -9420,7 +9527,7 @@ var $$ = {};
     $isFunction: true
   },
   Stream_firstWhere_closure: {
-    "^": "Closure;box_0,this_1,test_2,future_3",
+    "^": "Closure0;box_0,this_1,test_2,future_3",
     call$1: [function(value) {
       var t1, t2;
       t1 = this.box_0;
@@ -9435,14 +9542,14 @@ var $$ = {};
     }
   },
   Stream_firstWhere__closure: {
-    "^": "Closure:107;test_4,value_5",
+    "^": "Closure0:107;test_4,value_5",
     call$0: [function() {
       return this.test_4.call$1(this.value_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Stream_firstWhere__closure0: {
-    "^": "Closure:319;box_0,future_6,value_7",
+    "^": "Closure0:319;box_0,future_6,value_7",
     call$1: [function(isMatch) {
       if (isMatch === true)
         P._cancelAndValue(this.box_0.subscription_0, this.future_6, this.value_7);
@@ -9450,7 +9557,7 @@ var $$ = {};
     $isFunction: true
   },
   Stream_firstWhere_closure0: {
-    "^": "Closure:107;defaultValue_8,future_9",
+    "^": "Closure0:107;defaultValue_8,future_9",
     call$0: [function() {
       this.future_9._completeError$1(new P.StateError("firstMatch ended without match"));
     }, "call$0", null, 0, 0, null, "call"],
@@ -9713,7 +9820,7 @@ var $$ = {};
     static: {"^": "_BufferingStreamSubscription__STATE_CANCEL_ON_ERROR,_BufferingStreamSubscription__STATE_CLOSED,_BufferingStreamSubscription__STATE_INPUT_PAUSED,_BufferingStreamSubscription__STATE_CANCELED,_BufferingStreamSubscription__STATE_WAIT_FOR_CANCEL,_BufferingStreamSubscription__STATE_IN_CALLBACK,_BufferingStreamSubscription__STATE_HAS_PENDING,_BufferingStreamSubscription__STATE_PAUSE_COUNT,_BufferingStreamSubscription__STATE_PAUSE_COUNT_SHIFT"}
   },
   _BufferingStreamSubscription__sendError_sendError: {
-    "^": "Closure:106;this_0,error_1,stackTrace_2",
+    "^": "Closure0:106;this_0,error_1,stackTrace_2",
     call$0: [function() {
       var t1, t2, t3, t4, t5;
       t1 = this.this_0;
@@ -9742,7 +9849,7 @@ var $$ = {};
     $isFunction: true
   },
   _BufferingStreamSubscription__sendDone_sendDone: {
-    "^": "Closure:106;this_0",
+    "^": "Closure0:106;this_0",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -9821,7 +9928,7 @@ var $$ = {};
     }
   },
   _PendingEvents_schedule_closure: {
-    "^": "Closure:107;this_0,dispatch_1",
+    "^": "Closure0:107;this_0,dispatch_1",
     call$0: [function() {
       var t1, oldState;
       t1 = this.this_0;
@@ -9865,21 +9972,21 @@ var $$ = {};
     }
   },
   _cancelAndError_closure: {
-    "^": "Closure:107;future_0,error_1,stackTrace_2",
+    "^": "Closure0:107;future_0,error_1,stackTrace_2",
     call$0: [function() {
       return this.future_0._completeError$2(this.error_1, this.stackTrace_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _cancelAndErrorClosure_closure: {
-    "^": "Closure:320;subscription_0,future_1",
+    "^": "Closure0:320;subscription_0,future_1",
     call$2: [function(error, stackTrace) {
       return P._cancelAndError(this.subscription_0, this.future_1, error, stackTrace);
     }, "call$2", null, 4, 0, null, 147, 148, "call"],
     $isFunction: true
   },
   _cancelAndValue_closure: {
-    "^": "Closure:107;future_0,value_1",
+    "^": "Closure0:107;future_0,value_1",
     call$0: [function() {
       return this.future_0._complete$1(this.value_1);
     }, "call$0", null, 0, 0, null, "call"],
@@ -10086,56 +10193,56 @@ var $$ = {};
     }
   },
   _BaseZone_bindCallback_closure: {
-    "^": "Closure:107;this_0,registered_1",
+    "^": "Closure0:107;this_0,registered_1",
     call$0: [function() {
       return this.this_0.runGuarded$1(this.registered_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _BaseZone_bindCallback_closure0: {
-    "^": "Closure:107;this_2,registered_3",
+    "^": "Closure0:107;this_2,registered_3",
     call$0: [function() {
       return this.this_2.run$1(this.registered_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _BaseZone_bindUnaryCallback_closure: {
-    "^": "Closure:200;this_0,registered_1",
+    "^": "Closure0:200;this_0,registered_1",
     call$1: [function(arg) {
       return this.this_0.runUnaryGuarded$2(this.registered_1, arg);
     }, "call$1", null, 2, 0, null, 157, "call"],
     $isFunction: true
   },
   _BaseZone_bindUnaryCallback_closure0: {
-    "^": "Closure:200;this_2,registered_3",
+    "^": "Closure0:200;this_2,registered_3",
     call$1: [function(arg) {
       return this.this_2.runUnary$2(this.registered_3, arg);
     }, "call$1", null, 2, 0, null, 157, "call"],
     $isFunction: true
   },
   _BaseZone_bindBinaryCallback_closure: {
-    "^": "Closure:292;this_0,registered_1",
+    "^": "Closure0:292;this_0,registered_1",
     call$2: [function(arg1, arg2) {
       return this.this_0.runBinaryGuarded$3(this.registered_1, arg1, arg2);
     }, "call$2", null, 4, 0, null, 51, 52, "call"],
     $isFunction: true
   },
   _BaseZone_bindBinaryCallback_closure0: {
-    "^": "Closure:292;this_2,registered_3",
+    "^": "Closure0:292;this_2,registered_3",
     call$2: [function(arg1, arg2) {
       return this.this_2.runBinary$3(this.registered_3, arg1, arg2);
     }, "call$2", null, 4, 0, null, 51, 52, "call"],
     $isFunction: true
   },
   _rootHandleUncaughtError_closure: {
-    "^": "Closure:107;error_0,stackTrace_1",
+    "^": "Closure0:107;error_0,stackTrace_1",
     call$0: [function() {
       P._scheduleAsyncCallback(new P._rootHandleUncaughtError__closure(this.error_0, this.stackTrace_1));
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _rootHandleUncaughtError__closure: {
-    "^": "Closure:107;error_2,stackTrace_3",
+    "^": "Closure0:107;error_2,stackTrace_3",
     call$0: [function() {
       var t1, trace;
       t1 = this.error_2;
@@ -10573,14 +10680,14 @@ var $$ = {};
       }, "call$0", "_HashMap__newHashTable$closure", 0, 0, null]}
   },
   _HashMap_values_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(each) {
       return this.this_0.$index(0, each);
     }, "call$1", null, 2, 0, null, 300, "call"],
     $isFunction: true
   },
   _HashMap_addAll_closure: {
-    "^": "Closure;this_0",
+    "^": "Closure0;this_0",
     call$2: [function(key, value) {
       this.this_0.$indexSet(0, key, value);
     }, "call$2", null, 4, 0, null, 41, 24, "call"],
@@ -10657,7 +10764,7 @@ var $$ = {};
       }}
   },
   _CustomHashMap_closure: {
-    "^": "Closure:200;K_0",
+    "^": "Closure0:200;K_0",
     call$1: [function(v) {
       var t1 = H.checkSubtypeOfRuntimeType(v, this.K_0);
       return t1;
@@ -10938,14 +11045,14 @@ var $$ = {};
       }, "call$0", "_LinkedHashMap__newHashTable$closure", 0, 0, null]}
   },
   _LinkedHashMap_values_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(each) {
       return this.this_0.$index(0, each);
     }, "call$1", null, 2, 0, null, 300, "call"],
     $isFunction: true
   },
   _LinkedHashMap_addAll_closure: {
-    "^": "Closure;this_0",
+    "^": "Closure0;this_0",
     call$2: [function(key, value) {
       this.this_0.$indexSet(0, key, value);
     }, "call$2", null, 4, 0, null, 41, 24, "call"],
@@ -11995,7 +12102,7 @@ var $$ = {};
     $asIterable: null
   },
   Maps_mapToString_closure: {
-    "^": "Closure:292;box_0,result_1",
+    "^": "Closure0:292;box_0,result_1",
     call$2: [function(k, v) {
       var t1 = this.box_0;
       if (!t1.first_0)
@@ -12534,7 +12641,7 @@ var $$ = {};
       }}
   },
   SplayTreeMap_closure: {
-    "^": "Closure:200;K_0",
+    "^": "Closure0:200;K_0",
     call$1: [function(v) {
       var t1 = H.checkSubtypeOfRuntimeType(v, this.K_0);
       return t1;
@@ -12542,7 +12649,7 @@ var $$ = {};
     $isFunction: true
   },
   SplayTreeMap_addAll_closure: {
-    "^": "Closure;this_0",
+    "^": "Closure0;this_0",
     call$2: [function(key, value) {
       this.this_0.$indexSet(0, key, value);
     }, "call$2", null, 4, 0, null, 41, 24, "call"],
@@ -12689,14 +12796,14 @@ var $$ = {};
     return P._convertJsonToDart(parsed, reviver);
   }, "call$2", "_parseJson$closure", 4, 0, null, 26, 165],
   _convertJsonToDart_closure: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(key, value) {
       return value;
     }, "call$2", null, 4, 0, null, 41, 24, "call"],
     $isFunction: true
   },
   _convertJsonToDart_walk: {
-    "^": "Closure:200;revive_0",
+    "^": "Closure0:200;revive_0",
     call$1: [function(e) {
       var list, t1, i, keys, map, key, proto;
       if (e == null || typeof e != "object")
@@ -13044,7 +13151,7 @@ var $$ = {};
     static: {"^": "_Utf8Decoder__LIMITS"}
   },
   _Utf8Decoder_convert_addSingleBytes: {
-    "^": "Closure:322;box_0,this_1,codeUnits_2",
+    "^": "Closure0:322;box_0,this_1,codeUnits_2",
     call$2: [function(from, to) {
       var t1, t2, t3;
       t1 = from === 0 && to === J.get$length$asx(this.codeUnits_2);
@@ -13158,14 +13265,14 @@ var $$ = {};
     return P.String_String$fromCharCodes(P.List_List$filled(1, charCode, J.JSInt));
   },
   Function__toMangledNames_closure: {
-    "^": "Closure:292;result_0",
+    "^": "Closure0:292;result_0",
     call$2: [function(symbol, value) {
       this.result_0.$indexSet(0, symbol.get$_name(), value);
     }, "call$2", null, 4, 0, null, 240, 24, "call"],
     $isFunction: true
   },
   NoSuchMethodError_toString_closure: {
-    "^": "Closure:323;box_0",
+    "^": "Closure0:323;box_0",
     call$2: [function(key, value) {
       var t1 = this.box_0;
       if (t1.i_1 > 0)
@@ -13310,7 +13417,7 @@ var $$ = {};
       }, "call$1", "DateTime__twoDigits$closure", 2, 0, null, 168]}
   },
   DateTime_parse_parseIntOrZero: {
-    "^": "Closure:325;",
+    "^": "Closure0:325;",
     call$1: [function(matched) {
       if (matched == null)
         return 0;
@@ -13319,7 +13426,7 @@ var $$ = {};
     $isFunction: true
   },
   DateTime_parse_parseDoubleOrZero: {
-    "^": "Closure:326;",
+    "^": "Closure0:326;",
     call$1: [function(matched) {
       if (matched == null)
         return 0;
@@ -13392,7 +13499,7 @@ var $$ = {};
       }}
   },
   Duration_toString_sixDigits: {
-    "^": "Closure:283;",
+    "^": "Closure0:283;",
     call$1: [function(n) {
       if (n >= 100000)
         return "" + n;
@@ -13409,7 +13516,7 @@ var $$ = {};
     $isFunction: true
   },
   Duration_toString_twoDigits: {
-    "^": "Closure:283;",
+    "^": "Closure0:283;",
     call$1: [function(n) {
       if (n >= 10)
         return "" + n;
@@ -14399,7 +14506,7 @@ var $$ = {};
       }, "call$3$encoding$plusToSpace", "Uri__uriDecode$closure", 2, 5, null, 139, 178, 180, 184, 181]}
   },
   Uri_parse_isRegName: {
-    "^": "Closure:328;",
+    "^": "Closure0:328;",
     call$1: [function(ch) {
       var t1;
       if (ch < 128) {
@@ -14414,7 +14521,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri_parse_ipV6Address: {
-    "^": "Closure:329;uri_0",
+    "^": "Closure0:329;uri_0",
     call$1: [function(index) {
       index = J.indexOf$2$asx(this.uri_0, "]", index);
       if (index === -1)
@@ -14424,7 +14531,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri__makeScheme_isSchemeLowerCharacter: {
-    "^": "Closure:328;",
+    "^": "Closure0:328;",
     call$1: [function(ch) {
       var t1;
       if (ch < 128) {
@@ -14439,14 +14546,14 @@ var $$ = {};
     $isFunction: true
   },
   Uri__makePath_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(s) {
       return P.Uri__uriEncode(C.List_qg4, s, C.Utf8Codec_false, false);
     }, "call$1", null, 2, 0, null, 85, "call"],
     $isFunction: true
   },
   Uri__makeQuery_closure: {
-    "^": "Closure:292;box_0,result_1",
+    "^": "Closure0:292;box_0,result_1",
     call$2: [function(key, value) {
       var t1 = this.box_0;
       if (!t1.first_0)
@@ -14461,7 +14568,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri__normalize_isNormalizedHexDigit: {
-    "^": "Closure:328;",
+    "^": "Closure0:328;",
     call$1: [function(digit) {
       var t1;
       if (!(48 <= digit && digit <= 57))
@@ -14473,14 +14580,14 @@ var $$ = {};
     $isFunction: true
   },
   Uri__normalize_isLowerCaseHexDigit: {
-    "^": "Closure:328;",
+    "^": "Closure0:328;",
     call$1: [function(digit) {
       return 97 <= digit && digit <= 102;
     }, "call$1", null, 2, 0, null, 330, "call"],
     $isFunction: true
   },
   Uri__normalize_isUnreserved: {
-    "^": "Closure:328;",
+    "^": "Closure0:328;",
     call$1: [function(ch) {
       var t1;
       if (ch < 128) {
@@ -14495,7 +14602,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri__normalize_normalizeHexDigit: {
-    "^": "Closure:329;component_1,isNormalizedHexDigit_2,isLowerCaseHexDigit_3",
+    "^": "Closure0:329;component_1,isNormalizedHexDigit_2,isLowerCaseHexDigit_3",
     call$1: [function(index) {
       var t1, codeUnit;
       t1 = this.component_1;
@@ -14510,7 +14617,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri__normalize_decodeHexDigitPair: {
-    "^": "Closure:329;component_4",
+    "^": "Closure0:329;component_4",
     call$1: [function(index) {
       var t1, $byte, i, t2, codeUnit;
       for (t1 = this.component_4, $byte = 0, i = 0; i < 2; ++i) {
@@ -14535,7 +14642,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri__normalize_fillResult: {
-    "^": "Closure:106;box_0,component_5",
+    "^": "Closure0:106;box_0,component_5",
     call$0: [function() {
       var t1, t2, t3, t4, t5;
       t1 = this.box_0;
@@ -14551,7 +14658,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri_hashCode_combine: {
-    "^": "Closure:332;",
+    "^": "Closure0:332;",
     call$2: [function(part, current) {
       var t1 = J.get$hashCode$(part);
       if (typeof t1 !== "number")
@@ -14561,14 +14668,14 @@ var $$ = {};
     $isFunction: true
   },
   Uri_parseIPv4Address_error: {
-    "^": "Closure:333;",
+    "^": "Closure0:333;",
     call$1: [function(msg) {
       throw H.wrapException(P.FormatException$("Illegal IPv4 address, " + msg));
     }, "call$1", null, 2, 0, null, 16, "call"],
     $isFunction: true
   },
   Uri_parseIPv4Address_closure: {
-    "^": "Closure:200;error_0",
+    "^": "Closure0:200;error_0",
     call$1: [function(byteString) {
       var $byte, t1;
       $byte = H.Primitives_parseInt(byteString, null, null);
@@ -14580,14 +14687,14 @@ var $$ = {};
     $isFunction: true
   },
   Uri_parseIPv6Address_error: {
-    "^": "Closure:333;",
+    "^": "Closure0:333;",
     call$1: [function(msg) {
       throw H.wrapException(P.FormatException$("Illegal IPv6 address, " + msg));
     }, "call$1", null, 2, 0, null, 16, "call"],
     $isFunction: true
   },
   Uri_parseIPv6Address_parseHex: {
-    "^": "Closure:335;host_0,error_1",
+    "^": "Closure0:335;host_0,error_1",
     call$2: [function(start, end) {
       var value, t1;
       if (end - start > 4)
@@ -14601,7 +14708,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri_parseIPv6Address_closure: {
-    "^": "Closure:200;parts_2",
+    "^": "Closure0:200;parts_2",
     call$1: [function(value) {
       var t1 = J.getInterceptor(value);
       if (t1.$eq(value, -1) === true)
@@ -14612,7 +14719,7 @@ var $$ = {};
     $isFunction: true
   },
   Uri__uriEncode_byteToHex: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function($byte, buffer) {
       var t1 = J.getInterceptor$n($byte);
       buffer.write$1(P.String_String$fromCharCode(C.JSString_methods.codeUnitAt$1("0123456789ABCDEF", t1.$shr($byte, 4))));
@@ -14758,7 +14865,7 @@ var $$ = {};
   }, "call$1", "_wrapBinaryZone$closure", 2, 0, null, 143],
   HtmlElement: {
     "^": "Element;",
-    "%": "HTMLAppletElement|HTMLBRElement|HTMLCanvasElement|HTMLDListElement|HTMLDataListElement|HTMLDirectoryElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLImageElement|HTMLMarqueeElement|HTMLMenuElement|HTMLModElement|HTMLOptGroupElement|HTMLPreElement|HTMLQuoteElement|HTMLShadowElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableHeaderCellElement|HTMLTitleElement|HTMLUListElement|HTMLUnknownElement;HTMLElement;HtmlElement_Polymer|HtmlElement_Polymer_ChangeNotifier|PolymerElement|PolymerElement_ChangeNotifier|AnnotationElement|PolymerElement_ChangeNotifier0|Breadcrumbs|DartdocElement|DartdocElement_ChangeNotifier|CategoryElement|DartdocElement_ChangeNotifier0|MemberElement|ClassElement|HomeElement|ItemElement|LibraryElement|LibraryPanel|PolymerElement_ChangeNotifier1|LinkElement|DartdocElement_ChangeNotifier1|MainElement|MemberElement_ChangeNotifier|InheritedElement|InheritedElement_ChangeNotifier|MethodElement|MinimapElementClass|PolymerElement_ChangeNotifier2|MinimapElement|MinimapElementLibrary|DartdocElement_ChangeNotifier2|PageElement|DartdocElement_ChangeNotifier3|ParameterElement|PolymerElement_ChangeNotifier3|Search|PolymerElement_ChangeNotifier4|TypeElement|TypedefElement|InheritedElement_ChangeNotifier0|VariableElement|MemberElement_ChangeNotifier0|VariableHeading"
+    "%": "HTMLAppletElement|HTMLBRElement|HTMLCanvasElement|HTMLDListElement|HTMLDataListElement|HTMLDirectoryElement|HTMLFontElement|HTMLFrameElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLImageElement|HTMLMarqueeElement|HTMLMenuElement|HTMLModElement|HTMLOptGroupElement|HTMLPreElement|HTMLQuoteElement|HTMLShadowElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableHeaderCellElement|HTMLTitleElement|HTMLUListElement|HTMLUnknownElement;HTMLElement;HtmlElement_Polymer|HtmlElement_Polymer_ChangeNotifier|PolymerElement|PolymerElement_ChangeNotifier|AnnotationElement|PolymerElement_ChangeNotifier0|Breadcrumbs|DartdocElement|DartdocElement_ChangeNotifier|CategoryElement|DartdocElement_ChangeNotifier0|MemberElement|ClassElement|HomeElement|ItemElement|LibraryElement|LibraryPanel|PolymerElement_ChangeNotifier1|LinkElement|DartdocElement_ChangeNotifier1|MainElement|MemberElement_ChangeNotifier|InheritedElement|InheritedElement_ChangeNotifier|MethodElement|MinimapElementClass|PolymerElement_ChangeNotifier2|MinimapElement|MinimapElementLibrary|DartdocElement_ChangeNotifier2|PageElement|PolymerElement_ChangeNotifier3|ClosureElement|DartdocElement_ChangeNotifier3|ParameterElement|PolymerElement_ChangeNotifier4|Search|PolymerElement_ChangeNotifier5|TypeElement|TypedefElement|InheritedElement_ChangeNotifier0|VariableElement|MemberElement_ChangeNotifier0|VariableHeading"
   },
   _EntryArray: {
     "^": "Interceptor;",
@@ -16206,14 +16313,14 @@ var $$ = {};
       }}
   },
   _FrozenElementList$_wrap_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(e) {
       return !!J.getInterceptor(e).$isElement;
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _FrozenElementList_classes_closure: {
-    "^": "Closure:200;value_0",
+    "^": "Closure0:200;value_0",
     call$1: [function(e) {
       var t1 = this.value_0;
       J.set$classes$x(e, t1);
@@ -16222,7 +16329,7 @@ var $$ = {};
     $isFunction: true
   },
   Element_Element$html_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(e) {
       return !!J.getInterceptor(e).$isElement;
     }, "call$1", null, 2, 0, null, 15, "call"],
@@ -16275,21 +16382,21 @@ var $$ = {};
     }
   },
   HttpRequest_getString_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(xhr) {
       return J.get$responseText$x(xhr);
     }, "call$1", null, 2, 0, null, 338, "call"],
     $isFunction: true
   },
   HttpRequest_request_closure0: {
-    "^": "Closure:292;xhr_0",
+    "^": "Closure0:292;xhr_0",
     call$2: [function(header, value) {
       this.xhr_0.setRequestHeader(header, value);
     }, "call$2", null, 4, 0, null, 339, 24, "call"],
     $isFunction: true
   },
   HttpRequest_request_closure: {
-    "^": "Closure:200;completer_1,xhr_2",
+    "^": "Closure0:200;completer_1,xhr_2",
     call$1: [function(e) {
       var t1, t2, t3;
       t1 = this.xhr_2;
@@ -16309,7 +16416,7 @@ var $$ = {};
     $isFunction: true
   },
   MutationObserver_observe_override: {
-    "^": "Closure:292;parsedOptions_0",
+    "^": "Closure0:292;parsedOptions_0",
     call$2: [function(key, value) {
       if (value != null)
         this.parsedOptions_0[key] = value;
@@ -16434,7 +16541,7 @@ var $$ = {};
     }
   },
   Window_animationFrame_closure: {
-    "^": "Closure:200;completer_0",
+    "^": "Closure0:200;completer_0",
     call$1: [function(time) {
       var t1 = this.completer_0.future;
       if (t1._state !== 0)
@@ -16579,7 +16686,7 @@ var $$ = {};
     }
   },
   _AttributeMap_addAll_closure: {
-    "^": "Closure:292;this_0",
+    "^": "Closure0:292;this_0",
     call$2: [function(k, v) {
       this.this_0.$indexSet(0, k, v);
     }, "call$2", null, 4, 0, null, 309, 251, "call"],
@@ -16706,7 +16813,7 @@ var $$ = {};
     }
   },
   _DataAttributeMap_addAll_closure: {
-    "^": "Closure:292;this_0",
+    "^": "Closure0:292;this_0",
     call$2: [function(k, v) {
       var t1 = this.this_0;
       t1._attributes._html$_element.setAttribute("data-" + t1._toHyphenedName$1(k), v);
@@ -16714,7 +16821,7 @@ var $$ = {};
     $isFunction: true
   },
   _DataAttributeMap_forEach_closure: {
-    "^": "Closure:341;this_0,f_1",
+    "^": "Closure0:341;this_0,f_1",
     call$2: [function(key, value) {
       var t1 = J.getInterceptor$s(key);
       if (t1.startsWith$1(key, "data-"))
@@ -16723,7 +16830,7 @@ var $$ = {};
     $isFunction: true
   },
   _DataAttributeMap_keys_closure: {
-    "^": "Closure:341;this_0,keys_1",
+    "^": "Closure0:341;this_0,keys_1",
     call$2: [function(key, value) {
       var t1 = J.getInterceptor$s(key);
       if (t1.startsWith$1(key, "data-"))
@@ -16732,7 +16839,7 @@ var $$ = {};
     $isFunction: true
   },
   _DataAttributeMap_values_closure: {
-    "^": "Closure:341;this_0,values_1",
+    "^": "Closure0:341;this_0,values_1",
     call$2: [function(key, value) {
       if (J.startsWith$1$s(key, "data-"))
         this.values_1.push(value);
@@ -16774,42 +16881,42 @@ var $$ = {};
       }}
   },
   _MultiElementCssClassSet_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(e) {
       return new W._ElementCssClassSet(e);
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _MultiElementCssClassSet_readClasses_closure: {
-    "^": "Closure:200;s_0",
+    "^": "Closure0:200;s_0",
     call$1: [function(e) {
       return this.s_0.addAll$1(0, e.readClasses$0());
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _MultiElementCssClassSet_modify_closure: {
-    "^": "Closure:200;f_0",
+    "^": "Closure0:200;f_0",
     call$1: [function(e) {
       return e.modify$1(this.f_0);
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _MultiElementCssClassSet_toggle_closure: {
-    "^": "Closure:200;value_0,shouldAdd_1",
+    "^": "Closure0:200;value_0,shouldAdd_1",
     call$1: [function(e) {
       return e.toggle$2(this.value_0, this.shouldAdd_1);
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _MultiElementCssClassSet_remove_closure: {
-    "^": "Closure:200;value_0",
+    "^": "Closure0:200;value_0",
     call$1: [function(e) {
       return J.remove$1$ax(e, this.value_0);
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _MultiElementCssClassSet__modifyWithReturnValue_closure: {
-    "^": "Closure:292;f_0",
+    "^": "Closure0:292;f_0",
     call$2: [function(prevValue, element) {
       return this.f_0.call$1(element) === true || prevValue === true;
     }, "call$2", null, 4, 0, null, 342, 132, "call"],
@@ -17006,14 +17113,14 @@ var $$ = {};
     $isStream: true
   },
   _ElementEventStreamImpl_matches_closure: {
-    "^": "Closure:200;selector_0",
+    "^": "Closure0:200;selector_0",
     call$1: [function($event) {
       return J.matchesWithAncestors$1$x(J.get$target$x($event), this.selector_0);
     }, "call$1", null, 2, 0, null, 281, "call"],
     $isFunction: true
   },
   _ElementEventStreamImpl_matches_closure0: {
-    "^": "Closure:200;selector_1",
+    "^": "Closure0:200;selector_1",
     call$1: [function(e) {
       J.set$_selector$x(e, this.selector_1);
       return e;
@@ -17048,14 +17155,14 @@ var $$ = {};
     $isStream: true
   },
   _ElementListEventStreamImpl_matches_closure: {
-    "^": "Closure:200;selector_0",
+    "^": "Closure0:200;selector_0",
     call$1: [function($event) {
       return J.matchesWithAncestors$1$x(J.get$target$x($event), this.selector_0);
     }, "call$1", null, 2, 0, null, 281, "call"],
     $isFunction: true
   },
   _ElementListEventStreamImpl_matches_closure0: {
-    "^": "Closure:200;selector_1",
+    "^": "Closure0:200;selector_1",
     call$1: [function(e) {
       J.set$_selector$x(e, this.selector_1);
       return e;
@@ -17128,7 +17235,7 @@ var $$ = {};
     }
   },
   _StreamPool_add_closure: {
-    "^": "Closure:107;this_0,stream_1",
+    "^": "Closure0:107;this_0,stream_1",
     call$0: [function() {
       return this.this_0.remove$1(0, this.stream_1);
     }, "call$0", null, 0, 0, null, "call"],
@@ -17239,14 +17346,14 @@ var $$ = {};
     $isNodeValidator: true
   },
   NodeValidatorBuilder_allowsElement_closure: {
-    "^": "Closure:200;element_0",
+    "^": "Closure0:200;element_0",
     call$1: [function(v) {
       return v.allowsElement$1(this.element_0);
     }, "call$1", null, 2, 0, null, 251, "call"],
     $isFunction: true
   },
   NodeValidatorBuilder_allowsAttribute_closure: {
-    "^": "Closure:200;element_0,attributeName_1,value_2",
+    "^": "Closure0:200;element_0,attributeName_1,value_2",
     call$1: [function(v) {
       return v.allowsAttribute$3(this.element_0, this.attributeName_1, this.value_2);
     }, "call$1", null, 2, 0, null, 251, "call"],
@@ -17306,7 +17413,7 @@ var $$ = {};
       }}
   },
   _TemplatingNodeValidator_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(attr) {
       return "TEMPLATE::" + H.S(attr);
     }, "call$1", null, 2, 0, null, 343, "call"],
@@ -17349,7 +17456,7 @@ var $$ = {};
     }
   },
   _callConstructor_closure: {
-    "^": "Closure:200;constructor_0,interceptor_1",
+    "^": "Closure0:200;constructor_0,interceptor_1",
     call$1: [function(receiver) {
       var t1 = H.makeLeafDispatchRecord(this.interceptor_1);
       Object.defineProperty(receiver, init.dispatchPropertyName, {value: t1, enumerable: false, writable: true, configurable: true});
@@ -17495,7 +17602,7 @@ var $$ = {};
     }
   },
   _ValidatingTreeSanitizer_sanitizeTree_walk: {
-    "^": "Closure:344;this_0",
+    "^": "Closure0:344;this_0",
     call$1: [function(node) {
       var child, nextChild;
       this.this_0.sanitizeNode$1(node);
@@ -17848,7 +17955,7 @@ var $$ = {};
       }, "call$1", "JsObject__convertDataTree$closure", 2, 0, null, 207]}
   },
   JsObject__convertDataTree__convert: {
-    "^": "Closure:200;_convertedObjects_0",
+    "^": "Closure0:200;_convertedObjects_0",
     call$1: [function(o) {
       var t1, t2, convertedMap, key, convertedList;
       t1 = this._convertedObjects_0;
@@ -17974,7 +18081,7 @@ var $$ = {};
     $asIterable: null
   },
   _convertToJS_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       var jsFunction = P._convertDartFunction(o, false);
       P._defineProperty(jsFunction, $.get$_DART_CLOSURE_PROPERTY_NAME(), o);
@@ -17983,28 +18090,28 @@ var $$ = {};
     $isFunction: true
   },
   _convertToJS_closure0: {
-    "^": "Closure:200;ctor_0",
+    "^": "Closure0:200;ctor_0",
     call$1: [function(o) {
       return new this.ctor_0(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   _wrapToDart_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return new P.JsFunction(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   _wrapToDart_closure0: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return H.setRuntimeTypeInfo(new P.JsArray(o), [null]);
     }, "call$1", null, 2, 0, null, 90, "call"],
     $isFunction: true
   },
   _wrapToDart_closure1: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(o) {
       return new P.JsObject(o);
     }, "call$1", null, 2, 0, null, 90, "call"],
@@ -18850,7 +18957,7 @@ var $$ = {};
     return t1;
   },
   _convertDartToNative_PrepareForStructuredClone_findSlot: {
-    "^": "Closure:160;values_1,copies_2",
+    "^": "Closure0:160;values_1,copies_2",
     call$1: [function(value) {
       var t1, $length, i;
       t1 = this.values_1;
@@ -18865,7 +18972,7 @@ var $$ = {};
     $isFunction: true
   },
   _convertDartToNative_PrepareForStructuredClone_readSlot: {
-    "^": "Closure:346;copies_3",
+    "^": "Closure0:346;copies_3",
     call$1: [function(i) {
       var t1 = this.copies_3;
       if (i >= t1.length)
@@ -18875,7 +18982,7 @@ var $$ = {};
     $isFunction: true
   },
   _convertDartToNative_PrepareForStructuredClone_writeSlot: {
-    "^": "Closure:347;copies_4",
+    "^": "Closure0:347;copies_4",
     call$2: [function(i, x) {
       var t1 = this.copies_4;
       if (i >= t1.length)
@@ -18885,13 +18992,13 @@ var $$ = {};
     $isFunction: true
   },
   _convertDartToNative_PrepareForStructuredClone_cleanupSlots: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   _convertDartToNative_PrepareForStructuredClone_walk: {
-    "^": "Closure:200;findSlot_5,readSlot_6,writeSlot_7",
+    "^": "Closure0:200;findSlot_5,readSlot_6,writeSlot_7",
     call$1: [function(e) {
       var t1, t2, slot, copy, $length, i;
       t1 = {};
@@ -18959,14 +19066,14 @@ var $$ = {};
     $isFunction: true
   },
   _convertDartToNative_PrepareForStructuredClone_walk_closure: {
-    "^": "Closure:292;box_0,walk_8",
+    "^": "Closure0:292;box_0,walk_8",
     call$2: [function(key, value) {
       this.box_0.copy_0[key] = this.walk_8.call$1(value);
     }, "call$2", null, 4, 0, null, 41, 24, "call"],
     $isFunction: true
   },
   convertNativeToDart_AcceptStructuredClone_findSlot: {
-    "^": "Closure:160;values_0,copies_1",
+    "^": "Closure0:160;values_0,copies_1",
     call$1: [function(value) {
       var t1, $length, i, t2;
       t1 = this.values_0;
@@ -18983,7 +19090,7 @@ var $$ = {};
     $isFunction: true
   },
   convertNativeToDart_AcceptStructuredClone_readSlot: {
-    "^": "Closure:346;copies_2",
+    "^": "Closure0:346;copies_2",
     call$1: [function(i) {
       var t1 = this.copies_2;
       if (i >= t1.length)
@@ -18993,7 +19100,7 @@ var $$ = {};
     $isFunction: true
   },
   convertNativeToDart_AcceptStructuredClone_writeSlot: {
-    "^": "Closure:347;copies_3",
+    "^": "Closure0:347;copies_3",
     call$2: [function(i, x) {
       var t1 = this.copies_3;
       if (i >= t1.length)
@@ -19003,7 +19110,7 @@ var $$ = {};
     $isFunction: true
   },
   convertNativeToDart_AcceptStructuredClone_walk: {
-    "^": "Closure:200;mustCopy_4,findSlot_5,readSlot_6,writeSlot_7",
+    "^": "Closure0:200;mustCopy_4,findSlot_5,readSlot_6,writeSlot_7",
     call$1: [function(e) {
       var slot, copy, t1, key, $length, t2, i;
       if (e == null)
@@ -19165,21 +19272,21 @@ var $$ = {};
     }
   },
   CssClassSetImpl_add_closure: {
-    "^": "Closure:200;value_0",
+    "^": "Closure0:200;value_0",
     call$1: [function(s) {
       return s.add$1(0, this.value_0);
     }, "call$1", null, 2, 0, null, 85, "call"],
     $isFunction: true
   },
   CssClassSetImpl_addAll_closure: {
-    "^": "Closure:200;iterable_0",
+    "^": "Closure0:200;iterable_0",
     call$1: [function(s) {
       return s.addAll$1(0, this.iterable_0);
     }, "call$1", null, 2, 0, null, 85, "call"],
     $isFunction: true
   },
   CssClassSetImpl_clear_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(s) {
       return s.clear$0(0);
     }, "call$1", null, 2, 0, null, 85, "call"],
@@ -19262,14 +19369,14 @@ var $$ = {};
     }
   },
   FilteredElementList__filtered_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(n) {
       return !!J.getInterceptor(n).$isElement;
     }, "call$1", null, 2, 0, null, 168, "call"],
     $isFunction: true
   },
   FilteredElementList_removeRange_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(el) {
       return J.remove$0$ax(el);
     }, "call$1", null, 2, 0, null, 274, "call"],
@@ -19637,7 +19744,7 @@ var $$ = {};
       }}
   },
   DocsLocation__extractPieces__check: {
-    "^": "Closure:200;box_0,uri_1",
+    "^": "Closure0:200;box_0,uri_1",
     call$1: [function(regex) {
       var t1, match, t2, matchedString, t3;
       t1 = this.box_0;
@@ -19658,21 +19765,21 @@ var $$ = {};
     $isFunction: true
   },
   DocsLocation_componentNames_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return x != null;
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   DocsLocation_itemFromList_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return x != null;
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   DocsLocation_itemFromList_closure0: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       return;
     }, "call$0", null, 0, 0, null, "call"],
@@ -19756,7 +19863,7 @@ var $$ = {};
       }}
   },
   Logger_Logger_closure: {
-    "^": "Closure:107;name_0",
+    "^": "Closure0:107;name_0",
     call$0: [function() {
       var thisName, dot, $parent, t1, t2;
       thisName = this.name_0;
@@ -19904,7 +20011,7 @@ var $$ = {};
     $isSequenceNode: true
   },
   SequenceNode_toString_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(e) {
       return H.S(e);
     }, "call$1", null, 2, 0, null, 15, "call"],
@@ -19969,7 +20076,7 @@ var $$ = {};
     $isScalarNode: true
   },
   ScalarNode_canonicalContent_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(c) {
       var t1, t2;
       switch (c) {
@@ -20054,7 +20161,7 @@ var $$ = {};
     $isMappingNode: true
   },
   MappingNode_toString_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(k) {
       return H.S(k) + ": " + H.S(J.$index$asx(this.this_0.content, k));
     }, "call$1", null, 2, 0, null, 309, "call"],
@@ -20584,7 +20691,7 @@ var $$ = {};
     $isObservable: true
   },
   Observable_deliverChanges_closure: {
-    "^": "Closure:292;box_0,this_1",
+    "^": "Closure0:292;box_0,this_1",
     call$2: [function($name, oldValue) {
       var t1, newValue, t2, t3, records;
       t1 = this.this_1;
@@ -20899,7 +21006,7 @@ var $$ = {};
     $isObservable: true
   },
   ObservableList_listChanges_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       this.this_0._listChanges = null;
     }, "call$0", null, 0, 0, null, "call"],
@@ -21032,7 +21139,7 @@ var $$ = {};
       }}
   },
   ObservableMap_addAll_closure: {
-    "^": "Closure;this_0",
+    "^": "Closure0;this_0",
     call$2: [function(key, value) {
       this.this_0.$indexSet(0, key, value);
     }, "call$2", null, 4, 0, null, 41, 24, "call"],
@@ -21044,7 +21151,7 @@ var $$ = {};
     }
   },
   ObservableMap_clear_closure: {
-    "^": "Closure:292;this_0",
+    "^": "Closure0:292;this_0",
     call$2: [function(key, value) {
       var t1 = this.this_0;
       t1.notifyChange$1(t1, H.setRuntimeTypeInfo(new V.MapChangeRecord(key, value, null, false, true), [null, null]));
@@ -21386,14 +21493,14 @@ var $$ = {};
       }}
   },
   PropertyPath_PropertyPath_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(_) {
       return;
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   PropertyPath_toString_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(s) {
       return !!J.getInterceptor(s).$isSymbol0 ? $.get$symbolConverter()._names.$index(0, s) : s;
     }, "call$1", null, 2, 0, null, 85, "call"],
@@ -21407,12 +21514,13 @@ var $$ = {};
     static: {"^": "_InvalidPropertyPath__instance"}
   },
   closure6: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       return new H.JSSyntaxRegExp(H.JSSyntaxRegExp_makeNative("^(?:(?:[$_a-zA-Z]+[$_a-zA-Z0-9]*|(?:[0-9]|[1-9]+[0-9]+)))(?:\\.(?:[$_a-zA-Z]+[$_a-zA-Z0-9]*|(?:[0-9]|[1-9]+[0-9]+)))*$", false, true, false), null, null);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
+  "+ closure6": 0,
   CompoundObserver: {
     "^": "_Observer;_directObserver,_observed,_birthId,_notifyCallback,_notifyArgumentCount,_path_observer$_value",
     get$_isClosed: function() {
@@ -21703,7 +21811,7 @@ var $$ = {};
     return value;
   }, "call$1", "_toObservableDeep$closure", 2, 0, 200, 24],
   _toObservableDeep_closure: {
-    "^": "Closure:292;result_0",
+    "^": "Closure0:292;result_0",
     call$2: [function(k, v) {
       this.result_0.$indexSet(0, R._toObservableDeep(k), R._toObservableDeep(v));
     }, "call$2", null, 4, 0, null, 309, 251, "call"],
@@ -22951,14 +23059,14 @@ var $$ = {};
     static: {"^": "Parser_TAB,Parser_LF,Parser_CR,Parser_SP,Parser_TILDE,Parser_NEL,Parser_PLUS,Parser_HYPHEN,Parser_QUESTION_MARK,Parser_COLON,Parser_COMMA,Parser_LEFT_BRACKET,Parser_RIGHT_BRACKET,Parser_LEFT_BRACE,Parser_RIGHT_BRACE,Parser_HASH,Parser_AMPERSAND,Parser_ASTERISK,Parser_EXCLAMATION,Parser_VERTICAL_BAR,Parser_GREATER_THAN,Parser_SINGLE_QUOTE,Parser_DOUBLE_QUOTE,Parser_PERCENT,Parser_AT,Parser_GRAVE_ACCENT,Parser_NULL,Parser_BELL,Parser_BACKSPACE,Parser_VERTICAL_TAB,Parser_FORM_FEED,Parser_ESCAPE,Parser_SLASH,Parser_BACKSLASH,Parser_UNDERSCORE,Parser_NBSP,Parser_LINE_SEPARATOR,Parser_PARAGRAPH_SEPARATOR,Parser_NUMBER_0,Parser_NUMBER_9,Parser_LETTER_A,Parser_LETTER_B,Parser_LETTER_E,Parser_LETTER_F,Parser_LETTER_N,Parser_LETTER_R,Parser_LETTER_T,Parser_LETTER_U,Parser_LETTER_V,Parser_LETTER_X,Parser_LETTER_CAP_A,Parser_LETTER_CAP_F,Parser_LETTER_CAP_L,Parser_LETTER_CAP_N,Parser_LETTER_CAP_P,Parser_LETTER_CAP_U,Parser_LETTER_CAP_X,Parser_C_SEQUENCE_ENTRY,Parser_C_MAPPING_KEY,Parser_C_MAPPING_VALUE,Parser_C_COLLECT_ENTRY,Parser_C_SEQUENCE_START,Parser_C_SEQUENCE_END,Parser_C_MAPPING_START,Parser_C_MAPPING_END,Parser_C_COMMENT,Parser_C_ANCHOR,Parser_C_ALIAS,Parser_C_TAG,Parser_C_LITERAL,Parser_C_FOLDED,Parser_C_SINGLE_QUOTE,Parser_C_DOUBLE_QUOTE,Parser_C_DIRECTIVE,Parser_C_RESERVED,Parser_BLOCK_OUT,Parser_BLOCK_IN,Parser_FLOW_OUT,Parser_FLOW_IN,Parser_BLOCK_KEY,Parser_FLOW_KEY,Parser_CHOMPING_STRIP,Parser_CHOMPING_KEEP,Parser_CHOMPING_CLIP"}
   },
   Parser_consumeChar_closure: {
-    "^": "Closure:200;char_0",
+    "^": "Closure0:200;char_0",
     call$1: [function(c) {
       return c === this.char_0;
     }, "call$1", null, 2, 0, null, 256, "call"],
     $isFunction: true
   },
   Parser_nAtOnce_closure: {
-    "^": "Closure:107;this_1,n_2,matcher_3",
+    "^": "Closure0:107;this_1,n_2,matcher_3",
     call$0: [function() {
       var box_0, t1, t2, t3, box_00, t4;
       box_0 = {};
@@ -22976,28 +23084,28 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nAtOnce__closure: {
-    "^": "Closure:200;box_0,matcher_4",
+    "^": "Closure0:200;box_0,matcher_4",
     call$1: [function(c) {
       return this.matcher_4.call$2(c, this.box_0.i_0);
     }, "call$1", null, 2, 0, null, 256, "call"],
     $isFunction: true
   },
   Parser_rawString_closure: {
-    "^": "Closure:292;str_0",
+    "^": "Closure0:292;str_0",
     call$2: [function(c, i) {
       return C.JSString_methods.codeUnitAt$1(this.str_0, i) === c;
     }, "call$2", null, 4, 0, null, 256, 345, "call"],
     $isFunction: true
   },
   Parser_captureAs_closure: {
-    "^": "Closure:200;replacement_0",
+    "^": "Closure0:200;replacement_0",
     call$1: [function(_) {
       return this.replacement_0;
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   Parser_map_closure: {
-    "^": "Closure:200;content_0",
+    "^": "Closure0:200;content_0",
     call$1: [function(pair) {
       var t1, t2;
       t1 = J.getInterceptor$ax(pair);
@@ -23009,7 +23117,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_annotateError_closure: {
-    "^": "Closure:107;box_0,this_1,fn_2",
+    "^": "Closure0:107;box_0,this_1,fn_2",
     call$0: [function() {
       this.fn_2.call$0();
       this.box_0.end_0 = this.this_1._pos;
@@ -23018,7 +23126,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_blockScalarAdditionalIndentation_closure: {
-    "^": "Closure:107;box_0,this_1",
+    "^": "Closure0:107;box_0,this_1",
     call$0: [function() {
       var t1, t2, spaces;
       t1 = this.this_1;
@@ -23036,7 +23144,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_blockScalarAdditionalIndentation__closure: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.zeroOrMore$1(new V.Parser_blockScalarAdditionalIndentation___closure(t1));
@@ -23044,154 +23152,154 @@ var $$ = {};
     $isFunction: true
   },
   Parser_blockScalarAdditionalIndentation___closure: {
-    "^": "Closure:107;this_3",
+    "^": "Closure0:107;this_3",
     call$0: [function() {
       return this.this_3.consumeChar$1(32);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_indicator_closure: {
-    "^": "Closure:200;this_0,type_1",
+    "^": "Closure0:200;this_0,type_1",
     call$1: [function(c) {
       return this.this_0.indicatorType$1(c) === this.type_1;
     }, "call$1", null, 2, 0, null, 256, "call"],
     $isFunction: true
   },
   Parser_b_break_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(10);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_b_asLineFeed_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.b_break$0();
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_b_nonContent_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.b_break$0();
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_escape_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(92);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escNull_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(48);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escBell_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(97);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escBackspace_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(98);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escHorizontalTab_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consume$1(new V.Parser_ns_escHorizontalTab__closure());
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escHorizontalTab__closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(c) {
       return c === 116 || c === 9;
     }, "call$1", null, 2, 0, null, 256, "call"],
     $isFunction: true
   },
   Parser_ns_escLineFeed_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(110);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escVerticalTab_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(118);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escFormFeed_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(102);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escCarriageReturn_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(114);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escEscape_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(101);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escNextLine_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(78);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escNonBreakingSpace_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(95);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escLineSeparator_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(76);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escParagraphSeparator_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.consumeChar$1(80);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escNBit_closure: {
-    "^": "Closure:107;this_0,char_1",
+    "^": "Closure0:107;this_0,char_1",
     call$0: [function() {
       return this.this_0.consumeChar$1(this.char_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_escNBit_closure0: {
-    "^": "Closure:107;this_2,digits_3",
+    "^": "Closure0:107;this_2,digits_3",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.nAtOnce$2(this.digits_3, new V.Parser_ns_escNBit__closure(t1));
@@ -23199,7 +23307,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_escNBit__closure: {
-    "^": "Closure:292;this_4",
+    "^": "Closure0:292;this_4",
     call$2: [function(c, _) {
       var t1;
       if (!(c >= 48 && c <= 57))
@@ -23214,14 +23322,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_escNBit_closure1: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(hex) {
       return P.String_String$fromCharCodes([H.Primitives_parseInt("0x" + hex, null, null)]);
     }, "call$1", null, 2, 0, null, 359, "call"],
     $isFunction: true
   },
   Parser_c_ns_escChar_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_c_ns_escChar__closure(t1));
@@ -23229,7 +23337,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_escChar__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_1;
@@ -23242,14 +23350,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_indent_closure: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(c, i) {
       return c === 32;
     }, "call$2", null, 4, 0, null, 256, 345, "call"],
     $isFunction: true
   },
   Parser_s_indent_closure0: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.zeroOrMore$1(new V.Parser_s_indent__closure(t1));
@@ -23257,7 +23365,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_indent__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       var t1 = this.this_1;
       return t1.consume$1(t1.get$isSpace());
@@ -23265,7 +23373,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_indentLessThan_closure: {
-    "^": "Closure:107;box_0,this_1,indent_2",
+    "^": "Closure0:107;box_0,this_1,indent_2",
     call$0: [function() {
       var t1, t2, t3;
       for (t1 = this.box_0, t2 = this.indent_2 - 1, t3 = this.this_1; t1.i_0 < t2; t1.i_0 = t1.i_0 + 1)
@@ -23275,7 +23383,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_separateInLine_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.captureAs$2("", new V.Parser_s_separateInLine__closure(t1));
@@ -23283,7 +23391,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_separateInLine__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       var t1 = this.this_1;
       return t1.oneOrMore$1(new V.Parser_s_separateInLine___closure(t1)) != null && true || t1._column === 0;
@@ -23291,7 +23399,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_separateInLine___closure: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.consume$1(t1.get$isSpace());
@@ -23299,7 +23407,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_linePrefix_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       switch (this.ctx_2) {
         case 0:
@@ -23313,7 +23421,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_flowLinePrefix_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -23326,7 +23434,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_empty_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, t2, start;
       t1 = this.this_0;
@@ -23339,21 +23447,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_empty__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.s_linePrefix$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_empty__closure0: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.s_indentLessThan$1(this.indent_7);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_b_asSpace_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.consume$1(t1.get$isBreak());
@@ -23361,7 +23469,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_b_l_trimmed_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -23373,7 +23481,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_b_l_trimmed__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1 = this.this_3;
       return t1.captureAs$2("\n", new V.Parser_b_l_trimmed___closure(t1, this.indent_4, this.ctx_5));
@@ -23381,21 +23489,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_b_l_trimmed___closure: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.l_empty$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_b_l_folded_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.b_l_trimmed$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_flowFolded_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_0;
@@ -23409,7 +23517,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_nb_commentText_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.consume$1(t1.get$isNonBreak());
@@ -23417,7 +23525,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_comment_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -23430,7 +23538,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_separateLines_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.s_l_comments$0() && t1.s_flowLinePrefix$1(this.indent_1) === true;
@@ -23438,7 +23546,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_properties_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0.s_separate$2(this.indent_1, this.ctx_2);
       if (!(t1 != null && J.$eq(t1, false) !== true))
@@ -23448,7 +23556,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_properties_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1 = this.this_3.s_separate$2(this.indent_4, this.ctx_5);
       if (!(t1 != null && J.$eq(t1, false) !== true))
@@ -23458,7 +23566,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_anchorName_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.oneOrMore$1(new V.Parser_ns_anchorName__closure(t1));
@@ -23466,7 +23574,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_anchorName__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       var t1 = this.this_1;
       return t1.consume$1(t1.get$isAnchorChar());
@@ -23474,7 +23582,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_doubleChar_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.consume$1(new V.Parser_nb_doubleChar__closure(t1));
@@ -23482,14 +23590,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_doubleChar__closure: {
-    "^": "Closure:200;this_1",
+    "^": "Closure0:200;this_1",
     call$1: [function(c) {
       return this.this_1.isJson$1(c) && c !== 92 && c !== 34;
     }, "call$1", null, 2, 0, null, 256, "call"],
     $isFunction: true
   },
   Parser_c_doubleQuoted_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_c_doubleQuoted__closure(t1, this.indent_1, this.ctx_2));
@@ -23497,7 +23605,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_doubleQuoted__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, contents;
       t1 = this.this_3;
@@ -23513,7 +23621,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_doubleText_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       switch (this.ctx_2) {
         case 2:
@@ -23531,7 +23639,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_doubleEscaped_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -23548,7 +23656,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_doubleEscaped__closure: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.consume$1(t1.get$isSpace());
@@ -23556,14 +23664,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_doubleEscaped__closure0: {
-    "^": "Closure:107;this_3",
+    "^": "Closure0:107;this_3",
     call$0: [function() {
       return this.this_3.consumeChar$1(92);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_doubleEscaped__closure1: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.captureAs$2("\n", new V.Parser_s_doubleEscaped___closure(t1, this.indent_5));
@@ -23571,28 +23679,28 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_doubleEscaped___closure: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.l_empty$2(this.indent_7, 3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_doubleBreak_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       return this.this_0.s_doubleEscaped$1(this.indent_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_doubleBreak_closure0: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.s_flowFolded$1(this.indent_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_nb_ns_doubleInLine_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_nb_ns_doubleInLine__closure(t1));
@@ -23600,7 +23708,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_doubleInLine__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_1;
@@ -23616,7 +23724,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_doubleInLine___closure: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.consume$1(t1.get$isSpace());
@@ -23624,7 +23732,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_doubleNextLine_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -23642,14 +23750,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_doubleNextLine__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.s_doubleNextLine$1(this.indent_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_doubleNextLine__closure0: {
-    "^": "Closure:107;this_4",
+    "^": "Closure0:107;this_4",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.zeroOrMore$1(new V.Parser_s_doubleNextLine___closure(t1));
@@ -23657,7 +23765,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_doubleNextLine___closure: {
-    "^": "Closure:107;this_5",
+    "^": "Closure0:107;this_5",
     call$0: [function() {
       var t1 = this.this_5;
       return t1.consume$1(t1.get$isSpace());
@@ -23665,14 +23773,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_doubleMultiLine_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       return this.this_0.s_doubleNextLine$1(this.indent_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_nb_doubleMultiLine_closure0: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.zeroOrMore$1(new V.Parser_nb_doubleMultiLine__closure(t1));
@@ -23680,7 +23788,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_doubleMultiLine__closure: {
-    "^": "Closure:107;this_3",
+    "^": "Closure0:107;this_3",
     call$0: [function() {
       var t1 = this.this_3;
       return t1.consume$1(t1.get$isSpace());
@@ -23688,14 +23796,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_quotedQuote_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       return this.this_0.rawString$1("''");
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_nb_singleChar_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.consume$1(new V.Parser_nb_singleChar__closure(t1));
@@ -23703,14 +23811,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_singleChar__closure: {
-    "^": "Closure:200;this_1",
+    "^": "Closure0:200;this_1",
     call$1: [function(c) {
       return this.this_1.isJson$1(c) && c !== 39;
     }, "call$1", null, 2, 0, null, 256, "call"],
     $isFunction: true
   },
   Parser_c_singleQuoted_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_c_singleQuoted__closure(t1, this.indent_1, this.ctx_2));
@@ -23718,7 +23826,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_singleQuoted__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, contents;
       t1 = this.this_3;
@@ -23734,7 +23842,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_singleText_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       switch (this.ctx_2) {
         case 2:
@@ -23752,7 +23860,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_singleInLine_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_nb_ns_singleInLine__closure(t1));
@@ -23760,7 +23868,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_singleInLine__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_1;
@@ -23776,7 +23884,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_singleInLine___closure: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.consume$1(t1.get$isSpace());
@@ -23784,7 +23892,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_singleNextLine_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -23802,14 +23910,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_singleNextLine__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.s_singleNextLine$1(this.indent_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_singleNextLine__closure0: {
-    "^": "Closure:107;this_4",
+    "^": "Closure0:107;this_4",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.zeroOrMore$1(new V.Parser_s_singleNextLine___closure(t1));
@@ -23817,7 +23925,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_singleNextLine___closure: {
-    "^": "Closure:107;this_5",
+    "^": "Closure0:107;this_5",
     call$0: [function() {
       var t1 = this.this_5;
       return t1.consume$1(t1.get$isSpace());
@@ -23825,14 +23933,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_singleMultiLine_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       return this.this_0.s_singleNextLine$1(this.indent_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_nb_singleMultiLine_closure0: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.zeroOrMore$1(new V.Parser_nb_singleMultiLine__closure(t1));
@@ -23840,7 +23948,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_singleMultiLine__closure: {
-    "^": "Closure:107;this_3",
+    "^": "Closure0:107;this_3",
     call$0: [function() {
       var t1 = this.this_3;
       return t1.consume$1(t1.get$isSpace());
@@ -23848,7 +23956,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_plain_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.captureString$1(new V.Parser_ns_plain__closure(t1, this.indent_1, this.ctx_2));
@@ -23856,7 +23964,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_plain__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1 = this.ctx_5;
       switch (t1) {
@@ -23873,7 +23981,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_plainInLine_closure: {
-    "^": "Closure:107;this_0,ctx_1",
+    "^": "Closure0:107;this_0,ctx_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_nb_ns_plainInLine__closure(t1, this.ctx_1));
@@ -23881,7 +23989,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_plainInLine__closure: {
-    "^": "Closure:107;this_2,ctx_3",
+    "^": "Closure0:107;this_2,ctx_3",
     call$0: [function() {
       var t1 = this.this_2;
       t1.zeroOrMore$1(new V.Parser_nb_ns_plainInLine___closure(t1));
@@ -23890,7 +23998,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_nb_ns_plainInLine___closure: {
-    "^": "Closure:107;this_4",
+    "^": "Closure0:107;this_4",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.consume$1(t1.get$isSpace());
@@ -23898,7 +24006,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_ns_plainNextLine_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_0;
@@ -23918,14 +24026,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_plainMultiLine_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.s_ns_plainNextLine$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_flowSequence_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, t2, t3, $content;
       t1 = this.this_0;
@@ -23944,14 +24052,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_flowSequence__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.s_separate$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_flowSequence__closure0: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       var t1 = this.this_6;
       return t1.ns_s_flowSeqEntries$2(this.indent_7, t1.inFlow$1(this.ctx_8));
@@ -23959,49 +24067,49 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_s_flowSeqEntries_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.s_separate$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_s_flowSeqEntries_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.s_separate$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_s_flowSeqEntries_closure1: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.ns_s_flowSeqEntries$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowSeqEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.ns_flowPair$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowSeqEntry_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.ns_flowNode$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_flowMapping_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.s_separate$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_flowMapping_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1 = this.this_3;
       return t1.ns_s_flowMapEntries$2(this.indent_4, t1.inFlow$1(this.ctx_5));
@@ -24009,21 +24117,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_s_flowMapEntries_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.s_separate$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_s_flowMapEntries_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.s_separate$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowMapEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_ns_flowMapEntry__closure(t1, this.indent_1, this.ctx_2));
@@ -24031,7 +24139,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowMapEntry__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3, t4;
       t1 = this.this_3;
@@ -24048,49 +24156,49 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowMapEntry_closure0: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.ns_flowMapImplicitEntry$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowMapExplicitEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.ns_flowMapImplicitEntry$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowMapExplicitEntry_closure0: {
-    "^": "Closure:107;this_3",
+    "^": "Closure0:107;this_3",
     call$0: [function() {
       return H.setRuntimeTypeInfo(new V._Pair(new R.ScalarNode("", null, new R.Tag("?", 0), null), new R.ScalarNode("", null, new R.Tag("?", 0), null)), [R.Node0, R.Node0]);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowMapImplicitEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.ns_flowMapYamlKeyEntry$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowMapImplicitEntry_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.c_ns_flowMapEmptyKeyEntry$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowMapImplicitEntry_closure1: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.c_ns_flowMapJsonKeyEntry$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowMapYamlKeyEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_ns_flowMapYamlKeyEntry__closure(t1, this.indent_1, this.ctx_2));
@@ -24098,7 +24206,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowMapYamlKeyEntry__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_3;
@@ -24110,14 +24218,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowMapYamlKeyEntry___closure: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.s_separate$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_ns_flowMapSeparateValue_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24132,7 +24240,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowMapSeparateValue__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1 = this.this_3;
       return t1.transaction$1(new V.Parser_c_ns_flowMapSeparateValue___closure(t1, this.indent_4, this.ctx_5));
@@ -24140,7 +24248,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowMapSeparateValue___closure: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_6;
@@ -24153,7 +24261,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowMapJsonKeyEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_c_ns_flowMapJsonKeyEntry__closure(t1, this.indent_1, this.ctx_2));
@@ -24161,7 +24269,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowMapJsonKeyEntry__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_3;
@@ -24173,14 +24281,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowMapJsonKeyEntry___closure: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.s_separate$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_ns_flowMapAdjacentValue_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_c_ns_flowMapAdjacentValue__closure(t1, this.indent_1, this.ctx_2));
@@ -24188,7 +24296,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowMapAdjacentValue__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_3;
@@ -24200,14 +24308,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowMapAdjacentValue___closure: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.s_separate$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowPair_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_ns_flowPair__closure(t1, this.indent_1, this.ctx_2));
@@ -24215,7 +24323,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowPair__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3, t4;
       t1 = this.this_3;
@@ -24232,35 +24340,35 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowPair_closure0: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.ns_flowPairEntry$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowPairEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.ns_flowPairYamlKeyEntry$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowPairEntry_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.c_ns_flowMapEmptyKeyEntry$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowPairEntry_closure1: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.c_ns_flowPairJsonKeyEntry$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowPairYamlKeyEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, key, value;
       t1 = this.this_0;
@@ -24275,7 +24383,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_ns_flowPairJsonKeyEntry_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, key, value;
       t1 = this.this_0;
@@ -24290,7 +24398,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_s_implicitYamlKey_closure: {
-    "^": "Closure:107;this_0,ctx_1",
+    "^": "Closure0:107;this_0,ctx_1",
     call$0: [function() {
       var t1, node;
       t1 = this.this_0;
@@ -24303,7 +24411,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_s_implicitJsonKey_closure: {
-    "^": "Closure:107;this_0,ctx_1",
+    "^": "Closure0:107;this_0,ctx_1",
     call$0: [function() {
       var t1, node;
       t1 = this.this_0;
@@ -24316,56 +24424,56 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_flowJsonContent_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.c_flowSequence$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_flowJsonContent_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.c_flowMapping$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_flowJsonContent_closure1: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       return this.this_6.c_singleQuoted$2(this.indent_7, this.ctx_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_flowJsonContent_closure2: {
-    "^": "Closure:107;this_9,indent_10,ctx_11",
+    "^": "Closure0:107;this_9,indent_10,ctx_11",
     call$0: [function() {
       return this.this_9.c_doubleQuoted$2(this.indent_10, this.ctx_11);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowContent_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.ns_flowYamlContent$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowContent_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.c_flowJsonContent$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowYamlNode_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.ns_flowYamlContent$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowYamlNode_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3, props;
       t1 = this.this_3;
@@ -24379,7 +24487,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowYamlNode__closure: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       var t1 = this.this_6;
       return t1.transaction$1(new V.Parser_ns_flowYamlNode___closure(t1, this.indent_7, this.ctx_8));
@@ -24387,7 +24495,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowYamlNode___closure: {
-    "^": "Closure:107;this_9,indent_10,ctx_11",
+    "^": "Closure0:107;this_9,indent_10,ctx_11",
     call$0: [function() {
       var t1, t2, t3, t4;
       t1 = this.this_9;
@@ -24401,7 +24509,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_flowJsonNode_closure: {
-    "^": "Closure:107;this_1,indent_2,ctx_3",
+    "^": "Closure0:107;this_1,indent_2,ctx_3",
     call$0: [function() {
       var t1, t2, t3, t4;
       t1 = {};
@@ -24415,7 +24523,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_flowJsonNode__closure: {
-    "^": "Closure:107;box_0,this_4,indent_5,ctx_6",
+    "^": "Closure0:107;box_0,this_4,indent_5,ctx_6",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.transaction$1(new V.Parser_c_flowJsonNode___closure(this.box_0, t1, this.indent_5, this.ctx_6));
@@ -24423,7 +24531,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_flowJsonNode___closure: {
-    "^": "Closure:107;box_0,this_7,indent_8,ctx_9",
+    "^": "Closure0:107;box_0,this_7,indent_8,ctx_9",
     call$0: [function() {
       var t1, t2, t3, props;
       t1 = this.this_7;
@@ -24438,14 +24546,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowNode_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.ns_flowContent$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_flowNode_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1 = this.this_3;
       return t1.transaction$1(new V.Parser_ns_flowNode__closure(t1, this.indent_4, this.ctx_5));
@@ -24453,7 +24561,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowNode__closure: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       var t1, t2, t3, props;
       t1 = this.this_6;
@@ -24467,7 +24575,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowNode___closure: {
-    "^": "Closure:107;this_9,indent_10,ctx_11",
+    "^": "Closure0:107;this_9,indent_10,ctx_11",
     call$0: [function() {
       var t1 = this.this_9;
       return t1.transaction$1(new V.Parser_ns_flowNode____closure(t1, this.indent_10, this.ctx_11));
@@ -24475,7 +24583,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_flowNode____closure: {
-    "^": "Closure:107;this_12,indent_13,ctx_14",
+    "^": "Closure0:107;this_12,indent_13,ctx_14",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_12;
@@ -24486,7 +24594,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_b_blockHeader_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1, indentation, chomping;
       t1 = this.this_0;
@@ -24502,7 +24610,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_stripEmpty_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24514,7 +24622,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_stripEmpty__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.transaction$1(new V.Parser_l_stripEmpty___closure(t1, this.indent_3));
@@ -24522,7 +24630,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_stripEmpty___closure: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_4;
@@ -24534,14 +24642,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_stripEmpty__closure0: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.l_trailComments$1(this.indent_7);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_keepEmpty_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.captureAs$2("\n", new V.Parser_l_keepEmpty__closure0(t1, this.indent_1));
@@ -24549,14 +24657,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_keepEmpty__closure0: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.l_empty$2(this.indent_3, 1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_keepEmpty_closure0: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.captureAs$2("", new V.Parser_l_keepEmpty__closure(t1, this.indent_5));
@@ -24564,14 +24672,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_keepEmpty__closure: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.l_trailComments$1(this.indent_7);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_trailComments_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24590,7 +24698,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_l_literal_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, header, additionalIndent, $content;
       t1 = this.this_0;
@@ -24612,7 +24720,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_literalText_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24626,7 +24734,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_literalText__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.captureAs$2("\n", new V.Parser_l_nb_literalText___closure(t1, this.indent_3));
@@ -24634,21 +24742,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_literalText___closure: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       return this.this_4.l_empty$2(this.indent_5, 1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_nb_literalText__closure0: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.s_indent$1(this.indent_7);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_nb_literalText__closure1: {
-    "^": "Closure:107;this_8",
+    "^": "Closure0:107;this_8",
     call$0: [function() {
       var t1 = this.this_8;
       return t1.consume$1(t1.get$isNonBreak());
@@ -24656,7 +24764,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_b_nb_literalNext_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24668,7 +24776,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_literalContent_closure: {
-    "^": "Closure:107;this_0,indent_1,chomping_2",
+    "^": "Closure0:107;this_0,indent_1,chomping_2",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_0;
@@ -24681,7 +24789,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_literalContent__closure: {
-    "^": "Closure:107;this_3,indent_4,chomping_5",
+    "^": "Closure0:107;this_3,indent_4,chomping_5",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_3;
@@ -24695,14 +24803,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_literalContent___closure: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.b_nb_literalNext$1(this.indent_7);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_l_folded_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, header, additionalIndent, $content;
       t1 = this.this_0;
@@ -24724,7 +24832,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_nb_foldedText_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24740,14 +24848,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_nb_foldedText__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.s_indent$1(this.indent_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_nb_foldedText__closure0: {
-    "^": "Closure:107;this_4",
+    "^": "Closure0:107;this_4",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.consume$1(t1.get$isNonBreak());
@@ -24755,7 +24863,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_foldedLines_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_l_nb_foldedLines__closure(t1, this.indent_1));
@@ -24763,7 +24871,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_foldedLines__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_2;
@@ -24776,7 +24884,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_nb_spacedText_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24792,14 +24900,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_nb_spacedText__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.s_indent$1(this.indent_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_nb_spacedText__closure0: {
-    "^": "Closure:107;this_4",
+    "^": "Closure0:107;this_4",
     call$0: [function() {
       var t1 = this.this_4;
       return t1.consume$1(t1.get$isNonBreak());
@@ -24807,7 +24915,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_b_l_spaced_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.captureAs$2("\n", new V.Parser_b_l_spaced__closure(t1, this.indent_1));
@@ -24815,14 +24923,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_b_l_spaced__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.l_empty$2(this.indent_3, 1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_nb_spacedLines_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_l_nb_spacedLines__closure(t1, this.indent_1));
@@ -24830,7 +24938,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_spacedLines__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_2;
@@ -24843,7 +24951,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_sameLines_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -24854,7 +24962,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_sameLines__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.captureAs$2("\n", new V.Parser_l_nb_sameLines___closure(t1, this.indent_3));
@@ -24862,28 +24970,28 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_sameLines___closure: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       return this.this_4.l_empty$2(this.indent_5, 1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_nb_sameLines__closure0: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.l_nb_foldedLines$1(this.indent_7);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_nb_sameLines__closure1: {
-    "^": "Closure:107;this_8,indent_9",
+    "^": "Closure0:107;this_8,indent_9",
     call$0: [function() {
       return this.this_8.l_nb_spacedLines$1(this.indent_9);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_nb_diffLines_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_l_nb_diffLines__closure(t1, this.indent_1));
@@ -24891,7 +24999,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_nb_diffLines__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_2;
@@ -24903,7 +25011,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_foldedContent_closure: {
-    "^": "Closure:107;this_0,indent_1,chomping_2",
+    "^": "Closure0:107;this_0,indent_1,chomping_2",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_0;
@@ -24916,7 +25024,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_foldedContent__closure: {
-    "^": "Closure:107;this_3,indent_4,chomping_5",
+    "^": "Closure0:107;this_3,indent_4,chomping_5",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_3;
@@ -24928,7 +25036,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_blockSequence_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, additionalIndent, $content;
       t1 = this.this_0;
@@ -24944,7 +25052,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_blockSequence__closure: {
-    "^": "Closure:107;this_2,indent_3,additionalIndent_4",
+    "^": "Closure0:107;this_2,indent_3,additionalIndent_4",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.transaction$1(new V.Parser_l_blockSequence___closure(t1, this.indent_3, this.additionalIndent_4));
@@ -24952,7 +25060,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_blockSequence___closure: {
-    "^": "Closure:107;this_5,indent_6,additionalIndent_7",
+    "^": "Closure0:107;this_5,indent_6,additionalIndent_7",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_5;
@@ -24965,7 +25073,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_l_blockSeqEntry_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, t3, t4;
       t1 = this.this_0;
@@ -25012,7 +25120,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockIndented_closure: {
-    "^": "Closure:107;this_0,indent_1,additionalIndent_2",
+    "^": "Closure0:107;this_0,indent_1,additionalIndent_2",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_s_l_blockIndented__closure(t1, this.indent_1, this.additionalIndent_2));
@@ -25020,7 +25128,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockIndented__closure: {
-    "^": "Closure:107;this_3,indent_4,additionalIndent_5",
+    "^": "Closure0:107;this_3,indent_4,additionalIndent_5",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_3;
@@ -25034,35 +25142,35 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockIndented___closure: {
-    "^": "Closure:107;this_6,indent_7,additionalIndent_8",
+    "^": "Closure0:107;this_6,indent_7,additionalIndent_8",
     call$0: [function() {
       return this.this_6.ns_l_compactSequence$1(this.indent_7 + 1 + this.additionalIndent_8);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockIndented___closure0: {
-    "^": "Closure:107;this_9,indent_10,additionalIndent_11",
+    "^": "Closure0:107;this_9,indent_10,additionalIndent_11",
     call$0: [function() {
       return this.this_9.ns_l_compactMapping$1(this.indent_10 + 1 + this.additionalIndent_11);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockIndented_closure0: {
-    "^": "Closure:107;this_12,indent_13,ctx_14",
+    "^": "Closure0:107;this_12,indent_13,ctx_14",
     call$0: [function() {
       return this.this_12.s_l_blockNode$2(this.indent_13, this.ctx_14);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockIndented_closure1: {
-    "^": "Closure:107;this_15",
+    "^": "Closure0:107;this_15",
     call$0: [function() {
       return this.this_15.s_l_comments$0() ? new R.ScalarNode("", null, new R.Tag("?", 0), null) : null;
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_l_compactSequence_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, first, $content;
       t1 = this.this_0;
@@ -25077,7 +25185,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_l_compactSequence__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.transaction$1(new V.Parser_ns_l_compactSequence___closure(t1, this.indent_3));
@@ -25085,7 +25193,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_l_compactSequence___closure: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_4;
@@ -25098,7 +25206,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_blockMapping_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, additionalIndent, pairs;
       t1 = this.this_0;
@@ -25114,7 +25222,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_blockMapping__closure: {
-    "^": "Closure:107;this_2,indent_3,additionalIndent_4",
+    "^": "Closure0:107;this_2,indent_3,additionalIndent_4",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.transaction$1(new V.Parser_l_blockMapping___closure(t1, this.indent_3, this.additionalIndent_4));
@@ -25122,7 +25230,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_blockMapping___closure: {
-    "^": "Closure:107;this_5,indent_6,additionalIndent_7",
+    "^": "Closure0:107;this_5,indent_6,additionalIndent_7",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_5;
@@ -25135,28 +25243,28 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_l_blockMapEntry_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       return this.this_0.c_l_blockMapExplicitEntry$1(this.indent_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_l_blockMapEntry_closure0: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       return this.this_2.ns_l_blockMapImplicitEntry$1(this.indent_3);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_l_blockMapExplicitEntry_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       return this.this_0.l_blockMapExplicitValue$1(this.indent_1);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_l_blockMapExplicitKey_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -25168,7 +25276,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_blockMapExplicitValue_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_0;
@@ -25184,7 +25292,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_l_blockMapImplicitEntry_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, key, value;
       t1 = this.this_0;
@@ -25195,7 +25303,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_s_blockMapImplicitKey_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.or$1([new V.Parser_ns_s_blockMapImplicitKey__closure(t1), new V.Parser_ns_s_blockMapImplicitKey__closure0(t1)]);
@@ -25203,21 +25311,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_s_blockMapImplicitKey__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       return this.this_1.c_s_implicitJsonKey$1(4);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_s_blockMapImplicitKey__closure0: {
-    "^": "Closure:107;this_2",
+    "^": "Closure0:107;this_2",
     call$0: [function() {
       return this.this_2.ns_s_implicitYamlKey$1(4);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_l_blockMapImplicitValue_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1 = this.this_0;
       return t1.transaction$1(new V.Parser_c_l_blockMapImplicitValue__closure(t1, this.indent_1));
@@ -25225,7 +25333,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_l_blockMapImplicitValue__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_2;
@@ -25237,21 +25345,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_l_blockMapImplicitValue___closure: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       return this.this_4.s_l_blockNode$2(this.indent_5, 0);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_c_l_blockMapImplicitValue___closure0: {
-    "^": "Closure:107;this_6",
+    "^": "Closure0:107;this_6",
     call$0: [function() {
       return this.this_6.s_l_comments$0() ? new R.ScalarNode("", null, new R.Tag("?", 0), null) : null;
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_ns_l_compactMapping_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, first, pairs;
       t1 = this.this_0;
@@ -25266,7 +25374,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_l_compactMapping__closure: {
-    "^": "Closure:107;this_2,indent_3",
+    "^": "Closure0:107;this_2,indent_3",
     call$0: [function() {
       var t1 = this.this_2;
       return t1.transaction$1(new V.Parser_ns_l_compactMapping___closure(t1, this.indent_3));
@@ -25274,7 +25382,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_ns_l_compactMapping___closure: {
-    "^": "Closure:107;this_4,indent_5",
+    "^": "Closure0:107;this_4,indent_5",
     call$0: [function() {
       var t1, t2, t3;
       t1 = this.this_4;
@@ -25287,21 +25395,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockNode_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.s_l_blockInBlock$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockNode_closure0: {
-    "^": "Closure:107;this_3,indent_4",
+    "^": "Closure0:107;this_3,indent_4",
     call$0: [function() {
       return this.this_3.s_l_flowInBlock$1(this.indent_4);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_flowInBlock_closure: {
-    "^": "Closure:107;this_0,indent_1",
+    "^": "Closure0:107;this_0,indent_1",
     call$0: [function() {
       var t1, t2, t3, node;
       t1 = this.this_0;
@@ -25320,21 +25428,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockInBlock_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       return this.this_0.s_l_blockScalar$2(this.indent_1, this.ctx_2);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockInBlock_closure0: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       return this.this_3.s_l_blockCollection$2(this.indent_4, this.ctx_5);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockScalar_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, t2, t3, t4, props, node;
       t1 = this.this_0;
@@ -25352,7 +25460,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockScalar__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3, innerProps;
       t1 = this.this_3;
@@ -25369,21 +25477,21 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockScalar__closure0: {
-    "^": "Closure:107;this_6,indent_7",
+    "^": "Closure0:107;this_6,indent_7",
     call$0: [function() {
       return this.this_6.c_l_literal$1(this.indent_7);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockScalar__closure1: {
-    "^": "Closure:107;this_8,indent_9",
+    "^": "Closure0:107;this_8,indent_9",
     call$0: [function() {
       return this.this_8.c_l_folded$1(this.indent_9);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_s_l_blockCollection_closure: {
-    "^": "Closure:107;this_0,indent_1,ctx_2",
+    "^": "Closure0:107;this_0,indent_1,ctx_2",
     call$0: [function() {
       var t1, t2, t3, t4;
       t1 = this.this_0;
@@ -25398,7 +25506,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockCollection__closure: {
-    "^": "Closure:107;this_3,indent_4,ctx_5",
+    "^": "Closure0:107;this_3,indent_4,ctx_5",
     call$0: [function() {
       var t1, t2, t3, t4;
       t1 = this.this_3;
@@ -25412,7 +25520,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockCollection__closure0: {
-    "^": "Closure:107;this_6,indent_7,ctx_8",
+    "^": "Closure0:107;this_6,indent_7,ctx_8",
     call$0: [function() {
       var t1 = this.indent_7;
       if (this.ctx_8 === 0)
@@ -25422,14 +25530,14 @@ var $$ = {};
     $isFunction: true
   },
   Parser_s_l_blockCollection__closure1: {
-    "^": "Closure:107;this_9,indent_10",
+    "^": "Closure0:107;this_9,indent_10",
     call$0: [function() {
       return this.this_9.l_blockMapping$1(this.indent_10);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Parser_l_documentSuffix_closure: {
-    "^": "Closure:107;this_0",
+    "^": "Closure0:107;this_0",
     call$0: [function() {
       var t1, t2;
       t1 = this.this_0;
@@ -25441,7 +25549,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_c_forbidden_closure: {
-    "^": "Closure:107;box_0,this_1",
+    "^": "Closure0:107;box_0,this_1",
     call$0: [function() {
       var t1, t2, $char, forbidden;
       t1 = this.this_1;
@@ -25459,7 +25567,7 @@ var $$ = {};
     $isFunction: true
   },
   Parser_l_yamlStream_closure: {
-    "^": "Closure:107;this_0,docs_1",
+    "^": "Closure0:107;this_0,docs_1",
     call$0: [function() {
       var t1, doc;
       t1 = this.this_0;
@@ -25617,7 +25725,7 @@ var $$ = {};
     var t1;
     A._hookJsPolymer();
     $._deployMode = deployMode;
-    for (t1 = H.setRuntimeTypeInfo(new H.ListIterator(initializers, 24, 0, null), [H.getTypeArgumentByIndex(initializers, 0)]); t1.moveNext$0();)
+    for (t1 = H.setRuntimeTypeInfo(new H.ListIterator(initializers, 25, 0, null), [H.getTypeArgumentByIndex(initializers, 0)]); t1.moveNext$0();)
       t1._current.call$0();
   }, "call$2", "startPolymer$closure", 2, 2, null, 245, 246, 247],
   _hookJsPolymer: [function() {
@@ -25872,7 +25980,7 @@ var $$ = {};
     $isPolymerDeclaration: true
   },
   PolymerDeclaration_accumulateInstanceAttributes_closure: {
-    "^": "Closure:292;this_0",
+    "^": "Closure0:292;this_0",
     call$2: [function($name, value) {
       if (C.Map_c94aj.containsKey$1($name) !== true && !J.startsWith$1$s($name, "on-"))
         this.this_0._instanceAttributes.$indexSet(0, $name, value);
@@ -25880,7 +25988,7 @@ var $$ = {};
     $isFunction: true
   },
   PolymerDeclaration_addAttributeDelegates_closure: {
-    "^": "Closure:292;delegates_0",
+    "^": "Closure0:292;delegates_0",
     call$2: [function($name, value) {
       var t1, start, end;
       t1 = J.getInterceptor$s($name);
@@ -25894,35 +26002,35 @@ var $$ = {};
     $isFunction: true
   },
   PolymerDeclaration_installLocalSheets_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(s) {
       return J.get$attributes$x(s)._html$_element.hasAttribute("polymer-scope") !== true;
     }, "call$1", null, 2, 0, null, 85, "call"],
     $isFunction: true
   },
   PolymerDeclaration_cssTextForScope_matcher: {
-    "^": "Closure:200;selector_0",
+    "^": "Closure0:200;selector_0",
     call$1: [function(s) {
       return J.matches$1$x(s, this.selector_0);
     }, "call$1", null, 2, 0, null, 85, "call"],
     $isFunction: true
   },
   PolymerDeclaration_explodeObservers_closure: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       return [];
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   PolymerDeclaration__lowerCaseMap_closure: {
-    "^": "Closure:360;map_0",
+    "^": "Closure0:360;map_0",
     call$2: [function(path, value) {
       this.map_0.$indexSet(0, H.S(path).toLowerCase(), value);
     }, "call$2", null, 4, 0, null, 242, 24, "call"],
     $isFunction: true
   },
   closure8: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       var map = P.LinkedHashMap_LinkedHashMap(null, null, null, J.JSString, J.JSString);
       C.Map_qvMQu.forEach$1(0, new A._closure3(map));
@@ -25930,8 +26038,9 @@ var $$ = {};
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
+  "+ closure8": 0,
   _closure3: {
-    "^": "Closure:292;map_0",
+    "^": "Closure0:292;map_0",
     call$2: [function(onName, eventType) {
       this.map_0.$indexSet(0, eventType, onName);
     }, "call$2", null, 4, 0, null, 361, 362, "call"],
@@ -26348,7 +26457,7 @@ var $$ = {};
     $isNode: true
   },
   Polymer_onMutation_closure: {
-    "^": "Closure:292;completer_0",
+    "^": "Closure0:292;completer_0",
     call$2: [function(mutations, observer) {
       var t1;
       J.disconnect$0$x(observer);
@@ -26360,21 +26469,21 @@ var $$ = {};
     $isFunction: true
   },
   Polymer_copyInstanceAttributes_closure: {
-    "^": "Closure:292;this_0",
+    "^": "Closure0:292;this_0",
     call$2: [function($name, value) {
       J.get$attributes$x(this.this_0).putIfAbsent$2($name, new A.Polymer_copyInstanceAttributes__closure(value));
     }, "call$2", null, 4, 0, null, 6, 24, "call"],
     $isFunction: true
   },
   Polymer_copyInstanceAttributes__closure: {
-    "^": "Closure:107;value_1",
+    "^": "Closure0:107;value_1",
     call$0: [function() {
       return this.value_1;
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Polymer_cancelUnbindAll_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(n) {
       var t1 = J.getInterceptor(n);
       if (!!t1.$isPolymer)
@@ -26383,14 +26492,14 @@ var $$ = {};
     $isFunction: true
   },
   Polymer__unbindNodeTree_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(node) {
       return J.unbindAll$0$x(!!J.getInterceptor(node).$isNodeBindExtension ? node : M.nodeBindFallback(node));
     }, "call$1", null, 2, 0, null, 241, "call"],
     $isFunction: true
   },
   Polymer_notifyPropertyChanges_closure: {
-    "^": "Closure:292;this_0,newValues_1,oldValues_2,paths_3,observe_4,publish_5,called_6",
+    "^": "Closure0:292;this_0,newValues_1,oldValues_2,paths_3,observe_4,publish_5,called_6",
     call$2: [function(i, oldValue) {
       var t1, path, t2, methods, t3, t4, t5, t6, t7, t8, method, newValue;
       t1 = this.paths_3;
@@ -26418,7 +26527,7 @@ var $$ = {};
     $isFunction: true
   },
   Polymer_observeArrayValue_closure: {
-    "^": "Closure:200;this_0,old_1,callbacks_2",
+    "^": "Closure0:200;this_0,old_1,callbacks_2",
     call$1: [function(changes) {
       var t1, t2, t3, callback;
       for (t1 = J.get$iterator$ax(this.callbacks_2), t2 = this.this_0, t3 = this.old_1; t1.moveNext$0();) {
@@ -26429,7 +26538,7 @@ var $$ = {};
     $isFunction: true
   },
   Polymer_prepareBinding_closure: {
-    "^": "Closure:373;path_0,name_1",
+    "^": "Closure0:373;path_0,name_1",
     call$3: [function(model, node, oneTime) {
       var t1, eventName, translated;
       t1 = $.get$_eventsLog();
@@ -26590,7 +26699,7 @@ var $$ = {};
     }, "call$0", "get$complete", 0, 0, 106]
   },
   _hookJsPolymer_closure: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       var t1 = $.get$Polymer__ready().future;
       if (t1._state !== 0)
@@ -26601,7 +26710,7 @@ var $$ = {};
     $isFunction: true
   },
   _hookJsPolymer_registerDart: {
-    "^": "Closure:376;zone_0,originalRegister_1",
+    "^": "Closure0:376;zone_0,originalRegister_1",
     call$3: [function(jsElem, $name, extendee) {
       var type, t1;
       type = $.get$_typesByName().$index(0, $name);
@@ -26614,7 +26723,7 @@ var $$ = {};
     $isFunction: true
   },
   _hookJsPolymer_registerDart_closure: {
-    "^": "Closure:107;jsElem_2,name_3,type_4,extendsDecl_5",
+    "^": "Closure0:107;jsElem_2,name_3,type_4,extendsDecl_5",
     call$0: [function() {
       var t1, t2, t3, t4, t5, t6;
       t1 = this.name_3;
@@ -26663,21 +26772,23 @@ var $$ = {};
 
   }, "call$3", "deserializeValue$closure", 6, 0, null, 24, 248, 5],
   closure: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(x, _) {
       return x;
     }, "call$2", null, 4, 0, null, 22, 258, "call"],
     $isFunction: true
   },
+  "+ closure": 0,
   closure0: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(x, _) {
       return x;
     }, "call$2", null, 4, 0, null, 22, 258, "call"],
     $isFunction: true
   },
+  "+ closure0": 0,
   closure1: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(x, def) {
       var t1, exception;
       try {
@@ -26691,36 +26802,40 @@ var $$ = {};
     }, "call$2", null, 4, 0, null, 22, 377, "call"],
     $isFunction: true
   },
+  "+ closure1": 0,
   closure2: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(x, _) {
       return J.$eq(x, "false") !== true;
     }, "call$2", null, 4, 0, null, 22, 258, "call"],
     $isFunction: true
   },
+  "+ closure2": 0,
   closure3: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(x, def) {
       return H.Primitives_parseInt(x, null, new Z._closure0(def));
     }, "call$2", null, 4, 0, null, 22, 377, "call"],
     $isFunction: true
   },
+  "+ closure3": 0,
   _closure0: {
-    "^": "Closure:200;def_0",
+    "^": "Closure0:200;def_0",
     call$1: [function(_) {
       return this.def_0;
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   closure4: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(x, def) {
       return H.Primitives_parseDouble(x, new Z._closure(def));
     }, "call$2", null, 4, 0, null, 22, 377, "call"],
     $isFunction: true
   },
+  "+ closure4": 0,
   _closure: {
-    "^": "Closure:200;def_1",
+    "^": "Closure0:200;def_1",
     call$1: [function(_) {
       return this.def_1;
     }, "call$1", null, 2, 0, null, 258, "call"],
@@ -26765,14 +26880,14 @@ var $$ = {};
     return t1;
   }, "call$1", "_styleAttributeConverter$closure", 2, 0, 209, 251],
   _classAttributeConverter_closure: {
-    "^": "Closure:200;v_0",
+    "^": "Closure0:200;v_0",
     call$1: [function(k) {
       return J.$eq(this.v_0.$index(0, k), true);
     }, "call$1", null, 2, 0, null, 309, "call"],
     $isFunction: true
   },
   _styleAttributeConverter_closure: {
-    "^": "Closure:200;v_0",
+    "^": "Closure0:200;v_0",
     call$1: [function(k) {
       return H.S(k) + ": " + H.S(this.v_0.$index(0, k));
     }, "call$1", null, 2, 0, null, 309, "call"],
@@ -26804,7 +26919,7 @@ var $$ = {};
     }
   },
   PolymerExpressions_prepareBinding_closure: {
-    "^": "Closure:373;this_0,name_1,expr_2",
+    "^": "Closure0:373;this_0,name_1,expr_2",
     call$3: [function(model, node, oneTime) {
       var t1, converter;
       if (!J.getInterceptor(model).$isScope)
@@ -26820,7 +26935,7 @@ var $$ = {};
     $isFunction: true
   },
   PolymerExpressions_prepareInstanceModel_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(model) {
       return !!J.getInterceptor(model).$isScope ? model : K.Scope_Scope(model, this.this_0.globals);
     }, "call$1", null, 2, 0, null, 271, "call"],
@@ -26911,7 +27026,7 @@ var $$ = {};
       }, "call$3", "_Binding__convertValue$closure", 6, 0, null, 251, 244, 253]}
   },
   _Binding__convertValue_closure: {
-    "^": "Closure:200;v_0,scope_1",
+    "^": "Closure0:200;v_0,scope_1",
     call$1: [function(i) {
       var t1 = this.v_0.identifier;
       if (J.$eq(t1, "this") === true)
@@ -26921,7 +27036,7 @@ var $$ = {};
     $isFunction: true
   },
   _Binding_open_closure: {
-    "^": "Closure:292;expr_0",
+    "^": "Closure0:292;expr_0",
     call$2: [function(e, s) {
       H.setRuntimeTypeInfo(new P._AsyncCompleter(P._Future$(null)), [null]).completeError$2("Error evaluating expression '" + H.S(this.expr_0) + "': " + H.S(e), s);
     }, "call$2", null, 4, 0, null, 15, 85, "call"],
@@ -26945,7 +27060,7 @@ var $$ = {};
       }}
   },
   StreamBinding_closure: {
-    "^": "Closure;T_0,this_1",
+    "^": "Closure0;T_0,this_1",
     call$1: [function(i) {
       var t1 = this.this_1;
       t1._observable_box$_value = F.notifyPropertyChangeHelper(t1, C.Symbol_value, t1._observable_box$_value, i);
@@ -27050,91 +27165,103 @@ var $$ = {};
     return t1;
   },
   closure9: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$add$ns(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure9": 0,
   closure10: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$sub$n(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure10": 0,
   closure11: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$mul$ns(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure11": 0,
   closure12: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$div$n(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure12": 0,
   closure13: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$eq(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure13": 0,
   closure14: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$eq(a, b) !== true;
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure14": 0,
   closure15: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$gt$n(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure15": 0,
   closure16: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$ge$n(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure16": 0,
   closure17: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$lt$n(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure17": 0,
   closure18: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return J.$le$n(a, b);
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure18": 0,
   closure19: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return a === true || b === true;
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure19": 0,
   closure20: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, b) {
       return a === true && b === true;
     }, "call$2", null, 4, 0, null, 109, 110, "call"],
     $isFunction: true
   },
+  "+ closure20": 0,
   closure21: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(a, f) {
       var t1 = H.buildInterfaceType(P.Object);
       t1 = H.buildFunctionType(t1, [t1])._isTest$1(f);
@@ -27144,29 +27271,33 @@ var $$ = {};
     }, "call$2", null, 4, 0, null, 109, 116, "call"],
     $isFunction: true
   },
+  "+ closure21": 0,
   closure22: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(a) {
       return a;
     }, "call$1", null, 2, 0, null, 109, "call"],
     $isFunction: true
   },
+  "+ closure22": 0,
   closure23: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(a) {
       return J.$negate$n(a);
     }, "call$1", null, 2, 0, null, 109, "call"],
     $isFunction: true
   },
+  "+ closure23": 0,
   closure24: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(a) {
       return a !== true;
     }, "call$1", null, 2, 0, null, 109, "call"],
     $isFunction: true
   },
+  "+ closure24": 0,
   assign_notAssignable: {
-    "^": "Closure:107;box_0",
+    "^": "Closure0:107;box_0",
     call$0: [function() {
       return H.throwExpression(K.EvalException$("Expression is not assignable: " + H.S(this.box_0.expr_0)));
     }, "call$0", null, 0, 0, null, "call"],
@@ -27396,7 +27527,7 @@ var $$ = {};
     }
   },
   ObserverBuilder_visitInvoke_closure: {
-    "^": "Closure:200;invoke_0",
+    "^": "Closure0:200;invoke_0",
     call$1: [function(a) {
       var t1 = this.invoke_0;
       a.set$_parent(t1);
@@ -27405,7 +27536,7 @@ var $$ = {};
     $isFunction: true
   },
   ObserverBuilder_visitListLiteral_closure: {
-    "^": "Closure:200;list_0",
+    "^": "Closure0:200;list_0",
     call$1: [function(e) {
       var t1 = this.list_0;
       e.set$_parent(t1);
@@ -27414,7 +27545,7 @@ var $$ = {};
     $isFunction: true
   },
   ObserverBuilder_visitMapLiteral_closure: {
-    "^": "Closure:200;map_0",
+    "^": "Closure0:200;map_0",
     call$1: [function(e) {
       var t1 = this.map_0;
       e.set$_parent(t1);
@@ -27473,7 +27604,7 @@ var $$ = {};
     $isExpression: true
   },
   ListLiteralObserver__updateSelf_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(i) {
       return i.get$_eval$_value();
     }, "call$1", null, 2, 0, null, 345, "call"],
@@ -27494,7 +27625,7 @@ var $$ = {};
     $isExpression: true
   },
   MapLiteralObserver__updateSelf_closure: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(m, e) {
       J.$indexSet$ax(m, J.get$key$x(e).get$_eval$_value(), e.get$entryValue().get$_eval$_value());
       return m;
@@ -27542,7 +27673,7 @@ var $$ = {};
     $isExpression: true
   },
   IdentifierObserver__updateSelf_closure: {
-    "^": "Closure:200;this_0,scope_1,symbol_2",
+    "^": "Closure0:200;this_0,scope_1,symbol_2",
     call$1: [function(changes) {
       if (J.any$1$ax(changes, new K.IdentifierObserver__updateSelf__closure(this.symbol_2)) === true)
         this.this_0._invalidate$1(this.scope_1);
@@ -27550,7 +27681,7 @@ var $$ = {};
     $isFunction: true
   },
   IdentifierObserver__updateSelf__closure: {
-    "^": "Closure:200;symbol_3",
+    "^": "Closure0:200;symbol_3",
     call$1: [function(c) {
       return !!J.getInterceptor(c).$isPropertyChangeRecord && J.$eq(c.name, this.symbol_3) === true;
     }, "call$1", null, 2, 0, null, 256, "call"],
@@ -27622,7 +27753,7 @@ var $$ = {};
     $isExpression: true
   },
   BinaryObserver__updateSelf_closure: {
-    "^": "Closure:200;this_0,scope_1",
+    "^": "Closure0:200;this_0,scope_1",
     call$1: [function(_) {
       return this.this_0._invalidate$1(this.scope_1);
     }, "call$1", null, 2, 0, null, 258, "call"],
@@ -27674,7 +27805,7 @@ var $$ = {};
     $isExpression: true
   },
   GetterObserver__updateSelf_closure: {
-    "^": "Closure:200;this_0,scope_1,symbol_2",
+    "^": "Closure0:200;this_0,scope_1,symbol_2",
     call$1: [function(changes) {
       if (J.any$1$ax(changes, new K.GetterObserver__updateSelf__closure(this.symbol_2)) === true)
         this.this_0._invalidate$1(this.scope_1);
@@ -27682,7 +27813,7 @@ var $$ = {};
     $isFunction: true
   },
   GetterObserver__updateSelf__closure: {
-    "^": "Closure:200;symbol_3",
+    "^": "Closure0:200;symbol_3",
     call$1: [function(c) {
       return !!J.getInterceptor(c).$isPropertyChangeRecord && J.$eq(c.name, this.symbol_3) === true;
     }, "call$1", null, 2, 0, null, 256, "call"],
@@ -27713,7 +27844,7 @@ var $$ = {};
     $isExpression: true
   },
   IndexObserver__updateSelf_closure: {
-    "^": "Closure:200;this_0,scope_1,key_2",
+    "^": "Closure0:200;this_0,scope_1,key_2",
     call$1: [function(changes) {
       if (J.any$1$ax(changes, new K.IndexObserver__updateSelf__closure(this.key_2)) === true)
         this.this_0._invalidate$1(this.scope_1);
@@ -27721,7 +27852,7 @@ var $$ = {};
     $isFunction: true
   },
   IndexObserver__updateSelf__closure: {
-    "^": "Closure:200;key_3",
+    "^": "Closure0:200;key_3",
     call$1: [function(c) {
       return !!J.getInterceptor(c).$isMapChangeRecord && J.$eq(c.key, this.key_3) === true;
     }, "call$1", null, 2, 0, null, 256, "call"],
@@ -27766,14 +27897,14 @@ var $$ = {};
     $isExpression: true
   },
   InvokeObserver__updateSelf_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(a) {
       return a.get$_eval$_value();
     }, "call$1", null, 2, 0, null, 109, "call"],
     $isFunction: true
   },
   InvokeObserver__updateSelf_closure0: {
-    "^": "Closure:378;this_0,scope_1,symbol_2",
+    "^": "Closure0:378;this_0,scope_1,symbol_2",
     call$1: [function(changes) {
       if (J.any$1$ax(changes, new K.InvokeObserver__updateSelf__closure(this.symbol_2)) === true)
         this.this_0._invalidate$1(this.scope_1);
@@ -27781,7 +27912,7 @@ var $$ = {};
     $isFunction: true
   },
   InvokeObserver__updateSelf__closure: {
-    "^": "Closure:200;symbol_3",
+    "^": "Closure0:200;symbol_3",
     call$1: [function(c) {
       return !!J.getInterceptor(c).$isPropertyChangeRecord && J.$eq(c.name, this.symbol_3) === true;
     }, "call$1", null, 2, 0, null, 256, "call"],
@@ -27812,7 +27943,7 @@ var $$ = {};
     $isExpression: true
   },
   InObserver__updateSelf_closure: {
-    "^": "Closure:200;this_0,scope_1",
+    "^": "Closure0:200;this_0,scope_1",
     call$1: [function(_) {
       return this.this_0._invalidate$1(this.scope_1);
     }, "call$1", null, 2, 0, null, 258, "call"],
@@ -28174,7 +28305,7 @@ var $$ = {};
     $isInvoke: true
   },
   _hashList_closure: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(h, item) {
       return U._JenkinsSmiHash_combine1(h, J.get$hashCode$(item));
     }, "call$2", null, 4, 0, null, 382, 298, "call"],
@@ -29000,35 +29131,35 @@ var $$ = {};
     $isHit: true
   },
   _splitQueryTerms_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return J.replaceAll$2$s(x, ":", "-");
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   _splitQueryTerms_closure0: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return J.split$1$s(x, ".");
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   _splitQueryTerms_closure1: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return J.$gt$n(J.get$length$asx(x), 2);
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   lookupSearchResults_closure: {
-    "^": "Closure:200;lower_1",
+    "^": "Closure0:200;lower_1",
     call$1: [function(q) {
       return C.JSString_methods.contains$1(this.lower_1, q);
     }, "call$1", null, 2, 0, null, 386, "call"],
     $isFunction: true
   },
   lookupSearchResults_closure0: {
-    "^": "Closure:200;box_0,r_2",
+    "^": "Closure0:200;box_0,r_2",
     call$1: [function(q) {
       var t1, t2;
       t1 = J.getInterceptor$asx(q);
@@ -29041,7 +29172,7 @@ var $$ = {};
     $isFunction: true
   },
   lookupSearchResults_closure1: {
-    "^": "Closure:200;box_0,r_3,location_4,qualifiedNameParts_5",
+    "^": "Closure0:200;box_0,r_3,location_4,qualifiedNameParts_5",
     call$1: [function(q) {
       var t1, t2, t3, t4, segment, t5, t6, percent;
       t1 = this.qualifiedNameParts_5;
@@ -29460,7 +29591,7 @@ var $$ = {};
       }}
   },
   GeneratedSymbolConverterService_closure: {
-    "^": "Closure:292;this_0",
+    "^": "Closure0:292;this_0",
     call$2: [function(k, v) {
       this.this_0._symbols.$indexSet(0, v, k);
     }, "call$2", null, 4, 0, null, 309, 251, "call"],
@@ -29812,7 +29943,7 @@ var $$ = {};
     }, "call$1", "get$_updateOption", 2, 0, 145, 203]
   },
   _ElementExtension_bind_closure: {
-    "^": "Closure:200;box_0,this_1,conditional_2",
+    "^": "Closure0:200;box_0,this_1,conditional_2",
     call$1: [function(x) {
       return M._updateAttribute(this.this_1.get$_template_binding$_node(), this.box_0.name_0, this.conditional_2, x);
     }, "call$1", null, 2, 0, null, 22, "call"],
@@ -29921,7 +30052,7 @@ var $$ = {};
       }, "call$1", "_InputBinding__toInt$closure", 2, 0, null, 24]}
   },
   closure7: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       var checkbox, t1, fired, t2, $event;
       checkbox = document.createElement("div", null).appendChild(W.InputElement_InputElement(null));
@@ -29940,22 +30071,23 @@ var $$ = {};
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
+  "+ closure7": 0,
   _closure1: {
-    "^": "Closure:200;fired_0",
+    "^": "Closure0:200;fired_0",
     call$1: [function(e) {
       this.fired_0.push(C.EventStreamProvider_click);
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _closure2: {
-    "^": "Closure:200;fired_1",
+    "^": "Closure0:200;fired_1",
     call$1: [function(e) {
       this.fired_1.push(C.EventStreamProvider_change);
     }, "call$1", null, 2, 0, null, 15, "call"],
     $isFunction: true
   },
   _InputBinding__getAssociatedRadioButtons_closure: {
-    "^": "Closure:200;element_0",
+    "^": "Closure0:200;element_0",
     call$1: [function(el) {
       var t1, t2;
       t1 = this.element_0;
@@ -29977,7 +30109,7 @@ var $$ = {};
     $isFunction: true
   },
   _InputBinding__getAssociatedRadioButtons_closure0: {
-    "^": "Closure:200;element_1",
+    "^": "Closure0:200;element_1",
     call$1: [function(el) {
       var t1 = J.getInterceptor(el);
       return t1.$eq(el, this.element_1) !== true && t1.get$form(el) == null;
@@ -29985,7 +30117,7 @@ var $$ = {};
     $isFunction: true
   },
   _InputBinding__toInt_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(_) {
       return 0;
     }, "call$1", null, 2, 0, null, 258, "call"],
@@ -30353,7 +30485,7 @@ var $$ = {};
       }, "call$0", "TemplateBindExtension__injectStylesheet$closure", 0, 0, null]}
   },
   TemplateBindExtension_bootstrap__bootstrap: {
-    "^": "Closure:145;",
+    "^": "Closure0:145;",
     call$1: [function(template) {
       if (!M.nodeBindFallback(template)._decorate$1(null))
         M.TemplateBindExtension_bootstrap(J.get$content$x(!!J.getInterceptor(template).$isNodeBindExtension ? template : M.nodeBindFallback(template)));
@@ -30361,21 +30493,22 @@ var $$ = {};
     $isFunction: true
   },
   closure5: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(k) {
       return H.S(k) + "[template]";
     }, "call$1", null, 2, 0, null, 309, "call"],
     $isFunction: true
   },
+  "+ closure5": 0,
   _getDelegateFactory_closure: {
-    "^": "Closure:200;name_0,node_1,delegate_2",
+    "^": "Closure0:200;name_0,node_1,delegate_2",
     call$1: [function(pathString) {
       return this.delegate_2.prepareBinding$3(pathString, this.name_0, this.node_1);
     }, "call$1", null, 2, 0, null, 387, "call"],
     $isFunction: true
   },
   _parseAttributeBindings_closure: {
-    "^": "Closure:292;box_0,element_1,delegate_2,isTemplateNode_3",
+    "^": "Closure0:292;box_0,element_1,delegate_2,isTemplateNode_3",
     call$2: [function($name, value) {
       var t1, tokens, t2, bindings;
       for (; t1 = J.getInterceptor$asx($name), J.$eq(t1.$index($name, 0), "_") === true;)
@@ -30918,7 +31051,7 @@ var $$ = {};
     }
   }, "call$2", "hashCodeFor$closure", 2, 2, null, 76, 92, 280],
   hashCodeFor_closure: {
-    "^": "Closure:200;obj_0",
+    "^": "Closure0:200;obj_0",
     call$1: [function(p) {
       var t1 = this.obj_0;
       return p == null ? t1 == null : p === t1;
@@ -31304,14 +31437,14 @@ var $$ = {};
       }}
   },
   Viewer__updateLibraries_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return !!J.getInterceptor(x).$isLibrary;
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   Viewer_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(response) {
       var libraries, t1, t2, t3, startPageName;
       libraries = C.JsonCodec_null_null.decode$1(response);
@@ -31328,21 +31461,21 @@ var $$ = {};
     $isFunction: true
   },
   Viewer__closure: {
-    "^": "Closure:107;this_1",
+    "^": "Closure0:107;this_1",
     call$0: [function() {
       return this.this_1._viewer0$__$homePage;
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Viewer_closure0: {
-    "^": "Closure:25;",
+    "^": "Closure0:25;",
     call$1: [function(json) {
       $.get$searchIndex().set$map(0, C.JsonCodec_null_null.decode$1(json));
     }, "call$1", null, 2, 0, null, 164, "call"],
     $isFunction: true
   },
   Viewer_closure1: {
-    "^": "Closure:200;this_2",
+    "^": "Closure0:200;this_2",
     call$1: [function(_) {
       var t1 = this.this_2._finishedCompleter.future;
       if (t1._state !== 0)
@@ -31352,14 +31485,14 @@ var $$ = {};
     $isFunction: true
   },
   Viewer__scrollScreen_closure: {
-    "^": "Closure:107;",
+    "^": "Closure0:107;",
     call$0: [function() {
       C.Window_methods.scrollTo$2(window, 0, 0);
     }, "call$0", null, 0, 0, null, "call"],
     $isFunction: true
   },
   Viewer__scrollScreen_closure0: {
-    "^": "Closure:107;box_0,this_1",
+    "^": "Closure0:107;box_0,this_1",
     call$0: [function() {
       var t1, t2, e;
       t1 = this.box_0;
@@ -31381,14 +31514,14 @@ var $$ = {};
     $isFunction: true
   },
   Viewer_queryEverywhere_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return x;
     }, "call$1", null, 2, 0, null, 22, "call"],
     $isFunction: true
   },
   Viewer__loadAndUpdatePage_closure: {
-    "^": "Closure:200;this_0,location_1,shouldPush_2",
+    "^": "Closure0:200;this_0,location_1,shouldPush_2",
     call$1: [function(items) {
       var t1 = this.location_1;
       return this.this_0._updatePage$3(t1.itemFromList$1(J.toList$0$ax(items)), t1, this.shouldPush_2);
@@ -31396,28 +31529,28 @@ var $$ = {};
     $isFunction: true
   },
   Viewer__loadAndUpdatePage_closure0: {
-    "^": "Closure:200;this_3,location_4,shouldPush_5,destination_6",
+    "^": "Closure0:200;this_3,location_4,shouldPush_5,destination_6",
     call$1: [function(_) {
       return this.this_3._updatePage$3(this.destination_6, this.location_4, this.shouldPush_5);
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   Viewer_getItem_closure: {
-    "^": "Closure:200;this_0,location_1",
+    "^": "Closure0:200;this_0,location_1",
     call$1: [function(lib) {
       return this.this_0.getMember$2(lib, this.location_1);
     }, "call$1", null, 2, 0, null, 393, "call"],
     $isFunction: true
   },
   Viewer_getItem_closure0: {
-    "^": "Closure:200;this_2,location_3",
+    "^": "Closure0:200;this_2,location_3",
     call$1: [function(libWithMember) {
       return this.this_2.getSubMember$2(libWithMember, this.location_3);
     }, "call$1", null, 2, 0, null, 394, "call"],
     $isFunction: true
   },
   Viewer_getMember_closure: {
-    "^": "Closure:396;this_0,lib_1,member_2",
+    "^": "Closure0:396;this_0,lib_1,member_2",
     call$1: [function(mem) {
       var interfaces, t1, t2, t3;
       interfaces = [];
@@ -31428,7 +31561,7 @@ var $$ = {};
     $isFunction: true
   },
   Viewer_getMember__closure: {
-    "^": "Closure:200;this_3,lib_4,member_5,mem_6",
+    "^": "Closure0:200;this_3,lib_4,member_5,mem_6",
     call$1: [function(loaded) {
       var t1, t2, t3;
       t1 = this.mem_6;
@@ -31442,21 +31575,21 @@ var $$ = {};
     $isFunction: true
   },
   Viewer_getMember___closure: {
-    "^": "Closure:200;lib_7,member_8",
+    "^": "Closure0:200;lib_7,member_8",
     call$1: [function(_) {
       return [this.lib_7, this.member_8];
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   Viewer_getMember_closure0: {
-    "^": "Closure:200;lib_9,member_10",
+    "^": "Closure0:200;lib_9,member_10",
     call$1: [function(mem) {
       return P._Future$immediate([this.lib_9, this.member_10], null);
     }, "call$1", null, 2, 0, null, 395, "call"],
     $isFunction: true
   },
   _concat_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       return x;
     }, "call$1", null, 2, 0, null, 22, "call"],
@@ -31490,7 +31623,7 @@ var $$ = {};
     }
   },
   Visitor_visitSequence_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(e) {
       return e.visit$1(this.this_0);
     }, "call$1", null, 2, 0, null, 15, "call"],
@@ -31543,17 +31676,8 @@ var $$ = {};
           t5 = t2.memberName;
           t5 = t5 == null ? "" : "." + H.S(t5);
           t2 = t2.subMemberName;
-          t2 = "<a href=\"/dartdoc-viewer/" + C.JSArray_methods.join$1([t3, t4, t5, t2 == null ? "" : "." + H.S(t2)], "") + "\" on-click=\"{{routeLink}}>";
-          t3 = annotation.get$link().loc;
-          t4 = new Y.DocsLocation(null, null, null, null, null);
-          t4.packageName = t3.packageName;
-          t4.libraryName = t3.libraryName;
-          t4.memberName = t3.memberName;
-          t4.subMemberName = t3.subMemberName;
-          t4.anchor = t3.anchor;
-          t4.anchor = null;
-          t4 = t2 + H.S(t4.get$name(t4)) + "</a>";
-          out._contents = out._contents + t4;
+          t2 = "<a href=\"/dartdoc-viewer/" + C.JSArray_methods.join$1([t3, t4, t5, t2 == null ? "" : "." + H.S(t2)], "") + "\" on-click=\"{{routeLink}}>" + H.S(annotation.get$shortName()) + "</a>";
+          out._contents = out._contents + t2;
         } else {
           t2 = annotation.get$link().loc;
           t3 = new Y.DocsLocation(null, null, null, null, null);
@@ -31578,7 +31702,7 @@ var $$ = {};
         if (hasParams)
           out._contents = t3 + ")";
         if (t2.$eq(annotation, J.get$last$ax(J.get$annotations$x(receiver._annotations$__$annotations))) !== true)
-          out._contents = out._contents + ", ";
+          out._contents = out._contents + ",<br />";
       }
       if (receiver._annotations$__$annotations.get$supportedBrowsers().length !== 0) {
         out.write$1("<br>Supported on: ");
@@ -31633,7 +31757,7 @@ var $$ = {};
     $.get$viewer()._finishedCompleter.future.then$1(new V.initApp_closure1());
   }, "call$0", "initApp$closure", 0, 0, null],
   initApp_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function($event) {
       var t1, t2;
       t1 = $.get$viewer();
@@ -31657,7 +31781,7 @@ var $$ = {};
     $isFunction: true
   },
   initApp_closure0: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(_) {
       var t1 = $._dartdocMain;
       if (t1 == null) {
@@ -31669,7 +31793,7 @@ var $$ = {};
     $isFunction: true
   },
   initApp_closure1: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(_) {
       var t1 = $.location;
       if (t1 != null && J.$eq(t1, "") !== true)
@@ -31749,7 +31873,7 @@ var $$ = {};
     $isObservable: true
   },
   Breadcrumbs_enteredView_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(changes) {
       var t1, change, t2;
       for (t1 = J.get$iterator$ax(changes); t1.moveNext$0();) {
@@ -31767,7 +31891,7 @@ var $$ = {};
 ["web.category", "package:dartdoc_viewer/components/category.dart", , O, {
   "^": "",
   CategoryElement: {
-    "^": "DartdocElement_ChangeNotifier;_category$__$category,_category$__$items,_category$__$variables,_category$__$methods,_category$__$hasItems,_category$__$title,_category$__$stylizedName,_category$__$accordionStyle,_category$__$divClass,_category$__$caretStyle,_category$__$lineHeight,__isExpanded,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
+    "^": "DartdocElement_ChangeNotifier;_category$__$category,_category$__$items,_category$__$typedefs,_category$__$variables,_category$__$methods,_category$__$hasItems,_category$__$title,_category$__$stylizedName,_category$__$accordionStyle,_category$__$divClass,_category$__$caretStyle,_category$__$lineHeight,__isExpanded,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
     get$category: function(receiver) {
       return receiver._category$__$category;
     },
@@ -31779,6 +31903,12 @@ var $$ = {};
     },
     set$items: function(receiver, value) {
       receiver._category$__$items = this.notifyPropertyChange$3(receiver, C.Symbol_items, receiver._category$__$items, value);
+    },
+    get$typedefs: function(receiver) {
+      return receiver._category$__$typedefs;
+    },
+    set$typedefs: function(receiver, value) {
+      receiver._category$__$typedefs = this.notifyPropertyChange$3(receiver, C.Symbol_typedefs, receiver._category$__$typedefs, value);
     },
     get$variables: function(receiver) {
       return receiver._category$__$variables;
@@ -31864,13 +31994,20 @@ var $$ = {};
     methodsChanged$0: [function(receiver) {
       return this._updateHasItems$0(receiver);
     }, "call$0", "get$methodsChanged", 0, 0, 106],
+    typedefsChanged$0: [function(receiver) {
+      return this._updateHasItems$0(receiver);
+    }, "call$0", "get$typedefsChanged", 0, 0, 106],
     _updateHasItems$0: function(receiver) {
       var t1 = receiver._category$__$items;
       if (!(t1 != null && J.get$isNotEmpty$asx(t1))) {
         t1 = receiver._category$__$variables;
         if (!(t1 != null && J.get$isNotEmpty$asx(t1))) {
           t1 = receiver._category$__$methods;
-          t1 = t1 != null && J.get$isNotEmpty$asx(t1);
+          if (!(t1 != null && J.get$isNotEmpty$asx(t1))) {
+            t1 = receiver._category$__$typedefs;
+            t1 = t1 != null && J.get$isNotEmpty$asx(t1);
+          } else
+            t1 = true;
         } else
           t1 = true;
       } else
@@ -31907,7 +32044,7 @@ var $$ = {};
     $isObservable: true
   },
   CategoryElement$created_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(changes) {
       if (J.any$1$ax(changes, new O.CategoryElement$created__closure()) === true)
         J.set$_isExpanded$x(this.this_0, $.get$viewer()._viewer0$__$isDesktop);
@@ -31915,7 +32052,7 @@ var $$ = {};
     $isFunction: true
   },
   CategoryElement$created__closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(c) {
       return J.$eq(J.get$name$x(c), C.Symbol_isDesktop);
     }, "call$1", null, 2, 0, null, 256, "call"],
@@ -32100,7 +32237,7 @@ var $$ = {};
       }}
   },
   ClassElement$created_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(changes) {
       if (J.any$1$ax(changes, new T.ClassElement$created__closure()) === true)
         J._loadCategories$0$x(this.this_0);
@@ -32108,7 +32245,7 @@ var $$ = {};
     $isFunction: true
   },
   ClassElement$created__closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(c) {
       var t1 = J.getInterceptor$x(c);
       return J.$eq(t1.get$name(c), C.Symbol_isInherited) === true || J.$eq(t1.get$name(c), C.Symbol_showObjectMembers) === true;
@@ -32116,7 +32253,7 @@ var $$ = {};
     $isFunction: true
   },
   ClassElement__loadCategories_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(x) {
       var t1 = $.get$viewer();
       return x.filteredContent$1(t1.get$filter(t1));
@@ -32124,21 +32261,21 @@ var $$ = {};
     $isFunction: true
   },
   ClassElement_addSubclasses_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function($event) {
       return J.showSubclass$3$x(this.this_0, null, null, null);
     }, "call$1", null, 2, 0, null, 281, "call"],
     $isFunction: true
   },
   ClassElement_makeLinks_closure: {
-    "^": "Closure:200;this_1,hidden_2",
+    "^": "Closure0:200;this_1,hidden_2",
     call$1: [function(cls) {
       return J.makeLink$2$hidden$x(this.this_1, cls, this.hidden_2);
     }, "call$1", null, 2, 0, null, 399, "call"],
     $isFunction: true
   },
   ClassElement_makeLinks_closure0: {
-    "^": "Closure:292;box_0,hidden_3",
+    "^": "Closure0:292;box_0,hidden_3",
     call$2: [function(list, classLink) {
       var t1 = this.box_0;
       if (t1.first_0)
@@ -32156,7 +32293,7 @@ var $$ = {};
     $isFunction: true
   },
   ClassElement_makeLink_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function($event) {
       return U.routeLink($event, null, J.get$target$x($event));
     }, "call$1", null, 2, 0, null, 281, "call"],
@@ -32467,7 +32604,7 @@ var $$ = {};
     $isObservable: true
   },
   CommentElement__resolveLink_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function($event) {
       return U.routeLink($event, null, J.get$target$x($event));
     }, "call$1", null, 2, 0, null, 281, "call"],
@@ -32683,7 +32820,7 @@ var $$ = {};
         t5 = this.get$defaultItem(receiver);
         receiver._item = t5;
       }
-      t5 = J.get$content$x(t5.get$typedefs());
+      t5 = J.get$content$x(J.get$typedefs$x(t5));
       t6 = receiver._item;
       if (t6 == null) {
         t6 = this.get$defaultItem(receiver);
@@ -32764,7 +32901,7 @@ var $$ = {};
       }}
   },
   LibraryPanel_shadowRootReady_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(changes) {
       var t1;
       for (t1 = J.get$iterator$ax(changes); t1.moveNext$0();)
@@ -32853,7 +32990,7 @@ var $$ = {};
     $isObservable: true
   },
   LinkElement_typeChanged_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function($event) {
       return U.routeLink($event, null, J.get$target$x($event));
     }, "call$1", null, 2, 0, null, 281, "call"],
@@ -33110,7 +33247,7 @@ var $$ = {};
     $isObservable: true
   },
   MainElement_showVersion_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(value) {
       var t1, t2;
       t1 = this.this_0;
@@ -33121,14 +33258,14 @@ var $$ = {};
     $isFunction: true
   },
   MainElement_showVersion_closure0: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(_) {
       return;
     }, "call$1", null, 2, 0, null, 258, "call"],
     $isFunction: true
   },
   MainElement_collapseSearchAndOptionsIfNeeded_closure: {
-    "^": "Closure:292;",
+    "^": "Closure0:292;",
     call$2: [function(sum, element) {
       var t1, t2;
       t1 = J.get$marginEdge$x(element);
@@ -33450,7 +33587,7 @@ var $$ = {};
     $isObservable: true
   },
   InheritedElement$created_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(changes) {
       var t1;
       for (t1 = J.get$iterator$ax(changes); t1.moveNext$0();)
@@ -33681,7 +33818,7 @@ var $$ = {};
     $isObservable: true
   },
   MinimapElement$created_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(changes) {
       var t1, change, t2;
       for (t1 = J.get$iterator$ax(changes); t1.moveNext$0();) {
@@ -33795,21 +33932,71 @@ var $$ = {};
     $isObservable: true
   }
 }],
+["web.parameters", "package:dartdoc_viewer/components/closure.dart", , X, {
+  "^": "",
+  ClosureElement: {
+    "^": "PolymerElement_ChangeNotifier3;_parameters$__$closure,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
+    get$closure: function(receiver) {
+      return receiver._parameters$__$closure;
+    },
+    set$closure: function(receiver, value) {
+      receiver._parameters$__$closure = this.notifyPropertyChange$3(receiver, C.Symbol_closure, receiver._parameters$__$closure, value);
+    },
+    closureChanged$0: [function(receiver) {
+      var outerSpan, t1, parameterName;
+      receiver.textContent = "";
+      outerSpan = document.createElement("span", null);
+      if (receiver._parameters$__$closure.get$returnType().get$isDynamic() !== true) {
+        t1 = W._ElementFactoryProvider_createElement_tag("dartdoc-type", null);
+        J.set$type$x(t1, receiver._parameters$__$closure.get$returnType());
+        outerSpan.appendChild(t1);
+        J.insertAdjacentText$2$x(outerSpan, "beforeend", " ");
+      }
+      parameterName = W.AnchorElement_AnchorElement(null);
+      parameterName.textContent = J.get$name$x(receiver._parameters$__$closure);
+      J.set$href$x(parameterName, receiver._parameters$__$closure.get$prefixedAnchorHref());
+      parameterName.id = receiver._parameters$__$closure.get$anchorHrefLocation().anchor;
+      outerSpan.appendChild(parameterName);
+      t1 = W._ElementFactoryProvider_createElement_tag("dartdoc-parameter", null);
+      J.set$parameters$x(t1, J.get$parameters$x(receiver._parameters$__$closure));
+      outerSpan.appendChild(t1);
+      receiver.appendChild(outerSpan);
+    }, "call$0", "get$closureChanged", 0, 0, 106],
+    static: {ClosureElement$created: function(receiver) {
+        var t1, t2, t3, t4;
+        t1 = $.get$Polymer__polymerSyntax();
+        t2 = P.HashMap_HashMap(null, null, null, J.JSString, W.ShadowRoot);
+        t3 = J.JSString;
+        t4 = W.Element;
+        t4 = H.setRuntimeTypeInfo(new V.ObservableMap(P.HashMap_HashMap(null, null, null, t3, t4), null, null), [t3, t4]);
+        receiver.polymer$Polymer$syntax = t1;
+        receiver.polymer$Polymer$_shadowRoots = t2;
+        receiver.polymer$Polymer$$ = t4;
+        C.ClosureElement_methods.Element$created$0(receiver);
+        C.ClosureElement_methods.PolymerElement$created$0(receiver);
+        return receiver;
+      }}
+  },
+  PolymerElement_ChangeNotifier3: {
+    "^": "PolymerElement+ChangeNotifier;",
+    $isObservable: true
+  }
+}],
 ["web.parameters", "package:dartdoc_viewer/components/parameters.dart", , X, {
   "^": "",
   ParameterElement: {
-    "^": "DartdocElement_ChangeNotifier3;_parameters$__$parameters,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
+    "^": "DartdocElement_ChangeNotifier3;_parameters0$__$parameters,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
     get$parameters: function(receiver) {
-      return receiver._parameters$__$parameters;
+      return receiver._parameters0$__$parameters;
     },
     set$parameters: function(receiver, value) {
-      receiver._parameters$__$parameters = this.notifyPropertyChange$3(receiver, C.Symbol_parameters, receiver._parameters$__$parameters, value);
+      receiver._parameters0$__$parameters = this.notifyPropertyChange$3(receiver, C.Symbol_parameters, receiver._parameters0$__$parameters, value);
     },
     parametersChanged$0: [function(receiver) {
       var required, optional, t1, p;
       required = [];
       optional = [];
-      t1 = receiver._parameters$__$parameters;
+      t1 = receiver._parameters0$__$parameters;
       if (t1 != null)
         for (t1 = J.get$iterator$ax(t1); t1.moveNext$0();) {
           p = t1.get$current();
@@ -33822,7 +34009,7 @@ var $$ = {};
       this.insertAdjacentText$2(receiver, "beforeend", ")");
     }, "call$0", "get$parametersChanged", 0, 0, 106],
     addParameters$3: function(receiver, elements, className, optional) {
-      var outerSpan, t1, optionalOpeningDelimiter, t2, t3, t4, element, t5, t6, space, e, t7, t8, t9, optionalClosingDelimiter;
+      var outerSpan, t1, optionalOpeningDelimiter, t2, t3, t4, element, t5, t6, space, e, optionalClosingDelimiter;
       if (elements.length === 0)
         return;
       outerSpan = document.createElement("span", null);
@@ -33845,21 +34032,18 @@ var $$ = {};
           space = " ";
         } else
           space = "";
-        e = document.createElement("a", null);
-        e.textContent = t5.get$name(element);
-        t6 = J.getInterceptor$x(e);
-        t6.set$href(e, element.get$prefixedAnchorHref());
-        t6 = t6.get$onClick(e);
-        t7 = t6._eventType;
-        t8 = t6._useCapture;
-        t9 = new W._EventStreamSubscription(0, t6._target, t7, W._wrapZone(new X.ParameterElement_addParameters_closure0(receiver)), t8);
-        t9.$builtinTypeInfo = [H.getTypeArgumentByIndex(t6, 0)];
-        t6 = t9._html$_onData;
-        if (t6 != null && t9._pauseCount <= 0)
-          J.addEventListener$3$x(t9._target, t7, t6, t8);
-        e.id = element.get$anchorHrefLocation().anchor;
         t4.insertAdjacentText$2(outerSpan, "beforeend", space);
-        outerSpan.appendChild(e);
+        if (element.get$functionDeclaration() != null) {
+          t6 = W._ElementFactoryProvider_createElement_tag("dartdoc-closure", null);
+          J.set$closure$x(t6, element.get$functionDeclaration());
+          outerSpan.appendChild(t6);
+        } else {
+          e = document.createElement("a", null);
+          e.textContent = t5.get$name(element);
+          J.set$href$x(e, element.get$prefixedAnchorHref());
+          e.id = element.get$anchorHrefLocation().anchor;
+          outerSpan.appendChild(e);
+        }
         t4.insertAdjacentText$2(outerSpan, "beforeend", element.get$decoration());
         if (t3 && optional.length !== 0 || t5.$eq(element, C.JSArray_methods.get$last(elements)) !== true)
           t4.insertAdjacentText$2(outerSpan, "beforeend", ", ");
@@ -33880,7 +34064,7 @@ var $$ = {};
         t3 = J.JSString;
         t4 = W.Element;
         t4 = H.setRuntimeTypeInfo(new V.ObservableMap(P.HashMap_HashMap(null, null, null, t3, t4), null, null), [t3, t4]);
-        receiver._parameters$__$parameters = C.List_empty;
+        receiver._parameters0$__$parameters = C.List_empty;
         receiver.polymer$Polymer$syntax = t1;
         receiver.polymer$Polymer$_shadowRoots = t2;
         receiver.polymer$Polymer$$ = t4;
@@ -33894,7 +34078,7 @@ var $$ = {};
     $isObservable: true
   },
   ParameterElement_addParameters_closure: {
-    "^": "Closure:200;this_0,outerSpan_1",
+    "^": "Closure0:200;this_0,outerSpan_1",
     call$1: [function(annotation) {
       var anchor, t1, t2, t3;
       anchor = W.AnchorElement_AnchorElement(null);
@@ -33911,14 +34095,7 @@ var $$ = {};
     $isFunction: true
   },
   ParameterElement_addParameters__closure: {
-    "^": "Closure:200;this_2",
-    call$1: [function($event) {
-      return U.routeLink($event, null, J.get$target$x($event));
-    }, "call$1", null, 2, 0, null, 281, "call"],
-    $isFunction: true
-  },
-  ParameterElement_addParameters_closure0: {
-    "^": "Closure:200;this_3",
+    "^": "Closure0:200;this_2",
     call$1: [function($event) {
       return U.routeLink($event, null, J.get$target$x($event));
     }, "call$1", null, 2, 0, null, 281, "call"],
@@ -34087,7 +34264,7 @@ var $$ = {};
 ["web.search", "package:dartdoc_viewer/components/search.dart", , M, {
   "^": "",
   Search: {
-    "^": "PolymerElement_ChangeNotifier3;_search$__$searchQuery,_search$__$isFocused,_search$__$results,_search$__$dropdownOpen,currentIndex,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
+    "^": "PolymerElement_ChangeNotifier4;_search$__$searchQuery,_search$__$isFocused,_search$__$results,_search$__$dropdownOpen,currentIndex,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
     get$searchQuery: function(receiver) {
       return receiver._search$__$searchQuery;
     },
@@ -34304,12 +34481,12 @@ var $$ = {};
         return receiver;
       }}
   },
-  PolymerElement_ChangeNotifier3: {
+  PolymerElement_ChangeNotifier4: {
     "^": "PolymerElement+ChangeNotifier;",
     $isObservable: true
   },
   Search_onBlurCallback_closure: {
-    "^": "Closure:200;this_0",
+    "^": "Closure0:200;this_0",
     call$1: [function(_) {
       return J._updateDropdownOpen$0$x(this.this_0);
     }, "call$1", null, 2, 0, null, 258, "call"],
@@ -34319,7 +34496,7 @@ var $$ = {};
 ["web.type", "package:dartdoc_viewer/components/type.dart", , N, {
   "^": "",
   TypeElement: {
-    "^": "PolymerElement_ChangeNotifier4;_type$__$type,_child,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
+    "^": "PolymerElement_ChangeNotifier5;_type$__$type,_child,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,change_notifier$ChangeNotifier$_changes,change_notifier$ChangeNotifier$_records,polymer$Polymer$_declaration,polymer$Polymer$_observers,polymer$Polymer$_unbound,polymer$Polymer$_unbindAllJob,polymer$Polymer$_propertyObserver,polymer$Polymer$syntax,polymer$Polymer$_shadowRoots,polymer$Polymer$$",
     get$type: function(receiver) {
       return receiver._type$__$type;
     },
@@ -34444,12 +34621,12 @@ var $$ = {};
         return span;
       }, "call$1", "TypeElement_createInner$closure", 2, 0, null, 5]}
   },
-  PolymerElement_ChangeNotifier4: {
+  PolymerElement_ChangeNotifier5: {
     "^": "PolymerElement+ChangeNotifier;",
     $isObservable: true
   },
   TypeElement_createInner_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function($event) {
       return U.routeLink($event, null, J.get$target$x($event));
     }, "call$1", null, 2, 0, null, 281, "call"],
@@ -34635,7 +34812,7 @@ var $$ = {};
     return H.setRuntimeTypeInfo(new H.MappedListIterable(new V.Parser(yaml, 0, J.get$length$asx(yaml), 0, 0, false, 0, 0, 0, "document", H.setRuntimeTypeInfo(["document"], [J.JSString]), H.setRuntimeTypeInfo(new V._RangeMap(H.setRuntimeTypeInfo([], [[V._Pair, V._Range, null]])), [null]), null, null, false).l_yamlStream$0(), new O.loadYamlStream_closure()), [null, null]).toList$0(0);
   }, "call$1", "loadYamlStream$closure", 2, 0, null, 111],
   loadYamlStream_closure: {
-    "^": "Closure:200;",
+    "^": "Closure0:200;",
     call$1: [function(doc) {
       var t1 = doc.visit$1(new T.Composer(doc, H.setRuntimeTypeInfo(H.fillLiteralMap([], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), [J.JSString, R.Node0]), 0));
       return t1.visit$1(new T.Constructor(t1, H.setRuntimeTypeInfo(H.fillLiteralMap([], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null)), [J.JSString, null])));
@@ -34743,7 +34920,7 @@ var $$ = {};
     }
   },
   YamlMap_addAll_closure: {
-    "^": "Closure:292;this_0",
+    "^": "Closure0:292;this_0",
     call$2: [function(key, value) {
       var t1 = this.this_0;
       t1._yaml_map$_map.$indexSet(0, t1._wrapKey$1(key), value);
@@ -34751,7 +34928,7 @@ var $$ = {};
     $isFunction: true
   },
   YamlMap_forEach_closure: {
-    "^": "Closure:292;this_0,f_1",
+    "^": "Closure0:292;this_0,f_1",
     call$2: [function(k, v) {
       var t1 = !!J.getInterceptor(k).$is_WrappedHashKey ? k.value : k;
       return this.f_1.call$2(t1, v);
@@ -35299,6 +35476,12 @@ J.get$className$x = function(receiver) {
 J.get$classes$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$classes(receiver);
 };
+J.get$closure$x = function(receiver) {
+  return J.getInterceptor$x(receiver).get$closure(receiver);
+};
+J.get$closureChanged$x = function(receiver) {
+  return J.getInterceptor$x(receiver).get$closureChanged(receiver);
+};
 J.get$codeUnits$s = function(receiver) {
   return J.getInterceptor$s(receiver).get$codeUnits(receiver);
 };
@@ -35674,6 +35857,12 @@ J.get$type$x = function(receiver) {
 J.get$typeChanged$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$typeChanged(receiver);
 };
+J.get$typedefs$x = function(receiver) {
+  return J.getInterceptor$x(receiver).get$typedefs(receiver);
+};
+J.get$typedefsChanged$x = function(receiver) {
+  return J.getInterceptor$x(receiver).get$typedefsChanged(receiver);
+};
 J.get$url$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$url(receiver);
 };
@@ -35832,6 +36021,9 @@ J.set$className$x = function(receiver, value) {
 };
 J.set$classes$x = function(receiver, value) {
   return J.getInterceptor$x(receiver).set$classes(receiver, value);
+};
+J.set$closure$x = function(receiver, value) {
+  return J.getInterceptor$x(receiver).set$closure(receiver, value);
 };
 J.set$commentFrom$x = function(receiver, value) {
   return J.getInterceptor$x(receiver).set$commentFrom(receiver, value);
@@ -36037,6 +36229,9 @@ J.set$title$x = function(receiver, value) {
 J.set$type$x = function(receiver, value) {
   return J.getInterceptor$x(receiver).set$type(receiver, value);
 };
+J.set$typedefs$x = function(receiver, value) {
+  return J.getInterceptor$x(receiver).set$typedefs(receiver, value);
+};
 J.set$url$x = function(receiver, value) {
   return J.getInterceptor$x(receiver).set$url(receiver, value);
 };
@@ -36104,6 +36299,7 @@ C.AnnotationElement_methods = Y.AnnotationElement.prototype;
 C.Breadcrumbs_methods = U.Breadcrumbs.prototype;
 C.CategoryElement_methods = O.CategoryElement.prototype;
 C.ClassElement_methods = T.ClassElement.prototype;
+C.ClosureElement_methods = X.ClosureElement.prototype;
 C.CommentElement_methods = S.CommentElement.prototype;
 C.DartdocElement_methods = U.DartdocElement.prototype;
 C.HomeElement_methods = Z.HomeElement.prototype;
@@ -36149,23 +36345,25 @@ C.C__RootZone = new P._RootZone();
 C.DeclarationKind_0 = new A.DeclarationKind(0);
 C.DeclarationKind_1 = new A.DeclarationKind(1);
 C.DeclarationKind_2 = new A.DeclarationKind(2);
-C.Symbol_lineHeight = new H.Symbol("lineHeight");
-C.Type_Ejg = H.createRuntimeType('String');
-C.C_Reflectable = new K.Reflectable();
-C.C_ObservableProperty = new K.ObservableProperty();
+C.Symbol_typedefsChanged = new H.Symbol("typedefsChanged");
+C.Type_EjN = H.createRuntimeType('Function');
 Isolate.makeConstantList = function(list) {
   list.immutable$list = init;
   list.fixed$length = init;
   return list;
 };
+C.List_empty = Isolate.makeConstantList([]);
+C.Declaration_0 = new A.Declaration(C.Symbol_typedefsChanged, C.DeclarationKind_2, false, C.Type_EjN, false, C.List_empty);
+C.Symbol_lineHeight = new H.Symbol("lineHeight");
+C.Type_Ejg = H.createRuntimeType('String');
+C.C_Reflectable = new K.Reflectable();
+C.C_ObservableProperty = new K.ObservableProperty();
 C.List_Reflectable_ObservableProperty = Isolate.makeConstantList([C.C_Reflectable, C.C_ObservableProperty]);
 C.Declaration_0Sa = new A.Declaration(C.Symbol_lineHeight, C.DeclarationKind_1, false, C.Type_Ejg, false, C.List_Reflectable_ObservableProperty);
 C.Symbol_isHome = new H.Symbol("isHome");
 C.Type_EsU0 = H.createRuntimeType('bool');
 C.Declaration_1R3 = new A.Declaration(C.Symbol_isHome, C.DeclarationKind_1, false, C.Type_EsU0, false, C.List_Reflectable_ObservableProperty);
 C.Symbol_itemsChanged = new H.Symbol("itemsChanged");
-C.Type_EjN = H.createRuntimeType('Function');
-C.List_empty = Isolate.makeConstantList([]);
 C.Declaration_23h = new A.Declaration(C.Symbol_itemsChanged, C.DeclarationKind_2, false, C.Type_EjN, false, C.List_empty);
 C.Symbol_name = new H.Symbol("name");
 C.Declaration_2T1 = new A.Declaration(C.Symbol_name, C.DeclarationKind_1, false, C.Type_Ejg, false, C.List_Reflectable_ObservableProperty);
@@ -36214,6 +36412,9 @@ C.Type_iQW = H.createRuntimeType('LinkableType');
 C.Declaration_ESz = new A.Declaration(C.Symbol_type, C.DeclarationKind_1, false, C.Type_iQW, false, C.List_Reflectable_PublishedProperty);
 C.Symbol_outerLibrary = new H.Symbol("outerLibrary");
 C.Declaration_ESz0 = new A.Declaration(C.Symbol_outerLibrary, C.DeclarationKind_1, false, C.Type_Ejg, false, C.List_Reflectable_ObservableProperty);
+C.Symbol_closure = new H.Symbol("closure");
+C.Type_SlN = H.createRuntimeType('Closure');
+C.Declaration_Ecu = new A.Declaration(C.Symbol_closure, C.DeclarationKind_1, false, C.Type_SlN, false, C.List_Reflectable_ObservableProperty);
 C.Symbol_title = new H.Symbol("title");
 C.Declaration_GNx = new A.Declaration(C.Symbol_title, C.DeclarationKind_1, false, C.Type_Ejg, false, C.List_Reflectable_ObservableProperty);
 C.Symbol_itemsToShow = new H.Symbol("itemsToShow");
@@ -36232,10 +36433,14 @@ C.Symbol_shouldShowCommentFrom = new H.Symbol("shouldShowCommentFrom");
 C.Declaration_NYu = new A.Declaration(C.Symbol_shouldShowCommentFrom, C.DeclarationKind_1, false, C.Type_EsU0, false, C.List_Reflectable_ObservableProperty);
 C.Symbol_shouldShowClassMinimap = new H.Symbol("shouldShowClassMinimap");
 C.Declaration_OWn = new A.Declaration(C.Symbol_shouldShowClassMinimap, C.DeclarationKind_1, false, C.Type_EsU0, false, C.List_Reflectable_ObservableProperty);
+C.Symbol_typedefs = new H.Symbol("typedefs");
+C.Declaration_PqF = new A.Declaration(C.Symbol_typedefs, C.DeclarationKind_1, false, C.Type_pe4, false, C.List_Reflectable_PublishedProperty);
 C.Symbol_isTypedef = new H.Symbol("isTypedef");
 C.Declaration_QGk = new A.Declaration(C.Symbol_isTypedef, C.DeclarationKind_1, false, C.Type_EsU0, false, C.List_Reflectable_ObservableProperty);
 C.Symbol_shouldShowComment = new H.Symbol("shouldShowComment");
 C.Declaration_QHx = new A.Declaration(C.Symbol_shouldShowComment, C.DeclarationKind_1, false, C.Type_EsU0, false, C.List_Reflectable_ObservableProperty);
+C.Symbol_closureChanged = new H.Symbol("closureChanged");
+C.Declaration_RWS = new A.Declaration(C.Symbol_closureChanged, C.DeclarationKind_2, false, C.Type_EjN, false, C.List_empty);
 C.Type_EK0 = H.createRuntimeType('Container');
 C.Declaration_S49 = new A.Declaration(C.Symbol_item, C.DeclarationKind_1, false, C.Type_EK0, false, C.List_Reflectable_PublishedProperty);
 C.Symbol_showVersion = new H.Symbol("showVersion");
@@ -36566,7 +36771,6 @@ C.Symbol_toggleObjectMembers = new H.Symbol("toggleObjectMembers");
 C.Symbol_toggleOptionsMenu = new H.Symbol("toggleOptionsMenu");
 C.Symbol_togglePanel = new H.Symbol("togglePanel");
 C.Symbol_togglePkg = new H.Symbol("togglePkg");
-C.Symbol_typedefs = new H.Symbol("typedefs");
 C.Symbol_url = new H.Symbol("url");
 C.Symbol_value = new H.Symbol("value");
 C.Symbol_viewer = new H.Symbol("viewer");
@@ -36604,6 +36808,7 @@ C.Type_QXN = H.createRuntimeType('LibraryPanel');
 C.Type_QuW = H.createRuntimeType('Uint8ClampedList');
 C.Type_QyU = H.createRuntimeType('WindowEventHandlers');
 C.Type_SnA = H.createRuntimeType('int');
+C.Type_UkW = H.createRuntimeType('ClosureElement');
 C.Type_UoK = H.createRuntimeType('Int16List');
 C.Type_VEs = H.createRuntimeType('MinimapElementClass');
 C.Type_XXD = H.createRuntimeType('JSObject');
@@ -36673,7 +36878,7 @@ $._deployMode = false;
 $._dartdocMain = null;
 $.TemplateBindExtension__initStyles = null;
 $.location = null;
-$.mapTypeToInterceptor = [C.Type_fPs, W.HtmlElement, {}, C.Type_0uu, U.MemberElement, {created: U.MemberElement$created}, C.Type_2pn, Q.LinkElement, {created: Q.LinkElement$created}, C.Type_6dg, W.DivElement, {}, C.Type_81T, Z.MinimapElement, {created: Z.MinimapElement$created}, C.Type_8TW, O.CategoryElement, {created: O.CategoryElement$created}, C.Type_8Wd, M.Search, {created: M.Search$created}, C.Type_AHF, F.VariableElement, {created: F.VariableElement$created}, C.Type_AHF0, H.NativeTypedArray, {"": H.NativeTypedArray$}, C.Type_ASc, X.MethodElement, {created: X.MethodElement$created}, C.Type_ECG, X.ParameterElement, {created: X.ParameterElement$created}, C.Type_EOZ0, E.TypedefElement, {created: E.TypedefElement$created}, C.Type_EQs, W.GlobalEventHandlers, {}, C.Type_EkK, Y.AnnotationElement, {created: Y.AnnotationElement$created}, C.Type_EsU, Z.HomeElement, {created: Z.HomeElement$created}, C.Type_I2I, A.PolymerElement, {created: A.PolymerElement$created}, C.Type_IFE, O.PageElement, {created: O.PageElement$created}, C.Type_IRg, N.MinimapElementLibrary, {created: N.MinimapElementLibrary$created}, C.Type_MhD, N.TypeElement, {created: N.TypeElement$created}, C.Type_NQk, W.AnchorElement, {}, C.Type_NlB, H.NativeTypedArrayOfDouble, {"": H.NativeTypedArrayOfDouble$}, C.Type_QXN, E.LibraryPanel, {created: E.LibraryPanel$created}, C.Type_QyU, W.WindowEventHandlers, {}, C.Type_VEs, Q.MinimapElementClass, {created: Q.MinimapElementClass$created}, C.Type_Y5Q, A.MainElement, {created: A.MainElement$created}, C.Type_Ybt, T.ClassElement, {created: T.ClassElement$created}, C.Type_ZMt, E.VariableHeading, {created: E.VariableHeading$created}, C.Type_fzi, S.CommentElement, {created: S.CommentElement$created}, C.Type_j7u, G.Result, {created: G.Result$created}, C.Type_nVD, U.DartdocElement, {created: U.DartdocElement$created}, C.Type_q6V, U.Breadcrumbs, {created: U.Breadcrumbs$created}, C.Type_rt6, M.ItemElement, {created: M.ItemElement$created}, C.Type_sBE, G.LibraryElement, {created: G.LibraryElement$created}, C.Type_wOW, H.NativeTypedArrayOfInt, {"": H.NativeTypedArrayOfInt$}, C.Type_wtN, U.InheritedElement, {created: U.InheritedElement$created}];
+$.mapTypeToInterceptor = [C.Type_fPs, W.HtmlElement, {}, C.Type_0uu, U.MemberElement, {created: U.MemberElement$created}, C.Type_2pn, Q.LinkElement, {created: Q.LinkElement$created}, C.Type_6dg, W.DivElement, {}, C.Type_81T, Z.MinimapElement, {created: Z.MinimapElement$created}, C.Type_8TW, O.CategoryElement, {created: O.CategoryElement$created}, C.Type_8Wd, M.Search, {created: M.Search$created}, C.Type_AHF, F.VariableElement, {created: F.VariableElement$created}, C.Type_AHF0, H.NativeTypedArray, {"": H.NativeTypedArray$}, C.Type_ASc, X.MethodElement, {created: X.MethodElement$created}, C.Type_ECG, X.ParameterElement, {created: X.ParameterElement$created}, C.Type_EOZ0, E.TypedefElement, {created: E.TypedefElement$created}, C.Type_EQs, W.GlobalEventHandlers, {}, C.Type_EkK, Y.AnnotationElement, {created: Y.AnnotationElement$created}, C.Type_EsU, Z.HomeElement, {created: Z.HomeElement$created}, C.Type_I2I, A.PolymerElement, {created: A.PolymerElement$created}, C.Type_IFE, O.PageElement, {created: O.PageElement$created}, C.Type_IRg, N.MinimapElementLibrary, {created: N.MinimapElementLibrary$created}, C.Type_MhD, N.TypeElement, {created: N.TypeElement$created}, C.Type_NQk, W.AnchorElement, {}, C.Type_NlB, H.NativeTypedArrayOfDouble, {"": H.NativeTypedArrayOfDouble$}, C.Type_QXN, E.LibraryPanel, {created: E.LibraryPanel$created}, C.Type_QyU, W.WindowEventHandlers, {}, C.Type_UkW, X.ClosureElement, {created: X.ClosureElement$created}, C.Type_VEs, Q.MinimapElementClass, {created: Q.MinimapElementClass$created}, C.Type_Y5Q, A.MainElement, {created: A.MainElement$created}, C.Type_Ybt, T.ClassElement, {created: T.ClassElement$created}, C.Type_ZMt, E.VariableHeading, {created: E.VariableHeading$created}, C.Type_fzi, S.CommentElement, {created: S.CommentElement$created}, C.Type_j7u, G.Result, {created: G.Result$created}, C.Type_nVD, U.DartdocElement, {created: U.DartdocElement$created}, C.Type_q6V, U.Breadcrumbs, {created: U.Breadcrumbs$created}, C.Type_rt6, M.ItemElement, {created: M.ItemElement$created}, C.Type_sBE, G.LibraryElement, {created: G.LibraryElement$created}, C.Type_wOW, H.NativeTypedArrayOfInt, {"": H.NativeTypedArrayOfInt$}, C.Type_wtN, U.InheritedElement, {created: U.InheritedElement$created}];
 Isolate.$lazy($, "globalThis", "globalThis", "get$globalThis", function() {
   return function() { return this; }();
 });
@@ -41669,15 +41874,15 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   invokeClosure_closure3.prototype = $desc;
-  function Closure() {
+  function Closure0() {
   }
-  Closure.builtin$cls = "Closure";
-  if (!"name" in Closure)
-    Closure.name = "Closure";
-  $desc = $collectedClasses.Closure;
+  Closure0.builtin$cls = "Closure0";
+  if (!"name" in Closure0)
+    Closure0.name = "Closure0";
+  $desc = $collectedClasses.Closure0;
   if ($desc instanceof Array)
     $desc = $desc[1];
-  Closure.prototype = $desc;
+  Closure0.prototype = $desc;
   function TearOffClosure() {
   }
   TearOffClosure.builtin$cls = "TearOffClosure";
@@ -41742,6 +41947,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   RuntimeFunctionType.prototype = $desc;
+  RuntimeFunctionType.prototype.get$returnType = function() {
+    return this.returnType;
+  };
   function DynamicRuntimeType() {
   }
   DynamicRuntimeType.builtin$cls = "DynamicRuntimeType";
@@ -43897,6 +44105,51 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   main_closure222.prototype = $desc;
+  function main_closure223() {
+  }
+  main_closure223.builtin$cls = "main_closure223";
+  if (!"name" in main_closure223)
+    main_closure223.name = "main_closure223";
+  $desc = $collectedClasses.main_closure223;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  main_closure223.prototype = $desc;
+  function main_closure224() {
+  }
+  main_closure224.builtin$cls = "main_closure224";
+  if (!"name" in main_closure224)
+    main_closure224.name = "main_closure224";
+  $desc = $collectedClasses.main_closure224;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  main_closure224.prototype = $desc;
+  function main_closure225() {
+  }
+  main_closure225.builtin$cls = "main_closure225";
+  if (!"name" in main_closure225)
+    main_closure225.name = "main_closure225";
+  $desc = $collectedClasses.main_closure225;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  main_closure225.prototype = $desc;
+  function main_closure226() {
+  }
+  main_closure226.builtin$cls = "main_closure226";
+  if (!"name" in main_closure226)
+    main_closure226.name = "main_closure226";
+  $desc = $collectedClasses.main_closure226;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  main_closure226.prototype = $desc;
+  function main_closure227() {
+  }
+  main_closure227.builtin$cls = "main_closure227";
+  if (!"name" in main_closure227)
+    main_closure227.name = "main_closure227";
+  $desc = $collectedClasses.main_closure227;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  main_closure227.prototype = $desc;
   function Container(name) {
     this.name = name;
   }
@@ -44251,10 +44504,10 @@ function dart_precompiled($collectedClasses) {
   Library.prototype.set$errors = function(v) {
     return this.errors = v;
   };
-  Library.prototype.get$typedefs = function() {
+  Library.prototype.get$typedefs = function(receiver) {
     return this.typedefs;
   };
-  Library.prototype.set$typedefs = function(v) {
+  Library.prototype.set$typedefs = function(receiver, v) {
     return this.typedefs = v;
   };
   Library.prototype.get$variables = function(receiver) {
@@ -44449,6 +44702,26 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   AnnotationGroup_closure.prototype = $desc;
+  function AnnotationGroup__closure(this_2) {
+    this.this_2 = this_2;
+  }
+  AnnotationGroup__closure.builtin$cls = "AnnotationGroup__closure";
+  if (!"name" in AnnotationGroup__closure)
+    AnnotationGroup__closure.name = "AnnotationGroup__closure";
+  $desc = $collectedClasses.AnnotationGroup__closure;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  AnnotationGroup__closure.prototype = $desc;
+  function AnnotationGroup__closure0(this_3) {
+    this.this_3 = this_3;
+  }
+  AnnotationGroup__closure0.builtin$cls = "AnnotationGroup__closure0";
+  if (!"name" in AnnotationGroup__closure0)
+    AnnotationGroup__closure0.name = "AnnotationGroup__closure0";
+  $desc = $collectedClasses.AnnotationGroup__closure0;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  AnnotationGroup__closure0.prototype = $desc;
   function AnnotationGroup_closure0() {
   }
   AnnotationGroup_closure0.builtin$cls = "AnnotationGroup_closure0";
@@ -44623,13 +44896,46 @@ function dart_precompiled($collectedClasses) {
   Method.prototype.set$commentFrom = function(receiver, v) {
     return this.commentFrom = v;
   };
-  function Parameter(isOptional, isNamed, hasDefault, type, defaultValue, annotations, path, qualifiedName, _owner, name, _category_item$__$comment, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records) {
+  function Closure(category_item$Closure$parameters, returnType, category_item$Closure$name, parameters, path, qualifiedName, _owner, name, _category_item$__$comment, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records) {
+    this.category_item$Closure$parameters = category_item$Closure$parameters;
+    this.returnType = returnType;
+    this.category_item$Closure$name = category_item$Closure$name;
+    this.parameters = parameters;
+    this.path = path;
+    this.qualifiedName = qualifiedName;
+    this._owner = _owner;
+    this.name = name;
+    this._category_item$__$comment = _category_item$__$comment;
+    this.change_notifier$ChangeNotifier$_changes = change_notifier$ChangeNotifier$_changes;
+    this.change_notifier$ChangeNotifier$_records = change_notifier$ChangeNotifier$_records;
+  }
+  Closure.builtin$cls = "Closure";
+  if (!"name" in Closure)
+    Closure.name = "Closure";
+  $desc = $collectedClasses.Closure;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Closure.prototype = $desc;
+  Closure.prototype.get$parameters = function(receiver) {
+    return this.category_item$Closure$parameters;
+  };
+  Closure.prototype.set$parameters = function(receiver, v) {
+    return this.category_item$Closure$parameters = v;
+  };
+  Closure.prototype.get$returnType = function() {
+    return this.returnType;
+  };
+  Closure.prototype.get$name = function(receiver) {
+    return this.category_item$Closure$name;
+  };
+  function Parameter(isOptional, isNamed, hasDefault, type, defaultValue, annotations, functionDeclaration, path, qualifiedName, _owner, name, _category_item$__$comment, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records) {
     this.isOptional = isOptional;
     this.isNamed = isNamed;
     this.hasDefault = hasDefault;
     this.type = type;
     this.defaultValue = defaultValue;
     this.annotations = annotations;
+    this.functionDeclaration = functionDeclaration;
     this.path = path;
     this.qualifiedName = qualifiedName;
     this._owner = _owner;
@@ -44656,6 +44962,9 @@ function dart_precompiled($collectedClasses) {
   };
   Parameter.prototype.get$annotations = function(receiver) {
     return this.annotations;
+  };
+  Parameter.prototype.get$functionDeclaration = function() {
+    return this.functionDeclaration;
   };
   function Variable(isFinal, isStatic, isAbstract, isConstant, isGetter, isSetter, inheritedFrom, annotations, commentFrom, setterParameter, type, parameters, path, qualifiedName, _owner, name, _category_item$__$comment, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records) {
     this.isFinal = isFinal;
@@ -54673,9 +54982,10 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   Breadcrumbs_enteredView_closure.prototype = $desc;
-  function CategoryElement(_category$__$category, _category$__$items, _category$__$variables, _category$__$methods, _category$__$hasItems, _category$__$title, _category$__$stylizedName, _category$__$accordionStyle, _category$__$divClass, _category$__$caretStyle, _category$__$lineHeight, __isExpanded, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, polymer$Polymer$_declaration, polymer$Polymer$_observers, polymer$Polymer$_unbound, polymer$Polymer$_unbindAllJob, polymer$Polymer$_propertyObserver, polymer$Polymer$syntax, polymer$Polymer$_shadowRoots, polymer$Polymer$$) {
+  function CategoryElement(_category$__$category, _category$__$items, _category$__$typedefs, _category$__$variables, _category$__$methods, _category$__$hasItems, _category$__$title, _category$__$stylizedName, _category$__$accordionStyle, _category$__$divClass, _category$__$caretStyle, _category$__$lineHeight, __isExpanded, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, polymer$Polymer$_declaration, polymer$Polymer$_observers, polymer$Polymer$_unbound, polymer$Polymer$_unbindAllJob, polymer$Polymer$_propertyObserver, polymer$Polymer$syntax, polymer$Polymer$_shadowRoots, polymer$Polymer$$) {
     this._category$__$category = _category$__$category;
     this._category$__$items = _category$__$items;
+    this._category$__$typedefs = _category$__$typedefs;
     this._category$__$variables = _category$__$variables;
     this._category$__$methods = _category$__$methods;
     this._category$__$hasItems = _category$__$hasItems;
@@ -55405,8 +55715,39 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   DartdocElement_ChangeNotifier2.prototype = $desc;
-  function ParameterElement(_parameters$__$parameters, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, polymer$Polymer$_declaration, polymer$Polymer$_observers, polymer$Polymer$_unbound, polymer$Polymer$_unbindAllJob, polymer$Polymer$_propertyObserver, polymer$Polymer$syntax, polymer$Polymer$_shadowRoots, polymer$Polymer$$) {
-    this._parameters$__$parameters = _parameters$__$parameters;
+  function ClosureElement(_parameters$__$closure, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, polymer$Polymer$_declaration, polymer$Polymer$_observers, polymer$Polymer$_unbound, polymer$Polymer$_unbindAllJob, polymer$Polymer$_propertyObserver, polymer$Polymer$syntax, polymer$Polymer$_shadowRoots, polymer$Polymer$$) {
+    this._parameters$__$closure = _parameters$__$closure;
+    this.change_notifier$ChangeNotifier$_changes = change_notifier$ChangeNotifier$_changes;
+    this.change_notifier$ChangeNotifier$_records = change_notifier$ChangeNotifier$_records;
+    this.change_notifier$ChangeNotifier$_changes = change_notifier$ChangeNotifier$_changes;
+    this.change_notifier$ChangeNotifier$_records = change_notifier$ChangeNotifier$_records;
+    this.polymer$Polymer$_declaration = polymer$Polymer$_declaration;
+    this.polymer$Polymer$_observers = polymer$Polymer$_observers;
+    this.polymer$Polymer$_unbound = polymer$Polymer$_unbound;
+    this.polymer$Polymer$_unbindAllJob = polymer$Polymer$_unbindAllJob;
+    this.polymer$Polymer$_propertyObserver = polymer$Polymer$_propertyObserver;
+    this.polymer$Polymer$syntax = polymer$Polymer$syntax;
+    this.polymer$Polymer$_shadowRoots = polymer$Polymer$_shadowRoots;
+    this.polymer$Polymer$$ = polymer$Polymer$$;
+  }
+  ClosureElement.builtin$cls = "ClosureElement";
+  if (!"name" in ClosureElement)
+    ClosureElement.name = "ClosureElement";
+  $desc = $collectedClasses.ClosureElement;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  ClosureElement.prototype = $desc;
+  function PolymerElement_ChangeNotifier3() {
+  }
+  PolymerElement_ChangeNotifier3.builtin$cls = "PolymerElement_ChangeNotifier3";
+  if (!"name" in PolymerElement_ChangeNotifier3)
+    PolymerElement_ChangeNotifier3.name = "PolymerElement_ChangeNotifier3";
+  $desc = $collectedClasses.PolymerElement_ChangeNotifier3;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  PolymerElement_ChangeNotifier3.prototype = $desc;
+  function ParameterElement(_parameters0$__$parameters, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, polymer$Polymer$_declaration, polymer$Polymer$_observers, polymer$Polymer$_unbound, polymer$Polymer$_unbindAllJob, polymer$Polymer$_propertyObserver, polymer$Polymer$syntax, polymer$Polymer$_shadowRoots, polymer$Polymer$$) {
+    this._parameters0$__$parameters = _parameters0$__$parameters;
     this.change_notifier$ChangeNotifier$_changes = change_notifier$ChangeNotifier$_changes;
     this.change_notifier$ChangeNotifier$_records = change_notifier$ChangeNotifier$_records;
     this.change_notifier$ChangeNotifier$_changes = change_notifier$ChangeNotifier$_changes;
@@ -55457,16 +55798,6 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   ParameterElement_addParameters__closure.prototype = $desc;
-  function ParameterElement_addParameters_closure0(this_3) {
-    this.this_3 = this_3;
-  }
-  ParameterElement_addParameters_closure0.builtin$cls = "ParameterElement_addParameters_closure0";
-  if (!"name" in ParameterElement_addParameters_closure0)
-    ParameterElement_addParameters_closure0.name = "ParameterElement_addParameters_closure0";
-  $desc = $collectedClasses.ParameterElement_addParameters_closure0;
-  if ($desc instanceof Array)
-    $desc = $desc[1];
-  ParameterElement_addParameters_closure0.prototype = $desc;
   function Result(_results$__$item, _results$__$descriptiveName, _results$__$descriptiveType, _results$__$outerLibrary, change_notifier$ChangeNotifier$_changes, change_notifier$ChangeNotifier$_records, polymer$Polymer$_declaration, polymer$Polymer$_observers, polymer$Polymer$_unbound, polymer$Polymer$_unbindAllJob, polymer$Polymer$_propertyObserver, polymer$Polymer$syntax, polymer$Polymer$_shadowRoots, polymer$Polymer$$) {
     this._results$__$item = _results$__$item;
     this._results$__$descriptiveName = _results$__$descriptiveName;
@@ -55538,15 +55869,15 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   Search.prototype = $desc;
-  function PolymerElement_ChangeNotifier3() {
+  function PolymerElement_ChangeNotifier4() {
   }
-  PolymerElement_ChangeNotifier3.builtin$cls = "PolymerElement_ChangeNotifier3";
-  if (!"name" in PolymerElement_ChangeNotifier3)
-    PolymerElement_ChangeNotifier3.name = "PolymerElement_ChangeNotifier3";
-  $desc = $collectedClasses.PolymerElement_ChangeNotifier3;
+  PolymerElement_ChangeNotifier4.builtin$cls = "PolymerElement_ChangeNotifier4";
+  if (!"name" in PolymerElement_ChangeNotifier4)
+    PolymerElement_ChangeNotifier4.name = "PolymerElement_ChangeNotifier4";
+  $desc = $collectedClasses.PolymerElement_ChangeNotifier4;
   if ($desc instanceof Array)
     $desc = $desc[1];
-  PolymerElement_ChangeNotifier3.prototype = $desc;
+  PolymerElement_ChangeNotifier4.prototype = $desc;
   function Search_onBlurCallback_closure(this_0) {
     this.this_0 = this_0;
   }
@@ -55580,15 +55911,15 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   TypeElement.prototype = $desc;
-  function PolymerElement_ChangeNotifier4() {
+  function PolymerElement_ChangeNotifier5() {
   }
-  PolymerElement_ChangeNotifier4.builtin$cls = "PolymerElement_ChangeNotifier4";
-  if (!"name" in PolymerElement_ChangeNotifier4)
-    PolymerElement_ChangeNotifier4.name = "PolymerElement_ChangeNotifier4";
-  $desc = $collectedClasses.PolymerElement_ChangeNotifier4;
+  PolymerElement_ChangeNotifier5.builtin$cls = "PolymerElement_ChangeNotifier5";
+  if (!"name" in PolymerElement_ChangeNotifier5)
+    PolymerElement_ChangeNotifier5.name = "PolymerElement_ChangeNotifier5";
+  $desc = $collectedClasses.PolymerElement_ChangeNotifier5;
   if ($desc instanceof Array)
     $desc = $desc[1];
-  PolymerElement_ChangeNotifier4.prototype = $desc;
+  PolymerElement_ChangeNotifier5.prototype = $desc;
   function TypeElement_createInner_closure() {
   }
   TypeElement_createInner_closure.builtin$cls = "TypeElement_createInner_closure";
@@ -55764,5 +56095,5 @@ function dart_precompiled($collectedClasses) {
   _WrappedHashKey.prototype.get$value = function(receiver) {
     return this.value;
   };
-  return [HtmlElement, _EntryArray, AnchorElement, AnimationEvent, AreaElement, AudioElement, AutocompleteErrorEvent, BRElement, BaseElement, BeforeLoadEvent, BeforeUnloadEvent, Blob, BodyElement, ButtonElement, CDataSection, CanvasElement, CharacterData, CloseEvent, Comment, CompositionEvent, ContentElement, CssFontFaceLoadEvent, CssStyleDeclaration, CustomEvent, DListElement, DataListElement, DetailsElement, DeviceMotionEvent, DeviceOrientationEvent, DialogElement, DivElement, Document, DocumentFragment, DomError, DomException, DomImplementation, Element, EmbedElement, ErrorEvent, Event, EventTarget, FieldSetElement, File, FileError, FocusEvent, FormElement, HRElement, HashChangeEvent, HeadElement, HeadingElement, History, HtmlCollection, HtmlDocument, HtmlFormControlsCollection, HtmlHtmlElement, HtmlOptionsCollection, HttpRequest, HttpRequestEventTarget, IFrameElement, ImageData, ImageElement, InputElement, KeyboardEvent, KeygenElement, LIElement, LabelElement, LegendElement, LinkElement0, Location, MapElement, MediaElement, MediaError, MediaKeyError, MediaKeyEvent, MediaKeyMessageEvent, MediaKeyNeededEvent, MediaStream, MediaStreamEvent, MediaStreamTrack, MediaStreamTrackEvent, MenuElement, MessageEvent, MetaElement, MeterElement, MidiConnectionEvent, MidiInput, MidiMessageEvent, MidiOutput, MidiPort, ModElement, MouseEvent, MutationObserver, MutationRecord, Navigator, NavigatorUserMediaError, Node, NodeList, OListElement, ObjectElement, OptGroupElement, OptionElement, OutputElement, OverflowEvent, PageTransitionEvent, ParagraphElement, ParamElement, PopStateEvent, PositionError, PreElement, ProcessingInstruction, ProgressElement, ProgressEvent, QuoteElement, Range, ResourceProgressEvent, RtcDataChannelEvent, RtcDtmfToneChangeEvent, RtcIceCandidateEvent, ScriptElement0, SecurityPolicyViolationEvent, SelectElement, ShadowElement, ShadowRoot, SourceElement, SpanElement, SpeechInputEvent, SpeechInputResult, SpeechRecognitionAlternative, SpeechRecognitionError, SpeechRecognitionEvent, SpeechRecognitionResult, SpeechSynthesisEvent, StorageEvent, StyleElement, TableCaptionElement, TableCellElement, TableColElement, TableElement, TableRowElement, TableSectionElement, TemplateElement, Text, TextAreaElement, TextEvent, TextTrack, TitleElement, TouchEvent, TrackElement, TrackEvent, TransitionEvent, UIEvent, UListElement, UnknownElement, VideoElement, WheelEvent, Window, XmlDocument, _Attr, _ClientRect, _DocumentType, _HTMLAppletElement, _HTMLDirectoryElement, _HTMLFontElement, _HTMLFrameElement, _HTMLFrameSetElement, _HTMLMarqueeElement, _MutationEvent, _NamedNodeMap, _Notation, _SpeechInputResultList, _SpeechRecognitionResultList, _XMLHttpRequestProgressEvent, KeyRange, VersionChangeEvent, AElement, AltGlyphElement, AnimateElement, AnimateMotionElement, AnimateTransformElement, AnimatedEnumeration, AnimatedLength, AnimatedLengthList, AnimatedNumber, AnimatedNumberList, AnimatedString, AnimationElement, CircleElement, ClipPathElement, DefsElement, DescElement, DiscardElement, EllipseElement, FEBlendElement, FEColorMatrixElement, FEComponentTransferElement, FECompositeElement, FEConvolveMatrixElement, FEDiffuseLightingElement, FEDisplacementMapElement, FEDistantLightElement, FEFloodElement, FEFuncAElement, FEFuncBElement, FEFuncGElement, FEFuncRElement, FEGaussianBlurElement, FEImageElement, FEMergeElement, FEMergeNodeElement, FEMorphologyElement, FEOffsetElement, FEPointLightElement, FESpecularLightingElement, FESpotLightElement, FETileElement, FETurbulenceElement, FilterElement, ForeignObjectElement, GElement, GeometryElement, GraphicsElement, ImageElement0, LineElement, LinearGradientElement, MarkerElement, MaskElement, MetadataElement, PathElement, PatternElement, PolygonElement, PolylineElement, RadialGradientElement, RectElement, ScriptElement, SetElement, StopElement, StyleElement0, SvgElement, SvgSvgElement, SwitchElement, SymbolElement, TSpanElement, TextContentElement, TextElement, TextPathElement, TextPositioningElement, TitleElement0, UseElement, ViewElement, ZoomEvent, _GradientElement, _SVGAltGlyphDefElement, _SVGAltGlyphItemElement, _SVGComponentTransferFunctionElement, _SVGCursorElement, _SVGFEDropShadowElement, _SVGFontElement, _SVGFontFaceElement, _SVGFontFaceFormatElement, _SVGFontFaceNameElement, _SVGFontFaceSrcElement, _SVGFontFaceUriElement, _SVGGlyphElement, _SVGGlyphRefElement, _SVGHKernElement, _SVGMPathElement, _SVGMissingGlyphElement, _SVGVKernElement, AudioProcessingEvent, OfflineAudioCompletionEvent, ContextEvent, SqlError, NativeByteBuffer, NativeTypedData, NativeByteData, NativeFloat32List, NativeFloat64List, NativeInt16List, NativeInt32List, NativeInt8List, NativeUint16List, NativeUint32List, NativeUint8ClampedList, NativeUint8List, JS_CONST, Interceptor, JSBool, JSNull, JavaScriptObject, PlainJavaScriptObject, UnknownJavaScriptObject, JSArray, JSNumber, JSInt, JSDouble, JSString, _CodeUnits, startRootIsolate_closure, startRootIsolate_closure0, _Manager, _IsolateContext, _IsolateContext_handlePing_closure, _EventLoop, _EventLoop__runHelper_next, _IsolateEvent, _MainManagerStub, IsolateNatives__processWorkerMessage_closure, IsolateNatives__startIsolate_runStartFunction, _BaseSendPort, _NativeJsSendPort, _NativeJsSendPort_send_closure, _WorkerSendPort, RawReceivePortImpl, _JsSerializer, _JsCopier, _JsDeserializer, _JsVisitedMap, _MessageTraverserVisitedMap, _MessageTraverser, _Copier, _Copier_visitMap_closure, _Serializer, _Deserializer, TimerImpl, TimerImpl_internalCallback, TimerImpl_internalCallback0, CapabilityImpl, ConstantMap, ConstantStringMap, ConstantStringMap_values_closure, _ConstantMapKeyIterable, JSInvocationMirror, ReflectionInfo, ReflectionInfo_sortedIndex_closure, Primitives_functionNoSuchMethod_closure, Primitives_applyFunction_closure, TypeErrorDecoder, NullError, JsNoSuchMethodError, UnknownJsTypeError, unwrapException_saveStackTrace, _StackTrace, invokeClosure_closure, invokeClosure_closure0, invokeClosure_closure1, invokeClosure_closure2, invokeClosure_closure3, Closure, TearOffClosure, BoundClosure, CastErrorImplementation, RuntimeError, RuntimeType, RuntimeFunctionType, DynamicRuntimeType, RuntimeTypePlain, RuntimeTypeGeneric, TypeImpl, initHooks_closure, initHooks_closure0, initHooks_closure1, JSSyntaxRegExp, _MatchImplementation, _AllMatchesIterable, _AllMatchesIterator, StringMatch, main_closure, main_closure0, main_closure1, main_closure2, main_closure3, main_closure4, main_closure5, main_closure6, main_closure7, main_closure8, main_closure9, main_closure10, main_closure11, main_closure12, main_closure13, main_closure14, main_closure15, main_closure16, main_closure17, main_closure18, main_closure19, main_closure20, main_closure21, main_closure22, main_closure23, main_closure24, main_closure25, main_closure26, main_closure27, main_closure28, main_closure29, main_closure30, main_closure31, main_closure32, main_closure33, main_closure34, main_closure35, main_closure36, main_closure37, main_closure38, main_closure39, main_closure40, main_closure41, main_closure42, main_closure43, main_closure44, main_closure45, main_closure46, main_closure47, main_closure48, main_closure49, main_closure50, main_closure51, main_closure52, main_closure53, main_closure54, main_closure55, main_closure56, main_closure57, main_closure58, main_closure59, main_closure60, main_closure61, main_closure62, main_closure63, main_closure64, main_closure65, main_closure66, main_closure67, main_closure68, main_closure69, main_closure70, main_closure71, main_closure72, main_closure73, main_closure74, main_closure75, main_closure76, main_closure77, main_closure78, main_closure79, main_closure80, main_closure81, main_closure82, main_closure83, main_closure84, main_closure85, main_closure86, main_closure87, main_closure88, main_closure89, main_closure90, main_closure91, main_closure92, main_closure93, main_closure94, main_closure95, main_closure96, main_closure97, main_closure98, main_closure99, main_closure100, main_closure101, main_closure102, main_closure103, main_closure104, main_closure105, main_closure106, main_closure107, main_closure108, main_closure109, main_closure110, main_closure111, main_closure112, main_closure113, main_closure114, main_closure115, main_closure116, main_closure117, main_closure118, main_closure119, main_closure120, main_closure121, main_closure122, main_closure123, main_closure124, main_closure125, main_closure126, main_closure127, main_closure128, main_closure129, main_closure130, main_closure131, main_closure132, main_closure133, main_closure134, main_closure135, main_closure136, main_closure137, main_closure138, main_closure139, main_closure140, main_closure141, main_closure142, main_closure143, main_closure144, main_closure145, main_closure146, main_closure147, main_closure148, main_closure149, main_closure150, main_closure151, main_closure152, main_closure153, main_closure154, main_closure155, main_closure156, main_closure157, main_closure158, main_closure159, main_closure160, main_closure161, main_closure162, main_closure163, main_closure164, main_closure165, main_closure166, main_closure167, main_closure168, main_closure169, main_closure170, main_closure171, main_closure172, main_closure173, main_closure174, main_closure175, main_closure176, main_closure177, main_closure178, main_closure179, main_closure180, main_closure181, main_closure182, main_closure183, main_closure184, main_closure185, main_closure186, main_closure187, main_closure188, main_closure189, main_closure190, main_closure191, main_closure192, main_closure193, main_closure194, main_closure195, main_closure196, main_closure197, main_closure198, main_closure199, main_closure200, main_closure201, main_closure202, main_closure203, main_closure204, main_closure205, main_closure206, main_closure207, main_closure208, main_closure209, main_closure210, main_closure211, main_closure212, main_closure213, main_closure214, main_closure215, main_closure216, main_closure217, main_closure218, main_closure219, main_closure220, main_closure221, main_closure222, Container, Category, Category_memberNamed_closure, Category$forClasses_closure, Category$forVariables_closure, Category$forVariables_closure0, Category$forVariables_closure1, Category$forFunctions_closure, Category$forTypedefs_closure, Category_addInheritedItem_closure, Category_filteredContent_closure, Filter, Item, _sort_closure, _sort__closure, Home, Home_closure, Home__closure1, Home_closure0, Home__closure, Home__closure0, Home_makeMainLibrarySpecial_closure, Home_makeMainLibrarySpecial_closure0, Home_makeMainLibrarySpecial_closure1, Home_memberNamed_closure, LazyItem, LazyItem_load_closure, Library, Class, Class_addToHierarchy_closure, Class_addToHierarchy__closure, Class_loadValues_closure, Class_loadValues_closure0, Class_loadValues_closure1, Class__addVariable_closure, Class__addMethod_closure, AnnotationGroup, AnnotationGroup_closure, AnnotationGroup_closure0, Annotation, Annotation_hashCode_closure, Parameterized, Parameterized_getParameters_closure, Parameterized_parameterNamed_closure, Parameterized_parameterNamed_closure0, Typedef, Method, Parameter, Variable, NestedType, NestedType_NestedType_closure, LinkableType, Composer, Constructor, Constructor_visitMapping_closure, ListIterable, SubListIterable, ListIterator, MappedIterable, EfficientLengthMappedIterable, MappedIterator, MappedListIterable, WhereIterable, WhereIterator, ExpandIterable, ExpandIterator, EmptyIterator, FixedLengthListMixin, UnmodifiableListMixin, UnmodifiableListBase, ReversedListIterable, Symbol, _AsyncError, _BroadcastStream, _BroadcastSubscription, _BroadcastStreamController, _SyncBroadcastStreamController, _SyncBroadcastStreamController__sendData_closure, _SyncBroadcastStreamController__sendError_closure, _SyncBroadcastStreamController__sendDone_closure, _AsyncBroadcastStreamController, Future, Future_wait_handleError, Future_wait_closure, _Completer, _AsyncCompleter, _SyncCompleter, _Future, _Future__addListener_closure, _Future__chainForeignFuture_closure, _Future__chainForeignFuture_closure0, _Future__asyncComplete_closure, _Future__asyncComplete_closure0, _Future__asyncCompleteError_closure, _Future__propagateToListeners_handleValueCallback, _Future__propagateToListeners_handleError, _Future__propagateToListeners_handleWhenCompleteCallback, _Future__propagateToListeners_handleWhenCompleteCallback_closure, _Future__propagateToListeners_handleWhenCompleteCallback_closure0, _AsyncCallbackEntry, Stream, Stream_fold_closure, Stream_fold__closure, Stream_fold__closure0, Stream_fold_closure1, Stream_fold_closure0, Stream_join_closure, Stream_join_closure1, Stream_join_closure0, Stream_contains_closure, Stream_contains__closure, Stream_contains__closure0, Stream_contains_closure0, Stream_forEach_closure, Stream_forEach__closure, Stream_forEach__closure0, Stream_forEach_closure0, Stream_any_closure, Stream_any__closure, Stream_any__closure0, Stream_any_closure0, Stream_length_closure, Stream_length_closure0, Stream_isEmpty_closure, Stream_isEmpty_closure0, Stream_toList_closure, Stream_toList_closure0, Stream_first_closure, Stream_first_closure0, Stream_last_closure, Stream_last_closure0, Stream_firstWhere_closure, Stream_firstWhere__closure, Stream_firstWhere__closure0, Stream_firstWhere_closure0, StreamSubscription, _ControllerStream, _ControllerSubscription, _EventSink, _BufferingStreamSubscription, _BufferingStreamSubscription__sendError_sendError, _BufferingStreamSubscription__sendDone_sendDone, _StreamImpl, _DelayedEvent, _DelayedData, _DelayedError, _DelayedDone, _PendingEvents, _PendingEvents_schedule_closure, _StreamImplEvents, _cancelAndError_closure, _cancelAndErrorClosure_closure, _cancelAndValue_closure, _ForwardingStream, _ForwardingStreamSubscription, _WhereStream, _MapStream, _BaseZone, _BaseZone_bindCallback_closure, _BaseZone_bindCallback_closure0, _BaseZone_bindUnaryCallback_closure, _BaseZone_bindUnaryCallback_closure0, _BaseZone_bindBinaryCallback_closure, _BaseZone_bindBinaryCallback_closure0, _rootHandleUncaughtError_closure, _rootHandleUncaughtError__closure, _RootZone, _HashMap, _HashMap_values_closure, _HashMap_addAll_closure, _IdentityHashMap, _CustomHashMap, _CustomHashMap_closure, HashMapKeyIterable, HashMapKeyIterator, _LinkedHashMap, _LinkedHashMap_values_closure, _LinkedHashMap_addAll_closure, LinkedHashMapCell, LinkedHashMapKeyIterable, LinkedHashMapKeyIterator, _HashSet, _IdentityHashSet, HashSetIterator, _LinkedHashSet, LinkedHashSetCell, LinkedHashSetIterator, UnmodifiableListView, _HashSetBase, IterableBase, ListBase, ListMixin, Maps_mapToString_closure, ListQueue, _ListQueueIterator, _SplayTreeNode, _SplayTreeMapNode, _SplayTree, SplayTreeMap, SplayTreeMap_closure, SplayTreeMap_addAll_closure, _SplayTreeIterator, _SplayTreeKeyIterable, _SplayTreeValueIterable, _SplayTreeKeyIterator, _SplayTreeValueIterator, _SplayTreeNodeIterator, _convertJsonToDart_closure, _convertJsonToDart_walk, Codec, Converter, Encoding, JsonCodec, JsonDecoder, Utf8Codec, Utf8Encoder, _Utf8Encoder, Utf8Decoder, _Utf8Decoder, _Utf8Decoder_convert_addSingleBytes, Function__toMangledNames_closure, NoSuchMethodError_toString_closure, Comparable, DateTime, DateTime_parse_parseIntOrZero, DateTime_parse_parseDoubleOrZero, Duration, Duration_toString_sixDigits, Duration_toString_twoDigits, Error, NullThrownError, ArgumentError, RangeError, NoSuchMethodError, UnsupportedError, UnimplementedError, StateError, ConcurrentModificationError, OutOfMemoryError, StackOverflowError, CyclicInitializationError, _ExceptionImplementation, FormatException, IntegerDivisionByZeroException, Expando, Function, Iterable, Iterator, Map, Null, Object, Match, StackTrace, Stopwatch, RuneIterator, StringBuffer, Symbol0, Type, Uri, Uri_parse_isRegName, Uri_parse_ipV6Address, Uri__makeScheme_isSchemeLowerCharacter, Uri__makePath_closure, Uri__makeQuery_closure, Uri__normalize_isNormalizedHexDigit, Uri__normalize_isLowerCaseHexDigit, Uri__normalize_isUnreserved, Uri__normalize_normalizeHexDigit, Uri__normalize_decodeHexDigitPair, Uri__normalize_fillResult, Uri_hashCode_combine, Uri_parseIPv4Address_error, Uri_parseIPv4Address_closure, Uri_parseIPv6Address_error, Uri_parseIPv6Address_parseHex, Uri_parseIPv6Address_closure, Uri__uriEncode_byteToHex, Interceptor_CssStyleDeclarationBase, CssStyleDeclarationBase, _ChildrenElementList, _FrozenElementList, _FrozenElementList$_wrap_closure, _FrozenElementList_classes_closure, Element_Element$html_closure, Entry, Events, ElementEvents, Interceptor_ListMixin, Interceptor_ListMixin_ImmutableListMixin, HttpRequest_getString_closure, HttpRequest_request_closure0, HttpRequest_request_closure, MutationObserver_observe_override, _ChildNodeListLazy, Interceptor_ListMixin0, Interceptor_ListMixin_ImmutableListMixin0, Window_animationFrame_closure, Interceptor_ListMixin1, Interceptor_ListMixin_ImmutableListMixin1, Interceptor_ListMixin2, Interceptor_ListMixin_ImmutableListMixin2, Interceptor_ListMixin3, Interceptor_ListMixin_ImmutableListMixin3, _AttributeMap, _AttributeMap_addAll_closure, _ElementAttributeMap, _DataAttributeMap, _DataAttributeMap_addAll_closure, _DataAttributeMap_forEach_closure, _DataAttributeMap_keys_closure, _DataAttributeMap_values_closure, _MultiElementCssClassSet, _MultiElementCssClassSet_closure, _MultiElementCssClassSet_readClasses_closure, _MultiElementCssClassSet_modify_closure, _MultiElementCssClassSet_toggle_closure, _MultiElementCssClassSet_remove_closure, _MultiElementCssClassSet__modifyWithReturnValue_closure, _ElementCssClassSet, _ContentCssRect, _MarginCssRect, CssRect, Dimension, EventStreamProvider, _EventStream, _ElementEventStreamImpl, _ElementEventStreamImpl_matches_closure, _ElementEventStreamImpl_matches_closure0, _ElementListEventStreamImpl, _ElementListEventStreamImpl_matches_closure, _ElementListEventStreamImpl_matches_closure0, _EventStreamSubscription, _StreamPool, _StreamPool_add_closure, _Html5NodeValidator, ImmutableListMixin, NodeValidatorBuilder, NodeValidatorBuilder_allowsElement_closure, NodeValidatorBuilder_allowsAttribute_closure, _SimpleNodeValidator, _TemplatingNodeValidator, _TemplatingNodeValidator_closure, _SvgNodeValidator, FixedSizeListIterator, _callConstructor_closure, _DOMWindowCrossFrame, _LocationCrossFrame, _LocationWrapper, NodeValidator, _SameOriginUriPolicy, _ValidatingTreeSanitizer, _ValidatingTreeSanitizer_sanitizeTree_walk, _AttributeClassSet, Capability, JsObject, JsObject__convertDataTree__convert, JsFunction, JsArray, JsObject_ListMixin, _convertToJS_closure, _convertToJS_closure0, _wrapToDart_closure, _wrapToDart_closure0, _wrapToDart_closure1, _RectangleBase, MutableRectangle, DefaultEquality, ListEquality, UnmodifiableMapView, DelegatingMap_UnmodifiableMapMixin, UnmodifiableMapMixin, DelegatingMap, NativeTypedArray, NativeTypedArrayOfDouble, NativeTypedArray_ListMixin, NativeTypedArray_ListMixin_FixedLengthListMixin, NativeTypedArrayOfInt, NativeTypedArray_ListMixin0, NativeTypedArray_ListMixin_FixedLengthListMixin0, Tracker, _convertDartToNative_PrepareForStructuredClone_findSlot, _convertDartToNative_PrepareForStructuredClone_readSlot, _convertDartToNative_PrepareForStructuredClone_writeSlot, _convertDartToNative_PrepareForStructuredClone_cleanupSlots, _convertDartToNative_PrepareForStructuredClone_walk, _convertDartToNative_PrepareForStructuredClone_walk_closure, convertNativeToDart_AcceptStructuredClone_findSlot, convertNativeToDart_AcceptStructuredClone_readSlot, convertNativeToDart_AcceptStructuredClone_writeSlot, convertNativeToDart_AcceptStructuredClone_walk, CssClassSetImpl, CssClassSetImpl_add_closure, CssClassSetImpl_addAll_closure, CssClassSetImpl_clear_closure, FilteredElementList, FilteredElementList__filtered_closure, FilteredElementList_removeRange_closure, DocsLocation, DocsLocation__extractPieces__check, DocsLocation_componentNames_closure, DocsLocation_itemFromList_closure, DocsLocation_itemFromList_closure0, Logger, Logger_Logger_closure, Level, LogRecord, Tag, Node0, SequenceNode, SequenceNode_toString_closure, AliasNode, ScalarNode, ScalarNode_canonicalContent_closure, MappingNode, MappingNode_toString_closure, Bindable, ChangeNotifier, ChangeRecord, PropertyChangeRecord, ListChangeRecord, ObservableProperty, Reflectable, Observable, Observable_deliverChanges_closure, ObservableBox, ObservableList, ListBase_ChangeNotifier, ObservableList_listChanges_closure, MapChangeRecord, ObservableMap, ObservableMap_addAll_closure, ObservableMap_clear_closure, ObserverTransform, PathObserver, PropertyPath, PropertyPath_PropertyPath_closure, PropertyPath_toString_closure, _InvalidPropertyPath, closure6, CompoundObserver, _ObserverSentinel, _Observer, _ObservedSet, _toObservableDeep_closure, Parser, Parser_consumeChar_closure, Parser_nAtOnce_closure, Parser_nAtOnce__closure, Parser_rawString_closure, Parser_captureAs_closure, Parser_map_closure, Parser_annotateError_closure, Parser_blockScalarAdditionalIndentation_closure, Parser_blockScalarAdditionalIndentation__closure, Parser_blockScalarAdditionalIndentation___closure, Parser_c_indicator_closure, Parser_b_break_closure, Parser_b_asLineFeed_closure, Parser_b_nonContent_closure, Parser_c_escape_closure, Parser_ns_escNull_closure, Parser_ns_escBell_closure, Parser_ns_escBackspace_closure, Parser_ns_escHorizontalTab_closure, Parser_ns_escHorizontalTab__closure, Parser_ns_escLineFeed_closure, Parser_ns_escVerticalTab_closure, Parser_ns_escFormFeed_closure, Parser_ns_escCarriageReturn_closure, Parser_ns_escEscape_closure, Parser_ns_escNextLine_closure, Parser_ns_escNonBreakingSpace_closure, Parser_ns_escLineSeparator_closure, Parser_ns_escParagraphSeparator_closure, Parser_ns_escNBit_closure, Parser_ns_escNBit_closure0, Parser_ns_escNBit__closure, Parser_ns_escNBit_closure1, Parser_c_ns_escChar_closure, Parser_c_ns_escChar__closure, Parser_s_indent_closure, Parser_s_indent_closure0, Parser_s_indent__closure, Parser_s_indentLessThan_closure, Parser_s_separateInLine_closure, Parser_s_separateInLine__closure, Parser_s_separateInLine___closure, Parser_s_linePrefix_closure, Parser_s_flowLinePrefix_closure, Parser_l_empty_closure, Parser_l_empty__closure, Parser_l_empty__closure0, Parser_b_asSpace_closure, Parser_b_l_trimmed_closure, Parser_b_l_trimmed__closure, Parser_b_l_trimmed___closure, Parser_b_l_folded_closure, Parser_s_flowFolded_closure, Parser_c_nb_commentText_closure, Parser_l_comment_closure, Parser_s_separateLines_closure, Parser_c_ns_properties_closure, Parser_c_ns_properties_closure0, Parser_ns_anchorName_closure, Parser_ns_anchorName__closure, Parser_nb_doubleChar_closure, Parser_nb_doubleChar__closure, Parser_c_doubleQuoted_closure, Parser_c_doubleQuoted__closure, Parser_nb_doubleText_closure, Parser_s_doubleEscaped_closure, Parser_s_doubleEscaped__closure, Parser_s_doubleEscaped__closure0, Parser_s_doubleEscaped__closure1, Parser_s_doubleEscaped___closure, Parser_s_doubleBreak_closure, Parser_s_doubleBreak_closure0, Parser_nb_ns_doubleInLine_closure, Parser_nb_ns_doubleInLine__closure, Parser_nb_ns_doubleInLine___closure, Parser_s_doubleNextLine_closure, Parser_s_doubleNextLine__closure, Parser_s_doubleNextLine__closure0, Parser_s_doubleNextLine___closure, Parser_nb_doubleMultiLine_closure, Parser_nb_doubleMultiLine_closure0, Parser_nb_doubleMultiLine__closure, Parser_c_quotedQuote_closure, Parser_nb_singleChar_closure, Parser_nb_singleChar__closure, Parser_c_singleQuoted_closure, Parser_c_singleQuoted__closure, Parser_nb_singleText_closure, Parser_nb_ns_singleInLine_closure, Parser_nb_ns_singleInLine__closure, Parser_nb_ns_singleInLine___closure, Parser_s_singleNextLine_closure, Parser_s_singleNextLine__closure, Parser_s_singleNextLine__closure0, Parser_s_singleNextLine___closure, Parser_nb_singleMultiLine_closure, Parser_nb_singleMultiLine_closure0, Parser_nb_singleMultiLine__closure, Parser_ns_plain_closure, Parser_ns_plain__closure, Parser_nb_ns_plainInLine_closure, Parser_nb_ns_plainInLine__closure, Parser_nb_ns_plainInLine___closure, Parser_s_ns_plainNextLine_closure, Parser_ns_plainMultiLine_closure, Parser_c_flowSequence_closure, Parser_c_flowSequence__closure, Parser_c_flowSequence__closure0, Parser_ns_s_flowSeqEntries_closure, Parser_ns_s_flowSeqEntries_closure0, Parser_ns_s_flowSeqEntries_closure1, Parser_ns_flowSeqEntry_closure, Parser_ns_flowSeqEntry_closure0, Parser_c_flowMapping_closure, Parser_c_flowMapping_closure0, Parser_ns_s_flowMapEntries_closure, Parser_ns_s_flowMapEntries_closure0, Parser_ns_flowMapEntry_closure, Parser_ns_flowMapEntry__closure, Parser_ns_flowMapEntry_closure0, Parser_ns_flowMapExplicitEntry_closure, Parser_ns_flowMapExplicitEntry_closure0, Parser_ns_flowMapImplicitEntry_closure, Parser_ns_flowMapImplicitEntry_closure0, Parser_ns_flowMapImplicitEntry_closure1, Parser_ns_flowMapYamlKeyEntry_closure, Parser_ns_flowMapYamlKeyEntry__closure, Parser_ns_flowMapYamlKeyEntry___closure, Parser_c_ns_flowMapSeparateValue_closure, Parser_c_ns_flowMapSeparateValue__closure, Parser_c_ns_flowMapSeparateValue___closure, Parser_c_ns_flowMapJsonKeyEntry_closure, Parser_c_ns_flowMapJsonKeyEntry__closure, Parser_c_ns_flowMapJsonKeyEntry___closure, Parser_c_ns_flowMapAdjacentValue_closure, Parser_c_ns_flowMapAdjacentValue__closure, Parser_c_ns_flowMapAdjacentValue___closure, Parser_ns_flowPair_closure, Parser_ns_flowPair__closure, Parser_ns_flowPair_closure0, Parser_ns_flowPairEntry_closure, Parser_ns_flowPairEntry_closure0, Parser_ns_flowPairEntry_closure1, Parser_ns_flowPairYamlKeyEntry_closure, Parser_c_ns_flowPairJsonKeyEntry_closure, Parser_ns_s_implicitYamlKey_closure, Parser_c_s_implicitJsonKey_closure, Parser_c_flowJsonContent_closure, Parser_c_flowJsonContent_closure0, Parser_c_flowJsonContent_closure1, Parser_c_flowJsonContent_closure2, Parser_ns_flowContent_closure, Parser_ns_flowContent_closure0, Parser_ns_flowYamlNode_closure, Parser_ns_flowYamlNode_closure0, Parser_ns_flowYamlNode__closure, Parser_ns_flowYamlNode___closure, Parser_c_flowJsonNode_closure, Parser_c_flowJsonNode__closure, Parser_c_flowJsonNode___closure, Parser_ns_flowNode_closure, Parser_ns_flowNode_closure0, Parser_ns_flowNode__closure, Parser_ns_flowNode___closure, Parser_ns_flowNode____closure, Parser_c_b_blockHeader_closure, Parser_l_stripEmpty_closure, Parser_l_stripEmpty__closure, Parser_l_stripEmpty___closure, Parser_l_stripEmpty__closure0, Parser_l_keepEmpty_closure, Parser_l_keepEmpty__closure0, Parser_l_keepEmpty_closure0, Parser_l_keepEmpty__closure, Parser_l_trailComments_closure, Parser_c_l_literal_closure, Parser_l_nb_literalText_closure, Parser_l_nb_literalText__closure, Parser_l_nb_literalText___closure, Parser_l_nb_literalText__closure0, Parser_l_nb_literalText__closure1, Parser_b_nb_literalNext_closure, Parser_l_literalContent_closure, Parser_l_literalContent__closure, Parser_l_literalContent___closure, Parser_c_l_folded_closure, Parser_s_nb_foldedText_closure, Parser_s_nb_foldedText__closure, Parser_s_nb_foldedText__closure0, Parser_l_nb_foldedLines_closure, Parser_l_nb_foldedLines__closure, Parser_s_nb_spacedText_closure, Parser_s_nb_spacedText__closure, Parser_s_nb_spacedText__closure0, Parser_b_l_spaced_closure, Parser_b_l_spaced__closure, Parser_l_nb_spacedLines_closure, Parser_l_nb_spacedLines__closure, Parser_l_nb_sameLines_closure, Parser_l_nb_sameLines__closure, Parser_l_nb_sameLines___closure, Parser_l_nb_sameLines__closure0, Parser_l_nb_sameLines__closure1, Parser_l_nb_diffLines_closure, Parser_l_nb_diffLines__closure, Parser_l_foldedContent_closure, Parser_l_foldedContent__closure, Parser_l_blockSequence_closure, Parser_l_blockSequence__closure, Parser_l_blockSequence___closure, Parser_c_l_blockSeqEntry_closure, Parser_s_l_blockIndented_closure, Parser_s_l_blockIndented__closure, Parser_s_l_blockIndented___closure, Parser_s_l_blockIndented___closure0, Parser_s_l_blockIndented_closure0, Parser_s_l_blockIndented_closure1, Parser_ns_l_compactSequence_closure, Parser_ns_l_compactSequence__closure, Parser_ns_l_compactSequence___closure, Parser_l_blockMapping_closure, Parser_l_blockMapping__closure, Parser_l_blockMapping___closure, Parser_ns_l_blockMapEntry_closure, Parser_ns_l_blockMapEntry_closure0, Parser_c_l_blockMapExplicitEntry_closure, Parser_c_l_blockMapExplicitKey_closure, Parser_l_blockMapExplicitValue_closure, Parser_ns_l_blockMapImplicitEntry_closure, Parser_ns_s_blockMapImplicitKey_closure, Parser_ns_s_blockMapImplicitKey__closure, Parser_ns_s_blockMapImplicitKey__closure0, Parser_c_l_blockMapImplicitValue_closure, Parser_c_l_blockMapImplicitValue__closure, Parser_c_l_blockMapImplicitValue___closure, Parser_c_l_blockMapImplicitValue___closure0, Parser_ns_l_compactMapping_closure, Parser_ns_l_compactMapping__closure, Parser_ns_l_compactMapping___closure, Parser_s_l_blockNode_closure, Parser_s_l_blockNode_closure0, Parser_s_l_flowInBlock_closure, Parser_s_l_blockInBlock_closure, Parser_s_l_blockInBlock_closure0, Parser_s_l_blockScalar_closure, Parser_s_l_blockScalar__closure, Parser_s_l_blockScalar__closure0, Parser_s_l_blockScalar__closure1, Parser_s_l_blockCollection_closure, Parser_s_l_blockCollection__closure, Parser_s_l_blockCollection__closure0, Parser_s_l_blockCollection__closure1, Parser_l_documentSuffix_closure, Parser_c_forbidden_closure, Parser_l_yamlStream_closure, SyntaxError, _Pair, _BlockHeader, _Range, _RangeMap, PolymerDeclaration, PolymerDeclaration_accumulateInstanceAttributes_closure, PolymerDeclaration_addAttributeDelegates_closure, PolymerDeclaration_installLocalSheets_closure, PolymerDeclaration_cssTextForScope_matcher, PolymerDeclaration_explodeObservers_closure, PolymerDeclaration__lowerCaseMap_closure, closure8, _closure3, PublishedProperty, Polymer, Polymer_onMutation_closure, Polymer_copyInstanceAttributes_closure, Polymer_copyInstanceAttributes__closure, Polymer_cancelUnbindAll_closure, Polymer__unbindNodeTree_closure, Polymer_notifyPropertyChanges_closure, Polymer_observeArrayValue_closure, Polymer_prepareBinding_closure, _PolymerBinding, PolymerElement, HtmlElement_Polymer, HtmlElement_Polymer_ChangeNotifier, PolymerExpressionsWithEvents, _EventBindable, _Job, _hookJsPolymer_closure, _hookJsPolymer_registerDart, _hookJsPolymer_registerDart_closure, closure, closure0, closure1, closure2, closure3, _closure0, closure4, _closure, _classAttributeConverter_closure, _styleAttributeConverter_closure, PolymerExpressions, PolymerExpressions_prepareBinding_closure, PolymerExpressions_prepareInstanceModel_closure, _Binding, _Binding__convertValue_closure, _Binding_open_closure, StreamBinding, StreamBinding_closure, closure9, closure10, closure11, closure12, closure13, closure14, closure15, closure16, closure17, closure18, closure19, closure20, closure21, closure22, closure23, closure24, assign_notAssignable, Scope, _ModelScope, _LocalVariableScope, _GlobalsScope, ExpressionObserver, Updater, ObserverBuilder, ObserverBuilder_visitInvoke_closure, ObserverBuilder_visitListLiteral_closure, ObserverBuilder_visitMapLiteral_closure, EmptyObserver, LiteralObserver, ListLiteralObserver, ListLiteralObserver__updateSelf_closure, MapLiteralObserver, MapLiteralObserver__updateSelf_closure, MapLiteralEntryObserver, IdentifierObserver, IdentifierObserver__updateSelf_closure, IdentifierObserver__updateSelf__closure, UnaryObserver, BinaryObserver, BinaryObserver__updateSelf_closure, TernaryObserver, GetterObserver, GetterObserver__updateSelf_closure, GetterObserver__updateSelf__closure, IndexObserver, IndexObserver__updateSelf_closure, IndexObserver__updateSelf__closure, InvokeObserver, InvokeObserver__updateSelf_closure, InvokeObserver__updateSelf_closure0, InvokeObserver__updateSelf__closure, InObserver, InObserver__updateSelf_closure, Comprehension, EvalException, AstFactory, Expression, EmptyExpression, Literal, ListLiteral, MapLiteral, MapLiteralEntry, ParenthesizedExpression, Identifier, UnaryOperator, BinaryOperator, TernaryOperator, InExpression, Index, Getter, Invoke, _hashList_closure, Parser0, IndexedValue, EnumerateIterable, EnumerateIterator, Token, Tokenizer, ParseException, Visitor0, RecursiveVisitor, SearchResult, Hit, _splitQueryTerms_closure, _splitQueryTerms_closure0, _splitQueryTerms_closure1, lookupSearchResults_closure, lookupSearchResults_closure0, lookupSearchResults_closure1, SearchIndex, _DefaultSyntaxWithEvents, QueryOptions, Declaration, DeclarationKind, StaticConfiguration, GeneratedObjectAccessorService, GeneratedTypeInspectorService, GeneratedSymbolConverterService, GeneratedSymbolConverterService_closure, MissingCodeException, _ElementExtension, _ElementExtension_bind_closure, _InputBinding, closure7, _closure1, _closure2, _InputBinding__getAssociatedRadioButtons_closure, _InputBinding__getAssociatedRadioButtons_closure0, _InputBinding__toInt_closure, _InputElementExtension, _InstanceBindingMap, _TemplateBindingMap, NodeBindExtension, TemplateInstance, _SelectElementExtension, TemplateBindExtension, TemplateBindExtension_bootstrap__bootstrap, closure5, _getDelegateFactory_closure, _parseAttributeBindings_closure, _TemplateIterator, _BoundNodes, _TextExtension, _TextAreaElementExtension, BindingDelegate, MustacheTokens, hashCodeFor_closure, Viewer, Viewer__updateLibraries_closure, Viewer_closure, Viewer__closure, Viewer_closure0, Viewer_closure1, Viewer__scrollScreen_closure, Viewer__scrollScreen_closure0, Viewer_queryEverywhere_closure, Viewer__loadAndUpdatePage_closure, Viewer__loadAndUpdatePage_closure0, Viewer_getItem_closure, Viewer_getItem_closure0, Viewer_getMember_closure, Viewer_getMember__closure, Viewer_getMember___closure, Viewer_getMember_closure0, _concat_closure, Visitor, Visitor_visitSequence_closure, AnnotationElement, PolymerElement_ChangeNotifier, initApp_closure, initApp_closure0, initApp_closure1, Breadcrumbs, PolymerElement_ChangeNotifier0, Breadcrumbs_enteredView_closure, CategoryElement, DartdocElement_ChangeNotifier, CategoryElement$created_closure, CategoryElement$created__closure, ClassElement, ClassElement$created_closure, ClassElement$created__closure, ClassElement__loadCategories_closure, ClassElement_addSubclasses_closure, ClassElement_makeLinks_closure, ClassElement_makeLinks_closure0, ClassElement_makeLink_closure, CommentElement, DivElement_Polymer, DivElement_Polymer_ChangeNotifier, CommentElement__resolveLink_closure, HomeElement, ItemElement, LazyListLoader, _LazyListCopier, LibraryElement, LibraryPanel, LibraryPanel_shadowRootReady_closure, LinkElement, PolymerElement_ChangeNotifier1, LinkElement_typeChanged_closure, MainElement, DartdocElement_ChangeNotifier1, MainElement_showVersion_closure, MainElement_showVersion_closure0, MainElement_collapseSearchAndOptionsIfNeeded_closure, NullTreeSanitizer, DartdocElement, MemberElement, DartdocElement_ChangeNotifier0, InheritedElement, MemberElement_ChangeNotifier, InheritedElement$created_closure, MethodElement, InheritedElement_ChangeNotifier, MinimapElementClass, MinimapElement, PolymerElement_ChangeNotifier2, MinimapElement$created_closure, MinimapElementLibrary, PageElement, DartdocElement_ChangeNotifier2, ParameterElement, DartdocElement_ChangeNotifier3, ParameterElement_addParameters_closure, ParameterElement_addParameters__closure, ParameterElement_addParameters_closure0, Result, AnchorElement_Polymer, AnchorElement_Polymer_ChangeNotifier, Search, PolymerElement_ChangeNotifier3, Search_onBlurCallback_closure, TypeElement, PolymerElement_ChangeNotifier4, TypeElement_createInner_closure, TypedefElement, VariableElement, InheritedElement_ChangeNotifier0, VariableHeading, MemberElement_ChangeNotifier0, loadYamlStream_closure, YamlException, YamlMap, YamlMap_addAll_closure, YamlMap_forEach_closure, _WrappedHashKey];
+  return [HtmlElement, _EntryArray, AnchorElement, AnimationEvent, AreaElement, AudioElement, AutocompleteErrorEvent, BRElement, BaseElement, BeforeLoadEvent, BeforeUnloadEvent, Blob, BodyElement, ButtonElement, CDataSection, CanvasElement, CharacterData, CloseEvent, Comment, CompositionEvent, ContentElement, CssFontFaceLoadEvent, CssStyleDeclaration, CustomEvent, DListElement, DataListElement, DetailsElement, DeviceMotionEvent, DeviceOrientationEvent, DialogElement, DivElement, Document, DocumentFragment, DomError, DomException, DomImplementation, Element, EmbedElement, ErrorEvent, Event, EventTarget, FieldSetElement, File, FileError, FocusEvent, FormElement, HRElement, HashChangeEvent, HeadElement, HeadingElement, History, HtmlCollection, HtmlDocument, HtmlFormControlsCollection, HtmlHtmlElement, HtmlOptionsCollection, HttpRequest, HttpRequestEventTarget, IFrameElement, ImageData, ImageElement, InputElement, KeyboardEvent, KeygenElement, LIElement, LabelElement, LegendElement, LinkElement0, Location, MapElement, MediaElement, MediaError, MediaKeyError, MediaKeyEvent, MediaKeyMessageEvent, MediaKeyNeededEvent, MediaStream, MediaStreamEvent, MediaStreamTrack, MediaStreamTrackEvent, MenuElement, MessageEvent, MetaElement, MeterElement, MidiConnectionEvent, MidiInput, MidiMessageEvent, MidiOutput, MidiPort, ModElement, MouseEvent, MutationObserver, MutationRecord, Navigator, NavigatorUserMediaError, Node, NodeList, OListElement, ObjectElement, OptGroupElement, OptionElement, OutputElement, OverflowEvent, PageTransitionEvent, ParagraphElement, ParamElement, PopStateEvent, PositionError, PreElement, ProcessingInstruction, ProgressElement, ProgressEvent, QuoteElement, Range, ResourceProgressEvent, RtcDataChannelEvent, RtcDtmfToneChangeEvent, RtcIceCandidateEvent, ScriptElement0, SecurityPolicyViolationEvent, SelectElement, ShadowElement, ShadowRoot, SourceElement, SpanElement, SpeechInputEvent, SpeechInputResult, SpeechRecognitionAlternative, SpeechRecognitionError, SpeechRecognitionEvent, SpeechRecognitionResult, SpeechSynthesisEvent, StorageEvent, StyleElement, TableCaptionElement, TableCellElement, TableColElement, TableElement, TableRowElement, TableSectionElement, TemplateElement, Text, TextAreaElement, TextEvent, TextTrack, TitleElement, TouchEvent, TrackElement, TrackEvent, TransitionEvent, UIEvent, UListElement, UnknownElement, VideoElement, WheelEvent, Window, XmlDocument, _Attr, _ClientRect, _DocumentType, _HTMLAppletElement, _HTMLDirectoryElement, _HTMLFontElement, _HTMLFrameElement, _HTMLFrameSetElement, _HTMLMarqueeElement, _MutationEvent, _NamedNodeMap, _Notation, _SpeechInputResultList, _SpeechRecognitionResultList, _XMLHttpRequestProgressEvent, KeyRange, VersionChangeEvent, AElement, AltGlyphElement, AnimateElement, AnimateMotionElement, AnimateTransformElement, AnimatedEnumeration, AnimatedLength, AnimatedLengthList, AnimatedNumber, AnimatedNumberList, AnimatedString, AnimationElement, CircleElement, ClipPathElement, DefsElement, DescElement, DiscardElement, EllipseElement, FEBlendElement, FEColorMatrixElement, FEComponentTransferElement, FECompositeElement, FEConvolveMatrixElement, FEDiffuseLightingElement, FEDisplacementMapElement, FEDistantLightElement, FEFloodElement, FEFuncAElement, FEFuncBElement, FEFuncGElement, FEFuncRElement, FEGaussianBlurElement, FEImageElement, FEMergeElement, FEMergeNodeElement, FEMorphologyElement, FEOffsetElement, FEPointLightElement, FESpecularLightingElement, FESpotLightElement, FETileElement, FETurbulenceElement, FilterElement, ForeignObjectElement, GElement, GeometryElement, GraphicsElement, ImageElement0, LineElement, LinearGradientElement, MarkerElement, MaskElement, MetadataElement, PathElement, PatternElement, PolygonElement, PolylineElement, RadialGradientElement, RectElement, ScriptElement, SetElement, StopElement, StyleElement0, SvgElement, SvgSvgElement, SwitchElement, SymbolElement, TSpanElement, TextContentElement, TextElement, TextPathElement, TextPositioningElement, TitleElement0, UseElement, ViewElement, ZoomEvent, _GradientElement, _SVGAltGlyphDefElement, _SVGAltGlyphItemElement, _SVGComponentTransferFunctionElement, _SVGCursorElement, _SVGFEDropShadowElement, _SVGFontElement, _SVGFontFaceElement, _SVGFontFaceFormatElement, _SVGFontFaceNameElement, _SVGFontFaceSrcElement, _SVGFontFaceUriElement, _SVGGlyphElement, _SVGGlyphRefElement, _SVGHKernElement, _SVGMPathElement, _SVGMissingGlyphElement, _SVGVKernElement, AudioProcessingEvent, OfflineAudioCompletionEvent, ContextEvent, SqlError, NativeByteBuffer, NativeTypedData, NativeByteData, NativeFloat32List, NativeFloat64List, NativeInt16List, NativeInt32List, NativeInt8List, NativeUint16List, NativeUint32List, NativeUint8ClampedList, NativeUint8List, JS_CONST, Interceptor, JSBool, JSNull, JavaScriptObject, PlainJavaScriptObject, UnknownJavaScriptObject, JSArray, JSNumber, JSInt, JSDouble, JSString, _CodeUnits, startRootIsolate_closure, startRootIsolate_closure0, _Manager, _IsolateContext, _IsolateContext_handlePing_closure, _EventLoop, _EventLoop__runHelper_next, _IsolateEvent, _MainManagerStub, IsolateNatives__processWorkerMessage_closure, IsolateNatives__startIsolate_runStartFunction, _BaseSendPort, _NativeJsSendPort, _NativeJsSendPort_send_closure, _WorkerSendPort, RawReceivePortImpl, _JsSerializer, _JsCopier, _JsDeserializer, _JsVisitedMap, _MessageTraverserVisitedMap, _MessageTraverser, _Copier, _Copier_visitMap_closure, _Serializer, _Deserializer, TimerImpl, TimerImpl_internalCallback, TimerImpl_internalCallback0, CapabilityImpl, ConstantMap, ConstantStringMap, ConstantStringMap_values_closure, _ConstantMapKeyIterable, JSInvocationMirror, ReflectionInfo, ReflectionInfo_sortedIndex_closure, Primitives_functionNoSuchMethod_closure, Primitives_applyFunction_closure, TypeErrorDecoder, NullError, JsNoSuchMethodError, UnknownJsTypeError, unwrapException_saveStackTrace, _StackTrace, invokeClosure_closure, invokeClosure_closure0, invokeClosure_closure1, invokeClosure_closure2, invokeClosure_closure3, Closure0, TearOffClosure, BoundClosure, CastErrorImplementation, RuntimeError, RuntimeType, RuntimeFunctionType, DynamicRuntimeType, RuntimeTypePlain, RuntimeTypeGeneric, TypeImpl, initHooks_closure, initHooks_closure0, initHooks_closure1, JSSyntaxRegExp, _MatchImplementation, _AllMatchesIterable, _AllMatchesIterator, StringMatch, main_closure, main_closure0, main_closure1, main_closure2, main_closure3, main_closure4, main_closure5, main_closure6, main_closure7, main_closure8, main_closure9, main_closure10, main_closure11, main_closure12, main_closure13, main_closure14, main_closure15, main_closure16, main_closure17, main_closure18, main_closure19, main_closure20, main_closure21, main_closure22, main_closure23, main_closure24, main_closure25, main_closure26, main_closure27, main_closure28, main_closure29, main_closure30, main_closure31, main_closure32, main_closure33, main_closure34, main_closure35, main_closure36, main_closure37, main_closure38, main_closure39, main_closure40, main_closure41, main_closure42, main_closure43, main_closure44, main_closure45, main_closure46, main_closure47, main_closure48, main_closure49, main_closure50, main_closure51, main_closure52, main_closure53, main_closure54, main_closure55, main_closure56, main_closure57, main_closure58, main_closure59, main_closure60, main_closure61, main_closure62, main_closure63, main_closure64, main_closure65, main_closure66, main_closure67, main_closure68, main_closure69, main_closure70, main_closure71, main_closure72, main_closure73, main_closure74, main_closure75, main_closure76, main_closure77, main_closure78, main_closure79, main_closure80, main_closure81, main_closure82, main_closure83, main_closure84, main_closure85, main_closure86, main_closure87, main_closure88, main_closure89, main_closure90, main_closure91, main_closure92, main_closure93, main_closure94, main_closure95, main_closure96, main_closure97, main_closure98, main_closure99, main_closure100, main_closure101, main_closure102, main_closure103, main_closure104, main_closure105, main_closure106, main_closure107, main_closure108, main_closure109, main_closure110, main_closure111, main_closure112, main_closure113, main_closure114, main_closure115, main_closure116, main_closure117, main_closure118, main_closure119, main_closure120, main_closure121, main_closure122, main_closure123, main_closure124, main_closure125, main_closure126, main_closure127, main_closure128, main_closure129, main_closure130, main_closure131, main_closure132, main_closure133, main_closure134, main_closure135, main_closure136, main_closure137, main_closure138, main_closure139, main_closure140, main_closure141, main_closure142, main_closure143, main_closure144, main_closure145, main_closure146, main_closure147, main_closure148, main_closure149, main_closure150, main_closure151, main_closure152, main_closure153, main_closure154, main_closure155, main_closure156, main_closure157, main_closure158, main_closure159, main_closure160, main_closure161, main_closure162, main_closure163, main_closure164, main_closure165, main_closure166, main_closure167, main_closure168, main_closure169, main_closure170, main_closure171, main_closure172, main_closure173, main_closure174, main_closure175, main_closure176, main_closure177, main_closure178, main_closure179, main_closure180, main_closure181, main_closure182, main_closure183, main_closure184, main_closure185, main_closure186, main_closure187, main_closure188, main_closure189, main_closure190, main_closure191, main_closure192, main_closure193, main_closure194, main_closure195, main_closure196, main_closure197, main_closure198, main_closure199, main_closure200, main_closure201, main_closure202, main_closure203, main_closure204, main_closure205, main_closure206, main_closure207, main_closure208, main_closure209, main_closure210, main_closure211, main_closure212, main_closure213, main_closure214, main_closure215, main_closure216, main_closure217, main_closure218, main_closure219, main_closure220, main_closure221, main_closure222, main_closure223, main_closure224, main_closure225, main_closure226, main_closure227, Container, Category, Category_memberNamed_closure, Category$forClasses_closure, Category$forVariables_closure, Category$forVariables_closure0, Category$forVariables_closure1, Category$forFunctions_closure, Category$forTypedefs_closure, Category_addInheritedItem_closure, Category_filteredContent_closure, Filter, Item, _sort_closure, _sort__closure, Home, Home_closure, Home__closure1, Home_closure0, Home__closure, Home__closure0, Home_makeMainLibrarySpecial_closure, Home_makeMainLibrarySpecial_closure0, Home_makeMainLibrarySpecial_closure1, Home_memberNamed_closure, LazyItem, LazyItem_load_closure, Library, Class, Class_addToHierarchy_closure, Class_addToHierarchy__closure, Class_loadValues_closure, Class_loadValues_closure0, Class_loadValues_closure1, Class__addVariable_closure, Class__addMethod_closure, AnnotationGroup, AnnotationGroup_closure, AnnotationGroup__closure, AnnotationGroup__closure0, AnnotationGroup_closure0, Annotation, Annotation_hashCode_closure, Parameterized, Parameterized_getParameters_closure, Parameterized_parameterNamed_closure, Parameterized_parameterNamed_closure0, Typedef, Method, Closure, Parameter, Variable, NestedType, NestedType_NestedType_closure, LinkableType, Composer, Constructor, Constructor_visitMapping_closure, ListIterable, SubListIterable, ListIterator, MappedIterable, EfficientLengthMappedIterable, MappedIterator, MappedListIterable, WhereIterable, WhereIterator, ExpandIterable, ExpandIterator, EmptyIterator, FixedLengthListMixin, UnmodifiableListMixin, UnmodifiableListBase, ReversedListIterable, Symbol, _AsyncError, _BroadcastStream, _BroadcastSubscription, _BroadcastStreamController, _SyncBroadcastStreamController, _SyncBroadcastStreamController__sendData_closure, _SyncBroadcastStreamController__sendError_closure, _SyncBroadcastStreamController__sendDone_closure, _AsyncBroadcastStreamController, Future, Future_wait_handleError, Future_wait_closure, _Completer, _AsyncCompleter, _SyncCompleter, _Future, _Future__addListener_closure, _Future__chainForeignFuture_closure, _Future__chainForeignFuture_closure0, _Future__asyncComplete_closure, _Future__asyncComplete_closure0, _Future__asyncCompleteError_closure, _Future__propagateToListeners_handleValueCallback, _Future__propagateToListeners_handleError, _Future__propagateToListeners_handleWhenCompleteCallback, _Future__propagateToListeners_handleWhenCompleteCallback_closure, _Future__propagateToListeners_handleWhenCompleteCallback_closure0, _AsyncCallbackEntry, Stream, Stream_fold_closure, Stream_fold__closure, Stream_fold__closure0, Stream_fold_closure1, Stream_fold_closure0, Stream_join_closure, Stream_join_closure1, Stream_join_closure0, Stream_contains_closure, Stream_contains__closure, Stream_contains__closure0, Stream_contains_closure0, Stream_forEach_closure, Stream_forEach__closure, Stream_forEach__closure0, Stream_forEach_closure0, Stream_any_closure, Stream_any__closure, Stream_any__closure0, Stream_any_closure0, Stream_length_closure, Stream_length_closure0, Stream_isEmpty_closure, Stream_isEmpty_closure0, Stream_toList_closure, Stream_toList_closure0, Stream_first_closure, Stream_first_closure0, Stream_last_closure, Stream_last_closure0, Stream_firstWhere_closure, Stream_firstWhere__closure, Stream_firstWhere__closure0, Stream_firstWhere_closure0, StreamSubscription, _ControllerStream, _ControllerSubscription, _EventSink, _BufferingStreamSubscription, _BufferingStreamSubscription__sendError_sendError, _BufferingStreamSubscription__sendDone_sendDone, _StreamImpl, _DelayedEvent, _DelayedData, _DelayedError, _DelayedDone, _PendingEvents, _PendingEvents_schedule_closure, _StreamImplEvents, _cancelAndError_closure, _cancelAndErrorClosure_closure, _cancelAndValue_closure, _ForwardingStream, _ForwardingStreamSubscription, _WhereStream, _MapStream, _BaseZone, _BaseZone_bindCallback_closure, _BaseZone_bindCallback_closure0, _BaseZone_bindUnaryCallback_closure, _BaseZone_bindUnaryCallback_closure0, _BaseZone_bindBinaryCallback_closure, _BaseZone_bindBinaryCallback_closure0, _rootHandleUncaughtError_closure, _rootHandleUncaughtError__closure, _RootZone, _HashMap, _HashMap_values_closure, _HashMap_addAll_closure, _IdentityHashMap, _CustomHashMap, _CustomHashMap_closure, HashMapKeyIterable, HashMapKeyIterator, _LinkedHashMap, _LinkedHashMap_values_closure, _LinkedHashMap_addAll_closure, LinkedHashMapCell, LinkedHashMapKeyIterable, LinkedHashMapKeyIterator, _HashSet, _IdentityHashSet, HashSetIterator, _LinkedHashSet, LinkedHashSetCell, LinkedHashSetIterator, UnmodifiableListView, _HashSetBase, IterableBase, ListBase, ListMixin, Maps_mapToString_closure, ListQueue, _ListQueueIterator, _SplayTreeNode, _SplayTreeMapNode, _SplayTree, SplayTreeMap, SplayTreeMap_closure, SplayTreeMap_addAll_closure, _SplayTreeIterator, _SplayTreeKeyIterable, _SplayTreeValueIterable, _SplayTreeKeyIterator, _SplayTreeValueIterator, _SplayTreeNodeIterator, _convertJsonToDart_closure, _convertJsonToDart_walk, Codec, Converter, Encoding, JsonCodec, JsonDecoder, Utf8Codec, Utf8Encoder, _Utf8Encoder, Utf8Decoder, _Utf8Decoder, _Utf8Decoder_convert_addSingleBytes, Function__toMangledNames_closure, NoSuchMethodError_toString_closure, Comparable, DateTime, DateTime_parse_parseIntOrZero, DateTime_parse_parseDoubleOrZero, Duration, Duration_toString_sixDigits, Duration_toString_twoDigits, Error, NullThrownError, ArgumentError, RangeError, NoSuchMethodError, UnsupportedError, UnimplementedError, StateError, ConcurrentModificationError, OutOfMemoryError, StackOverflowError, CyclicInitializationError, _ExceptionImplementation, FormatException, IntegerDivisionByZeroException, Expando, Function, Iterable, Iterator, Map, Null, Object, Match, StackTrace, Stopwatch, RuneIterator, StringBuffer, Symbol0, Type, Uri, Uri_parse_isRegName, Uri_parse_ipV6Address, Uri__makeScheme_isSchemeLowerCharacter, Uri__makePath_closure, Uri__makeQuery_closure, Uri__normalize_isNormalizedHexDigit, Uri__normalize_isLowerCaseHexDigit, Uri__normalize_isUnreserved, Uri__normalize_normalizeHexDigit, Uri__normalize_decodeHexDigitPair, Uri__normalize_fillResult, Uri_hashCode_combine, Uri_parseIPv4Address_error, Uri_parseIPv4Address_closure, Uri_parseIPv6Address_error, Uri_parseIPv6Address_parseHex, Uri_parseIPv6Address_closure, Uri__uriEncode_byteToHex, Interceptor_CssStyleDeclarationBase, CssStyleDeclarationBase, _ChildrenElementList, _FrozenElementList, _FrozenElementList$_wrap_closure, _FrozenElementList_classes_closure, Element_Element$html_closure, Entry, Events, ElementEvents, Interceptor_ListMixin, Interceptor_ListMixin_ImmutableListMixin, HttpRequest_getString_closure, HttpRequest_request_closure0, HttpRequest_request_closure, MutationObserver_observe_override, _ChildNodeListLazy, Interceptor_ListMixin0, Interceptor_ListMixin_ImmutableListMixin0, Window_animationFrame_closure, Interceptor_ListMixin1, Interceptor_ListMixin_ImmutableListMixin1, Interceptor_ListMixin2, Interceptor_ListMixin_ImmutableListMixin2, Interceptor_ListMixin3, Interceptor_ListMixin_ImmutableListMixin3, _AttributeMap, _AttributeMap_addAll_closure, _ElementAttributeMap, _DataAttributeMap, _DataAttributeMap_addAll_closure, _DataAttributeMap_forEach_closure, _DataAttributeMap_keys_closure, _DataAttributeMap_values_closure, _MultiElementCssClassSet, _MultiElementCssClassSet_closure, _MultiElementCssClassSet_readClasses_closure, _MultiElementCssClassSet_modify_closure, _MultiElementCssClassSet_toggle_closure, _MultiElementCssClassSet_remove_closure, _MultiElementCssClassSet__modifyWithReturnValue_closure, _ElementCssClassSet, _ContentCssRect, _MarginCssRect, CssRect, Dimension, EventStreamProvider, _EventStream, _ElementEventStreamImpl, _ElementEventStreamImpl_matches_closure, _ElementEventStreamImpl_matches_closure0, _ElementListEventStreamImpl, _ElementListEventStreamImpl_matches_closure, _ElementListEventStreamImpl_matches_closure0, _EventStreamSubscription, _StreamPool, _StreamPool_add_closure, _Html5NodeValidator, ImmutableListMixin, NodeValidatorBuilder, NodeValidatorBuilder_allowsElement_closure, NodeValidatorBuilder_allowsAttribute_closure, _SimpleNodeValidator, _TemplatingNodeValidator, _TemplatingNodeValidator_closure, _SvgNodeValidator, FixedSizeListIterator, _callConstructor_closure, _DOMWindowCrossFrame, _LocationCrossFrame, _LocationWrapper, NodeValidator, _SameOriginUriPolicy, _ValidatingTreeSanitizer, _ValidatingTreeSanitizer_sanitizeTree_walk, _AttributeClassSet, Capability, JsObject, JsObject__convertDataTree__convert, JsFunction, JsArray, JsObject_ListMixin, _convertToJS_closure, _convertToJS_closure0, _wrapToDart_closure, _wrapToDart_closure0, _wrapToDart_closure1, _RectangleBase, MutableRectangle, DefaultEquality, ListEquality, UnmodifiableMapView, DelegatingMap_UnmodifiableMapMixin, UnmodifiableMapMixin, DelegatingMap, NativeTypedArray, NativeTypedArrayOfDouble, NativeTypedArray_ListMixin, NativeTypedArray_ListMixin_FixedLengthListMixin, NativeTypedArrayOfInt, NativeTypedArray_ListMixin0, NativeTypedArray_ListMixin_FixedLengthListMixin0, Tracker, _convertDartToNative_PrepareForStructuredClone_findSlot, _convertDartToNative_PrepareForStructuredClone_readSlot, _convertDartToNative_PrepareForStructuredClone_writeSlot, _convertDartToNative_PrepareForStructuredClone_cleanupSlots, _convertDartToNative_PrepareForStructuredClone_walk, _convertDartToNative_PrepareForStructuredClone_walk_closure, convertNativeToDart_AcceptStructuredClone_findSlot, convertNativeToDart_AcceptStructuredClone_readSlot, convertNativeToDart_AcceptStructuredClone_writeSlot, convertNativeToDart_AcceptStructuredClone_walk, CssClassSetImpl, CssClassSetImpl_add_closure, CssClassSetImpl_addAll_closure, CssClassSetImpl_clear_closure, FilteredElementList, FilteredElementList__filtered_closure, FilteredElementList_removeRange_closure, DocsLocation, DocsLocation__extractPieces__check, DocsLocation_componentNames_closure, DocsLocation_itemFromList_closure, DocsLocation_itemFromList_closure0, Logger, Logger_Logger_closure, Level, LogRecord, Tag, Node0, SequenceNode, SequenceNode_toString_closure, AliasNode, ScalarNode, ScalarNode_canonicalContent_closure, MappingNode, MappingNode_toString_closure, Bindable, ChangeNotifier, ChangeRecord, PropertyChangeRecord, ListChangeRecord, ObservableProperty, Reflectable, Observable, Observable_deliverChanges_closure, ObservableBox, ObservableList, ListBase_ChangeNotifier, ObservableList_listChanges_closure, MapChangeRecord, ObservableMap, ObservableMap_addAll_closure, ObservableMap_clear_closure, ObserverTransform, PathObserver, PropertyPath, PropertyPath_PropertyPath_closure, PropertyPath_toString_closure, _InvalidPropertyPath, closure6, CompoundObserver, _ObserverSentinel, _Observer, _ObservedSet, _toObservableDeep_closure, Parser, Parser_consumeChar_closure, Parser_nAtOnce_closure, Parser_nAtOnce__closure, Parser_rawString_closure, Parser_captureAs_closure, Parser_map_closure, Parser_annotateError_closure, Parser_blockScalarAdditionalIndentation_closure, Parser_blockScalarAdditionalIndentation__closure, Parser_blockScalarAdditionalIndentation___closure, Parser_c_indicator_closure, Parser_b_break_closure, Parser_b_asLineFeed_closure, Parser_b_nonContent_closure, Parser_c_escape_closure, Parser_ns_escNull_closure, Parser_ns_escBell_closure, Parser_ns_escBackspace_closure, Parser_ns_escHorizontalTab_closure, Parser_ns_escHorizontalTab__closure, Parser_ns_escLineFeed_closure, Parser_ns_escVerticalTab_closure, Parser_ns_escFormFeed_closure, Parser_ns_escCarriageReturn_closure, Parser_ns_escEscape_closure, Parser_ns_escNextLine_closure, Parser_ns_escNonBreakingSpace_closure, Parser_ns_escLineSeparator_closure, Parser_ns_escParagraphSeparator_closure, Parser_ns_escNBit_closure, Parser_ns_escNBit_closure0, Parser_ns_escNBit__closure, Parser_ns_escNBit_closure1, Parser_c_ns_escChar_closure, Parser_c_ns_escChar__closure, Parser_s_indent_closure, Parser_s_indent_closure0, Parser_s_indent__closure, Parser_s_indentLessThan_closure, Parser_s_separateInLine_closure, Parser_s_separateInLine__closure, Parser_s_separateInLine___closure, Parser_s_linePrefix_closure, Parser_s_flowLinePrefix_closure, Parser_l_empty_closure, Parser_l_empty__closure, Parser_l_empty__closure0, Parser_b_asSpace_closure, Parser_b_l_trimmed_closure, Parser_b_l_trimmed__closure, Parser_b_l_trimmed___closure, Parser_b_l_folded_closure, Parser_s_flowFolded_closure, Parser_c_nb_commentText_closure, Parser_l_comment_closure, Parser_s_separateLines_closure, Parser_c_ns_properties_closure, Parser_c_ns_properties_closure0, Parser_ns_anchorName_closure, Parser_ns_anchorName__closure, Parser_nb_doubleChar_closure, Parser_nb_doubleChar__closure, Parser_c_doubleQuoted_closure, Parser_c_doubleQuoted__closure, Parser_nb_doubleText_closure, Parser_s_doubleEscaped_closure, Parser_s_doubleEscaped__closure, Parser_s_doubleEscaped__closure0, Parser_s_doubleEscaped__closure1, Parser_s_doubleEscaped___closure, Parser_s_doubleBreak_closure, Parser_s_doubleBreak_closure0, Parser_nb_ns_doubleInLine_closure, Parser_nb_ns_doubleInLine__closure, Parser_nb_ns_doubleInLine___closure, Parser_s_doubleNextLine_closure, Parser_s_doubleNextLine__closure, Parser_s_doubleNextLine__closure0, Parser_s_doubleNextLine___closure, Parser_nb_doubleMultiLine_closure, Parser_nb_doubleMultiLine_closure0, Parser_nb_doubleMultiLine__closure, Parser_c_quotedQuote_closure, Parser_nb_singleChar_closure, Parser_nb_singleChar__closure, Parser_c_singleQuoted_closure, Parser_c_singleQuoted__closure, Parser_nb_singleText_closure, Parser_nb_ns_singleInLine_closure, Parser_nb_ns_singleInLine__closure, Parser_nb_ns_singleInLine___closure, Parser_s_singleNextLine_closure, Parser_s_singleNextLine__closure, Parser_s_singleNextLine__closure0, Parser_s_singleNextLine___closure, Parser_nb_singleMultiLine_closure, Parser_nb_singleMultiLine_closure0, Parser_nb_singleMultiLine__closure, Parser_ns_plain_closure, Parser_ns_plain__closure, Parser_nb_ns_plainInLine_closure, Parser_nb_ns_plainInLine__closure, Parser_nb_ns_plainInLine___closure, Parser_s_ns_plainNextLine_closure, Parser_ns_plainMultiLine_closure, Parser_c_flowSequence_closure, Parser_c_flowSequence__closure, Parser_c_flowSequence__closure0, Parser_ns_s_flowSeqEntries_closure, Parser_ns_s_flowSeqEntries_closure0, Parser_ns_s_flowSeqEntries_closure1, Parser_ns_flowSeqEntry_closure, Parser_ns_flowSeqEntry_closure0, Parser_c_flowMapping_closure, Parser_c_flowMapping_closure0, Parser_ns_s_flowMapEntries_closure, Parser_ns_s_flowMapEntries_closure0, Parser_ns_flowMapEntry_closure, Parser_ns_flowMapEntry__closure, Parser_ns_flowMapEntry_closure0, Parser_ns_flowMapExplicitEntry_closure, Parser_ns_flowMapExplicitEntry_closure0, Parser_ns_flowMapImplicitEntry_closure, Parser_ns_flowMapImplicitEntry_closure0, Parser_ns_flowMapImplicitEntry_closure1, Parser_ns_flowMapYamlKeyEntry_closure, Parser_ns_flowMapYamlKeyEntry__closure, Parser_ns_flowMapYamlKeyEntry___closure, Parser_c_ns_flowMapSeparateValue_closure, Parser_c_ns_flowMapSeparateValue__closure, Parser_c_ns_flowMapSeparateValue___closure, Parser_c_ns_flowMapJsonKeyEntry_closure, Parser_c_ns_flowMapJsonKeyEntry__closure, Parser_c_ns_flowMapJsonKeyEntry___closure, Parser_c_ns_flowMapAdjacentValue_closure, Parser_c_ns_flowMapAdjacentValue__closure, Parser_c_ns_flowMapAdjacentValue___closure, Parser_ns_flowPair_closure, Parser_ns_flowPair__closure, Parser_ns_flowPair_closure0, Parser_ns_flowPairEntry_closure, Parser_ns_flowPairEntry_closure0, Parser_ns_flowPairEntry_closure1, Parser_ns_flowPairYamlKeyEntry_closure, Parser_c_ns_flowPairJsonKeyEntry_closure, Parser_ns_s_implicitYamlKey_closure, Parser_c_s_implicitJsonKey_closure, Parser_c_flowJsonContent_closure, Parser_c_flowJsonContent_closure0, Parser_c_flowJsonContent_closure1, Parser_c_flowJsonContent_closure2, Parser_ns_flowContent_closure, Parser_ns_flowContent_closure0, Parser_ns_flowYamlNode_closure, Parser_ns_flowYamlNode_closure0, Parser_ns_flowYamlNode__closure, Parser_ns_flowYamlNode___closure, Parser_c_flowJsonNode_closure, Parser_c_flowJsonNode__closure, Parser_c_flowJsonNode___closure, Parser_ns_flowNode_closure, Parser_ns_flowNode_closure0, Parser_ns_flowNode__closure, Parser_ns_flowNode___closure, Parser_ns_flowNode____closure, Parser_c_b_blockHeader_closure, Parser_l_stripEmpty_closure, Parser_l_stripEmpty__closure, Parser_l_stripEmpty___closure, Parser_l_stripEmpty__closure0, Parser_l_keepEmpty_closure, Parser_l_keepEmpty__closure0, Parser_l_keepEmpty_closure0, Parser_l_keepEmpty__closure, Parser_l_trailComments_closure, Parser_c_l_literal_closure, Parser_l_nb_literalText_closure, Parser_l_nb_literalText__closure, Parser_l_nb_literalText___closure, Parser_l_nb_literalText__closure0, Parser_l_nb_literalText__closure1, Parser_b_nb_literalNext_closure, Parser_l_literalContent_closure, Parser_l_literalContent__closure, Parser_l_literalContent___closure, Parser_c_l_folded_closure, Parser_s_nb_foldedText_closure, Parser_s_nb_foldedText__closure, Parser_s_nb_foldedText__closure0, Parser_l_nb_foldedLines_closure, Parser_l_nb_foldedLines__closure, Parser_s_nb_spacedText_closure, Parser_s_nb_spacedText__closure, Parser_s_nb_spacedText__closure0, Parser_b_l_spaced_closure, Parser_b_l_spaced__closure, Parser_l_nb_spacedLines_closure, Parser_l_nb_spacedLines__closure, Parser_l_nb_sameLines_closure, Parser_l_nb_sameLines__closure, Parser_l_nb_sameLines___closure, Parser_l_nb_sameLines__closure0, Parser_l_nb_sameLines__closure1, Parser_l_nb_diffLines_closure, Parser_l_nb_diffLines__closure, Parser_l_foldedContent_closure, Parser_l_foldedContent__closure, Parser_l_blockSequence_closure, Parser_l_blockSequence__closure, Parser_l_blockSequence___closure, Parser_c_l_blockSeqEntry_closure, Parser_s_l_blockIndented_closure, Parser_s_l_blockIndented__closure, Parser_s_l_blockIndented___closure, Parser_s_l_blockIndented___closure0, Parser_s_l_blockIndented_closure0, Parser_s_l_blockIndented_closure1, Parser_ns_l_compactSequence_closure, Parser_ns_l_compactSequence__closure, Parser_ns_l_compactSequence___closure, Parser_l_blockMapping_closure, Parser_l_blockMapping__closure, Parser_l_blockMapping___closure, Parser_ns_l_blockMapEntry_closure, Parser_ns_l_blockMapEntry_closure0, Parser_c_l_blockMapExplicitEntry_closure, Parser_c_l_blockMapExplicitKey_closure, Parser_l_blockMapExplicitValue_closure, Parser_ns_l_blockMapImplicitEntry_closure, Parser_ns_s_blockMapImplicitKey_closure, Parser_ns_s_blockMapImplicitKey__closure, Parser_ns_s_blockMapImplicitKey__closure0, Parser_c_l_blockMapImplicitValue_closure, Parser_c_l_blockMapImplicitValue__closure, Parser_c_l_blockMapImplicitValue___closure, Parser_c_l_blockMapImplicitValue___closure0, Parser_ns_l_compactMapping_closure, Parser_ns_l_compactMapping__closure, Parser_ns_l_compactMapping___closure, Parser_s_l_blockNode_closure, Parser_s_l_blockNode_closure0, Parser_s_l_flowInBlock_closure, Parser_s_l_blockInBlock_closure, Parser_s_l_blockInBlock_closure0, Parser_s_l_blockScalar_closure, Parser_s_l_blockScalar__closure, Parser_s_l_blockScalar__closure0, Parser_s_l_blockScalar__closure1, Parser_s_l_blockCollection_closure, Parser_s_l_blockCollection__closure, Parser_s_l_blockCollection__closure0, Parser_s_l_blockCollection__closure1, Parser_l_documentSuffix_closure, Parser_c_forbidden_closure, Parser_l_yamlStream_closure, SyntaxError, _Pair, _BlockHeader, _Range, _RangeMap, PolymerDeclaration, PolymerDeclaration_accumulateInstanceAttributes_closure, PolymerDeclaration_addAttributeDelegates_closure, PolymerDeclaration_installLocalSheets_closure, PolymerDeclaration_cssTextForScope_matcher, PolymerDeclaration_explodeObservers_closure, PolymerDeclaration__lowerCaseMap_closure, closure8, _closure3, PublishedProperty, Polymer, Polymer_onMutation_closure, Polymer_copyInstanceAttributes_closure, Polymer_copyInstanceAttributes__closure, Polymer_cancelUnbindAll_closure, Polymer__unbindNodeTree_closure, Polymer_notifyPropertyChanges_closure, Polymer_observeArrayValue_closure, Polymer_prepareBinding_closure, _PolymerBinding, PolymerElement, HtmlElement_Polymer, HtmlElement_Polymer_ChangeNotifier, PolymerExpressionsWithEvents, _EventBindable, _Job, _hookJsPolymer_closure, _hookJsPolymer_registerDart, _hookJsPolymer_registerDart_closure, closure, closure0, closure1, closure2, closure3, _closure0, closure4, _closure, _classAttributeConverter_closure, _styleAttributeConverter_closure, PolymerExpressions, PolymerExpressions_prepareBinding_closure, PolymerExpressions_prepareInstanceModel_closure, _Binding, _Binding__convertValue_closure, _Binding_open_closure, StreamBinding, StreamBinding_closure, closure9, closure10, closure11, closure12, closure13, closure14, closure15, closure16, closure17, closure18, closure19, closure20, closure21, closure22, closure23, closure24, assign_notAssignable, Scope, _ModelScope, _LocalVariableScope, _GlobalsScope, ExpressionObserver, Updater, ObserverBuilder, ObserverBuilder_visitInvoke_closure, ObserverBuilder_visitListLiteral_closure, ObserverBuilder_visitMapLiteral_closure, EmptyObserver, LiteralObserver, ListLiteralObserver, ListLiteralObserver__updateSelf_closure, MapLiteralObserver, MapLiteralObserver__updateSelf_closure, MapLiteralEntryObserver, IdentifierObserver, IdentifierObserver__updateSelf_closure, IdentifierObserver__updateSelf__closure, UnaryObserver, BinaryObserver, BinaryObserver__updateSelf_closure, TernaryObserver, GetterObserver, GetterObserver__updateSelf_closure, GetterObserver__updateSelf__closure, IndexObserver, IndexObserver__updateSelf_closure, IndexObserver__updateSelf__closure, InvokeObserver, InvokeObserver__updateSelf_closure, InvokeObserver__updateSelf_closure0, InvokeObserver__updateSelf__closure, InObserver, InObserver__updateSelf_closure, Comprehension, EvalException, AstFactory, Expression, EmptyExpression, Literal, ListLiteral, MapLiteral, MapLiteralEntry, ParenthesizedExpression, Identifier, UnaryOperator, BinaryOperator, TernaryOperator, InExpression, Index, Getter, Invoke, _hashList_closure, Parser0, IndexedValue, EnumerateIterable, EnumerateIterator, Token, Tokenizer, ParseException, Visitor0, RecursiveVisitor, SearchResult, Hit, _splitQueryTerms_closure, _splitQueryTerms_closure0, _splitQueryTerms_closure1, lookupSearchResults_closure, lookupSearchResults_closure0, lookupSearchResults_closure1, SearchIndex, _DefaultSyntaxWithEvents, QueryOptions, Declaration, DeclarationKind, StaticConfiguration, GeneratedObjectAccessorService, GeneratedTypeInspectorService, GeneratedSymbolConverterService, GeneratedSymbolConverterService_closure, MissingCodeException, _ElementExtension, _ElementExtension_bind_closure, _InputBinding, closure7, _closure1, _closure2, _InputBinding__getAssociatedRadioButtons_closure, _InputBinding__getAssociatedRadioButtons_closure0, _InputBinding__toInt_closure, _InputElementExtension, _InstanceBindingMap, _TemplateBindingMap, NodeBindExtension, TemplateInstance, _SelectElementExtension, TemplateBindExtension, TemplateBindExtension_bootstrap__bootstrap, closure5, _getDelegateFactory_closure, _parseAttributeBindings_closure, _TemplateIterator, _BoundNodes, _TextExtension, _TextAreaElementExtension, BindingDelegate, MustacheTokens, hashCodeFor_closure, Viewer, Viewer__updateLibraries_closure, Viewer_closure, Viewer__closure, Viewer_closure0, Viewer_closure1, Viewer__scrollScreen_closure, Viewer__scrollScreen_closure0, Viewer_queryEverywhere_closure, Viewer__loadAndUpdatePage_closure, Viewer__loadAndUpdatePage_closure0, Viewer_getItem_closure, Viewer_getItem_closure0, Viewer_getMember_closure, Viewer_getMember__closure, Viewer_getMember___closure, Viewer_getMember_closure0, _concat_closure, Visitor, Visitor_visitSequence_closure, AnnotationElement, PolymerElement_ChangeNotifier, initApp_closure, initApp_closure0, initApp_closure1, Breadcrumbs, PolymerElement_ChangeNotifier0, Breadcrumbs_enteredView_closure, CategoryElement, DartdocElement_ChangeNotifier, CategoryElement$created_closure, CategoryElement$created__closure, ClassElement, ClassElement$created_closure, ClassElement$created__closure, ClassElement__loadCategories_closure, ClassElement_addSubclasses_closure, ClassElement_makeLinks_closure, ClassElement_makeLinks_closure0, ClassElement_makeLink_closure, CommentElement, DivElement_Polymer, DivElement_Polymer_ChangeNotifier, CommentElement__resolveLink_closure, HomeElement, ItemElement, LazyListLoader, _LazyListCopier, LibraryElement, LibraryPanel, LibraryPanel_shadowRootReady_closure, LinkElement, PolymerElement_ChangeNotifier1, LinkElement_typeChanged_closure, MainElement, DartdocElement_ChangeNotifier1, MainElement_showVersion_closure, MainElement_showVersion_closure0, MainElement_collapseSearchAndOptionsIfNeeded_closure, NullTreeSanitizer, DartdocElement, MemberElement, DartdocElement_ChangeNotifier0, InheritedElement, MemberElement_ChangeNotifier, InheritedElement$created_closure, MethodElement, InheritedElement_ChangeNotifier, MinimapElementClass, MinimapElement, PolymerElement_ChangeNotifier2, MinimapElement$created_closure, MinimapElementLibrary, PageElement, DartdocElement_ChangeNotifier2, ClosureElement, PolymerElement_ChangeNotifier3, ParameterElement, DartdocElement_ChangeNotifier3, ParameterElement_addParameters_closure, ParameterElement_addParameters__closure, Result, AnchorElement_Polymer, AnchorElement_Polymer_ChangeNotifier, Search, PolymerElement_ChangeNotifier4, Search_onBlurCallback_closure, TypeElement, PolymerElement_ChangeNotifier5, TypeElement_createInner_closure, TypedefElement, VariableElement, InheritedElement_ChangeNotifier0, VariableHeading, MemberElement_ChangeNotifier0, loadYamlStream_closure, YamlException, YamlMap, YamlMap_addAll_closure, YamlMap_forEach_closure, _WrappedHashKey];
 }
