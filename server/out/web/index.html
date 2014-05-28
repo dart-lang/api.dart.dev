@@ -5754,7 +5754,7 @@ You can replace platform.js and polymer.html with different versions if desired.
       </div>
 
       <p class="panel-title">typedef
-        <a href="{{prefixedLocation}}" on-click="{{rerouteLink}}">{{item.type.simpleType}}</a>
+        <a href="{{prefixedLocationWhenPossible(item.type.location)}}" on-click="{{rerouteLink}}">{{item.type.simpleType}}</a>
         {{item.name}}
         <dartdoc-parameter parameters="{{item.parameters}}"></dartdoc-parameter>
       </p>
@@ -6045,11 +6045,11 @@ You can replace platform.js and polymer.html with different versions if desired.
   <template>
     <ul class="nav navbar-nav">
       <template repeat="{{breadcrumbs}}">
-        <li><a class="btn-link" on-click="{{rerouteLink}}" href="{{prefixedLinkHref}}">{{decoratedName}}</a></li>
+        <li><a class="btn-link" on-click="{{rerouteLink}}" href="{{prefixedLinkHref}}">{{breadcrumbName}}</a></li>
       </template>
       <template if="{{lastCrumb}}">
         <li class="active">
-          <a class="btn-link">{{lastCrumb.decoratedName}}</a>
+          <a class="btn-link">{{lastCrumb.breadcrumbName}}</a>
         </li>
       </template>
     </ul>
@@ -6069,7 +6069,7 @@ You can replace platform.js and polymer.html with different versions if desired.
 
         <a href="http://api.dartlang.org/" class="navbar-brand header-logo"></a>
         <a href="{{homePage}}" on-click="{{rerouteLink}}" class="navbar-brand btn-link">
-          Dart API Reference
+          API Reference
         </a>
         <div class="collapse in" id="nav-collapse-content">
           <dartdoc-breadcrumbs id="navbar" on-update="{{collapseSearchAndOptionsIfNeeded}}">
@@ -6123,8 +6123,8 @@ You can replace platform.js and polymer.html with different versions if desired.
         <dartdoc-minimap-class item="{{viewer.currentPage}}">
         </dartdoc-minimap-class>
       </template>
-      <template if="{{showVersion}}">
-        <div>Version {{version}}</div>
+      <template if="{{sdkVersionString}}">
+        <div>with SDK Version {{highLevelSdkVersion}}</div>
       </template>
     </div>
   </template>
@@ -6142,15 +6142,6 @@ You can replace platform.js and polymer.html with different versions if desired.
   <p class="nameMarker">Dart API Documentation</p>
   <script src="static/js/prettify.js"></script>
   
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <!-- Google Analytics -->
 
-  ga('create', 'UA-26406144-9', 'dartlang.org');
-  ga('send', 'pageview');
-
-</script>
-
-<script type="application/dart" src="index.html_bootstrap.dart"></script><script src="packages/browser/dart.js"></script></body></html>
+<script src="index.html_bootstrap.dart.js"></script></body></html>
