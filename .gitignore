@@ -2,7 +2,6 @@ packages
 pubspec.lock
 .project
 tags
-out
 .DS_Store
 *.pyc
 .buildlog
