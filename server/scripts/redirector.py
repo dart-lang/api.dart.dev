@@ -33,6 +33,8 @@ class VersionInfo(object):
 
 class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   GOOGLE_STORAGE = '/gs/dartlang-api-docs/channels'
+  PRETTY_VERSION_LOCATION = (
+      '/gs/dart-archive/channels/%(channel)s/raw/%(rev)s/VERSION')
 
   def version_file_loc(self, channel):
     return '%s/%s/latest.txt' % (ApiDocs.GOOGLE_STORAGE, channel)
@@ -48,7 +50,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     'stable': VersionInfo(timedelta(days=1)),
   }
 
-  def reload_latest_version(self, channel):
+  def recheck_latest_version(self, channel):
     """Check Google storage to determine the latest version file in a given
     channel."""
     data = None
@@ -66,9 +68,22 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     version of stable, for example."""
     version_info = ApiDocs.latest_versions[channel]
     if (version_info.version is None or version_info.should_update()):
-      return self.reload_latest_version(channel)
+      return self.recheck_latest_version(channel)
     else:
       return version_info.version
+
+  def get_pretty_latest_version(self, channel):
+    """Look in an alternate storage location to get the "human readable" version
+    of the SDK (e.g. 1.5). We don't look at this one initially to reduce the
+    chance of data races, since the files are not uploaded to all repositories
+    simultaneously."""
+    data = None
+    version_file_location = PRETTY_VERSION_LOCATION % {rev: version_num,
+        channel: channel}
+    with files.open(version_file_location, 'r') as f:
+      data = json.loads(f.read(1024))
+    version = data['version']
+    return version
 
   def get_cache_age(self, path):
     if re.search(r'(png|jpg)$', path):
@@ -125,7 +140,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     channel = self.get_channel()
     if (channel and self.request.path[len('/apidocs/channels/%s/docs' %
         channel):] == '/latest.txt'):
-      self.response.text = unicode(self.get_latest_version(channel))
+      self.response.text = unicode(self.get_pretty_latest_version(channel))
     else:
       gcs_path = self.resolve_doc_path(channel)
       if not gcs_path:
