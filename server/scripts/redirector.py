@@ -78,8 +78,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     chance of data races, since the files are not uploaded to all repositories
     simultaneously."""
     data = None
-    version_file_location = PRETTY_VERSION_LOCATION % {rev: version_num,
-        channel: channel}
+    version_file_location = ApiDocs.PRETTY_VERSION_LOCATION % {
+        'rev': self.get_latest_version(channel), 'channel': channel}
     with files.open(version_file_location, 'r') as f:
       data = json.loads(f.read(1024))
     version = data['version']
