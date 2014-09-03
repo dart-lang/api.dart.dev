@@ -6,7 +6,7 @@ import logging
 import re
 from webapp2 import *
 from google.appengine.api import files, memcache
-import redirector.py import redir_pkgs
+from redirector import redir_pkgs
 
 # When we get a request for dart: libraries, before serving the static HTML,
 # rewrite it to include
