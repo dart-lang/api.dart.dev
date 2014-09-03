@@ -199,7 +199,7 @@ def redir_docgen_stable(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/docgen' + kwargs['path']
 
 def redir_pkgs(handler, *args, **kwargs):
-  return '/apidocs/channels/stable/dartdoc-viewer/' + kwargs['pkg']
+  return 'http://www.dartdocs.org/documentation/' + kwargs['pkg'] + '/latest'
 
 # Redirect old apidoc URIs
 def redir_old(kwargs, channel):
@@ -219,7 +219,8 @@ def redir_old(kwargs, channel):
     'polymer', 'polymer_expressions', 'sequence_zip', 'serialization',
     'source_maps', 'template_binding', 'unittest', 'unmodifiable_collection',
     'utf']
-  if firstPart in packages:
+  withNoDot = firstPart.split('.')[0]
+  if withNoDot in packages:
     prefix = firstPart + '/' + firstPart
   else:
     prefix = firstPart.replace('_', ':', 1).replace('.html', '')
