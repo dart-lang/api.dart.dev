@@ -21,33 +21,21 @@ class ApiDocs(RequestHandler):
     prefix = 'dartdoc-viewer/'
     title = '<title>Dart API Reference</title>'
     nameMarker = '<p class="nameMarker">Dart API Documentation</p>'
-    indexFilePath = os.path.join(os.path.dirname(__file__), '../index.html')
-    indexFile = open(indexFilePath, 'r').read()
     path = self.request.path
     myPath = path[path.index(prefix) + len(prefix):]
-    substituted = indexFile.replace(title, '<title>%s API Docs</title>' % myPath)
-    substituted = substituted.replace(nameMarker,
-      '<p class="nameMarker">Dart API Documentation for ' + myPath + '</p>\n')
-    self.response.out.write(substituted)
+    if not myPath.startswith("dart"):
+      self.redirect(redir_pkgs(self, pkg = myPath))
+    else:
+      indexFilePath = os.path.join(os.path.dirname(__file__), '../index.html')
+      indexFile = open(indexFilePath, 'r').read()
+      substituted = indexFile.replace(title, 
+        '<title>%s API Docs</title>' % myPath)
+      substituted = substituted.replace(nameMarker,
+        '<p class="nameMarker">Dart API Documentation for ' + myPath + '</p>\n')
+      self.response.out.write(substituted)
 
 application = WSGIApplication(
   [
-    # Home and dart: libraries get handled normally.
-    (r'/apidocs/channels/<:(stable)|(be)|(dev)>/dartdoc-viewer/dart<:.*>',
-        ApiDocs),
-    (r'/apidocs/channels/<:(stable)|(be)|(dev)>/dartdoc-viewer/home', ApiDocs),
-    (r'/apidocs/channels/<:(stable)|(be)|(dev)>/dartdoc-viewer/home/', ApiDocs),
-
-    # Everything else is a package and gets redirected to dartdocs.org.
-    # TODO(alanknight): Once dartdocs supports URLS of the form latest/<stuff>
-    # include "stuff", so we can redirect somewhere inside the latest of a
-    # package, not just to its top level.
-    Route(
-        r'/apidocs/channels/<:(stable)|(be)|(dev)>'
-            r'/dartdoc-viewer/<pkg:\w*><stuff:.*>',
-        RedirectHandler,
-        defaults={'_uri': redir_pkgs, '_code': 302 }),
-
     ('.*', ApiDocs),
   ],
   debug=True)
