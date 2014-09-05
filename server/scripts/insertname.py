@@ -24,7 +24,10 @@ class ApiDocs(RequestHandler):
     path = self.request.path
     myPath = path[path.index(prefix) + len(prefix):]
     if not myPath.startswith("dart"):
-      self.redirect(redir_pkgs(self, pkg = myPath))
+      # TODO(alanknight): Once dartdocs.org supports something after /latest
+      # make use of the rest of the URL to go to the right place in the package.
+      packageName = myPath.split("/")[0]
+      self.redirect(redir_pkgs(self, pkg = packageName))
     else:
       indexFilePath = os.path.join(os.path.dirname(__file__), '../index.html')
       indexFile = open(indexFilePath, 'r').read()
