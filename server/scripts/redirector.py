@@ -199,7 +199,7 @@ def redir_docgen_stable(handler, *args, **kwargs):
   return '/docs/channels/stable/latest/docgen' + kwargs['path']
 
 def redir_pkgs(handler, *args, **kwargs):
-  return 'http://www.dartdocs.org/documentation/' + kwargs['pkg'] + '/latest'
+  return 'https://www.dartdocs.org/documentation/' + kwargs['pkg'] + '/latest'
 
 # Redirect old apidoc URIs
 def redir_old(kwargs, channel):
