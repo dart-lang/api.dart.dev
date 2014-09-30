@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <link rel="import" href="annotations.html">
 <link rel="import" href="parameters.html">
 <link rel="import" href="type.html">
@@ -11,15 +10,15 @@
     <template if="{{item.isSetter}}">
       set
       <b><a id="{{idName}}" on-click="{{rerouteLink}}"
-          href="{{item.prefixedAnchorHref}}">{{name}}</a></b><dartdoc-parameter
+          _href="{{item.prefixedAnchorHref}}">{{name}}</a></b><dartdoc-parameter
           parameters="{{item.parameters}}"></dartdoc-parameter>
     </template>
     <template if="{{isNotSetter}}">
       <dartdoc-type type="{{item.type}}"></dartdoc-type>
       {{getter}}
       <b><a id="{{idName}}" on-click="{{rerouteLink}}"
-          href="{{item.prefixedAnchorHref}}">{{name}}</a></b>
+          _href="{{item.prefixedAnchorHref}}">{{name}}</a></b>
     </template>
   </template>
-  <script type="application/dart;component=1" src="variable-heading.dart"></script>
+  <script type="application/dart" src="variable-heading.dart"></script>
 </polymer-element>
