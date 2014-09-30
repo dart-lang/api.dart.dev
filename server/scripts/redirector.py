@@ -9,7 +9,8 @@ from webapp2 import *
 from datetime import datetime, timedelta
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
-from google.appengine.api import files, memcache
+from google.appengine.api import memcache
+import cloudstorage
 
 ONE_HOUR = 60 * 60
 ONE_DAY = ONE_HOUR * 24
@@ -32,9 +33,9 @@ class VersionInfo(object):
     return datetime.now() > self.last_check + self.update_interval
 
 class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
-  GOOGLE_STORAGE = '/gs/dartlang-api-docs/channels'
+  GOOGLE_STORAGE = '/dartlang-api-docs/channels'
   PRETTY_VERSION_LOCATION = (
-      '/gs/dart-archive/channels/%(channel)s/raw/%(rev)s/VERSION')
+      '/dart-archive/channels/%(channel)s/raw/%(rev)s/VERSION')
 
   def version_file_loc(self, channel):
     return '%s/%s/latest.txt' % (ApiDocs.GOOGLE_STORAGE, channel)
@@ -55,7 +56,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     channel."""
     data = None
     version_file_location = self.version_file_loc(channel)
-    with files.open(version_file_location, 'r') as f:
+    with cloudstorage.open(version_file_location, 'r') as f:
       data = json.loads(f.read(1024))
       ApiDocs.latest_versions[channel].last_check = datetime.now()
     revision = int(data)
@@ -80,7 +81,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     data = None
     version_file_location = ApiDocs.PRETTY_VERSION_LOCATION % {
         'rev': self.get_latest_version(channel), 'channel': channel}
-    with files.open(version_file_location, 'r') as f:
+    with cloudstorage.open(version_file_location, 'r') as f:
       data = json.loads(f.read(1024))
     version = data['version']
     return version
@@ -142,7 +143,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         channel):] == '/latest.txt'):
       self.response.text = unicode(self.get_pretty_latest_version(channel))
     else:
-      gcs_path = self.resolve_doc_path(channel)
+      my_path = self.resolve_doc_path(channel)
+      gcs_path = '/gs%s' % my_path
       if not gcs_path:
         self.error(404)
         return
@@ -156,26 +158,21 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       # is there a better way to check if a file exists in cloud storage?
       # AE will serve a 500 if the file doesn't exist, but that should
       # be a 404
-
+      
       path_exists = memcache.get(gcs_path)
-      if path_exists is not None:
-        if path_exists == "1":
+      if path_exists == "1":
           self.send_blob(gs_key)
-        else:
-          logging.debug('Memcache said ' + gcs_path +
-              ' does not exist, sending 404')
-          self.error(404)
       else:
         try:
           # just check for existence
-          files.open(gcs_path, 'r').close()
+          cloudstorage.open(my_path, 'r').close()
           memcache.add(key=gcs_path, value="1", time=ONE_DAY)
           self.send_blob(gs_key)
-        except files.file.ExistenceError:
+        except Exception:
           memcache.add(key=gcs_path, value="0", time=ONE_DAY)
           logging.debug('Could not open ' + gcs_path + ', sending 404')
           self.error(404)
-
+        
 def redir_to_latest(handler, *args, **kwargs):
   path = kwargs['path']
   return '/apidocs/channels/stable/dartdoc-viewer/home'
