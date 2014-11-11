@@ -155,6 +155,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       self.response.headers['Cache-Control'] = 'max-age=' + \
           str(age) + ',s-maxage=' + str(age)
 
+      self.response.headers['Access-Control-Allow-Origin'] = '*'
+
       # is there a better way to check if a file exists in cloud storage?
       # AE will serve a 500 if the file doesn't exist, but that should
       # be a 404
