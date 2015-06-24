@@ -57,9 +57,10 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     data = None
     version_file_location = self.version_file_loc(channel)
     with cloudstorage.open(version_file_location, 'r') as f:
-      data = json.loads(f.read(1024))
-      ApiDocs.latest_versions[channel].last_check = datetime.now()
-    revision = int(data)
+        line = f.readline()
+        data = line.replace('\x00', '')
+        ApiDocs.latest_versions[channel].last_check = datetime.now()
+    revision = data
     ApiDocs.latest_versions[channel].version = revision
     return revision
 
