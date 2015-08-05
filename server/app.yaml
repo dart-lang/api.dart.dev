@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: nofragments3
+version: new-dartdocs
 
 runtime: python27
 api_version: 1
@@ -14,31 +14,19 @@ threadsafe: true
 handlers:
 # It seems considerably cleaner to write (stable|dev|be) instead of .*, but it
 # doesn't work for some reason.
-- url: /apidocs/channels/.*/dartdoc-viewer/.*static
-  static_dir: out/web/static
-
-- url: /apidocs/channels/.*/dartdoc-viewer/.*packages
-  static_dir: out/web/packages
-
-- url: /apidocs/channels/.*/dartdoc-viewer/.*index.html_bootstrap.dart.js
-  static_files: out/web/index.html_bootstrap.dart.js
-  upload: out/web/index.html_bootstrap.js
-
-- url: /apidocs/channels/.*/dartdoc-viewer/.*index.html_bootstrap.dart.precompiled.js
-  static_files: out/web/index.html_bootstrap.dart.precompiled.js
-  upload: out/web/index.html_bootstrap.dart.precompiled.js
 
 - url: /apidocs/channels/.*/dartdoc-viewer/home
-  static_files: out/web/index.html
-  upload: out/web/index.html
+  script: scripts.redirector.application
 
-- url: /apidocs/channels/.*/dartdoc-viewer/.*
-  script: scripts.insertname.application
-  secure: always
+- url: /apidocs/channels/.*/dartdoc-viewer/.*static
+  script: scripts.redirector.application
+
+- url: /apidocs/channels/.*/dartdoc-viewer/.*packages
+  script: scripts.redirector.application
 
 - url: /favicon.ico
-  static_files: out/web/static/favicon.ico
-  upload: out/web/static/favicon.ico
+  static_files: static/favicon.ico
+  upload: static/favicon.ico
 
 - url: /sitemap.txt
   static_files: sitemap.txt
@@ -49,14 +37,11 @@ handlers:
   upload: robots.txt
 
 - url: /google76d23419c98fdd46.html
-  static_files: out/web/google76d23419c98fdd46.html
-  upload: out/web/google76d23419c98fdd46.html
+  static_files: static/google76d23419c98fdd46.html
+  upload: static/google76d23419c98fdd46.html
 
 - url: /apidocs/channels/.*/docs/.*
   script: scripts.redirector.application
-
-- url: /apidocs/channels/.*/dartdoc-viewer
-  static_dir: out/web
 
 - url: /.*
   script: scripts.redirector.application

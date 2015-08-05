@@ -30,6 +30,7 @@ class ApiDocs(RequestHandler):
       packageName = myPath.split("/")[0]
       self.redirect(redir_pkgs(self, pkg = packageName))
     else:
+      logging.info('redirecting in insert name')
       indexFilePath = os.path.join(os.path.dirname(__file__), '../index.html')
       indexFile = open(indexFilePath, 'r').read()
       substituted = indexFile.replace(title, 
@@ -37,6 +38,7 @@ class ApiDocs(RequestHandler):
       substituted = substituted.replace(nameMarker,
         '<p class="nameMarker">Dart API Documentation for ' + myPath + '</p>\n')
       self.response.out.write(substituted)
+      self.redirect('/apidocs/channels/stable/docs')
 
 application = WSGIApplication(
   [
