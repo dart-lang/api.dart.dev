@@ -239,11 +239,18 @@ def redir_channel_latest(channel, postfix):
   version_num = apidocs.get_latest_version('%s' % channel)
   return '/%s/%s' % (version_num, postfix)
 
+def redir_stable_latest(handler, *args, **kwargs):
+  return redir_channel_latest('stable', 'index.html')
+
 def redir_dev_latest(handler, *args, **kwargs):
   return redir_channel_latest('dev', 'index.html')
 
 def redir_be_latest(handler, *args, **kwargs):
   return redir_channel_latest('be', 'index.html')
+
+def redir_stable_path(handler, *args, **kwargs):
+  postfix = kwargs['path'][1:]
+  return redir_channel_latest('stable', postfix)
 
 def redir_dev_path(handler, *args, **kwargs):
   postfix = kwargs['path'][1:]
@@ -275,12 +282,12 @@ application = WSGIApplication(
     Route('/apidocs/channels/dev/docs<path:.*>', RedirectHandler,
         defaults={'_uri': '/dev'}),
     Route('/apidocs/channels/stable/docs<path:.*>', RedirectHandler,
-        defaults={'_uri': '/dev'}),
+        defaults={'_uri': '/stable'}),
 
     Route('/stable/',  RedirectHandler,
-        defaults={'_uri': '/dev'}),
+        defaults={'_uri': '/stable'}),
      Route('/latest',  RedirectHandler,
-        defaults={'_uri': '/dev'}),
+        defaults={'_uri': '/stable'}),
     Route('/dev/',  RedirectHandler,
         defaults={'_uri': '/dev'}),
     Route('/be/',  RedirectHandler,
@@ -289,7 +296,7 @@ application = WSGIApplication(
         defaults={'_uri': '/be'}),
 
      Route('/stable/latest', RedirectHandler,
-        defaults={'_uri': '/dev'}), 
+        defaults={'_uri': '/stable'}), 
     Route('/dev/latest', RedirectHandler,
         defaults={'_uri': '/dev'}),
     Route('/be/latest', RedirectHandler,
@@ -297,13 +304,14 @@ application = WSGIApplication(
 
     # temp routing till stable docs are rolled out
     Route('/stable', RedirectHandler,
-        defaults={'_uri': '/dev'}), #ApiDocs),
+        defaults={'_uri': redir_stable_latest}), #ApiDocs),
     Route('/dev', RedirectHandler,
         defaults={'_uri': redir_dev_latest}), #ApiDocs),
     Route('/be', RedirectHandler,
         defaults={'_uri': redir_be_latest}),#ApiDocs),
 
-    Route('/stable<path:.*>', ApiDocs),
+    Route('/stable<path:.*>', RedirectHandler,
+        defaults={'_uri': redir_stable_path}),
     Route('/dev<path:.*>', RedirectHandler,
         defaults={'_uri': redir_dev_path}),
     Route('/be<path:.*>', RedirectHandler,
@@ -311,14 +319,14 @@ application = WSGIApplication(
 
     # Add the trailing / if necessary.
     Route('/apidocs/channels/stable/dartdoc-viewer/home', RedirectHandler,
-        defaults={'_uri': '/dev'}),
+        defaults={'_uri': '/stable'}),
     Route('/apidocs/channels/dev/dartdoc-viewer/home', RedirectHandler,
         defaults={'_uri': '/dev'}),
     Route('/apidocs/channels/be/dartdoc-viewer/home', RedirectHandler,
         defaults={'_uri': '/be'}),
 
     Route('/apidocs/channels/stable/dartdoc-viewer<path:.*>', RedirectHandler,
-        defaults={'_uri': '/dev'}),
+        defaults={'_uri': '/stable'}),
     Route('/apidocs/channels/dev/dartdoc-viewer<path:.*>', RedirectHandler,
         defaults={'_uri': '/dev'}),
     Route('/apidocs/channels/be/dartdoc-viewer<path:.*>', RedirectHandler,
