@@ -34,14 +34,12 @@ class VersionInfo(object):
 
 class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   GOOGLE_STORAGE = '/dartlang-api-docs/channels'
+  GOOGLE_STORAGE_NEW = '/dartlang-api-docs/gen-dartdocs'
   PRETTY_VERSION_LOCATION = (
       '/dart-archive/channels/%(channel)s/raw/%(rev)s/VERSION')
 
   def version_file_loc(self, channel):
     return '%s/%s/latest.txt' % (ApiDocs.GOOGLE_STORAGE, channel)
-
-  # String to indicate we're looking for a specific version number/name.
-  VERSION_DIRECTORY = '/buildversion/'
 
   # Dictionary of versions holding version information of the latest recorded
   # version number and the time when it was recorded.
@@ -68,8 +66,10 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     """Determine what the latest version number is for this particular channel.
     We do a bit of caching so that we're not constantly pinging for the latest
     version of stable, for example."""
+    forced_reload = (self.request and self.request.get('force_reload'))
     version_info = ApiDocs.latest_versions[channel]
-    if (version_info.version is None or version_info.should_update()):
+    if (forced_reload or
+        version_info.version is None or version_info.should_update()):
       return self.recheck_latest_version(channel)
     else:
       return version_info.version
@@ -98,27 +98,25 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
   def build_gcs_path(self, version_num, postfix, channel):
     """Build the path to the information on Google Storage."""
-    return '%s/%s/%s/docgen%s' % (ApiDocs.GOOGLE_STORAGE, channel, version_num,
-        postfix)
+    return '%s/%s/%s' % (ApiDocs.GOOGLE_STORAGE_NEW, version_num, postfix)
 
   def resolve_doc_path(self, channel):
     """Given the request URL, determine what specific docs version we should
     actually display."""
     path = None
-    if channel:
-      prefix = '/apidocs/channels/%s/docs' % channel
-      postfix = self.request.path[len(prefix):]
-      if postfix.startswith(ApiDocs.VERSION_DIRECTORY):
-        postfix = postfix[len(ApiDocs.VERSION_DIRECTORY):]
-        index = postfix.find('/')
-        version_num = postfix[:index]
-        postfix = postfix[index:]
-      else:
-        version_num = self.get_latest_version(channel)
-      path = self.build_gcs_path(version_num, postfix, channel)
 
-    if path and path.endswith('/'):
-      path = path + 'index.html'
+    postfix = self.request.path[1:]
+    index = postfix.find('/')
+    if index != -1:
+      version_num = postfix[:index]
+      postfix = postfix[index+1:]
+      if postfix.startswith('/'):
+        postfix = postfix[1:]
+    else:
+      version_num = self.get_latest_version(channel)
+      postfix = 'index.html'
+
+    path = self.build_gcs_path(version_num, postfix, channel)
     return path
 
   def get_channel(self):
@@ -127,6 +125,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     URL."""
     for channel in ApiDocs.latest_versions.keys():
       if self.request.path.startswith('/apidocs/channels/%s' % channel):
+        return channel
+      if self.request.path.startswith('/%s' % channel):
         return channel
 
   def get(self, *args, **kwargs):
@@ -140,63 +140,56 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       item in the dictionary with a key of 'path', which was populated from the
       regular expression matching in Route."""
     channel = self.get_channel()
-    if (channel and self.request.path[len('/apidocs/channels/%s/docs' %
-        channel):] == '/latest.txt'):
-      self.response.text = unicode(self.get_pretty_latest_version(channel))
+
+    # this is serving all paths, so check to make sure version is valid pattern
+    # else redirect to stable
+    request = self.request.path[1:]
+    index = request.find('/')
+    if index != -1:
+      version_num = request[:index]
+      match = re.match(r'^-?[0-9]+$', version_num)
+      if not match:
+        match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', version_num)
+        if not match:
+          return self.redirect('/stable')
     else:
-      my_path = self.resolve_doc_path(channel)
-      gcs_path = '/gs%s' % my_path
-      if not gcs_path:
+      return self.redirect('/stable')
+
+    my_path = self.resolve_doc_path(channel)
+
+    gcs_path = '/gs%s' % my_path
+    if not gcs_path:
+      self.error(404)
+      return
+
+    gs_key = blobstore.create_gs_key(gcs_path)
+    age = self.get_cache_age(gcs_path)
+
+    self.response.headers['Cache-Control'] = 'max-age=' + \
+       str(age) + ',s-maxage=' + str(age)
+
+    self.response.headers['Access-Control-Allow-Origin'] = '*'
+
+    # is there a better way to check if a file exists in cloud storage?
+    # AE will serve a 500 if the file doesn't exist, but that should
+    # be a 404
+
+    path_exists = memcache.get(gcs_path)
+    if path_exists == "1":
+        self.send_blob(gs_key)
+    else:
+      try:
+        # just check for existence
+        cloudstorage.open(my_path, 'r').close()
+        memcache.add(key=gcs_path, value="1", time=ONE_DAY)
+        self.send_blob(gs_key)
+      except Exception:
+        memcache.add(key=gcs_path, value="0", time=ONE_DAY)
+        logging.debug('Could not open ' + gcs_path + ', sending 404')
         self.error(404)
-        return
-
-      gs_key = blobstore.create_gs_key(gcs_path)
-      age = self.get_cache_age(gcs_path)
-
-      self.response.headers['Cache-Control'] = 'max-age=' + \
-          str(age) + ',s-maxage=' + str(age)
-
-      self.response.headers['Access-Control-Allow-Origin'] = '*'
-
-      # is there a better way to check if a file exists in cloud storage?
-      # AE will serve a 500 if the file doesn't exist, but that should
-      # be a 404
-      
-      path_exists = memcache.get(gcs_path)
-      if path_exists == "1":
-          self.send_blob(gs_key)
-      else:
-        try:
-          # just check for existence
-          cloudstorage.open(my_path, 'r').close()
-          memcache.add(key=gcs_path, value="1", time=ONE_DAY)
-          self.send_blob(gs_key)
-        except Exception:
-          memcache.add(key=gcs_path, value="0", time=ONE_DAY)
-          logging.debug('Could not open ' + gcs_path + ', sending 404')
-          self.error(404)
-        
-def redir_to_latest(handler, *args, **kwargs):
-  path = kwargs['path']
-  return '/apidocs/channels/stable/dartdoc-viewer/home'
 
 def redir_dom(handler, *args, **kwargs):
-  return '/docs/channels/stable/latest/dart_html' + kwargs['path']
-
-def redir_continuous(handler, *args, **kwargs):
-  return '/docs/channels/be/latest' + kwargs['path']
-
-def redir_docgen_be(handler, *args, **kwargs):
-  return '/docs/channels/be/latest/docgen' + kwargs['path']
-
-def redir_docgen_dev(handler, *args, **kwargs):
-  return '/docs/channels/dev/latest/docgen' + kwargs['path']
-
-def redir_latest(handler, *args, **kwargs):
-  return '/docs/channels/stable/latest' + kwargs['path']
-
-def redir_docgen_stable(handler, *args, **kwargs):
-  return '/docs/channels/stable/latest/docgen' + kwargs['path']
+  return '/stable/dart-html/index.html'
 
 def redir_pkgs(handler, *args, **kwargs):
   return 'http://www.dartdocs.org/documentation/' + kwargs['pkg'] + '/latest'
@@ -230,7 +223,7 @@ def redir_old(kwargs, channel):
       prefix = "dart:" + prefix
   new_path = prefix + secondPart.replace('.html','')
   # Should be #! if we use that scheme
-  return '/apidocs/channels/' + channel + '/dartdoc-viewer/' + new_path
+  return '/' + channel
 
 def redir_old_be(handler, *args, **kwargs):
   return redir_old(kwargs, 'be')
@@ -239,7 +232,34 @@ def redir_old_dev(handler, *args, **kwargs):
   return redir_old(kwargs, 'dev')
 
 def redir_old_stable(handler, *args, **kwargs):
-  return redir_old(kwargs, 'stable')
+  return redir_old(kwargs, 'dev')
+
+def redir_channel_latest(channel, postfix):
+  apidocs = ApiDocs()
+  version_num = apidocs.get_latest_version('%s' % channel)
+  return '/%s/%s' % (version_num, postfix)
+
+def redir_stable_latest(handler, *args, **kwargs):
+  return redir_channel_latest('stable', 'index.html')
+
+def redir_dev_latest(handler, *args, **kwargs):
+  return redir_channel_latest('dev', 'index.html')
+
+def redir_be_latest(handler, *args, **kwargs):
+  return redir_channel_latest('be', 'index.html')
+
+def redir_stable_path(handler, *args, **kwargs):
+  postfix = kwargs['path'][1:]
+  return redir_channel_latest('stable', postfix)
+
+def redir_dev_path(handler, *args, **kwargs):
+  postfix = kwargs['path'][1:]
+  return redir_channel_latest('dev', postfix)
+
+def redir_be_path(handler, *args, **kwargs):
+  postfix = kwargs['path'][1:]
+  return redir_channel_latest('be', postfix)
+
 
 application = WSGIApplication(
   [
@@ -254,25 +274,68 @@ application = WSGIApplication(
         RedirectHandler, defaults={'_uri': redir_pkgs, '_code': 302}),
     Route('/dom<path:.*>', RedirectHandler, defaults={'_uri': redir_dom}),
     Route('/docs/bleeding_edge<path:.*>', RedirectHandler,
-        defaults={'_uri': redir_continuous}),
+        defaults={'_uri': '/be'}),
 
     # Data requests go to cloud storage
-    Route('/apidocs/channels/be/docs<path:.*>', ApiDocs),
-    Route('/apidocs/channels/dev/docs<path:.*>', ApiDocs),
-    Route('/apidocs/channels/stable/docs<path:.*>', ApiDocs),
+    Route('/apidocs/channels/be/docs<path:.*>', RedirectHandler,
+        defaults={'_uri': '/be'}),
+    Route('/apidocs/channels/dev/docs<path:.*>', RedirectHandler,
+        defaults={'_uri': '/dev'}),
+    Route('/apidocs/channels/stable/docs<path:.*>', RedirectHandler,
+        defaults={'_uri': '/stable'}),
+
+    Route('/stable/',  RedirectHandler,
+        defaults={'_uri': '/stable'}),
+     Route('/latest',  RedirectHandler,
+        defaults={'_uri': '/stable'}),
+    Route('/dev/',  RedirectHandler,
+        defaults={'_uri': '/dev'}),
+    Route('/be/',  RedirectHandler,
+        defaults={'_uri': '/be'}),
+    Route('/bleeding_edge',  RedirectHandler,
+        defaults={'_uri': '/be'}),
+
+     Route('/stable/latest', RedirectHandler,
+        defaults={'_uri': '/stable'}),
+    Route('/dev/latest', RedirectHandler,
+        defaults={'_uri': '/dev'}),
+    Route('/be/latest', RedirectHandler,
+        defaults={'_uri': '/be'}),
+
+    # temp routing till stable docs are rolled out
+    Route('/stable', RedirectHandler,
+        defaults={'_uri': redir_stable_latest}), #ApiDocs),
+    Route('/dev', RedirectHandler,
+        defaults={'_uri': redir_dev_latest}), #ApiDocs),
+    Route('/be', RedirectHandler,
+        defaults={'_uri': redir_be_latest}),#ApiDocs),
+
+    Route('/stable<path:.*>', RedirectHandler,
+        defaults={'_uri': redir_stable_path}),
+    Route('/dev<path:.*>', RedirectHandler,
+        defaults={'_uri': redir_dev_path}),
+    Route('/be<path:.*>', RedirectHandler,
+        defaults={'_uri': redir_be_path}),
 
     # Add the trailing / if necessary.
-    Route('/apidocs/channels/be/dartdoc-viewer', RedirectHandler,
-        defaults={'_uri': '/apidocs/channels/be/dartdoc-viewer/'}),
-    Route('/apidocs/channels/dev/dartdoc-viewer', RedirectHandler,
-        defaults={'_uri': '/apidocs/channels/dev/dartoc-viewer/'}),
-    Route('/apidocs/channels/stable/dartdoc-viewer', RedirectHandler,
-        defaults={'_uri': '/apidocs/channels/stable/dartdoc-viewer/'}),
+    Route('/apidocs/channels/stable/dartdoc-viewer/home', RedirectHandler,
+        defaults={'_uri': '/stable'}),
+    Route('/apidocs/channels/dev/dartdoc-viewer/home', RedirectHandler,
+        defaults={'_uri': '/dev'}),
+    Route('/apidocs/channels/be/dartdoc-viewer/home', RedirectHandler,
+        defaults={'_uri': '/be'}),
+
+    Route('/apidocs/channels/stable/dartdoc-viewer<path:.*>', RedirectHandler,
+        defaults={'_uri': '/stable'}),
+    Route('/apidocs/channels/dev/dartdoc-viewer<path:.*>', RedirectHandler,
+        defaults={'_uri': '/dev'}),
+    Route('/apidocs/channels/be/dartdoc-viewer<path:.*>', RedirectHandler,
+        defaults={'_uri': '/be'}),
 
     Route('/docs/continuous<path:.*>', RedirectHandler,
-        defaults={'_uri': redir_continuous}),
+        defaults={'_uri': '/be'}),
     Route('/docs/releases/latest<path:.*>', RedirectHandler,
-        defaults={'_uri': redir_latest}),
+        defaults={'_uri': '/stable'}),
 
      # Legacy handling: redirect old doc links to apidoc.
     Route('/docs/channels/be/latest<path:.*>', RedirectHandler,
@@ -282,12 +345,14 @@ application = WSGIApplication(
     Route('/docs/channels/stable/latest<path:.*>', RedirectHandler,
         defaults={'_uri': redir_old_stable}),
     Route('/docs/channels/be', RedirectHandler,
-        defaults={'_uri': '/apidocs/channels/be/'}),
+        defaults={'_uri': '/be'}),
     Route('/docs/channels/dev', RedirectHandler,
-        defaults={'_uri': '/apidocs/channels/dev/'}),
+        defaults={'_uri': '/dev'}),
     Route('/docs/channels/stable', RedirectHandler,
-        defaults={'_uri': '/apidocs/channels/stable/'}),
+        defaults={'_uri': '/stable'}),
 
-    Route('<path:.*>', RedirectHandler, defaults={'_uri': redir_old_stable})
+    Route('/', RedirectHandler, defaults={'_uri': '/stable'}),
+
+    Route('<path:.*>', ApiDocs)
   ],
   debug=True)
