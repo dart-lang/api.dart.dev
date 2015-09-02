@@ -16,6 +16,9 @@ ONE_HOUR = 60 * 60
 ONE_DAY = ONE_HOUR * 24
 ONE_WEEK = ONE_DAY * 7
 
+# for redirects below
+ONLY_DART_LIB = re.compile("^dart:([a-zA-Z0-9_]+)$")
+LIB_NAME_AND_CLASS_NAME = re.compile("^dart:([^\.]+)\.(.+)$")
 
 class VersionInfo(object):
   """Small helper class holding information about the last version seen and the
@@ -260,6 +263,40 @@ def redir_be_path(handler, *args, **kwargs):
   postfix = kwargs['path'][1:]
   return redir_channel_latest('be', postfix)
 
+# /apidocs/channels/stable/dartdoc-viewer/home => /stable
+# /apidocs/channels/stable/dartdoc-viewer/dart:math => /stable/dart-math/dart-math-library.html
+# /apidocs/channels/stable/dartdoc-viewer/dart:async.Future => /stable/dart-async/Future.html
+def redir_name(handler, *args, **kwargs):
+  channel = kwargs['channel']
+  postfix = kwargs['path'][1:]
+
+  # /apidocs/channels/stable/dartdoc-viewer/home => /stable
+  # /apidocs/channels/stable/dartdoc-viewer/ => /stable
+  # /apidocs/channels/stable/dartdoc-viewer => /stable
+  if postfix == 'home' or postfix == '':
+    return '/%s' % (channel)
+
+  # /apidocs/channels/stable/dartdoc-viewer/dart:math => /stable/dart-math/dart-math-library.html
+  is_lib_page = ONLY_DART_LIB.match(postfix)
+  if is_lib_page:
+    name = postfix.replace(':', '-')
+    return '/%s/%s/%s-library.html' % (channel, name, name)
+
+  # /apidocs/channels/stable/dartdoc-viewer/dart:async.Future => /stable/dart-async/Future-class.html
+  is_lib_and_class = LIB_NAME_AND_CLASS_NAME.match(postfix)
+  if is_lib_and_class:
+    lib_name = 'dart-' + is_lib_and_class.group(1)
+    class_name = is_lib_and_class.group(2)
+    return '/%s/%s/%s-class.html' % (channel, lib_name, class_name)
+
+  self.error(404)
+
+def redir_bare_lib_name(handler, *args, **kwargs):
+  version = kwargs['version']
+  libname = kwargs['libname']
+
+  # /1.12.0/dart-async => /1.12.0/dart-async/dart-async-library.html
+  return '/%s/dart-%s/dart-%s-library.html' % (version, libname, libname)
 
 application = WSGIApplication(
   [
@@ -317,20 +354,9 @@ application = WSGIApplication(
     Route('/be<path:.*>', RedirectHandler,
         defaults={'_uri': redir_be_path}),
 
-    # Add the trailing / if necessary.
-    Route('/apidocs/channels/stable/dartdoc-viewer/home', RedirectHandler,
-        defaults={'_uri': '/stable'}),
-    Route('/apidocs/channels/dev/dartdoc-viewer/home', RedirectHandler,
-        defaults={'_uri': '/dev'}),
-    Route('/apidocs/channels/be/dartdoc-viewer/home', RedirectHandler,
-        defaults={'_uri': '/be'}),
-
-    Route('/apidocs/channels/stable/dartdoc-viewer<path:.*>', RedirectHandler,
-        defaults={'_uri': '/stable'}),
-    Route('/apidocs/channels/dev/dartdoc-viewer<path:.*>', RedirectHandler,
-        defaults={'_uri': '/dev'}),
-    Route('/apidocs/channels/be/dartdoc-viewer<path:.*>', RedirectHandler,
-        defaults={'_uri': '/be'}),
+    Route('/apidocs/channels/<channel:stable|dev|be>/dartdoc-viewer<path:.*>',
+        RedirectHandler,
+        defaults={'_uri': redir_name}),
 
     Route('/docs/continuous<path:.*>', RedirectHandler,
         defaults={'_uri': '/be'}),
@@ -350,6 +376,9 @@ application = WSGIApplication(
         defaults={'_uri': '/dev'}),
     Route('/docs/channels/stable', RedirectHandler,
         defaults={'_uri': '/stable'}),
+
+    Route('/<version:[\w.-]+>/dart-<libname:\w+>', RedirectHandler,
+        defaults={'_uri': redir_bare_lib_name}),
 
     Route('/', RedirectHandler, defaults={'_uri': '/stable'}),
 
