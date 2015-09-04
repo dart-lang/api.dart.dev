@@ -298,6 +298,17 @@ def redir_bare_lib_name(handler, *args, **kwargs):
   # /1.12.0/dart-async => /1.12.0/dart-async/dart-async-library.html
   return '/%s/dart-%s/dart-%s-library.html' % (version, libname, libname)
 
+# /dart_core.html => /stable/dart-core/dart-core-library.html
+def redir_legacy_lib(handler, *args, **kwargs):
+  libname = kwargs['libname']
+  return '/stable/dart-%s/dart-%s-library.html' % (libname, libname)
+
+# /dart_core/Iterable.html => /stable/dart-core/Iterable-class.html
+def redir_legacy_lib_class(handler, *args, **kwargs):
+    libname = kwargs['libname']
+    classname = kwargs['classname']
+    return '/stable/dart-%s/%s-class.html' % (libname, classname)
+
 application = WSGIApplication(
   [
     # Legacy URL redirection schemes.
@@ -338,6 +349,12 @@ application = WSGIApplication(
         defaults={'_uri': '/dev'}),
     Route('/be/latest', RedirectHandler,
         defaults={'_uri': '/be'}),
+
+    Route('/dart_<libname:[\w]+>.html', RedirectHandler,
+        defaults={'_uri': redir_legacy_lib}),
+
+    Route('/dart_<libname:[\w]+>/<classname:[\w]+>.html', RedirectHandler,
+        defaults={'_uri': redir_legacy_lib_class}),
 
     # temp routing till stable docs are rolled out
     Route('/stable', RedirectHandler,
