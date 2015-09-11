@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: fix-redirect-bugs
+version: webmaster-tools-verify
 
 runtime: python27
 api_version: 1
@@ -33,6 +33,10 @@ handlers:
 - url: /google76d23419c98fdd46.html
   static_files: static/google76d23419c98fdd46.html
   upload: static/google76d23419c98fdd46.html
+
+- url: /google2ed1af765c529f57.html
+  static_files: static/google2ed1af765c529f57.html
+  upload: static/google2ed1af765c529f57.html
 
 - url: /apidocs/channels/.*/docs/.*
   script: scripts.redirector.application
