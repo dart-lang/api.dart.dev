@@ -18,7 +18,7 @@ ONE_WEEK = ONE_DAY * 7
 
 # for redirects below
 ONLY_DART_LIB = re.compile("^dart:([a-zA-Z0-9_]+)$")
-LIB_NAME_AND_CLASS_NAME = re.compile("^dart:([^\.]+)\.(.+)$")
+LIB_NAME_AND_CLASS_NAME = re.compile("^dart[:-]([^\.]+)\.(.+)$")
 
 class VersionInfo(object):
   """Small helper class holding information about the last version seen and the
@@ -265,7 +265,7 @@ def redir_be_path(handler, *args, **kwargs):
 
 # /apidocs/channels/stable/dartdoc-viewer/home => /stable
 # /apidocs/channels/stable/dartdoc-viewer/dart:math => /stable/dart-math/dart-math-library.html
-# /apidocs/channels/stable/dartdoc-viewer/dart:async.Future => /stable/dart-async/Future.html
+# /apidocs/channels/stable/dartdoc-viewer/dart[:-]async.Future => /stable/dart-async/Future-class.html
 def redir_name(handler, *args, **kwargs):
   channel = kwargs['channel']
   postfix = kwargs['path'][1:]
@@ -282,14 +282,14 @@ def redir_name(handler, *args, **kwargs):
     name = postfix.replace(':', '-')
     return '/%s/%s/%s-library.html' % (channel, name, name)
 
-  # /apidocs/channels/stable/dartdoc-viewer/dart:async.Future => /stable/dart-async/Future-class.html
+  # /apidocs/channels/stable/dartdoc-viewer/dart[:-]async.Future => /stable/dart-async/Future-class.html
   is_lib_and_class = LIB_NAME_AND_CLASS_NAME.match(postfix)
   if is_lib_and_class:
     lib_name = 'dart-' + is_lib_and_class.group(1)
     class_name = is_lib_and_class.group(2)
     return '/%s/%s/%s-class.html' % (channel, lib_name, class_name)
 
-  self.error(404)
+  abort(404)
 
 def redir_bare_lib_name(handler, *args, **kwargs):
   version = kwargs['version']
