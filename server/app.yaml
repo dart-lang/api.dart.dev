@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: webmaster-tools-verify
+version: old-versions-removed
 
 runtime: python27
 api_version: 1

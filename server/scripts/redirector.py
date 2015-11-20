@@ -151,7 +151,11 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     if index != -1:
       version_num = request[:index]
       match = re.match(r'^-?[0-9]+$', version_num)
-      if not match:
+      if match: 
+        if int(version_num) < 133733:
+          path = request[index+1:]
+          return self.redirect('/be/%s' % path)
+      else:
         match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', version_num)
         if not match:
           return self.redirect('/stable')
