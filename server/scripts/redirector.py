@@ -101,14 +101,17 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
   def build_gcs_path(self, version_num, postfix, channel):
     """Build the path to the information on Google Storage."""
-    return '%s/%s/%s' % (ApiDocs.GOOGLE_STORAGE_NEW, version_num, postfix)
+    suffix = channel
+    if channel == 'be':
+      suffix = 'builds'
+    return '%s/%s/%s/%s' % (ApiDocs.GOOGLE_STORAGE_NEW, suffix, version_num, postfix)
 
   def resolve_doc_path(self, channel):
     """Given the request URL, determine what specific docs version we should
     actually display."""
     path = None
 
-    postfix = self.request.path[1:]
+    postfix = self.request.path[(len(channel) + 2):]
     index = postfix.find('/')
     if index != -1:
       version_num = postfix[:index]
@@ -146,13 +149,16 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
     # this is serving all paths, so check to make sure version is valid pattern
     # else redirect to stable
-    request = self.request.path[1:]
+    # /dev/1.15.0-dev.5.1/index.html
+    length = len(channel) + 2 
+    request = self.request.path[length:]
+   
     index = request.find('/')
     if index != -1:
       version_num = request[:index]
       match = re.match(r'^-?[0-9]+$', version_num)
       if match: 
-        if int(version_num) < 133733:
+        if int(version_num) > 136051:
           path = request[index+1:]
           return self.redirect('/be/%s' % path)
       else:
@@ -244,7 +250,7 @@ def redir_old_stable(handler, *args, **kwargs):
 def redir_channel_latest(channel, postfix):
   apidocs = ApiDocs()
   version_num = apidocs.get_latest_version('%s' % channel)
-  return '/%s/%s' % (version_num, postfix)
+  return '/%s/%s/%s' % (channel, version_num, postfix)
 
 def redir_stable_latest(handler, *args, **kwargs):
   return redir_channel_latest('stable', 'index.html')
@@ -368,12 +374,12 @@ application = WSGIApplication(
     Route('/be', RedirectHandler,
         defaults={'_uri': redir_be_latest}),#ApiDocs),
 
-    Route('/stable<path:.*>', RedirectHandler,
-        defaults={'_uri': redir_stable_path}),
-    Route('/dev<path:.*>', RedirectHandler,
-        defaults={'_uri': redir_dev_path}),
-    Route('/be<path:.*>', RedirectHandler,
-        defaults={'_uri': redir_be_path}),
+    #Route('/stable<path:.*>', RedirectHandler,
+    #    defaults={'_uri': redir_stable_path}),
+    #Route('/dev<path:.*>', RedirectHandler,
+    #    defaults={'_uri': redir_dev_path}),
+    #Route('/be<path:.*>', RedirectHandler,
+    #    defaults={'_uri': redir_be_path}),
 
     Route('/apidocs/channels/<channel:stable|dev|be>/dartdoc-viewer<path:.*>',
         RedirectHandler,
