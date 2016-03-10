@@ -104,6 +104,12 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     suffix = channel
     if channel == 'be':
       suffix = 'builds'
+    index = version_num.find('.')
+    if index != -1:
+      nums = version_num.split('.')
+      release_num = nums[1]
+      if int(release_num) < 15:
+        return '%s/%s/%s' % (ApiDocs.GOOGLE_STORAGE_NEW, version_num, postfix)
     return '%s/%s/%s/%s' % (ApiDocs.GOOGLE_STORAGE_NEW, suffix, version_num, postfix)
 
   def resolve_doc_path(self, channel):
@@ -111,7 +117,11 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     actually display."""
     path = None
 
-    postfix = self.request.path[(len(channel) + 2):]
+    if channel:
+      length = len(channel) + 2
+    else:
+      length = 1 
+    postfix = self.request.path[length:]
     index = postfix.find('/')
     if index != -1:
       version_num = postfix[:index]
@@ -119,9 +129,12 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       if postfix.startswith('/'):
         postfix = postfix[1:]
     else:
-      version_num = self.get_latest_version(channel)
+      if channel:
+        version_num = self.get_latest_version(channel)   
+      else:
+        channel = 'stable'
+        version_num = self.get_latest_version(channel) 
       postfix = 'index.html'
-
     path = self.build_gcs_path(version_num, postfix, channel)
     return path
 
@@ -150,7 +163,10 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     # this is serving all paths, so check to make sure version is valid pattern
     # else redirect to stable
     # /dev/1.15.0-dev.5.1/index.html
-    length = len(channel) + 2 
+    if channel:
+      length = len(channel) + 2 
+    else:
+      length = 1
     request = self.request.path[length:]
    
     index = request.find('/')
@@ -160,13 +176,18 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       if match: 
         if int(version_num) > 136051:
           path = request[index+1:]
-          return self.redirect('/be/%s' % path)
+          if not channel:
+            return self.redirect('/be/%s/%s' % (version_num, path))
       else:
         match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', version_num)
         if not match:
           return self.redirect('/stable')
     else:
-      return self.redirect('/stable')
+      match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', request)
+      if match:
+        return self.redirect('/%s/index.html' % request)
+      else:
+        return self.redirect('/stable')
 
     my_path = self.resolve_doc_path(channel)
 
