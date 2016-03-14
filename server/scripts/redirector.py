@@ -178,6 +178,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           path = request[index+1:]
           if not channel:
             return self.redirect('/be/%s/%s' % (version_num, path))
+        else:
+          return self.redirect('/stable')
       else:
         match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', version_num)
         if not match:
