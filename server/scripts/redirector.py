@@ -182,8 +182,16 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           return self.redirect('/stable')
       else:
         match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', version_num)
-        if not match:
-          return self.redirect('/stable')
+        if match:
+          if not channel:
+            latest = self.get_latest_version('stable')
+            return self.redirect('/stable/%s/index.html' % latest)
+        else:
+          if channel:
+            latest = self.get_latest_version(channel)
+            return self.redirect('/%s/%s/%s' % (channel, latest, request))
+          else:
+            return self.redirect('/stable/%s/%s' % (latest, request))
     else:
       match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', request)
       if match:
@@ -396,13 +404,6 @@ application = WSGIApplication(
         defaults={'_uri': redir_dev_latest}), #ApiDocs),
     Route('/be', RedirectHandler,
         defaults={'_uri': redir_be_latest}),#ApiDocs),
-
-    #Route('/stable<path:.*>', RedirectHandler,
-    #    defaults={'_uri': redir_stable_path}),
-    #Route('/dev<path:.*>', RedirectHandler,
-    #    defaults={'_uri': redir_dev_path}),
-    #Route('/be<path:.*>', RedirectHandler,
-    #    defaults={'_uri': redir_be_path}),
 
     Route('/apidocs/channels/<channel:stable|dev|be>/dartdoc-viewer<path:.*>',
         RedirectHandler,

@@ -3,7 +3,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 application: dartlang-api
-version: gcs-new-redirects-2
+version: gcs-new-redirects-path
 
 runtime: python27
 api_version: 1
