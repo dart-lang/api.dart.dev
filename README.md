@@ -24,9 +24,19 @@ The api.dartlang.org prepends some structure to the links from dartdoc.
 
 ## Deployment 
 
-1. Download the [Google App Engine SDK for Python][GAE] and add it to your 
-PATH.
+1. Install the [Google Cloud SDK][gcloud].
 
-1. Run `appcfg.py update <folder containing app.yaml>`.
+1. Run `gcloud auth login`
 
-[GAE]: https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python "Google App Engine SDK for Python"
+1. Run `gcloud config set app/promote_by_default false` to avoid accidentally
+   deploying a test version.
+
+1. Run `gcloud config set project dartlang-api`
+
+1. Run `gcloud app deploy -v name-of-new-version server/app.yaml` and test
+
+1. Run `gcloud app deploy -v name-of-new-version --promote server/app.yaml` to
+   make this version the default
+
+
+[gcloud]: https://cloud.google.com/sdk/downloads

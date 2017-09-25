@@ -108,7 +108,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     if index != -1:
       nums = version_num.split('.')
       release_num = nums[1]
-      if int(release_num) < 15:
+      if nums[0] == '1' and int(release_num) < 15:
         return '%s/%s/%s' % (ApiDocs.GOOGLE_STORAGE_NEW, version_num, postfix)
     return '%s/%s/%s/%s' % (ApiDocs.GOOGLE_STORAGE_NEW, suffix, version_num, postfix)
 
@@ -136,6 +136,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         version_num = self.get_latest_version(channel) 
       postfix = 'index.html'
     path = self.build_gcs_path(version_num, postfix, channel)
+    logging.debug('build_gcs_path("%s", "%s", "%s") -> "%s"'
+                  % (version_num, postfix, channel, path))
     return path
 
   def get_channel(self):
