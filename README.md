@@ -1,4 +1,4 @@
-# api.dartlang.org server
+# api.dart.dev server
 
 An App Engine server that fronts a Google Cloud Storage
 repository of Dart API docs. 
@@ -10,7 +10,7 @@ See LICENSE.
 First, read how
 [dartdoc structures links](https://github.com/dart-lang/dartdoc/blob/master/README.md#link-structure).
 
-The api.dartlang.org prepends some structure to the links from dartdoc.
+The api.dart.dev server prepends some structure to the links from dartdoc.
 
 ```
 /             ==> /stable
