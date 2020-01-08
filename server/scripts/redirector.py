@@ -6,6 +6,7 @@ import logging
 import re
 import json
 from webapp2 import *
+from webapp2_extras.routes import DomainRoute
 from datetime import datetime, timedelta
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
@@ -352,8 +353,16 @@ def redir_legacy_lib_class(handler, *args, **kwargs):
     classname = kwargs['classname']
     return '/stable/dart-%s/%s-class.html' % (libname, classname)
 
+def redir_apidartdev(handler, *args, **kwargs):
+    return 'https://api.dart.dev/%s' % (kwargs['path'])
+
 application = WSGIApplication(
   [
+    # Legacy domain name, redirect to new domain
+    DomainRoute('api.dartlang.org', [
+        Route('/<path:.*>', RedirectHandler,
+            defaults={'_uri': redir_apidartdev}),
+    ]),
     # Legacy URL redirection schemes.
     # Redirect all old URL package requests to our updated URL scheme.
     # TODO(efortuna): Remove this line when pkg gets moved off of
