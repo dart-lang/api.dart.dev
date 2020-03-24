@@ -1,7 +1,7 @@
 # api.dart.dev server
 
 An App Engine server that fronts a Google Cloud Storage
-repository of Dart API docs. 
+repository of Dart API docs.
 
 See LICENSE.
 
@@ -15,14 +15,15 @@ The api.dart.dev server prepends some structure to the links from dartdoc.
 ```
 /             ==> /stable
 /stable       ==> /<latest-stable-version>/index.html
+/beta         ==> /latest-beta-version>/index.html
 /dev          ==> /latest-dev-version>/index.html
 /be           ==> /<latest-bleeding-edge-version>/index.html
 
 /stable/dart-async/Future-class.html ==> /<latest-stable-version>/dart-async/Future-class.html
-(same for dev and be)
+(same for beta, dev, and be)
 ```
 
-## Deployment 
+## Deployment
 
 1. Install the [Google Cloud SDK][gcloud].
 
