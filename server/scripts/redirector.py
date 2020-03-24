@@ -49,6 +49,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   # version number and the time when it was recorded.
   latest_versions = {
     'be': VersionInfo(timedelta(minutes=30)),
+    'beta': VersionInfo(timedelta(hours=12)),
     'dev': VersionInfo(timedelta(hours=6)),
     'stable': VersionInfo(timedelta(days=1)),
   }
@@ -121,7 +122,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     if channel:
       length = len(channel) + 2
     else:
-      length = 1 
+      length = 1
     postfix = self.request.path[length:]
     index = postfix.find('/')
     if index != -1:
@@ -131,10 +132,10 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         postfix = postfix[1:]
     else:
       if channel:
-        version_num = self.get_latest_version(channel)   
+        version_num = self.get_latest_version(channel)
       else:
         channel = 'stable'
-        version_num = self.get_latest_version(channel) 
+        version_num = self.get_latest_version(channel)
       postfix = 'index.html'
     path = self.build_gcs_path(version_num, postfix, channel)
     logging.debug('build_gcs_path("%s", "%s", "%s") -> "%s"'
@@ -167,16 +168,16 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     # else redirect to stable
     # /dev/1.15.0-dev.5.1/index.html
     if channel:
-      length = len(channel) + 2 
+      length = len(channel) + 2
     else:
       length = 1
     request = self.request.path[length:]
-   
+
     index = request.find('/')
     if index != -1:
       version_num = request[:index]
       match = re.match(r'^-?[0-9]+$', version_num)
-      if match: 
+      if match:
         if int(version_num) > 136051:
           path = request[index+1:]
           if not channel:
@@ -185,16 +186,12 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
           return self.redirect('/stable')
       else:
         match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', version_num)
+        latest = self.get_latest_version(channel or 'stable')
         if match:
           if not channel:
-            latest = self.get_latest_version('stable')
             return self.redirect('/stable/%s/index.html' % latest)
         else:
-          if channel:
-            latest = self.get_latest_version(channel)
-            return self.redirect('/%s/%s/%s' % (channel, latest, request))
-          else:
-            return self.redirect('/stable/%s/%s' % (latest, request))
+          return self.redirect('/%s/%s/%s' % (channel or 'stable', latest, request))
     else:
       match = re.match(r'(\d+\.){2}\d+([\+-]([\.a-zA-Z0-9-\+])*)?', request)
       if match:
@@ -292,6 +289,9 @@ def redir_stable_latest(handler, *args, **kwargs):
 def redir_dev_latest(handler, *args, **kwargs):
   return redir_channel_latest('dev', 'index.html')
 
+def redir_beta_latest(handler, *args, **kwargs):
+  return redir_channel_latest('beta', 'index.html')
+
 def redir_be_latest(handler, *args, **kwargs):
   return redir_channel_latest('be', 'index.html')
 
@@ -302,6 +302,10 @@ def redir_stable_path(handler, *args, **kwargs):
 def redir_dev_path(handler, *args, **kwargs):
   postfix = kwargs['path'][1:]
   return redir_channel_latest('dev', postfix)
+
+def redir_beta_path(handler, *args, **kwargs):
+  postfix = kwargs['path'][1:]
+  return redir_channel_latest('beta', postfix)
 
 def redir_be_path(handler, *args, **kwargs):
   postfix = kwargs['path'][1:]
@@ -379,6 +383,8 @@ application = WSGIApplication(
     # Data requests go to cloud storage
     Route('/apidocs/channels/be/docs<path:.*>', RedirectHandler,
         defaults={'_uri': '/be'}),
+    Route('/apidocs/channels/beta/docs<path:.*>', RedirectHandler,
+        defaults={'_uri': '/beta'}),
     Route('/apidocs/channels/dev/docs<path:.*>', RedirectHandler,
         defaults={'_uri': '/dev'}),
     Route('/apidocs/channels/stable/docs<path:.*>', RedirectHandler,
@@ -390,6 +396,8 @@ application = WSGIApplication(
         defaults={'_uri': '/stable'}),
     Route('/dev/',  RedirectHandler,
         defaults={'_uri': '/dev'}),
+    Route('/beta/',  RedirectHandler,
+        defaults={'_uri': '/beta'}),
     Route('/be/',  RedirectHandler,
         defaults={'_uri': '/be'}),
     Route('/bleeding_edge',  RedirectHandler,
@@ -399,6 +407,8 @@ application = WSGIApplication(
         defaults={'_uri': '/stable'}),
     Route('/dev/latest', RedirectHandler,
         defaults={'_uri': '/dev'}),
+    Route('/beta/latest', RedirectHandler,
+        defaults={'_uri': '/beta'}),
     Route('/be/latest', RedirectHandler,
         defaults={'_uri': '/be'}),
 
@@ -413,6 +423,8 @@ application = WSGIApplication(
         defaults={'_uri': redir_stable_latest}), #ApiDocs),
     Route('/dev', RedirectHandler,
         defaults={'_uri': redir_dev_latest}), #ApiDocs),
+    Route('/beta', RedirectHandler,
+        defaults={'_uri': redir_beta_latest}),#ApiDocs),
     Route('/be', RedirectHandler,
         defaults={'_uri': redir_be_latest}),#ApiDocs),
 
