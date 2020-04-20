@@ -49,8 +49,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   # version number and the time when it was recorded.
   latest_versions = {
     'be': VersionInfo(timedelta(minutes=30)),
-    'beta': VersionInfo(timedelta(hours=12)),
     'dev': VersionInfo(timedelta(hours=6)),
+    'beta': VersionInfo(timedelta(hours=12)),
     'stable': VersionInfo(timedelta(days=1)),
   }
 
@@ -144,13 +144,17 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
   def get_channel(self):
     """Quick accessor to examine a request and determine what channel
-    (dev/stable/etc) we're looking at. Return None if we have a weird unexpected
-    URL."""
-    for channel in ApiDocs.latest_versions.keys():
-      if self.request.path.startswith('/apidocs/channels/%s' % channel):
+    (be/beta/dev/stable) we're looking at. Return None if we have a weird
+    unexpected URL."""
+    parts = self.request.path.split('/')
+    if len(parts) > 0:
+      if len(parts) > 3 and self.request.path.startswith('/apidocs/channels/'):
+        channel = parts[3] # ['', 'apidocs', 'channels', '<channel>', ...]
+      else:
+        channel = parts[1] # ['', '<channel>', ...]
+      if channel in ApiDocs.latest_versions:
         return channel
-      if self.request.path.startswith('/%s' % channel):
-        return channel
+    return None
 
   def get(self, *args, **kwargs):
     """The main entry point for handling the URL for those with ApiDocs as the
