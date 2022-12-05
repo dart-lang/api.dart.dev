@@ -180,9 +180,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     index = request.find('/')
     if index != -1:
       version_num = request[:index]
-      match = re.match(r'^-?[0-9]+$', version_num)
+      match = re.match(r'^-?([0-9]+|[0-9a-z]{40})$', version_num)
       if match:
-        if int(version_num) > 136051:
+        if len(version_num) == 40 or int(version_num) > 136051:
           path = request[index+1:]
           if not channel:
             return self.redirect('/be/%s/%s' % (version_num, path))
