@@ -104,7 +104,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   def build_gcs_path(self, version_num, postfix, channel):
     """Build the path to the information on Google Storage."""
     suffix = channel
-    if channel == 'be':
+    # Support for bleeding edge versions before git hashes (October 26, 2022).
+    if channel == 'be' and version_num.isdigit() and len(version_num) != 40:
       suffix = 'builds'
     index = version_num.find('.')
     if index != -1:
