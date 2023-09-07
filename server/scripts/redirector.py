@@ -49,6 +49,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   # version number and the time when it was recorded.
   latest_versions = {
     'be': VersionInfo(timedelta(minutes=30)),
+    'main': VersionInfo(timedelta(minutes=30)),
     'dev': VersionInfo(timedelta(hours=6)),
     'beta': VersionInfo(timedelta(hours=12)),
     'stable': VersionInfo(timedelta(days=1)),
@@ -59,12 +60,19 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     channel."""
     data = None
     version_file_location = self.version_file_loc(channel)
-    with cloudstorage.open(version_file_location, 'r') as f:
+    try:
+      with cloudstorage.open(version_file_location, 'r') as f:
         line = f.readline()
         data = line.replace('\x00', '')
-        ApiDocs.latest_versions[channel].last_check = datetime.now()
+    except:
+      # TODO(b/299435467): Remove special case after be -> main rename.
+      if channel == 'main':
+        data = ''
+      else:
+        raise
     revision = data
     ApiDocs.latest_versions[channel].version = revision
+    ApiDocs.latest_versions[channel].last_check = datetime.now()
     return revision
 
   def get_latest_version(self, channel):
@@ -78,6 +86,11 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       return self.recheck_latest_version(channel)
     else:
       return version_info.version
+
+  # TODO(b/299435467): Inline as 'main' when the channel has been renamed.
+  def get_main_channel(self):
+     """Returns the name of the main channel, 'main' or 'be'"""
+     return 'main' if self.get_latest_version('main') else 'be'
 
   def get_pretty_latest_version(self, channel):
     """Look in an alternate storage location to get the "human readable" version
@@ -145,7 +158,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
 
   def get_channel(self):
     """Quick accessor to examine a request and determine what channel
-    (be/beta/dev/stable) we're looking at. Return None if we have a weird
+    (main/beta/dev/stable) we're looking at. Return None if we have a weird
     unexpected URL."""
     parts = self.request.path.split('/')
     if len(parts) > 0:
@@ -186,7 +199,8 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         if len(version_num) == 40 or int(version_num) > 136051:
           path = request[index+1:]
           if not channel:
-            return self.redirect('/be/%s/%s' % (version_num, path))
+            main = self.get_main_channel()
+            return self.redirect('/%s/%s/%s' % (main, version_num, path))
         else:
           return self.redirect('/stable')
       else:
@@ -297,8 +311,9 @@ def redir_dev_latest(handler, *args, **kwargs):
 def redir_beta_latest(handler, *args, **kwargs):
   return redir_channel_latest('beta', 'index.html')
 
-def redir_be_latest(handler, *args, **kwargs):
-  return redir_channel_latest('be', 'index.html')
+def redir_main_latest(handler, *args, **kwargs):
+  main = ApiDocs().get_main_channel()
+  return redir_channel_latest(main, 'index.html')
 
 def redir_stable_path(handler, *args, **kwargs):
   postfix = kwargs['path'][1:]
@@ -397,7 +412,7 @@ application = WSGIApplication(
 
     Route('/stable/',  RedirectHandler,
         defaults={'_uri': '/stable'}),
-     Route('/latest',  RedirectHandler,
+    Route('/latest',  RedirectHandler,
         defaults={'_uri': '/stable'}),
     Route('/dev/',  RedirectHandler,
         defaults={'_uri': '/dev'}),
@@ -407,8 +422,12 @@ application = WSGIApplication(
         defaults={'_uri': '/be'}),
     Route('/bleeding_edge',  RedirectHandler,
         defaults={'_uri': '/be'}),
+    Route('/be',  RedirectHandler,
+        defaults={'_uri': '/main'}),
+    Route('/main/',  RedirectHandler,
+        defaults={'_uri': '/main'}),
 
-     Route('/stable/latest', RedirectHandler,
+    Route('/stable/latest', RedirectHandler,
         defaults={'_uri': '/stable'}),
     Route('/dev/latest', RedirectHandler,
         defaults={'_uri': '/dev'}),
@@ -416,6 +435,8 @@ application = WSGIApplication(
         defaults={'_uri': '/beta'}),
     Route('/be/latest', RedirectHandler,
         defaults={'_uri': '/be'}),
+    Route('/main/latest', RedirectHandler,
+        defaults={'_uri': '/main'}),
 
     Route('/dart_<libname:[\w]+>.html', RedirectHandler,
         defaults={'_uri': redir_legacy_lib}),
@@ -430,8 +451,8 @@ application = WSGIApplication(
         defaults={'_uri': redir_dev_latest}), #ApiDocs),
     Route('/beta', RedirectHandler,
         defaults={'_uri': redir_beta_latest}),#ApiDocs),
-    Route('/be', RedirectHandler,
-        defaults={'_uri': redir_be_latest}),#ApiDocs),
+    Route('/main', RedirectHandler,
+        defaults={'_uri': redir_main_latest}),#ApiDocs),
 
     Route('/apidocs/channels/<channel:stable|dev|be>/dartdoc-viewer<path:.*>',
         RedirectHandler,
