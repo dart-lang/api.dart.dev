@@ -10,17 +10,17 @@ See LICENSE.
 First, read how
 [dartdoc structures links](https://github.com/dart-lang/dartdoc/blob/master/README.md#link-structure).
 
-The api.dart.dev server prepends some structure to the links from dartdoc.
+The api.dart.dev server expand some structure in the links from dartdoc.
 
 ```
 /             ==> /stable
 /stable       ==> /<latest-stable-version>/index.html
 /beta         ==> /latest-beta-version>/index.html
 /dev          ==> /latest-dev-version>/index.html
-/be           ==> /<latest-bleeding-edge-version>/index.html
+/main         ==> /<latest-bleeding-edge-version>/index.html
 
 /stable/dart-async/Future-class.html ==> /<latest-stable-version>/dart-async/Future-class.html
-(same for beta, dev, and be)
+(same for beta, dev, and main)
 ```
 
 ## Deployment
