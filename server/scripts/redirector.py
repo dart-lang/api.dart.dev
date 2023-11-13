@@ -39,8 +39,6 @@ class VersionInfo(object):
 class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   GOOGLE_STORAGE = '/dartlang-api-docs/channels'
   GOOGLE_STORAGE_NEW = '/dartlang-api-docs/gen-dartdocs'
-  PRETTY_VERSION_LOCATION = (
-      '/dart-archive/channels/%(channel)s/raw/%(rev)s/VERSION')
 
   def version_file_loc(self, channel):
     return '%s/%s/latest.txt' % (ApiDocs.GOOGLE_STORAGE, channel)
