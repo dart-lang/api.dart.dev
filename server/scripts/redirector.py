@@ -39,8 +39,6 @@ class VersionInfo(object):
 class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   GOOGLE_STORAGE = '/dartlang-api-docs/channels'
   GOOGLE_STORAGE_NEW = '/dartlang-api-docs/gen-dartdocs'
-  PRETTY_VERSION_LOCATION = (
-      '/dart-archive/channels/%(channel)s/raw/%(rev)s/VERSION')
 
   def version_file_loc(self, channel):
     return '%s/%s/latest.txt' % (ApiDocs.GOOGLE_STORAGE, channel)
@@ -48,7 +46,6 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
   # Dictionary of versions holding version information of the latest recorded
   # version number and the time when it was recorded.
   latest_versions = {
-    'be': VersionInfo(timedelta(minutes=30)),
     'main': VersionInfo(timedelta(minutes=30)),
     'dev': VersionInfo(timedelta(hours=6)),
     'beta': VersionInfo(timedelta(hours=12)),
@@ -60,16 +57,9 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
     channel."""
     data = None
     version_file_location = self.version_file_loc(channel)
-    try:
-      with cloudstorage.open(version_file_location, 'r') as f:
-        line = f.readline()
-        data = line.replace('\x00', '')
-    except:
-      # TODO(b/299435467): Remove special case after be -> main rename.
-      if channel == 'main':
-        data = ''
-      else:
-        raise
+    with cloudstorage.open(version_file_location, 'r') as f:
+      line = f.readline()
+      data = line.replace('\x00', '')
     revision = data
     ApiDocs.latest_versions[channel].version = revision
     ApiDocs.latest_versions[channel].last_check = datetime.now()
@@ -86,24 +76,6 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
       return self.recheck_latest_version(channel)
     else:
       return version_info.version
-
-  # TODO(b/299435467): Inline as 'main' when the channel has been renamed.
-  def get_main_channel(self):
-     """Returns the name of the main channel, 'main' or 'be'"""
-     return 'main' if self.get_latest_version('main') else 'be'
-
-  def get_pretty_latest_version(self, channel):
-    """Look in an alternate storage location to get the "human readable" version
-    of the SDK (e.g. 1.5). We don't look at this one initially to reduce the
-    chance of data races, since the files are not uploaded to all repositories
-    simultaneously."""
-    data = None
-    version_file_location = ApiDocs.PRETTY_VERSION_LOCATION % {
-        'rev': self.get_latest_version(channel), 'channel': channel}
-    with cloudstorage.open(version_file_location, 'r') as f:
-      data = json.loads(f.read(1024))
-    version = data['version']
-    return version
 
   def get_cache_age(self, path):
     if re.search(r'(png|jpg)$', path):
@@ -199,8 +171,7 @@ class ApiDocs(blobstore_handlers.BlobstoreDownloadHandler):
         if len(version_num) == 40 or int(version_num) > 136051:
           path = request[index+1:]
           if not channel:
-            main = self.get_main_channel()
-            return self.redirect('/%s/%s/%s' % (main, version_num, path))
+            return self.redirect('/main/%s/%s' % (version_num, path))
         else:
           return self.redirect('/stable')
       else:
@@ -312,8 +283,7 @@ def redir_beta_latest(handler, *args, **kwargs):
   return redir_channel_latest('beta', 'index.html')
 
 def redir_main_latest(handler, *args, **kwargs):
-  main = ApiDocs().get_main_channel()
-  return redir_channel_latest(main, 'index.html')
+  return redir_channel_latest('main', 'index.html')
 
 def redir_stable_path(handler, *args, **kwargs):
   postfix = kwargs['path'][1:]
@@ -326,10 +296,6 @@ def redir_dev_path(handler, *args, **kwargs):
 def redir_beta_path(handler, *args, **kwargs):
   postfix = kwargs['path'][1:]
   return redir_channel_latest('beta', postfix)
-
-def redir_be_path(handler, *args, **kwargs):
-  postfix = kwargs['path'][1:]
-  return redir_channel_latest('be', postfix)
 
 # /apidocs/channels/stable/dartdoc-viewer/home => /stable
 # /apidocs/channels/stable/dartdoc-viewer/dart:math => /stable/dart-math/dart-math-library.html
