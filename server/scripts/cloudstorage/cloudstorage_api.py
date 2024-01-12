@@ -16,7 +16,7 @@
 
 
 
-from __future__ import with_statement
+
 
 
 
@@ -27,8 +27,8 @@ __all__ = ['delete',
           ]
 
 import logging
-import StringIO
-import urllib
+import io
+import urllib.request, urllib.parse, urllib.error
 import xml.etree.cElementTree as ET
 from . import api_utils
 from . import common
@@ -291,7 +291,7 @@ class _Bucket(object):
     self._path = path
     self._options = options.copy()
     self._get_bucket_fut = self._api.get_bucket_async(
-        self._path + '?' + urllib.urlencode(self._options))
+        self._path + '?' + urllib.parse.urlencode(self._options))
     self._last_yield = None
     self._new_max_keys = self._options.get('max-keys')
 
@@ -325,31 +325,31 @@ class _Bucket(object):
 
       if self._should_get_another_batch(content):
         self._get_bucket_fut = self._api.get_bucket_async(
-            self._path + '?' + urllib.urlencode(self._options))
+            self._path + '?' + urllib.parse.urlencode(self._options))
       else:
         self._get_bucket_fut = None
 
       root = ET.fromstring(content)
       dirs = self._next_dir_gen(root)
       files = self._next_file_gen(root)
-      next_file = files.next()
-      next_dir = dirs.next()
+      next_file = next(files)
+      next_dir = next(dirs)
 
       while ((max_keys is None or total < max_keys) and
              not (next_file is None and next_dir is None)):
         total += 1
         if next_file is None:
           self._last_yield = next_dir
-          next_dir = dirs.next()
+          next_dir = next(dirs)
         elif next_dir is None:
           self._last_yield = next_file
-          next_file = files.next()
+          next_file = next(files)
         elif next_dir < next_file:
           self._last_yield = next_dir
-          next_dir = dirs.next()
+          next_dir = next(dirs)
         elif next_file < next_dir:
           self._last_yield = next_file
-          next_file = files.next()
+          next_file = next(files)
         else:
           logging.error(
               'Should never reach. next file is %r. next dir is %r.',
@@ -441,7 +441,7 @@ class _Bucket(object):
       A dict from element tag to element value.
     """
     element_mapping = {}
-    result = StringIO.StringIO(result)
+    result = io.StringIO(result)
     for _, e in ET.iterparse(result, events=('end',)):
       if not elements:
         break

@@ -69,7 +69,7 @@ def add_sync_methods(cls):
   Returns:
     The same class, modified in place.
   """
-  for name in cls.__dict__.keys():
+  for name in list(cls.__dict__.keys()):
     if name.endswith('_async'):
       sync_name = name[:-6]
       if not hasattr(cls, sync_name):
@@ -127,7 +127,7 @@ class _RestApi(object):
         default for current thread will be used.
     """
 
-    if isinstance(scopes, basestring):
+    if isinstance(scopes, str):
       scopes = [scopes]
     self.scopes = scopes
     self.service_account_id = service_account_id

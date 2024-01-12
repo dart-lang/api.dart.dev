@@ -31,7 +31,7 @@ __all__ = ['AuthorizationError',
            'TransientError',
           ]
 
-import httplib
+import http.client
 
 
 class Error(Exception):
@@ -124,18 +124,18 @@ def check_status(status, expected, path, headers=None,
          'Extra info: %r.\n' %
          (expected, status, path, headers, resp_headers, body, extras))
 
-  if status == httplib.UNAUTHORIZED:
+  if status == http.client.UNAUTHORIZED:
     raise AuthorizationError(msg)
-  elif status == httplib.FORBIDDEN:
+  elif status == http.client.FORBIDDEN:
     raise ForbiddenError(msg)
-  elif status == httplib.NOT_FOUND:
+  elif status == http.client.NOT_FOUND:
     raise NotFoundError(msg)
-  elif status == httplib.REQUEST_TIMEOUT:
+  elif status == http.client.REQUEST_TIMEOUT:
     raise TimeoutError(msg)
-  elif status == httplib.REQUESTED_RANGE_NOT_SATISFIABLE:
+  elif status == http.client.REQUESTED_RANGE_NOT_SATISFIABLE:
     raise InvalidRange(msg)
-  elif (status == httplib.OK and 308 in expected and
-        httplib.OK not in expected):
+  elif (status == http.client.OK and 308 in expected and
+        http.client.OK not in expected):
     raise FileClosedError(msg)
   elif status >= 500:
     raise ServerError(msg)

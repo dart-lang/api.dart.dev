@@ -24,7 +24,7 @@ __all__ = ['ReadBuffer',
 
 import collections
 import os
-import urlparse
+import urllib.parse
 
 from . import api_utils
 from . import common
@@ -126,7 +126,7 @@ class _StorageApi(rest_api._RestApi):
       resp_tuple = yield super(_StorageApi, self).do_request_async(
           url, method=method, headers=headers, payload=payload,
           deadline=deadline, callback=callback)
-    except urlfetch.DownloadError, e:
+    except urlfetch.DownloadError as e:
       raise errors.TimeoutError(
           'Request to Google Cloud Storage timed out.', e)
 
@@ -210,7 +210,7 @@ class ReadBuffer(object):
 
     status, headers, content = self._api.head_object(path)
     errors.check_status(status, [200], path, resp_headers=headers, body=content)
-    self._file_size = long(common.get_stored_content_length(headers))
+    self._file_size = int(common.get_stored_content_length(headers))
     self._check_etag(headers.get('etag'))
 
     self._buffer_future = None
@@ -277,7 +277,7 @@ class ReadBuffer(object):
     """
     return self
 
-  def next(self):
+  def __next__(self):
     line = self.readline()
     if not line:
       raise StopIteration()
@@ -663,7 +663,7 @@ class StreamingBuffer(object):
     loc = resp_headers.get('location')
     if not loc:
       raise IOError('No location header found in 201 response')
-    parsed = urlparse.urlparse(loc)
+    parsed = urllib.parse.urlparse(loc)
     self._path_with_token = '%s?%s' % (self._path, parsed.query)
 
   def __getstate__(self):
